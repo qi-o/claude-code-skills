@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-01-27",
+  "mirrors": {
+    "github": {
+      "api": [
+        {
+          "url": "https://api.github.com",
+          "name": "official",
+          "priority": 1,
+          "rate_limit": {
+            "authenticated": 5000,
+            "unauthenticated": 60
+          }
+        },
+        {
+          "url": "https://gh.api.888888888.xyz",
+          "name": "mirror-1",
+          "priority": 2
+        },
+        {
+          "url": "https://gh-proxy.com/api/github",
+          "name": "mirror-2",
+          "priority": 3
+        },
+        {
+          "url": "https://api.fastgit.org",
+          "name": "fastgit",
+          "priority": 4
+        },
+        {
+          "url": "https://api.kgithub.com",
+          "name": "kgithub",
+          "priority": 5
+        },
+        {
+          "url": "https://githubapi.muicss.com",
+          "name": "muicss",
+          "priority": 6
+        },
+        {
+          "url": "https://github.91chi.fun",
+          "name": "91chi",
+          "priority": 7
+        },
+        {
+          "url": "https://mirror.ghproxy.com",
+          "name": "ghproxy",
+          "priority": 8
+        }
+      ],
+      "raw": [
+        {
+          "url": "https://raw.githubusercontent.com",
+          "name": "official",
+          "priority": 1
+        },
+        {
+          "url": "https://raw.fastgit.org",
+          "name": "fastgit",
+          "priority": 2
+        },
+        {
+          "url": "https://raw.kgithub.com",
+          "name": "kgithub",
+          "priority": 3
+        }
+      ]
+    },
+    "gitlab": {
+      "api": [
+        {
+          "url": "https://gitlab.com/api/v4",
+          "name": "official",
+          "priority": 1,
+          "rate_limit": {
+            "authenticated": null,
+            "unauthenticated": 60
+          }
+        },
+        {
+          "url": "https://gl.gitmirror.com/api/v4",
+          "name": "gitmirror",
+          "priority": 2
+        }
+      ]
+    },
+    "gitee": {
+      "api": [
+        {
+          "url": "https://gitee.com/api/v5",
+          "name": "official",
+          "priority": 1,
+          "rate_limit": {
+            "authenticated": 5000,
+            "unauthenticated": 100
+          }
+        }
+      ]
+    }
+  },
+  "retry_strategy": {
+    "max_retries_per_mirror": 5,
+    "backoff_delays": [1, 2, 4, 8],
+    "timeout_seconds": 30,
+    "failover_threshold": 3
+  }
+}

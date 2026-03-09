@@ -1,0 +1,10 @@
+display_name: "baoyu-compress-image"
+description: "图片压缩工具。将图片压缩为 WebP（默认）或 PNG/JPEG 格式，自动选择最佳压缩工具。"
+icon: "🗜️"
+triggers:
+  - "压缩图片"
+  - "compress image"
+  - "图片优化"
+  - "reduce image size"
+category: "utility"
+tier: "curated"

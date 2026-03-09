@@ -1,0 +1,7 @@
+{
+  "last_updated": "2026-02-06T23:48:38.942412",
+  "fixes": [
+    "WebFetch fails on Chinese government domains (.gov.cn, news.cn, chinanews.com.cn) with 'Unable to verify if domain is safe' — fallback to WebSearch for Chinese regulatory content",
+    "When researching Chinese policy topics, use parallel WebSearch queries across multiple angles (phenomena, regulation, enforcement, academic) for comprehensive coverage"
+  ]
+}

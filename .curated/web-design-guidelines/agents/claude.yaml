@@ -1,0 +1,7 @@
+display_name: "web-design-guidelines"
+description: "Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "aud..."
+icon: "💻"
+triggers:
+  - "web design guidelines"
+category: "development"
+tier: "curated"

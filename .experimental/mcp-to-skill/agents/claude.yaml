@@ -1,0 +1,7 @@
+display_name: "mcp-to-skill"
+description: "Convert MCP (Model Context Protocol) servers to Claude Code Skills. Use when:"
+icon: "🔌"
+triggers:
+  - "mcp to skill"
+category: "meta"
+tier: "experimental"

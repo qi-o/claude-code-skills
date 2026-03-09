@@ -1,0 +1,7 @@
+display_name: "ai-check-humanizer"
+description: "检测并改写 AI/LLM 生成文本中的模式痕迹。融合了检测与人性化改写双重功能：(1) 24种AI写作模式检测，(2) 详细改写指南与示例，(3) 中英文双语支持，(4) 预提交钩子与QA集成，(5) 历史跟踪。不仅让文本干净，更要让..."
+icon: "✍️"
+triggers:
+  - "ai check humanizer"
+category: "creative"
+tier: "experimental"

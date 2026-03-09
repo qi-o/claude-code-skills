@@ -1,0 +1,8 @@
+{
+  "last_updated": "2026-01-24T11:57:40.481877",
+  "fixes": [
+    "SKILL.md 的 name 字段必须使用 kebab-case 格式（如 skill-creator），不能包含空格",
+    "name 字段应与文件夹名保持一致",
+    "创建 skill 后应验证 name 字段格式是否正确"
+  ]
+}

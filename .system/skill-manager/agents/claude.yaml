@@ -1,0 +1,7 @@
+display_name: "skill-manager"
+description: "Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, che..."
+icon: "📦"
+triggers:
+  - "skill manager"
+category: "meta"
+tier: "system"

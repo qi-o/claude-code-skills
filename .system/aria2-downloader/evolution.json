@@ -1,0 +1,33 @@
+{
+  "preferences": [
+    "下载完成后自动通知用户",
+    "BT/磁力下载时默认添加 --seed-time=0 参数",
+    "视频下载时优先使用 aria2 作为外部下载器加速",
+    "更新 skill 时需要完整对比上游 README 的功能变化，不能只更新 hash",
+    "aria2-downloader skill 更新时采用混合策略，保留中文化场景教程",
+    "更新 aria2-downloader skill 时应同步检查 yt-dlp 程序版本",
+    "如果 yt-dlp 有新版本应运行 yt-dlp -U 更新",
+    "更新 aria2-downloader skill 后应检查 yt-dlp 程序版本"
+  ],
+  "fixes": [
+    "Windows 下 aria2c 可能不在 PATH 中，需使用完整路径",
+    "BT 下载使用 --seed-time=0 可在下载完成后立即停止做种",
+    "长时间下载任务应使用后台模式运行，通过 TaskOutput 检查进度",
+    "yt-dlp 下载 B站视频时可能需要 --cookies-from-browser 参数获取高清画质",
+    "通过 github_url 和 github_hash 字段追踪 yt-dlp 更新，当 skill-manager 显示 outdated 时运行 yt-dlp -U 更新",
+    "yt-dlp 路径: C:/Users/ZDS/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.yt-dlp_Microsoft.Winget.Source_8wekyb3d8bbwe/yt-dlp.exe",
+    "ffmpeg 路径: C:/Users/ZDS/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-122319-gf6a95c7eb7-win64-gpl/bin/ffmpeg.exe",
+    "yt-dlp 下载 B站视频时会分别下载视频和音频，需要 ffmpeg 合并",
+    "yt-dlp 完整 YouTube 支持需要 yt-dlp-ejs 和 JavaScript 运行时（推荐 Deno）",
+    "yt-dlp 新增 -t 预设别名（mp3/aac/mp4/mkv）快速选择格式",
+    "yt-dlp 新增 --impersonate 浏览器模拟功能需要 curl_cffi",
+    "yt-dlp 新增 --sponsorblock-remove 移除 YouTube 赞助片段",
+    "yt-dlp 新增 -N 参数并发片段下载",
+    "yt-dlp 上游更新通常只是新增网站支持，无需同步修改文档内容",
+    "skill版本号采用minor递增表示上游功能同步(如3.2.0→3.2.1)",
+    "yt-dlp 通过 pip 安装时，不能用 yt-dlp -U 更新，需用 pip install --upgrade yt-dlp",
+    "WinGet 安装的 yt-dlp 可能因证书问题更新失败，pip 是更可靠的更新方式"
+  ],
+  "custom_prompts": "更新 aria2-downloader skill 后主动提示检查 yt-dlp 版本",
+  "last_updated": "2026-02-17T12:25:13.958829"
+}

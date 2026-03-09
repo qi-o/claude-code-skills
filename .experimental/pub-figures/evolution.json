@@ -1,0 +1,13 @@
+{
+  "preferences": [],
+  "fixes": [
+    "在整合第三方 API 服务前，必须先确认 API 费用和账户余额状态",
+    "API 端点 URL 必须与官方文档一致，错误的端点会返回 404",
+    "AutoFigure-Edit API 需要上传 PDF 文件，不是纯文本",
+    "deepScientist.cc 的 API 需要完整的 3 步流程：submit -> poll status -> download",
+    "某些 API 需要额外的确认步骤（428 状态码），用户需要先在网页上确认扣费"
+  ],
+  "contexts": [
+    "2025-02-24: 尝试将 AutoFigure-Edit (deepScientist.cc) 整合到 pub-figures skill，整合因账户需要确认扣费而放弃，已恢复原状"
+  ]
+}

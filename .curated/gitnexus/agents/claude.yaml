@@ -1,0 +1,13 @@
+display_name: GitNexus
+description: 客户端代码知识图谱引擎，帮助 AI 代理理解代码结构
+icon: 🔍
+triggers:
+  - 索引项目
+  - 分析代码
+  - 查调用链
+  - 影响分析
+  - gitnexus
+  - knowledge graph
+  - 代码分析
+category: code-analysis
+tier: curated

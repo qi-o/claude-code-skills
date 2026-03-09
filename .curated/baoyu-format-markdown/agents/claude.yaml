@@ -1,0 +1,10 @@
+display_name: "baoyu-format-markdown"
+description: "Markdown 格式化工具。将纯文本或 Markdown 文件转换为结构良好的格式，包括 frontmatter、标题、摘要、层级标题、加粗、列表和代码块。"
+icon: "📄"
+triggers:
+  - "格式化 Markdown"
+  - "format markdown"
+  - "排版"
+  - "typography"
+category: "document"
+tier: "curated"

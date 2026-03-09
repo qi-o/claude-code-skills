@@ -1,0 +1,8 @@
+display_name: "pub-figures"
+description: "Generate publication-quality multi-panel scientific figures for journals."
+icon: "📉"
+triggers:
+  - "publication figure"
+  - "journal figure"
+category: "creative"
+tier: "experimental"

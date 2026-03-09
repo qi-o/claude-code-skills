@@ -1,0 +1,7 @@
+display_name: "novel-downloader"
+description: "网络小说下载与合并工具。当用户需要下载网络小说、爬取小说网站、将在线小说保存为本地文件时使用此技能。"
+icon: "📖"
+triggers:
+  - "novel downloader"
+category: "utility"
+tier: "experimental"

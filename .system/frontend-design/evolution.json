@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-01-31T16:01:38.828155",
+  "preferences": [
+    "融合 skill 时需要在 frontmatter 中添加 secondary_sources 字段",
+    "融合后的 skill 应在 description 中说明融合了哪些功能"
+  ],
+  "fixes": [
+    "fusion skill 需要同时更新主源和次源的 hash",
+    "融合内容应添加到 SKILL.md 正文中，包含关键规则速查和工作流说明"
+  ],
+  "custom_prompts": ""
+}

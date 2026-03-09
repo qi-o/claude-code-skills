@@ -1,0 +1,42 @@
+{
+  "last_updated": "2026-02-26T18:29:39.448751",
+  "preferences": [
+    "下载的小说文件必须以小说标题命名（如「タイトル.txt」），不要使用小说ID或编号命名",
+    "ScrapeGraphAI 智能分析优先用于 chapter 模式（识别选择器最可靠），toc 模式用于结构分析而非全量章节提取",
+    "LLM 只在侦察阶段调用（分析新站点结构），批量下载仍用传统 requests/Playwright/DrissionPage",
+    "智谱 GLM-4.7 作为默认 LLM，通过 OpenAI 兼容端点调用",
+    "Steel Browser 暂不引入，DrissionPage + Playwright 已覆盖现有反爬需求",
+    "HostBoard 下载优先使用 printthread.php?t=THREAD_ID 格式的打印版本 URL",
+    "打印版本将所有帖子合并到单页，无需分页处理",
+    "DrissionPage 必须使用 headless(False) 才能通过 Cloudflare Turnstile 验证",
+    "Scrapling 集成应使用 try/except 包裹所有导入，不可用时自动 fallback 到 requests/curl，保持向后兼容"
+  ],
+  "fixes": [
+    "literotica.com 使用 SPA 架构但内容在服务端渲染的 HTML 中",
+    "requests 和 Playwright 遇到 HTTP/2 协议错误时，使用 curl subprocess 绕过",
+    "literotica 正文选择器为 div[class*=_article__content]，不要使用 div.panel.article",
+    "literotica 章节内分页检测应查找下一页链接 a[href*=?page=N] 而非文本匹配",
+    "hostboard.com 使用 Cloudflare Turnstile 保护，requests/curl/cloudscraper/curl_cffi/Playwright(含stealth) 均无法绕过",
+    "Cloudflare Turnstile 唯一有效方案是 DrissionPage（基于 CDP 协议控制真实浏览器）",
+    "hostboard.com 是 vBulletin 论坛，帖子内容选择器为 [id^=post_message_]",
+    "论坛小说提取策略：按内容长度过滤（>1000字符为正文，<1000字符为评论）",
+    "DrissionPage 批量下载时复用同一浏览器实例，首次通过 Cloudflare 后后续请求无需再等",
+    "Cloudflare 验证通常需要 10-20 秒，通过检测页面标题变化和长度判断是否通过",
+    "ScrapeGraphAI 1.73.0 的 model_tokens 参数不能放在 llm 配置中（会被传给 OpenAI API 报错），也不能放在顶层（会被忽略），当前默认 8192 tokens",
+    "8192 token 限制导致大页面（如200+章节目录）内容被截断，LLM 无法提取完整章节列表，因此 toc 模式改为分析结构而非提取全量数据",
+    "Windows 下设置环境变量运行 smart_analyzer.py 需要用 Python wrapper（importlib）或 cmd /C，bash 的 set X=Y && 语法不生效",
+    "ScrapeGraphAI 在 Python 3.14 下有 Pydantic V1 兼容性警告但不影响功能",
+    "智谱 GLM OpenAI 兼容端点为 https://open.bigmodel.cn/api/paas/v4/，不是 Anthropic 兼容端点",
+    "chapter 分析模式比 toc 模式更可靠，单章页面内容通常在 8192 token 限制内",
+    "ScrapeGraphAI 内部会打印 dict 结果到 stdout，脚本输出会包含重复内容（一次 dict 一次 JSON）",
+    "Cloudflare 检测逻辑：只检查标题是否含 \"请稍候\" 或 \"Just a moment\"，不要检查 HTML 内容中的 challenge-platform（会误判已加载页面）",
+    "HostBoard 打印版本内容选择器：div.content > blockquote.restore，而非 post_message_ ID 选择器",
+    "成功加载判断：html_len > 50000 且标题不含 \"请稍候\" 即认为通过验证",
+    "scrapling 0.4 中 PlayWrightFetcher 已改名为 DynamicFetcher，import 时需用 DynamicFetcher",
+    "scrapling 0.4 Response 对象属性 .html 已改为 .html_content，.content 已改为 .body",
+    "scrapling 单独 pip install scrapling 不够，需要 pip install scrapling[all] 才能获得 browserforge 和 patchright 等依赖",
+    "scrapling Fetcher(auto_match=False) 构造参数已废弃，应改用 Fetcher.configure(auto_match=False)",
+    "scrapling 正确导入方式：from scrapling.fetchers import Fetcher, DynamicFetcher, StealthyFetcher"
+  ],
+  "custom_prompts": null
+}

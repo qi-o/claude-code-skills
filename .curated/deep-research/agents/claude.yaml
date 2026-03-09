@@ -1,0 +1,9 @@
+display_name: "deep-research"
+description: "深度调研方法论（8步法）：将模糊主题转化为高质量调研报告。"
+icon: "📚"
+triggers:
+  - "- "深度调研"
+  - "深度研究"
+  - "深入分析"
+category: "research"
+tier: "curated"

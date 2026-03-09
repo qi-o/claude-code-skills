@@ -1,0 +1,17 @@
+{
+  "last_updated": "2026-02-28T16:45:00",
+  "preferences": [
+    "ducksearch 增强层脚本位于 scripts/scrapling_fetch.py，支持 --mode static|browser|stealth|auto 和 --json 输出",
+    "中国考研/教育类信息优先使用研招网官方源(yz.chsi.com.cn)，比新闻网站更稳定"
+  ],
+  "fixes": [
+    "scrapling 0.4 中 PlayWrightFetcher 已改名为 DynamicFetcher",
+    "scrapling 0.4 Response 对象属性 .html → .html_content，.content → .body",
+    "scrapling 需要 pip install scrapling[all] 才能获得完整依赖",
+    "scrapling_fetch.py 的 auto 模式升级链：Fetcher → DynamicFetcher → StealthyFetcher",
+    "考研国家线历史数据URL模式: yz.chsi.com.cn/kyzx/zt/lnfsx{年份}.shtml (如2025年是lnfsx2025.shtml)",
+    "研招网首页有\"近五年研考分数线及趋势图\"入口，包含历年分数线汇总",
+    "网络搜索失败时，直接用Python requests访问官方页面更可靠",
+    "DuckDuckGo HTML搜索会被CAPTCHA拦截，无法解析结果"
+  ]
+}

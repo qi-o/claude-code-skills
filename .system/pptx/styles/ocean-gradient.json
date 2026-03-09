@@ -1,0 +1,21 @@
+{
+  "name": "Ocean Gradient",
+  "description": "Deep blue to teal gradient. Perfect for technology, marine, and water-related presentations.",
+  "colors": {
+    "primary": "065A82",
+    "secondary": "1C7293",
+    "accent": "21295C",
+    "text": "FFFFFF",
+    "text_light": "E0F4FF"
+  },
+  "fonts": {
+    "header": "Arial Black",
+    "body": "Calibri"
+  },
+  "layout": "split",
+  "background": "gradient",
+  "gradient": {
+    "start": "065A82",
+    "end": "1C7293"
+  }
+}

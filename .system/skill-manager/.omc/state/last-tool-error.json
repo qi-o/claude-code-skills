@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"C:\\\\Users\\\\ZDS\\\\.claude\\\\skills\\\\skill-manager\\\" && python scripts/batch_update.py --check-only --format json\",\"timeout\":120000,\"description\":\"检查批量更新状态\"}",
+  "error": "Exit code 8\n{\r\n  \"total\": 25,\r\n  \"outdated\": [\r\n    {\r\n      \"name\": \"aria2-downloader\",\r\n      \"dir\": \"C:\\\\Users\\\\ZDS\\\\.claude\\\\skills\\\\aria2-downloader\",\r\n      \"github_url\": \"https://github.com/yt-dlp/yt-dlp\",\r\n      \"local_hash\": \"6f796a2bff332f72c3f250207cdf10db852f6016\",\r\n      \"type\": \"single-source\",\r\n      \"primary_status\": \"outdated\",\r\n      \"primary_remote_hash\": \"bf4dfffe0164385c29a2dcb0367110babe4d4f27\",\r\n      \"secondary_sources\": [],\r\n      \"secondary_status\": {},\r\n      \"status\":...",
+  "timestamp": "2026-03-03T02:40:52.595Z",
+  "retry_count": 1
+}

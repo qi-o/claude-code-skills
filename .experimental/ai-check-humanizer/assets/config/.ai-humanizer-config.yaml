@@ -1,0 +1,150 @@
+# AI-Check-Humanizer 配置文件
+# 复制此文件到项目根目录并重命名为 .ai-humanizer-config.yaml
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 预提交钩子设置
+# ═══════════════════════════════════════════════════════════════════════════════
+pre_commit:
+  enabled: true
+
+  # 检查的文件类型
+  check_files:
+    - ".md"
+    - ".tex"
+    - ".rst"
+    - ".txt"
+
+  # 是否检查 Python 文档字符串
+  check_docstrings: true
+
+  # 信心阈值
+  block_threshold: 0.70   # 如果 >= 70% 则阻止提交
+  warn_threshold: 0.30    # 如果 >= 30% 则警告
+
+  # 排除的路径模式
+  exclude_patterns:
+    - "*/examples/*"
+    - "*/tests/*"
+    - "*/node_modules/*"
+    - "*/.venv/*"
+    - "*/vendor/*"
+    - "*/__pycache__/*"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 质量保证集成
+# ═══════════════════════════════════════════════════════════════════════════════
+qa_integration:
+  enabled: true
+
+  # QA 失败阈值
+  max_confidence_threshold: 0.40  # 如果 >= 40% 则 QA 失败
+
+  # 检查范围
+  check_manuscripts: true
+  check_documentation: true
+
+  # 报告设置
+  generate_detailed_reports: true
+  track_history: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 检测参数
+# ═══════════════════════════════════════════════════════════════════════════════
+detection:
+  # 各指标权重（必须总和为 1.0）
+  weights:
+    grammar_perfection: 0.20
+    sentence_uniformity: 0.25
+    paragraph_structure: 0.20
+    ai_word_frequency: 0.25
+    punctuation_patterns: 0.10
+
+  # AI 典型词阈值
+  ai_words_per_1000_threshold: 3.0   # 警告阈值
+  ai_words_per_1000_danger: 5.0      # 危险阈值
+  human_baseline_per_1000: 1.5       # 人类基线
+
+  # 自定义 AI 典型词列表（追加到默认列表）
+  custom_ai_words:
+    high_risk: []
+    medium_risk: []
+    low_risk: []
+
+  # 忽略的 AI 典型词（从检测中排除）
+  ignore_words: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 语言设置
+# ═══════════════════════════════════════════════════════════════════════════════
+language:
+  # 主要语言：zh (中文) 或 en (英文)
+  primary: "auto"  # auto = 自动检测
+
+  # 是否同时检测两种语言
+  detect_both: true
+
+  # 中文特殊设置
+  chinese:
+    detect_four_char_idioms: true    # 检测四字成语堆砌
+    formal_threshold: 0.60           # 书面语比例阈值
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 改写设置
+# ═══════════════════════════════════════════════════════════════════════════════
+rewriting:
+  # 改写原则开关
+  preserve_meaning: true     # 保留原意
+  preserve_tone: true        # 保留语气基调
+  inject_personality: true   # 注入个性化元素
+
+  # 改写激进程度：conservative（保守）, moderate（适中）, aggressive（激进）
+  aggressiveness: "moderate"
+
+  # 自动改写设置
+  auto_rewrite:
+    enabled: false           # 是否自动改写
+    min_confidence: 0.70     # 触发自动改写的最低信心值
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 报告生成
+# ═══════════════════════════════════════════════════════════════════════════════
+reporting:
+  # 默认格式：markdown, json, html
+  default_format: "markdown"
+
+  # 报告内容选项
+  include_suggestions: true
+  include_word_frequency: true
+  include_flagged_sections: true
+
+  # 显示限制
+  max_flagged_sections: 10
+  max_ai_words_shown: 20
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 历史跟踪
+# ═══════════════════════════════════════════════════════════════════════════════
+tracking:
+  enabled: true
+
+  # 数据存储位置（留空使用默认位置）
+  storage_path: ""
+
+  # 保留天数
+  retention_days: 365
+
+  # 是否记录 git commit 信息
+  track_git_commits: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 输出设置
+# ═══════════════════════════════════════════════════════════════════════════════
+output:
+  # 颜色输出（终端）
+  use_colors: true
+
+  # 是否显示表情符号
+  use_emoji: true
+
+  # 详细程度：quiet, normal, verbose
+  verbosity: "normal"

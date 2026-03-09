@@ -1,0 +1,12 @@
+display_name: "react-best-practices"
+description: "React/Next.js 性能优化最佳实践。包含 57 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。"
+icon: "💻"
+triggers:
+  - "React 优化"
+  - "Next.js 性能"
+  - "代码审查"
+  - "性能优化"
+  - "bundle 优化"
+  - "重渲染"
+category: "development"
+tier: "curated"

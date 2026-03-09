@@ -1,0 +1,7 @@
+display_name: "windows-cleaner"
+description: "Analyze and reclaim Windows disk space through intelligent cleanup recommendations. Use when users report disk space ..."
+icon: "🧹"
+triggers:
+  - "windows cleaner"
+category: "utility"
+tier: "experimental"

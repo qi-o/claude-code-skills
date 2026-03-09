@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-01-28T17:01:55.904946",
+  "preferences": [
+    "项目目录默认创建在 ~/Downloads/academic-writing/ 下",
+    "orchestrator.py 的 init 命令会自动创建 5 阶段子目录"
+  ],
+  "fixes": [
+    "Windows 路径需要使用 Path 对象处理，避免编码问题",
+    "中文目录名在 Windows 终端显示可能乱码，但实际创建正确"
+  ],
+  "custom_prompts": "创建新 skill 时，确保 name 字段使用 kebab-case 格式并与文件夹名一致"
+}

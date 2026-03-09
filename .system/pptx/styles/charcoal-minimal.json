@@ -1,0 +1,21 @@
+{
+  "name": "Charcoal Minimal",
+  "description": "Clean monochrome with charcoal and off-white. Best for minimalist, modern, and tech-forward presentations.",
+  "colors": {
+    "primary": "36454F",
+    "secondary": "F2F2F2",
+    "accent": "212121",
+    "text": "333333",
+    "text_light": "FFFFFF"
+  },
+  "fonts": {
+    "header": "Helvetica Neue",
+    "body": "Arial"
+  },
+  "layout": "grid",
+  "background": "solid",
+  "gradient": {
+    "start": "36454F",
+    "end": "4A5A6A"
+  }
+}

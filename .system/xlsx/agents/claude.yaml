@@ -1,0 +1,7 @@
+display_name: "xlsx"
+description: "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and v..."
+icon: "📈"
+triggers:
+  - "xlsx"
+category: "document"
+tier: "system"

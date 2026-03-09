@@ -1,0 +1,21 @@
+{
+  "name": "Forest & Moss",
+  "description": "Nature-inspired green palette. Perfect for environmental topics, wellness presentations, and sustainable brands.",
+  "colors": {
+    "primary": "2C5F2D",
+    "secondary": "97BC62",
+    "accent": "F5F5F5",
+    "text": "1A3A1C",
+    "text_light": "FFFFFF"
+  },
+  "fonts": {
+    "header": "Georgia",
+    "body": "Calibri"
+  },
+  "layout": "split",
+  "background": "gradient",
+  "gradient": {
+    "start": "2C5F2D",
+    "end": "4A7A45"
+  }
+}

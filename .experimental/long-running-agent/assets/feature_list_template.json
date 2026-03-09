@@ -1,0 +1,34 @@
+{
+  "project": "PROJECT_NAME",
+  "created": "YYYY-MM-DD",
+  "total_features": 0,
+  "completed_features": 0,
+  "features": [
+    {
+      "id": 1,
+      "category": "core",
+      "description": "Example: User can perform basic action",
+      "steps": [
+        "Navigate to the relevant page",
+        "Perform the action",
+        "Verify the expected result"
+      ],
+      "passes": false,
+      "priority": "high",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "category": "functional",
+      "description": "Example: System handles edge case",
+      "steps": [
+        "Set up the edge case condition",
+        "Trigger the functionality",
+        "Verify graceful handling"
+      ],
+      "passes": false,
+      "priority": "medium",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+{
+  "url": "https://api.github.com/repos/yt-dlp/yt-dlp/compare/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98...442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+  "html_url": "https://github.com/yt-dlp/yt-dlp/compare/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98...442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+  "permalink_url": "https://github.com/yt-dlp/yt-dlp/compare/yt-dlp:bb3af7e...yt-dlp:442c90d",
+  "diff_url": "https://github.com/yt-dlp/yt-dlp/compare/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98...442c90da3ec680037b7d94abf91ec63b2e5a9ade.diff",
+  "patch_url": "https://github.com/yt-dlp/yt-dlp/compare/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98...442c90da3ec680037b7d94abf91ec63b2e5a9ade.patch",
+  "base_commit": {
+    "sha": "bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "node_id": "C_kwDOElBrLdoAKGJiM2FmN2U2ZDUzNzNjMWE5YzExYmQ1ZGI5YTZlYmJiZGZlNTVhOTg",
+    "commit": {
+      "author": {
+        "name": "github-actions[bot]",
+        "email": "41898282+github-actions[bot]@users.noreply.github.com",
+        "date": "2026-02-04T00:31:48Z"
+      },
+      "committer": {
+        "name": "github-actions[bot]",
+        "email": "41898282+github-actions[bot]@users.noreply.github.com",
+        "date": "2026-02-04T00:31:48Z"
+      },
+      "message": "Release 2026.02.04\n\nCreated by: bashonly\n\n:ci skip all",
+      "tree": {
+        "sha": "26f36c03d6383ae448108afc5007a2b148dd89b4",
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/trees/26f36c03d6383ae448108afc5007a2b148dd89b4"
+      },
+      "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "html_url": "https://github.com/yt-dlp/yt-dlp/commit/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "comments_url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98/comments",
+    "author": {
+      "login": "github-actions[bot]",
+      "id": 41898282,
+      "node_id": "MDM6Qm90NDE4OTgyODI=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+      "html_url": "https://github.com/apps/github-actions",
+      "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "github-actions[bot]",
+      "id": 41898282,
+      "node_id": "MDM6Qm90NDE4OTgyODI=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+      "html_url": "https://github.com/apps/github-actions",
+      "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c677d866d41eb4075b0a5e0c944a6543fc13f15d",
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/c677d866d41eb4075b0a5e0c944a6543fc13f15d",
+        "html_url": "https://github.com/yt-dlp/yt-dlp/commit/c677d866d41eb4075b0a5e0c944a6543fc13f15d"
+      }
+    ]
+  },
+  "merge_base_commit": {
+    "sha": "bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "node_id": "C_kwDOElBrLdoAKGJiM2FmN2U2ZDUzNzNjMWE5YzExYmQ1ZGI5YTZlYmJiZGZlNTVhOTg",
+    "commit": {
+      "author": {
+        "name": "github-actions[bot]",
+        "email": "41898282+github-actions[bot]@users.noreply.github.com",
+        "date": "2026-02-04T00:31:48Z"
+      },
+      "committer": {
+        "name": "github-actions[bot]",
+        "email": "41898282+github-actions[bot]@users.noreply.github.com",
+        "date": "2026-02-04T00:31:48Z"
+      },
+      "message": "Release 2026.02.04\n\nCreated by: bashonly\n\n:ci skip all",
+      "tree": {
+        "sha": "26f36c03d6383ae448108afc5007a2b148dd89b4",
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/trees/26f36c03d6383ae448108afc5007a2b148dd89b4"
+      },
+      "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "html_url": "https://github.com/yt-dlp/yt-dlp/commit/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+    "comments_url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98/comments",
+    "author": {
+      "login": "github-actions[bot]",
+      "id": 41898282,
+      "node_id": "MDM6Qm90NDE4OTgyODI=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+      "html_url": "https://github.com/apps/github-actions",
+      "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "github-actions[bot]",
+      "id": 41898282,
+      "node_id": "MDM6Qm90NDE4OTgyODI=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+      "html_url": "https://github.com/apps/github-actions",
+      "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "c677d866d41eb4075b0a5e0c944a6543fc13f15d",
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/c677d866d41eb4075b0a5e0c944a6543fc13f15d",
+        "html_url": "https://github.com/yt-dlp/yt-dlp/commit/c677d866d41eb4075b0a5e0c944a6543fc13f15d"
+      }
+    ]
+  },
+  "status": "ahead",
+  "ahead_by": 3,
+  "behind_by": 0,
+  "total_commits": 3,
+  "commits": [
+    {
+      "sha": "c7c45f52890eee40565188aee874ff4e58e95c4f",
+      "node_id": "C_kwDOElBrLdoAKGM3YzQ1ZjUyODkwZWVlNDA1NjUxODhhZWU4NzRmZjRlNThlOTVjNGY",
+      "commit": {
+        "author": {
+          "name": "doe1080",
+          "email": "98906116+doe1080@users.noreply.github.com",
+          "date": "2026-02-04T15:33:00Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2026-02-04T15:33:00Z"
+        },
+        "message": "[ie/visir] Add extractor (#15811)\n\nCloses #11901\nAuthored by: doe1080",
+        "tree": {
+          "sha": "656583c6aaccd3e242fdae150ce659be3221f4a7",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/trees/656583c6aaccd3e242fdae150ce659be3221f4a7"
+        },
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/commits/c7c45f52890eee40565188aee874ff4e58e95c4f",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJpg2asCRC1aQ7uu5UhlAAAChcQAJ5/EKON32jdZaC5Favj4XLe\nQjeR7sWXRkENZfGIZDzlDl449Nd1czQKZmiZEv5LXP/buCMZLw+8CK/5Y1x7w3h0\n8ziu8WfBmRN88e9aUsZ7AnTL5zLVvkUugLNCyUcFHL7iWY9drqoxfusCDQFCNZSO\nJD8lrBW9K+S8e594CbKlpfS8rEg/HuHg28fAZ2UOTpqKdke4pn37/S/UugGpWoVK\nElFZ5mNiLrIaOrkrlyqyzutQH58gJ9yBzeghCicYrudD4cZQN4y8lFRJ56yXHW3J\nf1WP2zrXu7TI6aE4Os5Pz+wa6DTHq4ZbG42z06Csxgr7W7lXLXHDQWJLjYbcrUi+\nfeYqn5VKSvM08t8z2It1IIUC4+HGymj2vK06ZUZwUZb4GFXGHDgzvBGN9rYGcw5w\n2qiInS5tYXUD+ECFbZAE3ORRqn2dLqNJpWinwk5hX9OsmnOnKfmxv1E5c4ALw9bH\n1X8rfcU/AeZOxiaUU1oEeHI9NnJqID8IX8kg4pgT4GYvw9UeWUpw4qeRGDR/ffY1\n2gdwIwakHfzoQk1LijrP+M4yyiWE0aFY03NvUo1PLowfw5WNdUOxpXrWx3dF0uUq\nkjUSMo+msoM9DHvVKdHk0HX4XBQv1ovfSOfmINpVEmYpkTYM9mxBOKQZZYpzfNoT\nOyX+D//G/92R87uX8qN9\n=e/c1\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 656583c6aaccd3e242fdae150ce659be3221f4a7\nparent bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98\nauthor doe1080 <98906116+doe1080@users.noreply.github.com> 1770219180 +0900\ncommitter GitHub <noreply@github.com> 1770219180 +0000\n\n[ie/visir] Add extractor (#15811)\n\nCloses #11901\nAuthored by: doe1080",
+          "verified_at": "2026-02-04T15:33:01Z"
+        }
+      },
+      "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/c7c45f52890eee40565188aee874ff4e58e95c4f",
+      "html_url": "https://github.com/yt-dlp/yt-dlp/commit/c7c45f52890eee40565188aee874ff4e58e95c4f",
+      "comments_url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/c7c45f52890eee40565188aee874ff4e58e95c4f/comments",
+      "author": {
+        "login": "doe1080",
+        "id": 98906116,
+        "node_id": "U_kgDOBeUwBA",
+        "avatar_url": "https://avatars.githubusercontent.com/u/98906116?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/doe1080",
+        "html_url": "https://github.com/doe1080",
+        "followers_url": "https://api.github.com/users/doe1080/followers",
+        "following_url": "https://api.github.com/users/doe1080/following{/other_user}",
+        "gists_url": "https://api.github.com/users/doe1080/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/doe1080/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/doe1080/subscriptions",
+        "organizations_url": "https://api.github.com/users/doe1080/orgs",
+        "repos_url": "https://api.github.com/users/doe1080/repos",
+        "events_url": "https://api.github.com/users/doe1080/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/doe1080/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98",
+          "html_url": "https://github.com/yt-dlp/yt-dlp/commit/bb3af7e6d5373c1a9c11bd5db9a6ebbbdfe55a98"
+        }
+      ]
+    },
+    {
+      "sha": "133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+      "node_id": "C_kwDOElBrLdoAKDEzM2NiOTU5YmU0ZDI2OGUyY2Q2YjNmMWQ5YmY4N2ZiYTRjMzc0M2U",
+      "commit": {
+        "author": {
+          "name": "0x∅",
+          "email": "0xvd12@gmail.com",
+          "date": "2026-02-04T20:49:07Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2026-02-04T20:49:07Z"
+        },
+        "message": "[ie/xhamster] Fix extractor (#15831)\n\nCloses #15802\nAuthored by: 0xvd",
+        "tree": {
+          "sha": "ed3977deeaaf254c2c8254d13fee0c3a3a9b3c2e",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/trees/ed3977deeaaf254c2c8254d13fee0c3a3a9b3c2e"
+        },
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/commits/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJpg7DDCRC1aQ7uu5UhlAAALlEQAGEVpa1VyFnd6yBPvKcF5sdO\nxzDilqiKqeAzb4hpHZrPjX977uTJacqelu9d4dycxOkPu0/owk5QJ1UYgsJKS15D\nXAlizhQDAj9OJ+3RQX1cUxpAFgxGSl/JICQzc0z/Y47K8+x2BGSrfdSGjORe0j5h\nRVILWHyR5uwVcyRikeMoO/npF3vRqCiIjNeBHLMdzRAixaesiZ3uqxwka+Ieax9y\ny1l4sDnrCT7IshrNYkistIyX9XiG11MlsxxSfS+JSmXXbrETjRcxgfepb4vwaOTK\ndkr7K7vi/k02tamaW2DmFtRivuPjVwXJuH/u+1h2/NEESj8gR9QDvl21+iI0qB3N\nasVgTJ4+sEPTHMlZi1nmJhgffBlws6Yiv4EXwUJmu9qgqzRhp5yXfdkBRIYcbzOW\nFpui4Qku8HpSQHtqnS7tPL/f7L/5VTSxP4f5abKoiUOYlUwN8MVS6gc0HvseAULU\n69pULTPgGuyd2mtlAtDNZha3sfdKj+ixX7wugHILPTKRvwimJkD26V/XQnmQNeDU\nIH10M52nWiVnPUW3U/QKYYuqXkoK9i74vY6PeTUIUMRfTwV1CyvaBGUyNC4LoYgM\nZD7xFEZ0xw0vpN0jZeopiJWBO096/qDEmQGF9A6r+5gHvqKzXv4QyEaKmmqEUICA\neUr61oVdmZh0/sMjR0fi\n=dVLI\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree ed3977deeaaf254c2c8254d13fee0c3a3a9b3c2e\nparent c7c45f52890eee40565188aee874ff4e58e95c4f\nauthor 0x∅ <0xvd12@gmail.com> 1770238147 +0530\ncommitter GitHub <noreply@github.com> 1770238147 +0000\n\n[ie/xhamster] Fix extractor (#15831)\n\nCloses #15802\nAuthored by: 0xvd",
+          "verified_at": "2026-02-04T20:49:07Z"
+        }
+      },
+      "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+      "html_url": "https://github.com/yt-dlp/yt-dlp/commit/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+      "comments_url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e/comments",
+      "author": {
+        "login": "0xvd",
+        "id": 199783523,
+        "node_id": "U_kgDOC-h0Yw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/199783523?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/0xvd",
+        "html_url": "https://github.com/0xvd",
+        "followers_url": "https://api.github.com/users/0xvd/followers",
+        "following_url": "https://api.github.com/users/0xvd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/0xvd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/0xvd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/0xvd/subscriptions",
+        "organizations_url": "https://api.github.com/users/0xvd/orgs",
+        "repos_url": "https://api.github.com/users/0xvd/repos",
+        "events_url": "https://api.github.com/users/0xvd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/0xvd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "c7c45f52890eee40565188aee874ff4e58e95c4f",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/c7c45f52890eee40565188aee874ff4e58e95c4f",
+          "html_url": "https://github.com/yt-dlp/yt-dlp/commit/c7c45f52890eee40565188aee874ff4e58e95c4f"
+        }
+      ]
+    },
+    {
+      "sha": "442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "node_id": "C_kwDOElBrLdoAKDQ0MmM5MGRhM2VjNjgwMDM3YjdkOTRhYmY5MWVjNjNiMmU1YTlhZGU",
+      "commit": {
+        "author": {
+          "name": "doe1080",
+          "email": "98906116+doe1080@users.noreply.github.com",
+          "date": "2026-02-04T21:06:39Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2026-02-04T21:06:39Z"
+        },
+        "message": "[ie/locipo] Add extractors (#15486)\n\nCloses #13656\nAuthored by: doe1080, gravesducking\n\nCo-authored-by: gravesducking <219445875+gravesducking@users.noreply.github.com>",
+        "tree": {
+          "sha": "7c3c8a98af97ebc942b0522562ae3fd913964123",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/trees/7c3c8a98af97ebc942b0522562ae3fd913964123"
+        },
+        "url": "https://api.github.com/repos/yt-dlp/yt-dlp/git/commits/442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJpg7TfCRC1aQ7uu5UhlAAAZKcQALHjt+l+4ayLcWZ2hW2H3+Yl\n7PCidBsq25jNNkZbeHnyJAkunvkGhs+DMtvrhAcjlpZ1MriFJD7VbNQTKzbx513V\n9cVRoVGKEF3RQvzEo70fxgSFohH0px64mUX+hjUTyizXmQxVbQGACVB/ydxpTVMy\nzJnaq6uTywZvOMgdJ5XULG0oKnOIQOp/McDBvVg0ctr2ntrRKTEyQSMljvGem3mr\n09vZkXwJED5KVADrxoVwPcsjoT1AfZmv79gDiPmswHxw0SNv29w4hgH/TAmF4Puk\nQeB4o6uew3zDQpbCNJnZrGk/d0bWIEP1bRp0rFa5z/eDGhWivO+9PiOeo478bDPj\nrnW/dFDbvxNq9ow5NnZyEVJ+q2kV4/K1WkMLuOfF1IvIIP0O8H/PkmGV8y9vJP/1\nKgjVdhMPREVaoxL+orYIbpAFMNOHjzQYMjjmX9emweAi2hezlZFntyD+Sucf83Ru\nHy/mhGFmAPGMvinfl7/Oimk9GSwXC2iV1rcoQ571Hz0TIYj2MxhM42Z2KnF0cU5K\nHqegQLQ4g7N+KtRs/lpW95OPxMv0dwlwHeBcLPT2mhI+f8/aj2kfz2wFUcYu3S7k\n/GzeRJ+J8BIBo9Wsiaf253hCfNNMtmNvxrwXyoLSwYFH2bVsFjhm2RqvwpoGuoKb\nIfvDZOfMmqKb5WnLS+pT\n=DZ8j\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 7c3c8a98af97ebc942b0522562ae3fd913964123\nparent 133cb959be4d268e2cd6b3f1d9bf87fba4c3743e\nauthor doe1080 <98906116+doe1080@users.noreply.github.com> 1770239199 +0900\ncommitter GitHub <noreply@github.com> 1770239199 +0000\n\n[ie/locipo] Add extractors (#15486)\n\nCloses #13656\nAuthored by: doe1080, gravesducking\n\nCo-authored-by: gravesducking <219445875+gravesducking@users.noreply.github.com>",
+          "verified_at": "2026-02-04T21:06:40Z"
+        }
+      },
+      "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "html_url": "https://github.com/yt-dlp/yt-dlp/commit/442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "comments_url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/442c90da3ec680037b7d94abf91ec63b2e5a9ade/comments",
+      "author": {
+        "login": "doe1080",
+        "id": 98906116,
+        "node_id": "U_kgDOBeUwBA",
+        "avatar_url": "https://avatars.githubusercontent.com/u/98906116?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/doe1080",
+        "html_url": "https://github.com/doe1080",
+        "followers_url": "https://api.github.com/users/doe1080/followers",
+        "following_url": "https://api.github.com/users/doe1080/following{/other_user}",
+        "gists_url": "https://api.github.com/users/doe1080/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/doe1080/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/doe1080/subscriptions",
+        "organizations_url": "https://api.github.com/users/doe1080/orgs",
+        "repos_url": "https://api.github.com/users/doe1080/repos",
+        "events_url": "https://api.github.com/users/doe1080/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/doe1080/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+          "url": "https://api.github.com/repos/yt-dlp/yt-dlp/commits/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e",
+          "html_url": "https://github.com/yt-dlp/yt-dlp/commit/133cb959be4d268e2cd6b3f1d9bf87fba4c3743e"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "sha": "180ede624077b8549d4c74713613414f18a5a4eb",
+      "filename": "test/test_utils.py",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/test%2Ftest_utils.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/test%2Ftest_utils.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/test%2Ftest_utils.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -924,6 +924,7 @@ def test_month_by_name(self):\n         self.assertEqual(month_by_name(None), None)\n         self.assertEqual(month_by_name('December', 'en'), 12)\n         self.assertEqual(month_by_name('décembre', 'fr'), 12)\n+        self.assertEqual(month_by_name('desember', 'is'), 12)\n         self.assertEqual(month_by_name('December'), 12)\n         self.assertEqual(month_by_name('décembre'), None)\n         self.assertEqual(month_by_name('Unknown', 'unknown'), None)"
+    },
+    {
+      "sha": "b2fea5d5c27c16da58c8fe37f76166d228124cad",
+      "filename": "yt_dlp/extractor/_extractors.py",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 0,
+      "changes": 5,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2F_extractors.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2F_extractors.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/yt_dlp%2Fextractor%2F_extractors.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -1029,6 +1029,10 @@\n )\n from .livestreamfails import LivestreamfailsIE\n from .lnk import LnkIE\n+from .locipo import (\n+    LocipoIE,\n+    LocipoPlaylistIE,\n+)\n from .loco import LocoIE\n from .loom import (\n     LoomFolderIE,\n@@ -2343,6 +2347,7 @@\n )\n from .viously import ViouslyIE\n from .viqeo import ViqeoIE\n+from .visir import VisirIE\n from .viu import (\n     ViuIE,\n     ViuOTTIE,"
+    },
+    {
+      "sha": "e4bad7f6f748bb6bc6c7d233b50cd3d7c20c20ef",
+      "filename": "yt_dlp/extractor/locipo.py",
+      "status": "added",
+      "additions": 209,
+      "deletions": 0,
+      "changes": 209,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Flocipo.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Flocipo.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/yt_dlp%2Fextractor%2Flocipo.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -0,0 +1,209 @@\n+import functools\n+import math\n+\n+from .streaks import StreaksBaseIE\n+from ..networking import HEADRequest\n+from ..utils import (\n+    InAdvancePagedList,\n+    clean_html,\n+    js_to_json,\n+    parse_iso8601,\n+    parse_qs,\n+    str_or_none,\n+)\n+from ..utils.traversal import require, traverse_obj\n+\n+\n+class LocipoBaseIE(StreaksBaseIE):\n+    _API_BASE = 'https://web-api.locipo.jp'\n+    _BASE_URL = 'https://locipo.jp'\n+    _UUID_RE = r'[\\da-f]{8}(?:-[\\da-f]{4}){3}-[\\da-f]{12}'\n+\n+    def _call_api(self, path, item_id, note, fatal=True):\n+        return self._download_json(\n+            f'{self._API_BASE}/{path}', item_id,\n+            f'Downloading {note} API JSON',\n+            f'Unable to download {note} API JSON',\n+            fatal=fatal)\n+\n+\n+class LocipoIE(LocipoBaseIE):\n+    _VALID_URL = [\n+        fr'https?://locipo\\.jp/creative/(?P<id>{LocipoBaseIE._UUID_RE})',\n+        fr'https?://locipo\\.jp/embed/?\\?(?:[^#]+&)?id=(?P<id>{LocipoBaseIE._UUID_RE})',\n+    ]\n+    _TESTS = [{\n+        'url': 'https://locipo.jp/creative/fb5ffeaa-398d-45ce-bb49-0e221b5f94f1',\n+        'info_dict': {\n+            'id': 'fb5ffeaa-398d-45ce-bb49-0e221b5f94f1',\n+            'ext': 'mp4',\n+            'title': 'リアルカレカノ#4 ～伊達さゆりと勉強しよっ？～',\n+            'description': 'md5:70a40c202f3fb7946b61e55fa015094c',\n+            'display_id': '5a2947fe596441f5bab88a61b0432d0d',\n+            'live_status': 'not_live',\n+            'modified_date': r're:\\d{8}',\n+            'modified_timestamp': int,\n+            'release_timestamp': 1711789200,\n+            'release_date': '20240330',\n+            'series': 'リアルカレカノ',\n+            'series_id': '1142',\n+            'tags': 'count:4',\n+            'thumbnail': r're:https?://.+\\.(?:jpg|png)',\n+            'timestamp': 1756984919,\n+            'upload_date': '20250904',\n+            'uploader': '東海テレビ',\n+            'uploader_id': 'locipo-prod',\n+        },\n+    }, {\n+        'url': 'https://locipo.jp/embed/?id=71a334a0-2b25-406f-9d96-88f341f571c2',\n+        'info_dict': {\n+            'id': '71a334a0-2b25-406f-9d96-88f341f571c2',\n+            'ext': 'mp4',\n+            'title': '#1 オーディション／ゲスト伊藤美来、豊田萌絵',\n+            'description': 'md5:5bbcf532474700439cf56ceb6a15630e',\n+            'display_id': '0ab32634b884499a84adb25de844c551',\n+            'live_status': 'not_live',\n+            'modified_date': r're:\\d{8}',\n+            'modified_timestamp': int,\n+            'release_timestamp': 1751623200,\n+            'release_date': '20250704',\n+            'series': '声優ラジオのウラカブリ～Locipo出張所～',\n+            'series_id': '1454',\n+            'tags': 'count:6',\n+            'thumbnail': r're:https?://.+\\.(?:jpg|png)',\n+            'timestamp': 1757002966,\n+            'upload_date': '20250904',\n+            'uploader': 'テレビ愛知',\n+            'uploader_id': 'locipo-prod',\n+        },\n+    }, {\n+        'url': 'https://locipo.jp/creative/bff9950d-229b-4fe9-911a-7fa71a232f35?list=69a5b15c-901f-4828-a336-30c0de7612d3',\n+        'info_dict': {\n+            'id': '69a5b15c-901f-4828-a336-30c0de7612d3',\n+            'title': '見て・乗って・語りたい。 東海の鉄道沼',\n+        },\n+        'playlist_mincount': 3,\n+    }, {\n+        'url': 'https://locipo.jp/creative/a0751a7f-c7dd-4a10-a7f1-e12720bdf16c?list=006cff3f-ba74-42f0-b4fd-241486ebda2b',\n+        'info_dict': {\n+            'id': 'a0751a7f-c7dd-4a10-a7f1-e12720bdf16c',\n+            'ext': 'mp4',\n+            'title': '#839 人間真空パック',\n+            'description': 'md5:9fe190333b6975c5001c8c9cbe20d276',\n+            'display_id': 'c2b4c9f4a6d648bd8e3c320e384b9d56',\n+            'live_status': 'not_live',\n+            'modified_date': r're:\\d{8}',\n+            'modified_timestamp': int,\n+            'release_timestamp': 1746239400,\n+            'release_date': '20250503',\n+            'series': 'でんじろう先生のはぴエネ！',\n+            'series_id': '202',\n+            'tags': 'count:3',\n+            'thumbnail': r're:https?://.+\\.(?:jpg|png)',\n+            'timestamp': 1756975909,\n+            'upload_date': '20250904',\n+            'uploader': '中京テレビ',\n+            'uploader_id': 'locipo-prod',\n+        },\n+        'params': {'noplaylist': True},\n+    }]\n+\n+    def _real_extract(self, url):\n+        video_id = self._match_id(url)\n+        playlist_id = traverse_obj(parse_qs(url), ('list', -1, {str}))\n+        if self._yes_playlist(playlist_id, video_id):\n+            return self.url_result(\n+                f'{self._BASE_URL}/playlist/{playlist_id}', LocipoPlaylistIE)\n+\n+        creatives = self._call_api(f'creatives/{video_id}', video_id, 'Creatives')\n+        media_id = traverse_obj(creatives, ('media_id', {str}, {require('Streaks media ID')}))\n+\n+        webpage = self._download_webpage(url, video_id)\n+        config = self._search_json(\n+            r'window\\.__NUXT__\\.config\\s*=', webpage, 'config', video_id, transform_source=js_to_json)\n+        api_key = traverse_obj(config, ('public', 'streaksVodPlaybackApiKey', {str}, {require('api key')}))\n+\n+        return {\n+            **self._extract_from_streaks_api('locipo-prod', media_id, headers={\n+                'Origin': 'https://locipo.jp',\n+                'X-Streaks-Api-Key': api_key,\n+            }),\n+            **traverse_obj(creatives, {\n+                'title': ('name', {clean_html}),\n+                'description': ('description', {clean_html}, filter),\n+                'release_timestamp': ('publication_started_at', {parse_iso8601}),\n+                'tags': ('keyword', {clean_html}, {lambda x: x.split(',')}, ..., {str.strip}, filter),\n+                'uploader': ('company', 'name', {clean_html}, filter),\n+            }),\n+            **traverse_obj(creatives, ('series', {\n+                'series': ('name', {clean_html}, filter),\n+                'series_id': ('id', {str_or_none}),\n+            })),\n+            'id': video_id,\n+        }\n+\n+\n+class LocipoPlaylistIE(LocipoBaseIE):\n+    _VALID_URL = [\n+        fr'https?://locipo\\.jp/(?P<type>playlist)/(?P<id>{LocipoBaseIE._UUID_RE})',\n+        r'https?://locipo\\.jp/(?P<type>series)/(?P<id>\\d+)',\n+    ]\n+    _TESTS = [{\n+        'url': 'https://locipo.jp/playlist/35d3dd2b-531d-4824-8575-b1c527d29538',\n+        'info_dict': {\n+            'id': '35d3dd2b-531d-4824-8575-b1c527d29538',\n+            'title': 'レシピ集',\n+        },\n+        'playlist_mincount': 135,\n+    }, {\n+        # Redirects to https://locipo.jp/series/1363\n+        'url': 'https://locipo.jp/playlist/fef7c4fb-741f-4d6a-a3a6-754f354302a2',\n+        'info_dict': {\n+            'id': '1363',\n+            'title': 'CBCアナウンサー公式【みてちょてれび】',\n+            'description': 'md5:50a1b23e63112d5c06c882835c8c1fb1',\n+        },\n+        'playlist_mincount': 38,\n+    }, {\n+        'url': 'https://locipo.jp/series/503',\n+        'info_dict': {\n+            'id': '503',\n+            'title': 'FishingLover東海',\n+            'description': '東海地区の釣り場でフィッシングの魅力を余すところなくご紹介！！',\n+        },\n+        'playlist_mincount': 223,\n+    }]\n+    _PAGE_SIZE = 100\n+\n+    def _fetch_page(self, path, playlist_id, page):\n+        creatives = self._download_json(\n+            f'{self._API_BASE}/{path}/{playlist_id}/creatives',\n+            playlist_id, f'Downloading page {page + 1}', query={\n+                'premium': False,\n+                'live': False,\n+                'limit': self._PAGE_SIZE,\n+                'offset': page * self._PAGE_SIZE,\n+            })\n+\n+        for video_id in traverse_obj(creatives, ('items', ..., 'id', {str})):\n+            yield self.url_result(f'{self._BASE_URL}/creative/{video_id}', LocipoIE)\n+\n+    def _real_extract(self, url):\n+        playlist_type, playlist_id = self._match_valid_url(url).group('type', 'id')\n+        if urlh := self._request_webpage(HEADRequest(url), playlist_id, fatal=False):\n+            playlist_type, playlist_id = self._match_valid_url(urlh.url).group('type', 'id')\n+\n+        path = 'playlists' if playlist_type == 'playlist' else 'series'\n+        creatives = self._call_api(\n+            f'{path}/{playlist_id}/creatives', playlist_id, path.capitalize())\n+\n+        entries = InAdvancePagedList(\n+            functools.partial(self._fetch_page, path, playlist_id),\n+            math.ceil(int(creatives['total']) / self._PAGE_SIZE), self._PAGE_SIZE)\n+\n+        return self.playlist_result(\n+            entries, playlist_id,\n+            **traverse_obj(creatives, ('items', ..., playlist_type, {\n+                'title': ('name', {clean_html}, filter),\n+                'description': ('description', {clean_html}, filter),\n+            }, any)))"
+    },
+    {
+      "sha": "0733a243a606905329db5580912689b338d1eaa1",
+      "filename": "yt_dlp/extractor/visir.py",
+      "status": "added",
+      "additions": 116,
+      "deletions": 0,
+      "changes": 116,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Fvisir.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Fvisir.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/yt_dlp%2Fextractor%2Fvisir.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -0,0 +1,116 @@\n+import re\n+\n+from .common import InfoExtractor\n+from ..utils import (\n+    UnsupportedError,\n+    clean_html,\n+    int_or_none,\n+    js_to_json,\n+    month_by_name,\n+    url_or_none,\n+    urljoin,\n+)\n+from ..utils.traversal import find_element, traverse_obj\n+\n+\n+class VisirIE(InfoExtractor):\n+    IE_DESC = 'Vísir'\n+\n+    _VALID_URL = r'https?://(?:www\\.)?visir\\.is/(?P<type>k|player)/(?P<id>[\\da-f-]+)(?:/(?P<slug>[\\w.-]+))?'\n+    _EMBED_REGEX = [rf'<iframe[^>]+src=[\"\\'](?P<url>{_VALID_URL})']\n+    _TESTS = [{\n+        'url': 'https://www.visir.is/k/eabb8f7f-ad87-46fb-9469-a0f1dc0fc4bc-1769022963988',\n+        'info_dict': {\n+            'id': 'eabb8f7f-ad87-46fb-9469-a0f1dc0fc4bc-1769022963988',\n+            'ext': 'mp4',\n+            'title': 'Sveppi og Siggi Þór mestu skaphundarnir',\n+            'categories': ['island-i-dag'],\n+            'description': 'md5:e06bd6a0cd8bdde328ad8cf00d3d4df6',\n+            'duration': 792,\n+            'thumbnail': r're:https?://www\\.visir\\.is/.+',\n+            'upload_date': '20260121',\n+            'view_count': int,\n+        },\n+    }, {\n+        'url': 'https://www.visir.is/k/b0a88e02-eceb-4270-855c-8328b76b9d81-1763979306704/tonlistarborgin-reykjavik',\n+        'info_dict': {\n+            'id': 'b0a88e02-eceb-4270-855c-8328b76b9d81-1763979306704',\n+            'ext': 'mp4',\n+            'title': 'Tónlistarborgin Reykjavík',\n+            'categories': ['tonlist'],\n+            'description': 'md5:47237589dc95dbde55dfbb163396f88a',\n+            'display_id': 'tonlistarborgin-reykjavik',\n+            'duration': 81,\n+            'thumbnail': r're:https?://www\\.visir\\.is/.+',\n+            'upload_date': '20251124',\n+            'view_count': int,\n+        },\n+    }, {\n+        'url': 'https://www.visir.is/player/0cd5709e-6870-46d0-aaaf-0ae637de94f1-1770060083580',\n+        'info_dict': {\n+            'id': '0cd5709e-6870-46d0-aaaf-0ae637de94f1-1770060083580',\n+            'ext': 'mp4',\n+            'title': 'Sportpakkinn 2. febrúar 2026',\n+            'categories': ['sportpakkinn'],\n+            'display_id': 'sportpakkinn-2.-februar-2026',\n+            'duration': 293,\n+            'thumbnail': r're:https?://www\\.visir\\.is/.+',\n+            'upload_date': '20260202',\n+            'view_count': int,\n+        },\n+    }]\n+    _WEBPAGE_TESTS = [{\n+        'url': 'https://www.visir.is/g/20262837896d/segir-von-brigdin-med-prinsessuna-rista-djupt',\n+        'info_dict': {\n+            'id': '9ad5e58a-f26f-49f7-8b1d-68f0629485b7-1770059257365',\n+            'ext': 'mp4',\n+            'title': 'Norðmenn tala ekki um annað en prinsessuna',\n+            'categories': ['frettir'],\n+            'description': 'md5:53e2623ae79e1355778c14f5b557a0cd',\n+            'display_id': 'nordmenn-tala-ekki-um-annad-en-prinsessuna',\n+            'duration': 138,\n+            'thumbnail': r're:https?://www\\.visir\\.is/.+',\n+            'upload_date': '20260202',\n+            'view_count': int,\n+        },\n+    }]\n+\n+    def _real_extract(self, url):\n+        video_type, video_id, display_id = self._match_valid_url(url).group('type', 'id', 'slug')\n+        webpage = self._download_webpage(url, video_id)\n+        if video_type == 'player':\n+            real_url = self._og_search_url(webpage)\n+            if not self.suitable(real_url) or self._match_valid_url(real_url).group('type') == 'player':\n+                raise UnsupportedError(real_url)\n+            return self.url_result(real_url, self.ie_key())\n+\n+        upload_date = None\n+        date_elements = traverse_obj(webpage, (\n+            {find_element(cls='article-item__date')}, {clean_html}, filter, {str.split}))\n+        if date_elements and len(date_elements) == 3:\n+            day, month, year = date_elements\n+            day = int_or_none(day.rstrip('.'))\n+            month = month_by_name(month, 'is')\n+            if day and month and re.fullmatch(r'[0-9]{4}', year):\n+                upload_date = f'{year}{month:02d}{day:02d}'\n+\n+        player = self._search_json(\n+            r'App\\.Player\\.Init\\(', webpage, video_id, 'player', transform_source=js_to_json)\n+        m3u8_url = traverse_obj(player, ('File', {urljoin('https://vod.visir.is/')}))\n+\n+        return {\n+            'id': video_id,\n+            'display_id': display_id,\n+            'formats': self._extract_m3u8_formats(m3u8_url, video_id, 'mp4'),\n+            'upload_date': upload_date,\n+            **traverse_obj(webpage, ({find_element(cls='article-item press-ads')}, {\n+                'description': ({find_element(cls='-large')}, {clean_html}, filter),\n+                'view_count': ({find_element(cls='article-item__viewcount')}, {clean_html}, {int_or_none}),\n+            })),\n+            **traverse_obj(player, {\n+                'title': ('Title', {clean_html}),\n+                'categories': ('Categoryname', {clean_html}, filter, all, filter),\n+                'duration': ('MediaDuration', {int_or_none}),\n+                'thumbnail': ('Image', {url_or_none}),\n+            }),\n+        }"
+    },
+    {
+      "sha": "c174b5bac1dd8eb2fb416365904137f1730358ce",
+      "filename": "yt_dlp/extractor/xhamster.py",
+      "status": "modified",
+      "additions": 29,
+      "deletions": 10,
+      "changes": 39,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Fxhamster.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Fextractor%2Fxhamster.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/yt_dlp%2Fextractor%2Fxhamster.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -213,16 +213,9 @@ class XHamsterIE(InfoExtractor):\n         'only_matching': True,\n     }]\n \n-    def _decipher_format_url(self, format_url, format_id):\n-        parsed_url = urllib.parse.urlparse(format_url)\n-\n-        hex_string, path_remainder = self._search_regex(\n-            r'^/(?P<hex>[0-9a-fA-F]{12,})(?P<rem>[/,].+)$', parsed_url.path, 'url components',\n-            default=(None, None), group=('hex', 'rem'))\n-        if not hex_string:\n-            self.report_warning(f'Skipping format \"{format_id}\": unsupported URL format')\n-            return None\n+    _VALID_HEX_RE = r'[0-9a-fA-F]{12,}'\n \n+    def _decipher_hex_string(self, hex_string, format_id):\n         byte_data = bytes.fromhex(hex_string)\n         seed = int.from_bytes(byte_data[1:5], byteorder='little', signed=True)\n \n@@ -232,7 +225,33 @@ def _decipher_format_url(self, format_url, format_id):\n             self.report_warning(f'Skipping format \"{format_id}\": {e.msg}')\n             return None\n \n-        deciphered = bytearray(byte ^ next(byte_gen) for byte in byte_data[5:]).decode('latin-1')\n+        return bytearray(byte ^ next(byte_gen) for byte in byte_data[5:]).decode('latin-1')\n+\n+    def _decipher_format_url(self, format_url, format_id):\n+        # format_url can be hex ciphertext or a URL with a hex ciphertext segment\n+        if re.fullmatch(self._VALID_HEX_RE, format_url):\n+            return self._decipher_hex_string(format_url, format_id)\n+        elif not url_or_none(format_url):\n+            if re.fullmatch(r'[0-9a-fA-F]+', format_url):\n+                # Hex strings that are too short are expected, so we don't want to warn\n+                self.write_debug(f'Skipping dummy ciphertext for \"{format_id}\": {format_url}')\n+            else:\n+                # Something has likely changed on the site's end, so we need to warn\n+                self.report_warning(f'Skipping format \"{format_id}\": invalid ciphertext')\n+            return None\n+\n+        parsed_url = urllib.parse.urlparse(format_url)\n+\n+        hex_string, path_remainder = self._search_regex(\n+            rf'^/(?P<hex>{self._VALID_HEX_RE})(?P<rem>[/,].+)$', parsed_url.path, 'url components',\n+            default=(None, None), group=('hex', 'rem'))\n+        if not hex_string:\n+            self.report_warning(f'Skipping format \"{format_id}\": unsupported URL format')\n+            return None\n+\n+        deciphered = self._decipher_hex_string(hex_string, format_id)\n+        if not deciphered:\n+            return None\n \n         return parsed_url._replace(path=f'/{deciphered}{path_remainder}').geturl()\n "
+    },
+    {
+      "sha": "74bb6dcdb17461765a4bec9a98ca34ac5784bc05",
+      "filename": "yt_dlp/utils/_utils.py",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 0,
+      "changes": 3,
+      "blob_url": "https://github.com/yt-dlp/yt-dlp/blob/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Futils%2F_utils.py",
+      "raw_url": "https://github.com/yt-dlp/yt-dlp/raw/442c90da3ec680037b7d94abf91ec63b2e5a9ade/yt_dlp%2Futils%2F_utils.py",
+      "contents_url": "https://api.github.com/repos/yt-dlp/yt-dlp/contents/yt_dlp%2Futils%2F_utils.py?ref=442c90da3ec680037b7d94abf91ec63b2e5a9ade",
+      "patch": "@@ -75,6 +75,9 @@ def IDENTITY(x):\n     'fr': [\n         'janvier', 'février', 'mars', 'avril', 'mai', 'juin',\n         'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],\n+    'is': [\n+        'janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní',\n+        'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'],\n     # these follow the genitive grammatical case (dopełniacz)\n     # some websites might be using nominative, which will require another month list\n     # https://en.wikibooks.org/wiki/Polish/Noun_cases"
+    }
+  ]
+}

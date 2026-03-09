@@ -1,0 +1,7 @@
+display_name: "pdf"
+description: "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents..."
+icon: "📕"
+triggers:
+  - "pdf"
+category: "document"
+tier: "system"

@@ -1,0 +1,38 @@
+{
+  "last_updated": "2026-03-09T14:52:00.000000",
+  "fixes": [
+    "SKILL.md 的 name 字段必须使用 kebab-case 格式，不能包含空格（如 skill-evolution-manager 而非 Skill Evolution Manager）",
+    "name 字段应与文件夹名保持一致，否则 Claude Code 无法正确识别 skill",
+    "批量编辑 40+ SKILL.md 文件时，使用并行后台 agent 可显著提升效率，但必须配合验证 agent 确认结果",
+    "后台 agent 可能因 API 超时（524 错误）失败，主线程需要有手动兜底能力",
+    "PowerShell 变量（如 /c/Users/ZDS/bash_completion.d/*.bash）在 bash 环境中会被错误解释为 glob 模式，应避免在 bash 中使用 PowerShell 变量语法",
+    "复制技能目录时需要排除 .git 和 .omc 等嵌套目录，否则 git add 会报错",
+    "GitHub Token 权限不足时需要创建新 Token，确保勾选 repo 权限",
+    "外部 npm 包修改不可持续：dist 编译文件会在包更新时丢失，应优先考虑向上游提交 PR",
+    "独立 Agent 审查能发现自我审查遗漏的问题（如 uuid 依赖未使用）",
+    "Phase 2 放弃原因：OMC 插件更新频繁，深度集成修改意义不大",
+    "Windows bash 环境缺少 jq，配置写入应使用 node.js 而非 shell 命令",
+    "读取空 JSON 文件前需要检查文件是否存在或内容是否为空",
+    "align_all.py 可批量将所有 skills 的 evolution.json 合并到对应的 SKILL.md",
+    "skills 目录重组后，部分 evolution.json 存在于 .curated/ 或 .experimental/ 子目录中"
+  ],
+  "preferences": [
+    "Skill 系统优化应按 ROI 排序执行：description 优化 > 体积控制 > 元数据规范化 > 安全限制",
+    "验证步骤必须在所有修改完成后执行，使用独立 agent 进行全量检查",
+    "Phase 1 实现：修改工具 description 比修改核心逻辑更安全有效",
+    "description 级别的优化投入产出比最高"
+  ],
+  "workflow_insights": [
+    "对于小版本更新（如 bugfix、2-3 个 commits），只需更新 github_hash 即可，不需要做内容对比",
+    "如果 commits 包含新功能、新命令等实质性变化，需要先获取上游 README 对比后再更新 SKILL.md",
+    "gitnexus 这类本地 skill 如果有 GitHub 仓库，需要：1)添加 github_url 2)移除 local_only 3)更新 github_hash 4)同步版本号（从 tag 获取）",
+    "使用 git ls-remote 获取远程 hash 比 GitHub API 更可靠，避免限流问题",
+    "创建 GitHub 仓库后可用 git remote set-url 嵌入 Token：git remote set-url origin https://TOKEN@github.com/user/repo.git",
+    "使用 winget 安装 GitHub CLI 需要指定 --source winget 避免证书错误",
+    "推送前需确保 Git 全局配置了 user.email 和 user.name",
+    "gh auth status 显示已登录但 git push 仍报 403 时，尝试用 GIT_ASKPASS=echo 方式绕过认证问题",
+    "同步两个仓库的工作流：1) gh repo clone 2) 复制更新文件 3) git add/commit 4) GIT_ASKPASS=echo git push https://TOKEN@github.com/user/repo.git",
+    "复制目录包含嵌套 .git 仓库时（如 claude-mem），先用 git rm --cached 移除再 commit"
+  ],
+  "custom_prompts": "对于复杂任务，实施前先用独立 Agent 验证计划，实施后用独立 Agent 审查代码。审查清单：(1) 功能正确性 (2) 代码质量 (3) 集成风险 (4) 边缘情况处理"
+}

@@ -1,0 +1,7 @@
+display_name: "qpcr-graphpad-formatter"
+description: "Format qPCR data for GraphPad Prism. This skill should be used when the user has qPCR data in CSV format and wants to..."
+icon: "🧬"
+triggers:
+  - "qpcr graphpad formatter"
+category: "science"
+tier: "experimental"

@@ -1,0 +1,7 @@
+display_name: "repo-to-skills"
+description: "Multi-platform repository to skill converter with AI-powered analysis, mirror rotation, and enhanced metadata trackin..."
+icon: "🔗"
+triggers:
+  - "github to skills"
+category: "meta"
+tier: "system"

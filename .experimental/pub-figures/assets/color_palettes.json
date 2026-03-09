@@ -1,0 +1,117 @@
+{
+  "palettes": {
+    "scientific": {
+      "description": "Primary scientific palette - color-blind friendly",
+      "colors": {
+        "blue": "#2E86AB",
+        "magenta": "#A23B72",
+        "orange": "#F18F01",
+        "red": "#C73E1D",
+        "gray": "#95A5A6",
+        "green": "#27ae60",
+        "purple": "#9b59b6",
+        "teal": "#16a085"
+      }
+    },
+    "categorical_5": {
+      "description": "5-color categorical palette for distinguishing groups",
+      "colors": ["#95a5a6", "#3498db", "#9b59b6", "#f39c12", "#e74c3c"]
+    },
+    "categorical_8": {
+      "description": "Extended 8-color categorical palette",
+      "colors": [
+        "#95a5a6",
+        "#3498db",
+        "#9b59b6",
+        "#f39c12",
+        "#e74c3c",
+        "#1abc9c",
+        "#34495e",
+        "#27ae60"
+      ]
+    },
+    "species": {
+      "description": "Colors for different species",
+      "colors": {
+        "mouse": "#2E86AB",
+        "human": "#A23B72",
+        "rat": "#F18F01",
+        "zebrafish": "#27ae60",
+        "drosophila": "#9b59b6",
+        "c_elegans": "#e67e22"
+      }
+    },
+    "conditions": {
+      "description": "Colors for experimental conditions",
+      "colors": {
+        "control": "#3498db",
+        "disease": "#e74c3c",
+        "treatment": "#27ae60",
+        "vehicle": "#95a5a6",
+        "wildtype": "#3498db",
+        "knockout": "#e74c3c",
+        "overexpression": "#9b59b6"
+      }
+    },
+    "heatmap_diverging": {
+      "description": "Diverging colormaps for heatmaps",
+      "matplotlib_cmaps": ["RdBu_r", "coolwarm", "PiYG", "PRGn", "BrBG"],
+      "recommended": "RdBu_r"
+    },
+    "heatmap_sequential": {
+      "description": "Sequential colormaps for heatmaps",
+      "matplotlib_cmaps": ["viridis", "plasma", "inferno", "magma", "cividis"],
+      "recommended": "viridis"
+    },
+    "binary": {
+      "description": "Binary color schemes for match/mismatch",
+      "green_red": ["#e74c3c", "#27ae60"],
+      "blue_red": ["#3498db", "#e74c3c"],
+      "gray_blue": ["#95a5a6", "#3498db"]
+    },
+    "gradient_blue": {
+      "description": "Blue gradient from light to dark",
+      "colors": ["#d4e6f1", "#85c1e9", "#3498db", "#2874a6", "#1b4f72"]
+    },
+    "gradient_red": {
+      "description": "Red gradient from light to dark",
+      "colors": ["#fadbd8", "#f1948a", "#e74c3c", "#b03a2e", "#78281f"]
+    },
+    "gradient_green": {
+      "description": "Green gradient from light to dark",
+      "colors": ["#d5f5e3", "#82e0aa", "#27ae60", "#1e8449", "#145a32"]
+    },
+    "significance": {
+      "description": "Colors for statistical significance levels",
+      "colors": {
+        "ns": "#95a5a6",
+        "p_05": "#f39c12",
+        "p_01": "#e67e22",
+        "p_001": "#e74c3c"
+      }
+    },
+    "correlation": {
+      "description": "Colors for correlation strength",
+      "positive_strong": "#27ae60",
+      "positive_weak": "#82e0aa",
+      "none": "#ecf0f1",
+      "negative_weak": "#f1948a",
+      "negative_strong": "#e74c3c"
+    }
+  },
+  "usage_examples": {
+    "categorical": "Use for distinguishing discrete groups (e.g., cohorts, conditions)",
+    "diverging": "Use for data with meaningful center (e.g., correlation, fold change)",
+    "sequential": "Use for continuous data without center (e.g., counts, percentages)",
+    "binary": "Use for two-state comparisons (e.g., match/mismatch, yes/no)"
+  },
+  "accessibility_notes": {
+    "color_blindness": "All categorical palettes are designed to be distinguishable by people with common forms of color blindness (deuteranopia, protanopia)",
+    "print": "Colors maintain distinction when printed in grayscale due to varying luminance",
+    "recommendations": [
+      "Avoid using color alone to convey information",
+      "Use patterns, markers, or labels as secondary cues",
+      "Test with color blindness simulators before finalizing"
+    ]
+  }
+}

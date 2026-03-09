@@ -1,0 +1,7 @@
+display_name: "manga-learning-creator"
+description: "将任何文本内容（论文、文章、教程等）转化为漫画风格的学习读本。"
+icon: "📔"
+triggers:
+  - "manga learning creator"
+category: "creative"
+tier: "curated"

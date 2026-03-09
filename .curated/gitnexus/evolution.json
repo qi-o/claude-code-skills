@@ -1,0 +1,19 @@
+{
+  "preferences": [
+    "索引项目时使用 --skip-embeddings 加快速度"
+  ],
+  "fixes": [
+    "Skill 创建后需检查根目录和 .curated/ 目录是否都有副本",
+    "scan_and_check.py 扫描时需要检查正确的目录路径"
+  ],
+  "custom_prompts": "分析项目时先执行 gitnexus analyze 索引代码库",
+  "knowledge": [
+    "GitNexus v1.2.0 支持 10+ 编程语言的代码索引",
+    "提供 7 个 MCP 工具：query/context/impact/detect_changes/rename/cypher/list_repos",
+    "索引速度约 8.4 秒（1307 节点，3348 边，89 集群，101 流程）",
+    "使用 --skip-embeddings 可显著加快首次索引",
+    "GitNexus 会自动为项目生成 Claude Code Skills（exploring/impact-analysis/debugging/refactoring）",
+    "GitNexus 自动创建 CLAUDE.md 上下文文件和 PreToolUse Hooks"
+  ],
+  "workflow": "gitnexus analyze --skip-embeddings → gitnexus setup → 即可使用 MCP 工具分析代码"
+}

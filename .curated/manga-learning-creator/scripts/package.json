@@ -1,0 +1,18 @@
+{
+  "name": "manga-learning-creator",
+  "version": "1.0.0",
+  "description": "将任何文本内容转化为漫画风格学习读本",
+  "type": "module",
+  "scripts": {
+    "generate": "npx ts-node --esm scripts/generate_manga.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "openai": "^4.104.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

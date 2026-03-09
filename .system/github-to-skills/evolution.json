@@ -1,0 +1,20 @@
+{
+  "last_updated": "2026-02-07T12:29:01.263730",
+  "fixes": [
+    "生成 SKILL.md 时 name 字段必须使用 kebab-case 格式，不能包含空格",
+    "name 字段应与目标文件夹名保持一致",
+    "安装完成后应验证 name 字段格式是否正确",
+    "更新活跃仓库时应在最后一步再次获取最新 hash，避免更新过程中远程又有新提交",
+    "更新 skill 时需要对比上游 README 和本地 SKILL.md，如有新功能/命令/废弃功能等实质性变化，必须更新 SKILL.md 内容",
+    "从 monorepo 安装子目录 skill 时，github_url 应指向主仓库根目录，source 字段可指向具体子目录路径",
+    "三层分级目录结构已部署：.system/(12个) .curated/(14个) .experimental/(9个)，新技能默认归入 .experimental/",
+    "agents/claude.yaml 是必需文件，缺失时需根据 SKILL.md 生成（含 display_name/description/icon/triggers/category/tier）",
+    "Windows 下使用 mklink /J 创建兼容性 junction 不需要管理员权限"
+  ],
+  "preferences": [
+    "更新已有 skill 时应对比上游变化，不能只更新 hash",
+    "安装 skill 时必须包含 github_url 和 github_hash 用于版本追踪",
+    "安装新技能后必须执行三层分级合规检查：检查必需文件 → 判断层级 → 移入层级目录 → 创建 junction → 更新 .tier-registry.json"
+  ],
+  "custom_prompts": ""
+}

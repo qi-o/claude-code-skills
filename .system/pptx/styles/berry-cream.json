@@ -1,0 +1,21 @@
+{
+  "name": "Berry & Cream",
+  "description": "Rich berry with dusty rose and cream. Perfect for fashion, lifestyle, and elegant presentations.",
+  "colors": {
+    "primary": "6D2E46",
+    "secondary": "A26769",
+    "accent": "ECE2D0",
+    "text": "3D1A28",
+    "text_light": "FFFFFF"
+  },
+  "fonts": {
+    "header": "Georgia",
+    "body": "Garamond"
+  },
+  "layout": "split",
+  "background": "solid",
+  "gradient": {
+    "start": "6D2E46",
+    "end": "8B4A5E"
+  }
+}

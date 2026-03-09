@@ -1,0 +1,21 @@
+{
+  "name": "Midnight Executive",
+  "description": "Professional deep navy with ice blue accents. Ideal for corporate presentations and executive briefings.",
+  "colors": {
+    "primary": "1E2761",
+    "secondary": "CADCFC",
+    "accent": "FFFFFF",
+    "text": "1E2761",
+    "text_light": "FFFFFF"
+  },
+  "fonts": {
+    "header": "Arial Black",
+    "body": "Arial"
+  },
+  "layout": "cards",
+  "background": "gradient",
+  "gradient": {
+    "start": "1E2761",
+    "end": "3D4A8A"
+  }
+}

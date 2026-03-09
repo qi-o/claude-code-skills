@@ -1,0 +1,7 @@
+display_name: "planning-with-files"
+description: "Transforms workflow to use Manus-style persistent markdown files for planning, progress tracking, and knowledge stora..."
+icon: "📋"
+triggers:
+  - "planning with files"
+category: "meta"
+tier: "system"

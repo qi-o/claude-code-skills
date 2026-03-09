@@ -1,0 +1,7 @@
+display_name: "academic-writing-suite"
+description: "学术写作套件：协调 deep-research、paper-search 和 pub-figures 完成学术写作任务。"
+icon: "🔬"
+triggers:
+  - "academic writing suite"
+category: "research"
+tier: "experimental"

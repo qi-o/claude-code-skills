@@ -1,0 +1,10 @@
+display_name: "baoyu-article-illustrator"
+description: "智能文章插图生成器。分析文章内容，识别最佳插图位置，使用 Type × Style 二维系统生成专业插图。"
+icon: "🎨"
+triggers:
+  - "文章插图"
+  - "生成插图"
+  - "illustrate article"
+  - "add illustrations"
+category: "creative"
+tier: "curated"

@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls \\\"C:\\\\Users\\\\ZDS\\\\.claude\\\\skills\\\\.curated\\\\paper-search\\\\scripts\\\\\\\" 2>&1\",\"description\":\"列出 paper-search scripts 目录\"}",
+  "error": "Exit code 2\n/usr/bin/bash: eval: line 1: unexpected EOF while looking for matching `\"'\n\n/usr/bin/bash: eval: line 1: unexpected EOF while looking for matching `\"'",
+  "timestamp": "2026-02-27T10:08:36.008Z",
+  "retry_count": 1
+}
