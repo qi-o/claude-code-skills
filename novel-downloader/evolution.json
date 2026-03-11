@@ -1,0 +1,11 @@
+{
+  "last_updated": "2026-01-28T15:26:43.592365",
+  "preferences": [],
+  "fixes": [
+    "literotica.com 使用 SPA 架构但内容在服务端渲染的 HTML 中",
+    "requests 和 Playwright 遇到 HTTP/2 协议错误时，使用 curl subprocess 绕过",
+    "literotica 正文选择器为 div[class*=_article__content]，不要使用 div.panel.article",
+    "literotica 章节内分页检测应查找下一页链接 a[href*=?page=N] 而非文本匹配"
+  ],
+  "custom_prompts": "遇到 HTTP/2 协议错误时，优先尝试 curl 而非切换浏览器自动化工具"
+}

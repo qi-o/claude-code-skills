@@ -1,7 +1,0 @@
-display_name: "pptx"
-description: "Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Cre..."
-icon: "📊"
-triggers:
-  - "pptx"
-category: "document"
-tier: "system"

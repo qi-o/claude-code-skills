@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"python -c \\\"\\nfrom scrapling.fetchers import Fetcher, DynamicFetcher, StealthyFetcher\\nprint('all imports OK')\\npage = Fetcher(auto_match=False).get('http://example.com')\\nprint('static fe...",
-  "error": "Exit code 1\n[2026-02-26 18:18:03] WARNING: This logic is deprecated now, and have no effect; It will be removed with v0.3. Use `Fetcher.configure(auto_match=False)` instead before fetching\r\n[2026-02-26 18:18:03] INFO: Fetched (200) <GET http://example.com/> (referer: https://www.google.com/search?q=example)\r\nTraceback (most recent call last):\r\n  File \"<string>\", line 5, in <module>\r\n    print('static fetch OK, status:', page.status, 'len:', len(str(page.html)))\r\n                                 ...",
-  "timestamp": "2026-02-26T10:18:04.173Z",
-  "retry_count": 1
-}

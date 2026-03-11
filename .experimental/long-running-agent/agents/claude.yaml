@@ -1,7 +1,0 @@
-display_name: "long-running-agent"
-description: "Framework for building AI agents that work effectively across multiple context windows on complex, long-running tasks..."
-icon: "⏳"
-triggers:
-  - "long running agent"
-category: "agent"
-tier: "experimental"

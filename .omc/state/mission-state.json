@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-03-11T11:46:26.587Z",
+  "missions": [
+    {
+      "id": "session:17880f28-0dce-4f01-a72b-3661e5420771:none",
+      "source": "session",
+      "name": "none",
+      "objective": "Session mission",
+      "createdAt": "2026-03-11T11:46:26.587Z",
+      "updatedAt": "2026-03-11T11:46:26.587Z",
+      "status": "running",
+      "workerCount": 1,
+      "taskCounts": {
+        "total": 1,
+        "pending": 0,
+        "blocked": 0,
+        "inProgress": 1,
+        "completed": 0,
+        "failed": 0
+      },
+      "agents": [
+        {
+          "name": "git-master:acd98f4",
+          "role": "git-master",
+          "ownership": "acd98f46edc3367e4",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-11T11:46:26.587Z"
+        }
+      ],
+      "timeline": [
+        {
+          "id": "session-start:acd98f46edc3367e4:2026-03-11T11:46:26.587Z",
+          "at": "2026-03-11T11:46:26.587Z",
+          "kind": "update",
+          "agent": "git-master:acd98f4",
+          "detail": "started git-master:acd98f4",
+          "sourceKey": "session-start:acd98f46edc3367e4"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-display_name: "docx"
-description: "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preserv..."
-icon: "📄"
-triggers:
-  - "docx"
-category: "document"
-tier: "system"

@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1773042564812,
+  "projectRoot": "C:\\Users\\ZDS\\.claude\\skills",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "gitnexus": {
+      "path": "gitnexus",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1773042564770,
+      "keyFiles": [
+        "evolution.json",
+        "SKILL.md"
+      ]
+    },
+    "webnovel-analyze": {
+      "path": "webnovel-analyze",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564770,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "webnovel-continue": {
+      "path": "webnovel-continue",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564771,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "webnovel-import": {
+      "path": "webnovel-import",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564772,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "webnovel-init": {
+      "path": "webnovel-init",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564772,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "webnovel-plan": {
+      "path": "webnovel-plan",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564773,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "webnovel-write": {
+      "path": "webnovel-write",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773042564773,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "gitnexus\\scripts": {
+      "path": "gitnexus\\scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 0,
+      "lastAccessed": 1773042564775,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "gitnexus\\SKILL.md",
+      "accessCount": 5,
+      "lastAccessed": 1773226892511,
+      "type": "file"
+    },
+    {
+      "path": "aria2-downloader\\SKILL.md",
+      "accessCount": 2,
+      "lastAccessed": 1773226823559,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
