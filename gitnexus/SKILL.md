@@ -11,8 +11,8 @@ description: |
   核心功能：代码索引、知识图谱构建、MCP 工具集成（query/context/impact/rename/cypher）
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 7376e92063cd1a721e1754aa179f8af0502abe91
-version: 1.3.2
+github_hash: 74c0e462c3ee8995eb2db8f69a693e9a7ea2f4f6
+version: 1.3.3
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus

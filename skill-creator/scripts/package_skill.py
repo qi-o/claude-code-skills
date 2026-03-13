@@ -13,6 +13,15 @@ Example:
 import sys
 import zipfile
 from pathlib import Path
+
+# 配置 UTF-8 输出（必须在其他导入之前）
+try:
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8', errors='backslashreplace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='backslashreplace')
+except (AttributeError, Exception):
+    pass
+
 from quick_validate import validate_skill
 
 

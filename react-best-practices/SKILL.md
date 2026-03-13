@@ -1,11 +1,11 @@
 ---
 name: react-best-practices
 description: |
-  React/Next.js 性能优化最佳实践。包含 57 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
+  React/Next.js 性能优化最佳实践。包含 62 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 64bee5b7ea30702448e2aed774eb361914029944
-version: 1.0.0
+github_hash: 5847a7c7e79bab3e400cf47800b83449d7aea2d4
+version: 1.1.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
 author: Vercel
 tags: [react, nextjs, performance, optimization, best-practices]
@@ -16,7 +16,7 @@ metadata:
 
 # Vercel React Best Practices
 
-React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 57 条规则，按优先级分为 8 大类别。
+React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 62 条规则，按优先级分为 8 大类别。
 
 ## 触发条件
 
@@ -88,6 +88,7 @@ const HeavyChart = dynamic(() => import('./HeavyChart'), {
 | `server-serialization` | 最小化传递给客户端组件的数据 |
 | `server-parallel-fetching` | 重构组件以并行化获取 |
 | `server-after-nonblocking` | 使用 `after()` 进行非阻塞操作 |
+| `server-hoist-static-io` | 将静态 I/O（字体、logo）提升到模块级别 |
 
 **示例：**
 ```typescript
@@ -135,6 +136,7 @@ function Profile() {
 | `rerender-move-effect-to-event` | 将交互逻辑放在事件处理器中 |
 | `rerender-transitions` | 对非紧急更新使用 `startTransition` |
 | `rerender-use-ref-transient-values` | 对频繁变化的瞬态值使用 refs |
+| `rerender-no-inline-components` | 不要在组件内部定义组件 |
 
 **示例：**
 ```typescript
@@ -168,6 +170,8 @@ function handleSearch(query: string) {
 | `rendering-activity` | 使用 Activity 组件处理显示/隐藏 |
 | `rendering-conditional-render` | 使用三元运算符，而非 && |
 | `rendering-usetransition-loading` | 优先使用 useTransition 处理加载状态 |
+| `rendering-resource-hints` | 使用 React DOM resource hints 预加载资源 |
+| `rendering-script-defer-async` | 在 script 标签上使用 defer 或 async |
 
 **示例：**
 ```css
@@ -194,6 +198,7 @@ function handleSearch(query: string) {
 | `js-min-max-loop` | 使用循环而非 sort 获取 min/max |
 | `js-set-map-lookups` | 使用 Set/Map 进行 O(1) 查找 |
 | `js-tosorted-immutable` | 使用 `toSorted()` 保持不可变性 |
+| `js-flatmap-filter` | 使用 flatMap 在一次遍历中完成 map 和 filter |
 
 **示例：**
 ```typescript

@@ -1,9 +1,9 @@
 ---
 name: baoyu-format-markdown
 description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md.
-version: 1.56.1
+version: 1.57.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 661c74cce441d6d81393b3bd06a2fca336806279
+github_hash: 994e47d1be5ebe5a17302da2d26db6abc1185670
 source: skills/baoyu-format-markdown
 license: MIT
 metadata:
@@ -38,8 +38,8 @@ Check EXTEND.md existence (priority order):
 ```bash
 # macOS, Linux, WSL, Git Bash
 test -f .baoyu-skills/baoyu-format-markdown/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-format-markdown/EXTEND.md && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md && echo "user"
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-format-markdown/EXTEND.md" && echo "xdg"
+test -f "$HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md" && echo "user"
 ```
 
 ```powershell

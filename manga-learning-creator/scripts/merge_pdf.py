@@ -6,6 +6,15 @@
 
 import argparse
 import sys
+
+# 配置 UTF-8 输出（解决 Windows GBK 编码问题）
+try:
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8', errors='backslashreplace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='backslashreplace')
+except (AttributeError, Exception):
+    pass
+
 from pathlib import Path
 
 def merge_images_to_pdf(input_dir: str, output_file: str, pattern: str = "manga_page_*.png"):

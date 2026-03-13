@@ -22,6 +22,15 @@ import json
 import os
 import subprocess
 import sys
+
+# 配置 UTF-8 输出（解决 Windows GBK 编码问题）
+try:
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8', errors='backslashreplace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='backslashreplace')
+except (AttributeError, Exception):
+    pass
+
 from datetime import datetime
 from pathlib import Path
 

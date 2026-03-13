@@ -1,0 +1,10 @@
+{"t":0,"agent":"a4396e0","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a64a898","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a6e540f","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a2a64d9","agent_type":"executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a64a898","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":77613}
+{"t":0,"agent":"a4396e0","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":103811}
+{"t":0,"agent":"a6e540f","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":147120}
+{"t":0,"agent":"a2a64d9","agent_type":"executor","event":"agent_stop","success":true,"duration_ms":264785}
+{"t":0,"agent":"ac2494c","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"sync-to-github"}

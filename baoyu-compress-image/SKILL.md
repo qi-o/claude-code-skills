@@ -1,9 +1,9 @@
 ---
 name: baoyu-compress-image
 description: Compresses images to WebP (default) or PNG with automatic tool selection. Use when user asks to "compress image", "optimize image", "convert to webp", or reduce image file size.
-version: 1.56.1
+version: 1.57.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 661c74cce441d6d81393b3bd06a2fca336806279
+github_hash: 994e47d1be5ebe5a17302da2d26db6abc1185670
 source: skills/baoyu-compress-image
 license: MIT
 metadata:
@@ -34,8 +34,8 @@ Check EXTEND.md existence (priority order):
 ```bash
 # macOS, Linux, WSL, Git Bash
 test -f .baoyu-skills/baoyu-compress-image/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-compress-image/EXTEND.md && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-compress-image/EXTEND.md && echo "user"
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-compress-image/EXTEND.md" && echo "xdg"
+test -f "$HOME/.baoyu-skills/baoyu-compress-image/EXTEND.md" && echo "user"
 ```
 
 ```powershell

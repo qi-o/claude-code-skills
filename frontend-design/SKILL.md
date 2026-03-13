@@ -4,12 +4,12 @@ description: Create distinctive, production-grade frontend interfaces with high 
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
 github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c
-version: 0.3.0
+version: 0.4.0
 source: skills/frontend-design
 secondary_sources:
   - name: react-best-practices
     url: https://github.com/vercel-labs/agent-skills
-    hash: 64bee5b7ea30702448e2aed774eb361914029944
+    hash: 5847a7c7e79bab3e400cf47800b83449d7aea2d4
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.

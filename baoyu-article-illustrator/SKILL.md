@@ -1,9 +1,9 @@
 ---
 name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style two-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
-version: 1.56.1
+version: 1.57.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 661c74cce441d6d81393b3bd06a2fca336806279
+github_hash: 994e47d1be5ebe5a17302da2d26db6abc1185670
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:
@@ -59,8 +59,8 @@ See [references/styles.md](references/styles.md) for Core Styles, full gallery, 
 ```bash
 # macOS, Linux, WSL, Git Bash
 test -f .baoyu-skills/baoyu-article-illustrator/EXTEND.md && echo "project"
-test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-article-illustrator/EXTEND.md && echo "xdg"
-test -f "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md && echo "user"
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-article-illustrator/EXTEND.md" && echo "xdg"
+test -f "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md" && echo "user"
 ```
 
 ```powershell
