@@ -1,6 +1,6 @@
 ---
 name: windows-cleaner
-description: Analyze and reclaim Windows disk space through intelligent cleanup recommendations. Use when users report disk space issues, need to clean up their Windows PC, or want to understand what's consuming storage. Use when user says "清理磁盘", "磁盘空间", "disk cleanup", "C盘满浜?, "释放空间", or "storage analysis".
+description: Analyze and reclaim Windows disk space through intelligent cleanup recommendations. Use when users report disk space issues, need to clean up their Windows PC, or want to understand what's consuming storage. Use when user says "清理磁盘", "磁盘空间", "disk cleanup", "C盘满了", "释放空间", or "storage analysis". Do NOT use on non-Windows systems or for application-specific cleanup.
 license: MIT
 allowed-tools: "Bash(powershell:*) Read"
 version: 0.1.0

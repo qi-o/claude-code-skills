@@ -1,604 +1,120 @@
-﻿# GEO Database Reference Documentation
+# GEO Database 完整代码参考
 
-## Complete E-utilities API Specifications
+## 目录
 
-### Overview
+1. [搜索 GEO 数据](#搜索-geo-数据)
+2. [GEOparse 使用](#geoparse-使用)
+3. [E-utilities 访问](#e-utilities-访问)
+4. [FTP 直接下载](#ftp-直接下载)
+5. [质量控制与预处理](#质量控制与预处理)
+6. [差异表达分析](#差异表达分析)
+7. [聚类分析](#聚类分析)
+8. [批量处理多数据集](#批量处理多数据集)
+9. [元分析](#元分析)
+10. [安装与配置](#安装与配置)
 
-The NCBI Entrez Programming Utilities (E-utilities) provide programmatic access to GEO metadata through a set of nine server-side programs. All E-utilities return results in XML format by default.
+---
 
-### Base URL
+## 搜索 GEO 数据
 
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/
-```
+### GEO DataSets 搜索
 
-### Core E-utility Programs
-
-#### eSearch - Text Query to ID List
-
-**Purpose:** Search a database and return a list of UIDs matching the query.
-
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi
-```
-
-**Parameters:**
-- `db` (required): Database to search (e.g., "gds", "geoprofiles")
-- `term` (required): Search query string
-- `retmax`: Maximum number of UIDs to return (default: 20, max: 10000)
-- `retstart`: Starting position in result set (for pagination)
-- `usehistory`: Set to "y" to store results on history server
-- `sort`: Sort order (e.g., "relevance", "pub_date")
-- `field`: Limit search to specific field
-- `datetype`: Type of date to limit by
-- `reldate`: Limit to items within N days of today
-- `mindate`, `maxdate`: Date range limits (YYYY/MM/DD)
-
-**Example:**
 ```python
 from Bio import Entrez
-Entrez.email = "your@email.com"
 
-# Basic search
-handle = Entrez.esearch(
-    db="gds",
-    term="breast cancer AND Homo sapiens",
-    retmax=100,
-    usehistory="y"
-)
-results = Entrez.read(handle)
-handle.close()
+Entrez.email = "your.email@example.com"
 
-# Results contain:
-# - Count: Total number of matches
-# - RetMax: Number of UIDs returned
-# - RetStart: Starting position
-# - IdList: List of UIDs
-# - QueryKey: Key for history server (if usehistory="y")
-# - WebEnv: Web environment string (if usehistory="y")
+def search_geo_datasets(query, retmax=20):
+    """Search GEO DataSets database"""
+    handle = Entrez.esearch(
+        db="gds",
+        term=query,
+        retmax=retmax,
+        usehistory="y"
+    )
+    results = Entrez.read(handle)
+    handle.close()
+    return results
+
+# 示例搜索
+results = search_geo_datasets("breast cancer[MeSH] AND Homo sapiens[Organism]")
+print(f"Found {results['Count']} datasets")
+
+results = search_geo_datasets("GPL570[Accession]")
+results = search_geo_datasets("expression profiling by array[DataSet Type]")
 ```
 
-#### eSummary - Document Summaries
+### GEO Profiles 搜索
 
-**Purpose:** Retrieve document summaries for a list of UIDs.
-
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi
-```
-
-**Parameters:**
-- `db` (required): Database
-- `id` (required): Comma-separated list of UIDs or query_key+WebEnv
-- `retmode`: Return format ("xml" or "json")
-- `version`: Summary version ("2.0" recommended)
-
-**Example:**
 ```python
-from Bio import Entrez
-Entrez.email = "your@email.com"
+def search_geo_profiles(gene_name, organism="Homo sapiens", retmax=100):
+    """Search GEO Profiles for a specific gene"""
+    query = f"{gene_name}[Gene Name] AND {organism}[Organism]"
+    handle = Entrez.esearch(
+        db="geoprofiles",
+        term=query,
+        retmax=retmax
+    )
+    results = Entrez.read(handle)
+    handle.close()
+    return results
 
-# Get summaries for multiple IDs
-handle = Entrez.esummary(
-    db="gds",
-    id="200000001,200000002",
-    retmode="xml",
-    version="2.0"
-)
-summaries = Entrez.read(handle)
-handle.close()
-
-# Summary fields for GEO DataSets:
-# - Accession: GDS accession
-# - title: Dataset title
-# - summary: Dataset description
-# - PDAT: Publication date
-# - n_samples: Number of samples
-# - Organism: Source organism
-# - PubMedIds: Associated PubMed IDs
+tp53_results = search_geo_profiles("TP53", organism="Homo sapiens")
+print(f"Found {tp53_results['Count']} expression profiles for TP53")
 ```
 
-#### eFetch - Full Records
+### 高级搜索
 
-**Purpose:** Retrieve full records for a list of UIDs.
-
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
-```
-
-**Parameters:**
-- `db` (required): Database
-- `id` (required): Comma-separated list of UIDs
-- `retmode`: Return format ("xml", "text")
-- `rettype`: Record type (database-specific)
-
-**Example:**
 ```python
-from Bio import Entrez
-Entrez.email = "your@email.com"
+def advanced_geo_search(terms, operator="AND"):
+    """Build complex search queries"""
+    query = f" {operator} ".join(terms)
+    return search_geo_datasets(query)
 
-# Fetch full records
-handle = Entrez.efetch(
-    db="gds",
-    id="200000001",
-    retmode="xml"
-)
-records = Entrez.read(handle)
-handle.close()
+# 最近的 RNA-seq 研究
+search_terms = [
+    "RNA-seq[DataSet Type]",
+    "Homo sapiens[Organism]",
+    "2024[Publication Date]"
+]
+results = advanced_geo_search(search_terms)
+
+# 按作者和疾病搜索
+results = advanced_geo_search(["Smith[Author]", "diabetes[Disease]"])
 ```
 
-#### eLink - Cross-Database Linking
+---
 
-**Purpose:** Find related records in same or different databases.
+## GEOparse 使用
 
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi
-```
+### 基础用法
 
-**Parameters:**
-- `dbfrom` (required): Source database
-- `db` (required): Target database
-- `id` (required): UID from source database
-- `cmd`: Link command type
-  - "neighbor": Return linked UIDs (default)
-  - "neighbor_score": Return scored links
-  - "acheck": Check for links
-  - "ncheck": Count links
-  - "llinks": Return URLs to LinkOut resources
-
-**Example:**
-```python
-from Bio import Entrez
-Entrez.email = "your@email.com"
-
-# Find PubMed articles linked to a GEO dataset
-handle = Entrez.elink(
-    dbfrom="gds",
-    db="pubmed",
-    id="200000001"
-)
-links = Entrez.read(handle)
-handle.close()
-```
-
-#### ePost - Upload UID List
-
-**Purpose:** Upload a list of UIDs to the history server for use in subsequent requests.
-
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/epost.fcgi
-```
-
-**Parameters:**
-- `db` (required): Database
-- `id` (required): Comma-separated list of UIDs
-
-**Example:**
-```python
-from Bio import Entrez
-Entrez.email = "your@email.com"
-
-# Post large list of IDs
-large_id_list = [str(i) for i in range(200000001, 200000101)]
-handle = Entrez.epost(db="gds", id=",".join(large_id_list))
-result = Entrez.read(handle)
-handle.close()
-
-# Use returned QueryKey and WebEnv in subsequent calls
-query_key = result["QueryKey"]
-webenv = result["WebEnv"]
-```
-
-#### eInfo - Database Information
-
-**Purpose:** Get information about available databases and their fields.
-
-**URL Pattern:**
-```
-https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi
-```
-
-**Parameters:**
-- `db`: Database name (omit to get list of all databases)
-- `version`: Set to "2.0" for detailed field information
-
-**Example:**
-```python
-from Bio import Entrez
-Entrez.email = "your@email.com"
-
-# Get information about gds database
-handle = Entrez.einfo(db="gds", version="2.0")
-info = Entrez.read(handle)
-handle.close()
-
-# Returns:
-# - Database description
-# - Last update date
-# - Record count
-# - Available search fields
-# - Link information
-```
-
-### Search Field Qualifiers for GEO
-
-Common search fields for building targeted queries:
-
-**General Fields:**
-- `[Accession]`: GEO accession number
-- `[Title]`: Dataset title
-- `[Author]`: Author name
-- `[Organism]`: Source organism
-- `[Entry Type]`: Type of entry (e.g., "Expression profiling by array")
-- `[Platform]`: Platform accession or name
-- `[PubMed ID]`: Associated PubMed ID
-
-**Date Fields:**
-- `[Publication Date]`: Publication date (YYYY or YYYY/MM/DD)
-- `[Submission Date]`: Submission date
-- `[Modification Date]`: Last modification date
-
-**MeSH Terms:**
-- `[MeSH Terms]`: Medical Subject Headings
-- `[MeSH Major Topic]`: Major MeSH topics
-
-**Study Type Fields:**
-- `[DataSet Type]`: Type of study (e.g., "RNA-seq", "ChIP-seq")
-- `[Sample Type]`: Sample type
-
-**Example Complex Query:**
-```python
-query = """
-    (breast cancer[MeSH] OR breast neoplasms[Title]) AND
-    Homo sapiens[Organism] AND
-    expression profiling by array[Entry Type] AND
-    2020:2024[Publication Date] AND
-    GPL570[Platform]
-"""
-```
-
-## SOFT File Format Specification
-
-### Overview
-
-SOFT (Simple Omnibus Format in Text) is GEO's primary data exchange format. Files are structured as key-value pairs with data tables.
-
-### File Types
-
-**Family SOFT Files:**
-- Filename: `GSExxxxx_family.soft.gz`
-- Contains: Complete series with all samples and platforms
-- Size: Can be very large (100s of MB compressed)
-- Use: Complete data extraction
-
-**Series Matrix Files:**
-- Filename: `GSExxxxx_series_matrix.txt.gz`
-- Contains: Expression matrix with minimal metadata
-- Size: Smaller than family files
-- Use: Quick access to expression data
-
-**Platform SOFT Files:**
-- Filename: `GPLxxxxx.soft`
-- Contains: Platform annotation and probe information
-- Use: Mapping probes to genes
-
-### SOFT File Structure
-
-```
-^DATABASE = GeoMiame
-!Database_name = Gene Expression Omnibus (GEO)
-!Database_institute = NCBI NLM NIH
-!Database_web_link = http://www.ncbi.nlm.nih.gov/geo
-!Database_email = geo@ncbi.nlm.nih.gov
-
-^SERIES = GSExxxxx
-!Series_title = Study Title Here
-!Series_summary = Study description and background...
-!Series_overall_design = Experimental design...
-!Series_type = Expression profiling by array
-!Series_pubmed_id = 12345678
-!Series_submission_date = Jan 01 2024
-!Series_last_update_date = Jan 15 2024
-!Series_contributor = John,Doe
-!Series_contributor = Jane,Smith
-!Series_sample_id = GSMxxxxxx
-!Series_sample_id = GSMxxxxxx
-
-^PLATFORM = GPLxxxxx
-!Platform_title = Platform Name
-!Platform_distribution = commercial or custom
-!Platform_organism = Homo sapiens
-!Platform_manufacturer = Affymetrix
-!Platform_technology = in situ oligonucleotide
-!Platform_data_row_count = 54675
-#ID = Probe ID
-#GB_ACC = GenBank accession
-#SPOT_ID = Spot identifier
-#Gene Symbol = Gene symbol
-#Gene Title = Gene title
-!platform_table_begin
-ID    GB_ACC    SPOT_ID    Gene Symbol    Gene Title
-1007_s_at    U48705    -    DDR1    discoidin domain receptor...
-1053_at    M87338    -    RFC2    replication factor C...
-!platform_table_end
-
-^SAMPLE = GSMxxxxxx
-!Sample_title = Sample name
-!Sample_source_name_ch1 = cell line XYZ
-!Sample_organism_ch1 = Homo sapiens
-!Sample_characteristics_ch1 = cell type: epithelial
-!Sample_characteristics_ch1 = treatment: control
-!Sample_molecule_ch1 = total RNA
-!Sample_label_ch1 = biotin
-!Sample_platform_id = GPLxxxxx
-!Sample_data_processing = normalization method
-#ID_REF = Probe identifier
-#VALUE = Expression value
-!sample_table_begin
-ID_REF    VALUE
-1007_s_at    8.456
-1053_at    7.234
-!sample_table_end
-```
-
-### Parsing SOFT Files
-
-**With GEOparse:**
 ```python
 import GEOparse
 
-# Parse series
-gse = GEOparse.get_GEO(filepath="GSE123456_family.soft.gz")
+# 下载并解析 GEO Series
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
 
-# Access metadata
-metadata = gse.metadata
-phenotype_data = gse.phenotype_data
+# 访问系列元数据
+print(gse.metadata['title'])
+print(gse.metadata['summary'])
+print(gse.metadata['overall_design'])
 
-# Access samples
+# 访问样本信息
 for gsm_name, gsm in gse.gsms.items():
-    sample_data = gsm.table
-    sample_metadata = gsm.metadata
+    print(f"Sample: {gsm_name}")
+    print(f"  Title: {gsm.metadata['title'][0]}")
+    print(f"  Source: {gsm.metadata['source_name_ch1'][0]}")
+    print(f"  Characteristics: {gsm.metadata.get('characteristics_ch1', [])}")
 
-# Access platforms
+# 访问平台信息
 for gpl_name, gpl in gse.gpls.items():
-    platform_table = gpl.table
-    platform_metadata = gpl.metadata
+    print(f"Platform: {gpl_name}")
+    print(f"  Title: {gpl.metadata['title'][0]}")
+    print(f"  Organism: {gpl.metadata['organism'][0]}")
 ```
 
-**Manual Parsing:**
-```python
-import gzip
-
-def parse_soft_file(filename):
-    """Basic SOFT file parser"""
-    sections = {}
-    current_section = None
-    current_metadata = {}
-    current_table = []
-    in_table = False
-
-    with gzip.open(filename, 'rt') as f:
-        for line in f:
-            line = line.strip()
-
-            # New section
-            if line.startswith('^'):
-                if current_section:
-                    sections[current_section] = {
-                        'metadata': current_metadata,
-                        'table': current_table
-                    }
-                parts = line[1:].split(' = ')
-                current_section = parts[1] if len(parts) > 1 else parts[0]
-                current_metadata = {}
-                current_table = []
-                in_table = False
-
-            # Metadata
-            elif line.startswith('!'):
-                if in_table:
-                    in_table = False
-                key_value = line[1:].split(' = ', 1)
-                if len(key_value) == 2:
-                    key, value = key_value
-                    if key in current_metadata:
-                        if isinstance(current_metadata[key], list):
-                            current_metadata[key].append(value)
-                        else:
-                            current_metadata[key] = [current_metadata[key], value]
-                    else:
-                        current_metadata[key] = value
-
-            # Table data
-            elif line.startswith('#') or in_table:
-                in_table = True
-                current_table.append(line)
-
-    return sections
-```
-
-## MINiML File Format
-
-### Overview
-
-MINiML (MIAME Notation in Markup Language) is GEO's XML-based format for data exchange.
-
-### File Structure
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<MINiML xmlns="http://www.ncbi.nlm.nih.gov/geo/info/MINiML"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Series iid="GDS123">
-    <Status>
-      <Submission-Date>2024-01-01</Submission-Date>
-      <Release-Date>2024-01-15</Release-Date>
-      <Last-Update-Date>2024-01-15</Last-Update-Date>
-    </Status>
-    <Title>Study Title</Title>
-    <Summary>Study description...</Summary>
-    <Overall-Design>Experimental design...</Overall-Design>
-    <Type>Expression profiling by array</Type>
-    <Contributor>
-      <Person>
-        <First>John</First>
-        <Last>Doe</Last>
-      </Person>
-    </Contributor>
-  </Series>
-
-  <Platform iid="GPL123">
-    <Title>Platform Name</Title>
-    <Distribution>commercial</Distribution>
-    <Technology>in situ oligonucleotide</Technology>
-    <Organism taxid="9606">Homo sapiens</Organism>
-    <Data-Table>
-      <Column position="1">
-        <Name>ID</Name>
-        <Description>Probe identifier</Description>
-      </Column>
-      <Data>
-        <Row>
-          <Cell column="1">1007_s_at</Cell>
-          <Cell column="2">U48705</Cell>
-        </Row>
-      </Data>
-    </Data-Table>
-  </Platform>
-
-  <Sample iid="GSM123">
-    <Title>Sample name</Title>
-    <Source>cell line XYZ</Source>
-    <Organism taxid="9606">Homo sapiens</Organism>
-    <Characteristics tag="cell type">epithelial</Characteristics>
-    <Characteristics tag="treatment">control</Characteristics>
-    <Platform-Ref ref="GPL123"/>
-    <Data-Table>
-      <Column position="1">
-        <Name>ID_REF</Name>
-      </Column>
-      <Column position="2">
-        <Name>VALUE</Name>
-      </Column>
-      <Data>
-        <Row>
-          <Cell column="1">1007_s_at</Cell>
-          <Cell column="2">8.456</Cell>
-        </Row>
-      </Data>
-    </Data-Table>
-  </Sample>
-</MINiML>
-```
-
-## FTP Directory Structure
-
-### Series Files
-
-**Pattern:**
-```
-ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE{nnn}nnn/GSE{xxxxx}/
-```
-
-Where `{nnn}` represents replacing last 3 digits with "nnn" and `{xxxxx}` is the full accession.
-
-**Example:**
-- GSE123456 鈫?`/geo/series/GSE123nnn/GSE123456/`
-- GSE1234 鈫?`/geo/series/GSE1nnn/GSE1234/`
-- GSE100001 鈫?`/geo/series/GSE100nnn/GSE100001/`
-
-**Subdirectories:**
-- `/matrix/` - Series matrix files
-- `/soft/` - Family SOFT files
-- `/miniml/` - MINiML XML files
-- `/suppl/` - Supplementary files
-
-**File Types:**
-```
-matrix/
-  鈹斺攢鈹€ GSE123456_series_matrix.txt.gz
-
-soft/
-  鈹斺攢鈹€ GSE123456_family.soft.gz
-
-miniml/
-  鈹斺攢鈹€ GSE123456_family.xml.tgz
-
-suppl/
-  鈹溾攢鈹€ GSE123456_RAW.tar
-  鈹溾攢鈹€ filelist.txt
-  鈹斺攢鈹€ [various supplementary files]
-```
-
-### Sample Files
-
-**Pattern:**
-```
-ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM{nnn}nnn/GSM{xxxxx}/
-```
-
-**Subdirectories:**
-- `/suppl/` - Sample-specific supplementary files
-
-### Platform Files
-
-**Pattern:**
-```
-ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL{nnn}nnn/GPL{xxxxx}/
-```
-
-**File Types:**
-```
-soft/
-  鈹斺攢鈹€ GPL570.soft.gz
-
-miniml/
-  鈹斺攢鈹€ GPL570.xml
-
-annot/
-  鈹斺攢鈹€ GPL570.annot.gz  # Enhanced annotation (if available)
-```
-
-## Advanced GEOparse Usage
-
-### Custom Parsing Options
-
-```python
-import GEOparse
-
-# Parse with custom options
-gse = GEOparse.get_GEO(
-    geo="GSE123456",
-    destdir="./data",
-    silent=False,  # Show progress
-    how="full",  # Parse mode: "full", "quick", "brief"
-    annotate_gpl=True,  # Include platform annotation
-    geotype="GSE"  # Explicit type
-)
-
-# Access specific sample
-gsm = gse.gsms['GSM1234567']
-
-# Get expression values for specific probe
-probe_id = "1007_s_at"
-if hasattr(gsm, 'table'):
-    probe_data = gsm.table[gsm.table['ID_REF'] == probe_id]
-
-# Get all characteristics
-characteristics = {}
-for key, values in gsm.metadata.items():
-    if key.startswith('characteristics'):
-        for value in (values if isinstance(values, list) else [values]):
-            if ':' in value:
-                char_key, char_value = value.split(':', 1)
-                characteristics[char_key.strip()] = char_value.strip()
-```
-
-### Working with Platform Annotations
+### 提取表达矩阵
 
 ```python
 import GEOparse
@@ -606,224 +122,447 @@ import pandas as pd
 
 gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
 
-# Get platform
-gpl = list(gse.gpls.values())[0]
+# 方法1：从 series matrix 文件（最快）
+if hasattr(gse, 'pivot_samples'):
+    expression_df = gse.pivot_samples('VALUE')
+    print(expression_df.shape)  # genes x samples
 
-# Extract annotation table
-if hasattr(gpl, 'table'):
-    annotation = gpl.table
+# 方法2：从单个样本
+expression_data = {}
+for gsm_name, gsm in gse.gsms.items():
+    if hasattr(gsm, 'table'):
+        expression_data[gsm_name] = gsm.table['VALUE']
 
-    # Common annotation columns:
-    # - ID: Probe identifier
-    # - Gene Symbol: Gene symbol
-    # - Gene Title: Gene description
-    # - GB_ACC: GenBank accession
-    # - Gene ID: Entrez Gene ID
-    # - RefSeq: RefSeq accession
-    # - UniGene: UniGene cluster
-
-    # Map probes to genes
-    probe_to_gene = dict(zip(
-        annotation['ID'],
-        annotation['Gene Symbol']
-    ))
-
-    # Handle multiple probes per gene
-    gene_to_probes = {}
-    for probe, gene in probe_to_gene.items():
-        if gene and gene != '---':
-            if gene not in gene_to_probes:
-                gene_to_probes[gene] = []
-            gene_to_probes[gene].append(probe)
+expression_df = pd.DataFrame(expression_data)
+print(f"Expression matrix: {expression_df.shape}")
 ```
 
-### Handling Large Datasets
+### 下载补充文件
+
+```python
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
+
+gse.download_supplementary_files(
+    directory="./data/GSE123456_suppl",
+    download_sra=False  # 设为 True 下载 SRA 文件
+)
+
+# 列出可用补充文件
+for gsm_name, gsm in gse.gsms.items():
+    if hasattr(gsm, 'supplementary_files'):
+        print(f"Sample {gsm_name}:")
+        for file_url in gsm.metadata.get('supplementary_file', []):
+            print(f"  {file_url}")
+```
+
+### 过滤和子集
+
+```python
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
+
+# 按元数据过滤样本
+control_samples = [
+    gsm_name for gsm_name, gsm in gse.gsms.items()
+    if 'control' in gsm.metadata.get('title', [''])[0].lower()
+]
+
+treatment_samples = [
+    gsm_name for gsm_name, gsm in gse.gsms.items()
+    if 'treatment' in gsm.metadata.get('title', [''])[0].lower()
+]
+
+# 提取子集表达矩阵
+expression_df = gse.pivot_samples('VALUE')
+control_expr = expression_df[control_samples]
+treatment_expr = expression_df[treatment_samples]
+```
+
+---
+
+## E-utilities 访问
+
+### 基础工作流
+
+```python
+from Bio import Entrez
+import time
+
+Entrez.email = "your.email@example.com"
+
+def search_geo(query, db="gds", retmax=100):
+    handle = Entrez.esearch(db=db, term=query, retmax=retmax, usehistory="y")
+    results = Entrez.read(handle)
+    handle.close()
+    return results
+
+def fetch_geo_summaries(id_list, db="gds"):
+    ids = ",".join(id_list)
+    handle = Entrez.esummary(db=db, id=ids)
+    summaries = Entrez.read(handle)
+    handle.close()
+    return summaries
+
+def fetch_geo_records(id_list, db="gds"):
+    ids = ",".join(id_list)
+    handle = Entrez.efetch(db=db, id=ids, retmode="xml")
+    records = Entrez.read(handle)
+    handle.close()
+    return records
+
+# 示例工作流
+search_results = search_geo("breast cancer AND Homo sapiens")
+id_list = search_results['IdList'][:5]
+
+summaries = fetch_geo_summaries(id_list)
+for summary in summaries:
+    print(f"GDS: {summary.get('Accession', 'N/A')}")
+    print(f"Title: {summary.get('title', 'N/A')}")
+    print(f"Samples: {summary.get('n_samples', 'N/A')}")
+```
+
+### 批量获取元数据
+
+```python
+def batch_fetch_geo_metadata(accessions, batch_size=100):
+    """Fetch metadata for multiple GEO accessions"""
+    results = {}
+
+    for i in range(0, len(accessions), batch_size):
+        batch = accessions[i:i + batch_size]
+
+        for accession in batch:
+            try:
+                query = f"{accession}[Accession]"
+                search_handle = Entrez.esearch(db="gds", term=query)
+                search_results = Entrez.read(search_handle)
+                search_handle.close()
+
+                if search_results['IdList']:
+                    summary_handle = Entrez.esummary(
+                        db="gds",
+                        id=search_results['IdList'][0]
+                    )
+                    summary = Entrez.read(summary_handle)
+                    summary_handle.close()
+                    results[accession] = summary[0]
+
+                time.sleep(0.34)  # 最多 3 请求/秒
+
+            except Exception as e:
+                print(f"Error fetching {accession}: {e}")
+
+    return results
+
+gse_list = ["GSE100001", "GSE100002", "GSE100003"]
+metadata = batch_fetch_geo_metadata(gse_list)
+```
+
+---
+
+## FTP 直接下载
+
+### Python ftplib
+
+```python
+import ftplib
+import os
+
+def download_geo_ftp(accession, file_type="matrix", dest_dir="./data"):
+    """Download GEO files via FTP"""
+    if accession.startswith("GSE"):
+        gse_num = accession[3:]
+        base_num = gse_num[:-3] + "nnn"
+        ftp_path = f"/geo/series/GSE{base_num}/{accession}/"
+
+        if file_type == "matrix":
+            filename = f"{accession}_series_matrix.txt.gz"
+        elif file_type == "soft":
+            filename = f"{accession}_family.soft.gz"
+        elif file_type == "miniml":
+            filename = f"{accession}_family.xml.tgz"
+
+    ftp = ftplib.FTP("ftp.ncbi.nlm.nih.gov")
+    ftp.login()
+    ftp.cwd(ftp_path)
+
+    os.makedirs(dest_dir, exist_ok=True)
+    local_file = os.path.join(dest_dir, filename)
+
+    with open(local_file, 'wb') as f:
+        ftp.retrbinary(f'RETR {filename}', f.write)
+
+    ftp.quit()
+    print(f"Downloaded: {local_file}")
+    return local_file
+
+download_geo_ftp("GSE123456", file_type="matrix")
+download_geo_ftp("GSE123456", file_type="soft")
+```
+
+### wget/curl 命令
+
+```bash
+# 下载 series matrix 文件
+wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE123nnn/GSE123456/matrix/GSE123456_series_matrix.txt.gz
+
+# 下载所有补充文件
+wget -r -np -nd ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE123nnn/GSE123456/suppl/
+
+# 下载 SOFT 格式文件
+wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE123nnn/GSE123456/soft/GSE123456_family.soft.gz
+```
+
+---
+
+## 质量控制与预处理
+
+```python
+import GEOparse
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
+expression_df = gse.pivot_samples('VALUE')
+
+# 检查缺失值
+print(f"Missing values: {expression_df.isnull().sum().sum()}")
+
+# Log 转换（如需要）
+if expression_df.min().min() > 0:
+    if expression_df.max().max() > 100:
+        expression_df = np.log2(expression_df + 1)
+        print("Applied log2 transformation")
+
+# 分布图
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+expression_df.plot.box(ax=plt.gca())
+plt.title("Expression Distribution per Sample")
+plt.xticks(rotation=90)
+
+plt.subplot(1, 2, 2)
+expression_df.mean(axis=1).hist(bins=50)
+plt.title("Gene Expression Distribution")
+plt.xlabel("Average Expression")
+
+plt.tight_layout()
+plt.savefig("geo_qc.png", dpi=300, bbox_inches='tight')
+```
+
+---
+
+## 差异表达分析
+
+```python
+import GEOparse
+import pandas as pd
+import numpy as np
+from scipy import stats
+from statsmodels.stats.multitest import multipletests
+
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
+expression_df = gse.pivot_samples('VALUE')
+
+control_samples = ["GSM1", "GSM2", "GSM3"]
+treatment_samples = ["GSM4", "GSM5", "GSM6"]
+
+results = []
+for gene in expression_df.index:
+    control_expr = expression_df.loc[gene, control_samples]
+    treatment_expr = expression_df.loc[gene, treatment_samples]
+
+    fold_change = treatment_expr.mean() - control_expr.mean()
+    t_stat, p_value = stats.ttest_ind(treatment_expr, control_expr)
+
+    results.append({
+        'gene': gene,
+        'log2_fold_change': fold_change,
+        'p_value': p_value,
+        'control_mean': control_expr.mean(),
+        'treatment_mean': treatment_expr.mean()
+    })
+
+de_results = pd.DataFrame(results)
+
+# Benjamini-Hochberg 多重检验校正
+_, de_results['q_value'], _, _ = multipletests(
+    de_results['p_value'],
+    method='fdr_bh'
+)
+
+# 筛选显著基因
+significant_genes = de_results[
+    (de_results['q_value'] < 0.05) &
+    (abs(de_results['log2_fold_change']) > 1)
+]
+
+print(f"Significant genes: {len(significant_genes)}")
+significant_genes.to_csv("de_results.csv", index=False)
+```
+
+---
+
+## 聚类分析
+
+```python
+import GEOparse
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.cluster import hierarchy
+from scipy.spatial.distance import pdist
+
+gse = GEOparse.get_GEO(geo="GSE123456", destdir="./data")
+expression_df = gse.pivot_samples('VALUE')
+
+# 样本相关性热图
+sample_corr = expression_df.corr()
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(sample_corr, cmap='coolwarm', center=0,
+            square=True, linewidths=0.5)
+plt.title("Sample Correlation Matrix")
+plt.tight_layout()
+plt.savefig("sample_correlation.png", dpi=300, bbox_inches='tight')
+
+# 层次聚类
+distances = pdist(expression_df.T, metric='correlation')
+linkage = hierarchy.linkage(distances, method='average')
+
+plt.figure(figsize=(12, 6))
+hierarchy.dendrogram(linkage, labels=expression_df.columns)
+plt.title("Hierarchical Clustering of Samples")
+plt.xlabel("Samples")
+plt.ylabel("Distance")
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.savefig("sample_clustering.png", dpi=300, bbox_inches='tight')
+```
+
+---
+
+## 批量处理多数据集
+
+```python
+import GEOparse
+import pandas as pd
+import os
+
+def batch_download_geo(gse_list, destdir="./geo_data"):
+    """Download multiple GEO series"""
+    results = {}
+
+    for gse_id in gse_list:
+        try:
+            print(f"Processing {gse_id}...")
+            gse = GEOparse.get_GEO(geo=gse_id, destdir=destdir)
+
+            results[gse_id] = {
+                'title': gse.metadata.get('title', ['N/A'])[0],
+                'organism': gse.metadata.get('organism', ['N/A'])[0],
+                'platform': list(gse.gpls.keys())[0] if gse.gpls else 'N/A',
+                'num_samples': len(gse.gsms),
+                'submission_date': gse.metadata.get('submission_date', ['N/A'])[0]
+            }
+
+            if hasattr(gse, 'pivot_samples'):
+                expr_df = gse.pivot_samples('VALUE')
+                expr_df.to_csv(f"{destdir}/{gse_id}_expression.csv")
+                results[gse_id]['num_genes'] = len(expr_df)
+
+        except Exception as e:
+            print(f"Error processing {gse_id}: {e}")
+            results[gse_id] = {'error': str(e)}
+
+    summary_df = pd.DataFrame(results).T
+    summary_df.to_csv(f"{destdir}/batch_summary.csv")
+    return results
+
+gse_list = ["GSE100001", "GSE100002", "GSE100003"]
+results = batch_download_geo(gse_list)
+```
+
+---
+
+## 元分析
 
 ```python
 import GEOparse
 import pandas as pd
 import numpy as np
 
-def process_large_gse(gse_id, chunk_size=1000):
-    """Process large GEO series in chunks"""
-    gse = GEOparse.get_GEO(geo=gse_id, destdir="./data")
+def meta_analysis_geo(gse_list, gene_of_interest):
+    """Perform meta-analysis of gene expression across studies"""
+    results = []
 
-    # Get sample list
-    sample_list = list(gse.gsms.keys())
+    for gse_id in gse_list:
+        try:
+            gse = GEOparse.get_GEO(geo=gse_id, destdir="./data")
+            gpl = list(gse.gpls.values())[0]
 
-    # Process in chunks
-    for i in range(0, len(sample_list), chunk_size):
-        chunk_samples = sample_list[i:i+chunk_size]
+            if hasattr(gpl, 'table'):
+                gene_probes = gpl.table[
+                    gpl.table['Gene Symbol'].str.contains(
+                        gene_of_interest, case=False, na=False
+                    )
+                ]
 
-        # Extract data for chunk
-        chunk_data = {}
-        for gsm_id in chunk_samples:
-            gsm = gse.gsms[gsm_id]
-            if hasattr(gsm, 'table'):
-                chunk_data[gsm_id] = gsm.table['VALUE']
+                if not gene_probes.empty:
+                    expr_df = gse.pivot_samples('VALUE')
 
-        # Process chunk
-        chunk_df = pd.DataFrame(chunk_data)
+                    for probe_id in gene_probes['ID']:
+                        if probe_id in expr_df.index:
+                            expr_values = expr_df.loc[probe_id]
+                            results.append({
+                                'study': gse_id,
+                                'probe': probe_id,
+                                'mean_expression': expr_values.mean(),
+                                'std_expression': expr_values.std(),
+                                'num_samples': len(expr_values)
+                            })
 
-        # Save chunk results
-        chunk_df.to_csv(f"chunk_{i//chunk_size}.csv")
+        except Exception as e:
+            print(f"Error in {gse_id}: {e}")
 
-        print(f"Processed {i+len(chunk_samples)}/{len(sample_list)} samples")
+    return pd.DataFrame(results)
+
+gse_studies = ["GSE100001", "GSE100002", "GSE100003"]
+meta_results = meta_analysis_geo(gse_studies, "TP53")
+print(meta_results)
 ```
 
-## Troubleshooting Common Issues
+---
 
-### Issue: GEOparse Fails to Download
+## 安装与配置
 
-**Symptoms:** Timeout errors, connection failures
+```bash
+# 主要 GEO 访问库（推荐）
+uv pip install GEOparse
 
-**Solutions:**
-1. Check internet connection
-2. Try downloading directly via FTP first
-3. Parse local files:
+# E-utilities 和 NCBI 编程访问
+uv pip install biopython
+
+# 数据分析
+uv pip install pandas numpy scipy
+
+# 可视化
+uv pip install matplotlib seaborn
+
+# 统计分析
+uv pip install statsmodels scikit-learn
+```
+
 ```python
-gse = GEOparse.get_GEO(filepath="./local/GSE123456_family.soft.gz")
+from Bio import Entrez
+
+# 必须设置邮箱（NCBI 要求）
+Entrez.email = "your.email@example.com"
+
+# 可选：设置 API key 提升速率限制
+# 申请地址：https://www.ncbi.nlm.nih.gov/account/
+Entrez.api_key = "your_api_key_here"
+
+# 有 API key：10 请求/秒
+# 无 API key：3 请求/秒
 ```
-4. Increase timeout (modify GEOparse source if needed)
-
-### Issue: Missing Expression Data
-
-**Symptoms:** `pivot_samples()` fails or returns empty
-
-**Cause:** Not all series have series matrix files (older submissions)
-
-**Solution:** Parse individual sample tables:
-```python
-expression_data = {}
-for gsm_name, gsm in gse.gsms.items():
-    if hasattr(gsm, 'table') and 'VALUE' in gsm.table.columns:
-        expression_data[gsm_name] = gsm.table.set_index('ID_REF')['VALUE']
-
-expression_df = pd.DataFrame(expression_data)
-```
-
-### Issue: Inconsistent Probe IDs
-
-**Symptoms:** Probe IDs don't match between samples
-
-**Cause:** Different platform versions or sample processing
-
-**Solution:** Standardize using platform annotation:
-```python
-# Get common probe set
-all_probes = set()
-for gsm in gse.gsms.values():
-    if hasattr(gsm, 'table'):
-        all_probes.update(gsm.table['ID_REF'].values)
-
-# Create standardized matrix
-standardized_data = {}
-for gsm_name, gsm in gse.gsms.items():
-    if hasattr(gsm, 'table'):
-        sample_data = gsm.table.set_index('ID_REF')['VALUE']
-        standardized_data[gsm_name] = sample_data.reindex(all_probes)
-
-expression_df = pd.DataFrame(standardized_data)
-```
-
-### Issue: E-utilities Rate Limiting
-
-**Symptoms:** HTTP 429 errors, slow responses
-
-**Solution:**
-1. Get an API key from NCBI
-2. Implement rate limiting:
-```python
-import time
-from functools import wraps
-
-def rate_limit(calls_per_second=3):
-    min_interval = 1.0 / calls_per_second
-
-    def decorator(func):
-        last_called = [0.0]
-
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            elapsed = time.time() - last_called[0]
-            wait_time = min_interval - elapsed
-            if wait_time > 0:
-                time.sleep(wait_time)
-            result = func(*args, **kwargs)
-            last_called[0] = time.time()
-            return result
-        return wrapper
-    return decorator
-
-@rate_limit(calls_per_second=3)
-def safe_esearch(query):
-    handle = Entrez.esearch(db="gds", term=query)
-    results = Entrez.read(handle)
-    handle.close()
-    return results
-```
-
-### Issue: Memory Errors with Large Datasets
-
-**Symptoms:** MemoryError, system slowdown
-
-**Solution:**
-1. Process data in chunks
-2. Use sparse matrices for expression data
-3. Load only necessary columns
-4. Use memory-efficient data types:
-```python
-import pandas as pd
-
-# Read with specific dtypes
-expression_df = pd.read_csv(
-    "expression_matrix.csv",
-    dtype={'ID': str, 'GSM1': np.float32}  # Use float32 instead of float64
-)
-
-# Or use sparse format for mostly-zero data
-import scipy.sparse as sp
-sparse_matrix = sp.csr_matrix(expression_df.values)
-```
-
-## Platform-Specific Considerations
-
-### Affymetrix Arrays
-
-- Probe IDs format: `1007_s_at`, `1053_at`
-- Multiple probe sets per gene common
-- Check for `_at`, `_s_at`, `_x_at` suffixes
-- May need RMA or MAS5 normalization
-
-### Illumina Arrays
-
-- Probe IDs format: `ILMN_1234567`
-- Watch for duplicate probes
-- BeadChip-specific processing may be needed
-
-### RNA-seq
-
-- May not have traditional "probes"
-- Check for gene IDs (Ensembl, Entrez)
-- Counts vs. FPKM/TPM values
-- May need separate count files
-
-### Two-Channel Arrays
-
-- Look for `_ch1` and `_ch2` suffixes in metadata
-- VALUE_ch1, VALUE_ch2 columns
-- May need ratio or intensity values
-- Check dye-swap experiments
-
-## Best Practices Summary
-
-1. **Always set Entrez.email** before using E-utilities
-2. **Use API key** for better rate limits
-3. **Cache downloaded files** locally
-4. **Check data quality** before analysis
-5. **Verify platform annotations** are current
-6. **Document data processing** steps
-7. **Cite original studies** when using data
-8. **Check for batch effects** in meta-analyses
-9. **Validate results** with independent datasets
-10. **Follow NCBI usage guidelines**

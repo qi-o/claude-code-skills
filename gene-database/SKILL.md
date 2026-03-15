@@ -1,6 +1,12 @@
 ﻿---
 name: gene-database
-description: Query NCBI Gene via E-utilities/Datasets API. Search by symbol/ID, retrieve gene info (RefSeqs, GO, locations, phenotypes), batch lookups, for gene annotation and functional analysis.
+description: |
+  Query NCBI Gene via E-utilities/Datasets API. Search by symbol/ID, retrieve gene info (RefSeqs, GO, locations, phenotypes), batch lookups, for gene annotation and functional analysis.
+  触发场景：
+  (1) 用户需要查询基因信息、基因注释、基因功能
+  (2) 用户说"基因查询"、"NCBI Gene"、"基因注释"、"GO注释"、"基因功能"、"RefSeq"、"基因ID"、"基因符号"
+  (3) 用户需要批量查询基因列表、获取基因位置/表型/通路信息
+  Do NOT use for expression datasets (use geo-database instead); for sequence-heavy pipelines (use biopython instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

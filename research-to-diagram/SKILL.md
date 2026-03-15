@@ -1,6 +1,6 @@
 ---
 name: research-to-diagram
-description: 深度调研主题并自动生成知识关系图谱PDF。接收研究主题后自动进行网络调研、信息收集、知识整理，最终生成专业的可视化关系图谱。适用于"研究...并做图"、"深度分析...并可视化"、"生成知识图谱"等场景。 Do NOT use for text-only reports (use deep-research instead).
+description: 深度调研主题并自动生成知识关系图谱PDF。接收研究主题后自动进行网络调研、信息收集、知识整理，最终生成专业的可视化关系图谱。当用户说"研究...并做图"、"深度分析...并可视化"、"生成知识图谱"、"可视化调研"、"研究并可视化"、"生成关系图"、"画关系图"、"knowledge graph"、"research and visualize"、"generate diagram from research"时使用。Do NOT use for text-only reports (use deep-research instead), or when user already has structured data (use structure-to-pdf instead).
 license: MIT
 version: 0.1.0
 metadata:

@@ -1,6 +1,6 @@
 ﻿---
-name: repo-to-skills
-description: Multi-platform repository to skill converter with AI-powered analysis, mirror rotation, and enhanced metadata tracking. Supports GitHub, GitLab, and Gitee. Use when user wants to convert a repository into an AI skill. Use when user says "浠撳簱杞瑂kill", "GitHub杞妧鑳?, "convert repo", or "repo to skill".
+name: github-to-skills
+description: Multi-platform repository to skill converter with AI-powered analysis, mirror rotation, and enhanced metadata tracking. Supports GitHub, GitLab, and Gitee. Use when user wants to convert a repository into an AI skill. Triggers: "仓库转Skill", "GitHub转技能", "convert repo", "repo to skill", "把仓库转成skill", "从GitHub安装skill". Do NOT use for creating skills from scratch (use skill-creator instead).
 license: MIT
 # Primary source (original github-to-skills)
 github_url: https://github.com/KKKKhazix/Khazix-Skills
@@ -58,9 +58,9 @@ When `skill-manager` checks for updates, it will monitor **both** repositories f
 
 - `/repo-to-skills <repository_url>`
 - "Convert this repo to a skill: <url>"
-- "甯垜鎶婅繖涓粨搴撹浆鎴愭妧鑳斤細<url>"
-- "甯垜鎶婂綋鍓嶉」鐩浆鎴愭妧鑳?
-- "甯垜鎶婅繖涓湰鍦伴」鐩浆鎴愭妧鑳斤細<path>"
+- "帮我把这个仓库转成技能：<url>"
+- "帮我把当前项目转成技能"
+- "帮我把这个本地项目转成技能：<path>"
 
 **Supported URL formats:**
 

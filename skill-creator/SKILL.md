@@ -1,6 +1,6 @@
 ﻿---
 name: skill-creator
-description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Use when user says "鍒涘缓skill", "鏂板缓鎶€鑳?, "create skill", "make a skill", or "build a new skill".
+description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Use when user says "鍒涘缓skill", "鏂板缓鎶€鑳?, "create skill", "make a skill", or "build a new skill". Do NOT use for updating existing skills (use skill-evolution-manager instead) or installing from GitHub (use github-to-skills instead).
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
 github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c

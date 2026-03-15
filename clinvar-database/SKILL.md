@@ -1,6 +1,12 @@
 ﻿---
 name: clinvar-database
-description: Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.
+description: |
+  Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP, annotate VCFs, for genomic medicine.
+  触发场景：
+  (1) 用户需要查询基因变异的临床意义、致病性分类
+  (2) 用户说"变异致病性"、"ClinVar查询"、"基因变异注释"、"VCF注释"、"临床意义"
+  (3) 需要注释 VCF 文件中的变异位点
+  Do NOT use for pathway analysis (use kegg-database or reactome-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

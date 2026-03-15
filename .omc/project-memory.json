@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1773230114349,
+  "lastScanned": 1773415471041,
   "projectRoot": "C:\\Users\\ZDS\\.claude\\skills",
   "techStack": {
     "languages": [],
@@ -25,7 +25,10 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [],
-    "gitBranches": null
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
   },
   "customNotes": [],
   "directoryMap": {
@@ -33,7 +36,7 @@
       "path": "academic-writing-suite",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114268,
+      "lastAccessed": 1773415470991,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -43,7 +46,7 @@
       "path": "ai-check-humanizer",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114269,
+      "lastAccessed": 1773415470991,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -52,7 +55,7 @@
       "path": "ai4scholar-integration",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114270,
+      "lastAccessed": 1773415470992,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -62,7 +65,7 @@
       "path": "alphafold-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114271,
+      "lastAccessed": 1773415470992,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -71,7 +74,7 @@
       "path": "anndata",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114272,
+      "lastAccessed": 1773415470993,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -80,7 +83,7 @@
       "path": "aria2-downloader",
       "purpose": null,
       "fileCount": 5,
-      "lastAccessed": 1773230114272,
+      "lastAccessed": 1773415470993,
       "keyFiles": [
         "compare.json",
         "evolution.json",
@@ -93,7 +96,7 @@
       "path": "baoyu-article-illustrator",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114274,
+      "lastAccessed": 1773415470994,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -102,7 +105,7 @@
       "path": "baoyu-compress-image",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114275,
+      "lastAccessed": 1773415470994,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -111,7 +114,7 @@
       "path": "baoyu-format-markdown",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114276,
+      "lastAccessed": 1773415470994,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -120,7 +123,7 @@
       "path": "biopython",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114277,
+      "lastAccessed": 1773415470995,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -129,7 +132,7 @@
       "path": "bioservices",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114277,
+      "lastAccessed": 1773415470995,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -138,7 +141,7 @@
       "path": "clinical-reports",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114278,
+      "lastAccessed": 1773415470996,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -147,7 +150,7 @@
       "path": "clinicaltrials-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114279,
+      "lastAccessed": 1773415470996,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -156,16 +159,25 @@
       "path": "clinvar-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114280,
+      "lastAccessed": 1773415470997,
       "keyFiles": [
         "SKILL.md"
+      ]
+    },
+    "config": {
+      "path": "config",
+      "purpose": "Configuration files",
+      "fileCount": 1,
+      "lastAccessed": 1773415470997,
+      "keyFiles": [
+        "CLAUDE.md"
       ]
     },
     "crewai-developer": {
       "path": "crewai-developer",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114280,
+      "lastAccessed": 1773415470998,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -174,7 +186,7 @@
       "path": "deep-research",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114281,
+      "lastAccessed": 1773415470998,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -183,7 +195,7 @@
       "path": "docx",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114281,
+      "lastAccessed": 1773415470998,
       "keyFiles": [
         "docx-js.md",
         "LICENSE.txt",
@@ -195,7 +207,7 @@
       "path": "drugbank-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114282,
+      "lastAccessed": 1773415470999,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -204,7 +216,7 @@
       "path": "ducksearch",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114282,
+      "lastAccessed": 1773415470999,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -213,7 +225,7 @@
       "path": "ensembl-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114283,
+      "lastAccessed": 1773415470999,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -222,7 +234,7 @@
       "path": "frontend-design",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114283,
+      "lastAccessed": 1773415471000,
       "keyFiles": [
         "evolution.json",
         "LICENSE.txt",
@@ -233,7 +245,7 @@
       "path": "gene-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114284,
+      "lastAccessed": 1773415471000,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -242,7 +254,7 @@
       "path": "geo-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114284,
+      "lastAccessed": 1773415471000,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -251,7 +263,7 @@
       "path": "github-to-skills",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114285,
+      "lastAccessed": 1773415471000,
       "keyFiles": [
         "evolution.json",
         "IMPLEMENTATION.md",
@@ -263,7 +275,7 @@
       "path": "gitnexus",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114286,
+      "lastAccessed": 1773415471001,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -273,7 +285,7 @@
       "path": "hmdb-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114287,
+      "lastAccessed": 1773415471001,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -282,7 +294,7 @@
       "path": "kegg-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114287,
+      "lastAccessed": 1773415471001,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -291,7 +303,7 @@
       "path": "manga-learning-creator",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114288,
+      "lastAccessed": 1773415471001,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -301,7 +313,7 @@
       "path": "mcp-to-skill",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114288,
+      "lastAccessed": 1773415471002,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -311,7 +323,7 @@
       "path": "notebooklm",
       "purpose": null,
       "fileCount": 8,
-      "lastAccessed": 1773230114289,
+      "lastAccessed": 1773415471002,
       "keyFiles": [
         "AUTHENTICATION.md",
         "CHANGELOG.md",
@@ -324,7 +336,7 @@
       "path": "novel-downloader",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114290,
+      "lastAccessed": 1773415471002,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -334,7 +346,7 @@
       "path": "opentargets-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114290,
+      "lastAccessed": 1773415471003,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -343,7 +355,7 @@
       "path": "paper-search",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114291,
+      "lastAccessed": 1773415471003,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -353,7 +365,7 @@
       "path": "pdb-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114291,
+      "lastAccessed": 1773415471003,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -362,7 +374,7 @@
       "path": "pdf",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114292,
+      "lastAccessed": 1773415471004,
       "keyFiles": [
         "forms.md",
         "LICENSE.txt",
@@ -374,7 +386,7 @@
       "path": "planning-with-files",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114293,
+      "lastAccessed": 1773415471004,
       "keyFiles": [
         "examples.md",
         "reference.md",
@@ -386,7 +398,7 @@
       "path": "pptx",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114293,
+      "lastAccessed": 1773415471004,
       "keyFiles": [
         "html2pptx.md",
         "LICENSE.txt",
@@ -398,7 +410,7 @@
       "path": "pub-figures",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114294,
+      "lastAccessed": 1773415471005,
       "keyFiles": [
         "evolution.json",
         "LICENSE.txt",
@@ -409,7 +421,7 @@
       "path": "pydeseq2",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114294,
+      "lastAccessed": 1773415471005,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -418,7 +430,7 @@
       "path": "pydicom",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114294,
+      "lastAccessed": 1773415471005,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -427,7 +439,7 @@
       "path": "qpcr-graphpad-formatter",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114295,
+      "lastAccessed": 1773415471006,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -437,7 +449,7 @@
       "path": "react-best-practices",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114295,
+      "lastAccessed": 1773415471006,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -446,7 +458,7 @@
       "path": "reactome-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114296,
+      "lastAccessed": 1773415471006,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -455,7 +467,7 @@
       "path": "research-to-diagram",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1773230114296,
+      "lastAccessed": 1773415471006,
       "keyFiles": [
         "COMPARISON.md",
         "README.md",
@@ -467,7 +479,7 @@
       "path": "role-orchestrator",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114297,
+      "lastAccessed": 1773415471007,
       "keyFiles": [
         "README.md",
         "SKILL.md"
@@ -477,7 +489,7 @@
       "path": "scanpy",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114298,
+      "lastAccessed": 1773415471007,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -486,7 +498,7 @@
       "path": "scientific-schematics",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114298,
+      "lastAccessed": 1773415471007,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -495,7 +507,7 @@
       "path": "skill-creator",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114299,
+      "lastAccessed": 1773415471007,
       "keyFiles": [
         "evolution.json",
         "LICENSE.txt",
@@ -506,7 +518,7 @@
       "path": "skill-evolution-manager",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114299,
+      "lastAccessed": 1773415471007,
       "keyFiles": [
         "evolution.json",
         "SKILL.md"
@@ -516,7 +528,7 @@
       "path": "skill-manager",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1773230114300,
+      "lastAccessed": 1773415471008,
       "keyFiles": [
         "evolution.json",
         "LICENSE.txt",
@@ -527,7 +539,16 @@
       "path": "string-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114300,
+      "lastAccessed": 1773415471008,
+      "keyFiles": [
+        "SKILL.md"
+      ]
+    },
+    "sync-to-github": {
+      "path": "sync-to-github",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1773415471010,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -536,7 +557,7 @@
       "path": "treatment-plans",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114301,
+      "lastAccessed": 1773415471010,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -545,7 +566,7 @@
       "path": "uniprot-database",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114301,
+      "lastAccessed": 1773415471011,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -554,7 +575,7 @@
       "path": "web-design-guidelines",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114302,
+      "lastAccessed": 1773415471011,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -564,7 +585,7 @@
       "path": "webnovel-analyze",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114302,
+      "lastAccessed": 1773415471011,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -573,7 +594,7 @@
       "path": "webnovel-continue",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114303,
+      "lastAccessed": 1773415471011,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -582,7 +603,7 @@
       "path": "webnovel-import",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114304,
+      "lastAccessed": 1773415471012,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -591,7 +612,7 @@
       "path": "webnovel-init",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114304,
+      "lastAccessed": 1773415471012,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -600,7 +621,7 @@
       "path": "webnovel-plan",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114305,
+      "lastAccessed": 1773415471012,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -609,7 +630,7 @@
       "path": "webnovel-write",
       "purpose": null,
       "fileCount": 1,
-      "lastAccessed": 1773230114305,
+      "lastAccessed": 1773415471013,
       "keyFiles": [
         "SKILL.md"
       ]
@@ -618,7 +639,7 @@
       "path": "windows-cleaner",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114306,
+      "lastAccessed": 1773415471013,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -628,7 +649,7 @@
       "path": "xlsx",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1773230114306,
+      "lastAccessed": 1773415471013,
       "keyFiles": [
         "LICENSE.txt",
         "SKILL.md"
@@ -638,7 +659,7 @@
       "path": "academic-writing-suite\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114307,
+      "lastAccessed": 1773415471014,
       "keyFiles": [
         "orchestrator.py"
       ]
@@ -647,14 +668,14 @@
       "path": "ai-check-humanizer\\config",
       "purpose": "Configuration files",
       "fileCount": 1,
-      "lastAccessed": 1773230114307,
+      "lastAccessed": 1773415471014,
       "keyFiles": []
     },
     "baoyu-compress-image\\scripts": {
       "path": "baoyu-compress-image\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114309,
+      "lastAccessed": 1773415471015,
       "keyFiles": [
         "main.ts"
       ]
@@ -663,7 +684,7 @@
       "path": "baoyu-format-markdown\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 6,
-      "lastAccessed": 1773230114310,
+      "lastAccessed": 1773415471016,
       "keyFiles": [
         "autocorrect.ts",
         "bun.lock",
@@ -674,7 +695,7 @@
       "path": "bioservices\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 4,
-      "lastAccessed": 1773230114312,
+      "lastAccessed": 1773415471017,
       "keyFiles": [
         "batch_id_converter.py",
         "compound_cross_reference.py",
@@ -685,7 +706,7 @@
       "path": "clinical-reports\\assets",
       "purpose": "Static assets",
       "fileCount": 12,
-      "lastAccessed": 1773230114312,
+      "lastAccessed": 1773415471017,
       "keyFiles": [
         "case_report_template.md",
         "clinical_trial_csr_template.md",
@@ -696,7 +717,7 @@
       "path": "clinical-reports\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 8,
-      "lastAccessed": 1773230114313,
+      "lastAccessed": 1773415471018,
       "keyFiles": [
         "check_deidentification.py",
         "compliance_checker.py",
@@ -707,7 +728,7 @@
       "path": "clinicaltrials-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114314,
+      "lastAccessed": 1773415471019,
       "keyFiles": [
         "query_clinicaltrials.py"
       ]
@@ -716,7 +737,7 @@
       "path": "docx\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 3,
-      "lastAccessed": 1773230114315,
+      "lastAccessed": 1773415471020,
       "keyFiles": [
         "document.py",
         "utilities.py",
@@ -727,7 +748,7 @@
       "path": "drugbank-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114316,
+      "lastAccessed": 1773415471020,
       "keyFiles": [
         "drugbank_helper.py"
       ]
@@ -736,7 +757,7 @@
       "path": "ensembl-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114317,
+      "lastAccessed": 1773415471021,
       "keyFiles": [
         "ensembl_query.py"
       ]
@@ -745,7 +766,7 @@
       "path": "gene-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 3,
-      "lastAccessed": 1773230114318,
+      "lastAccessed": 1773415471022,
       "keyFiles": [
         "batch_gene_lookup.py",
         "fetch_gene_data.py",
@@ -756,7 +777,7 @@
       "path": "github-to-skills\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 5,
-      "lastAccessed": 1773230114322,
+      "lastAccessed": 1773415471022,
       "keyFiles": [
         "create_github_skill.py",
         "create_skill.py",
@@ -767,14 +788,14 @@
       "path": "gitnexus\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 0,
-      "lastAccessed": 1773230114323,
+      "lastAccessed": 1773415471023,
       "keyFiles": []
     },
     "kegg-database\\scripts": {
       "path": "kegg-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114324,
+      "lastAccessed": 1773415471023,
       "keyFiles": [
         "kegg_api.py"
       ]
@@ -783,7 +804,7 @@
       "path": "manga-learning-creator\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 7,
-      "lastAccessed": 1773230114325,
+      "lastAccessed": 1773415471024,
       "keyFiles": [
         "generate_manga.ts",
         "merge-to-pdf.ts",
@@ -794,7 +815,7 @@
       "path": "mcp-to-skill\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114326,
+      "lastAccessed": 1773415471025,
       "keyFiles": [
         "analyze_mcp.py"
       ]
@@ -803,7 +824,7 @@
       "path": "notebooklm\\data",
       "purpose": "Data files",
       "fileCount": 2,
-      "lastAccessed": 1773230114326,
+      "lastAccessed": 1773415471026,
       "keyFiles": [
         "auth_info.json",
         "library.json"
@@ -813,7 +834,7 @@
       "path": "novel-downloader\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 4,
-      "lastAccessed": 1773230114327,
+      "lastAccessed": 1773415471027,
       "keyFiles": [
         "alphapolis.py",
         "literotica.py",
@@ -824,7 +845,7 @@
       "path": "opentargets-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114328,
+      "lastAccessed": 1773415471027,
       "keyFiles": [
         "query_opentargets.py"
       ]
@@ -833,7 +854,7 @@
       "path": "paper-search\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 2,
-      "lastAccessed": 1773230114329,
+      "lastAccessed": 1773415471028,
       "keyFiles": [
         "download.py",
         "search.py"
@@ -843,7 +864,7 @@
       "path": "pdf\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 9,
-      "lastAccessed": 1773230114330,
+      "lastAccessed": 1773415471029,
       "keyFiles": [
         "check_bounding_boxes.py",
         "check_bounding_boxes_test.py",
@@ -854,7 +875,7 @@
       "path": "planning-with-files\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 4,
-      "lastAccessed": 1773230114330,
+      "lastAccessed": 1773415471029,
       "keyFiles": [
         "check-complete.ps1",
         "check-complete.sh",
@@ -865,7 +886,7 @@
       "path": "pptx\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 5,
-      "lastAccessed": 1773230114331,
+      "lastAccessed": 1773415471030,
       "keyFiles": [
         "html2pptx.js",
         "inventory.py",
@@ -876,7 +897,7 @@
       "path": "pub-figures\\assets",
       "purpose": "Static assets",
       "fileCount": 1,
-      "lastAccessed": 1773230114332,
+      "lastAccessed": 1773415471030,
       "keyFiles": [
         "color_palettes.json"
       ]
@@ -885,7 +906,7 @@
       "path": "pub-figures\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 2,
-      "lastAccessed": 1773230114333,
+      "lastAccessed": 1773415471030,
       "keyFiles": [
         "create_figures.py",
         "utils.py"
@@ -895,7 +916,7 @@
       "path": "pydeseq2\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114333,
+      "lastAccessed": 1773415471031,
       "keyFiles": [
         "run_deseq2_analysis.py"
       ]
@@ -904,7 +925,7 @@
       "path": "pydicom\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 3,
-      "lastAccessed": 1773230114334,
+      "lastAccessed": 1773415471031,
       "keyFiles": [
         "anonymize_dicom.py",
         "dicom_to_image.py",
@@ -915,7 +936,7 @@
       "path": "qpcr-graphpad-formatter\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114334,
+      "lastAccessed": 1773415471032,
       "keyFiles": [
         "qpcr_to_graphpad.py"
       ]
@@ -924,7 +945,7 @@
       "path": "reactome-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114336,
+      "lastAccessed": 1773415471032,
       "keyFiles": [
         "reactome_query.py"
       ]
@@ -933,7 +954,7 @@
       "path": "research-to-diagram\\examples",
       "purpose": "Example code",
       "fileCount": 3,
-      "lastAccessed": 1773230114336,
+      "lastAccessed": 1773415471034,
       "keyFiles": [
         "character_relationships.dot",
         "concept_map.dot",
@@ -944,7 +965,7 @@
       "path": "research-to-diagram\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 5,
-      "lastAccessed": 1773230114337,
+      "lastAccessed": 1773415471034,
       "keyFiles": [
         "find_graphviz.sh",
         "generate_pdf.sh",
@@ -955,7 +976,7 @@
       "path": "scanpy\\assets",
       "purpose": "Static assets",
       "fileCount": 1,
-      "lastAccessed": 1773230114338,
+      "lastAccessed": 1773415471035,
       "keyFiles": [
         "analysis_template.py"
       ]
@@ -964,7 +985,7 @@
       "path": "scanpy\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114339,
+      "lastAccessed": 1773415471035,
       "keyFiles": [
         "qc_analysis.py"
       ]
@@ -973,7 +994,7 @@
       "path": "scientific-schematics\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 3,
-      "lastAccessed": 1773230114340,
+      "lastAccessed": 1773415471036,
       "keyFiles": [
         "example_usage.sh",
         "generate_schematic.py",
@@ -983,19 +1004,19 @@
     "skill-creator\\scripts": {
       "path": "skill-creator\\scripts",
       "purpose": "Build/utility scripts",
-      "fileCount": 3,
-      "lastAccessed": 1773230114341,
+      "fileCount": 4,
+      "lastAccessed": 1773415471036,
       "keyFiles": [
+        "encoding_utils.py",
         "init_skill.py",
-        "package_skill.py",
-        "quick_validate.py"
+        "package_skill.py"
       ]
     },
     "skill-evolution-manager\\scripts": {
       "path": "skill-evolution-manager\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 3,
-      "lastAccessed": 1773230114342,
+      "lastAccessed": 1773415471036,
       "keyFiles": [
         "align_all.py",
         "merge_evolution.py",
@@ -1006,7 +1027,7 @@
       "path": "skill-manager\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 6,
-      "lastAccessed": 1773230114343,
+      "lastAccessed": 1773415471037,
       "keyFiles": [
         "batch_update.py",
         "delete_skill.py",
@@ -1017,16 +1038,25 @@
       "path": "string-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114344,
+      "lastAccessed": 1773415471037,
       "keyFiles": [
         "string_api.py"
+      ]
+    },
+    "sync-to-github\\scripts": {
+      "path": "sync-to-github\\scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 1,
+      "lastAccessed": 1773415471038,
+      "keyFiles": [
+        "sync.sh"
       ]
     },
     "treatment-plans\\assets": {
       "path": "treatment-plans\\assets",
       "purpose": "Static assets",
       "fileCount": 10,
-      "lastAccessed": 1773230114344,
+      "lastAccessed": 1773415471038,
       "keyFiles": [
         "chronic_disease_management_plan.tex",
         "general_medical_treatment_plan.tex",
@@ -1037,7 +1067,7 @@
       "path": "treatment-plans\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 4,
-      "lastAccessed": 1773230114345,
+      "lastAccessed": 1773415471039,
       "keyFiles": [
         "check_completeness.py",
         "generate_template.py",
@@ -1048,7 +1078,7 @@
       "path": "uniprot-database\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114346,
+      "lastAccessed": 1773415471039,
       "keyFiles": [
         "uniprot_client.py"
       ]
@@ -1057,14 +1087,14 @@
       "path": "web-design-guidelines\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 0,
-      "lastAccessed": 1773230114347,
+      "lastAccessed": 1773415471040,
       "keyFiles": []
     },
     "xlsx\\scripts": {
       "path": "xlsx\\scripts",
       "purpose": "Build/utility scripts",
       "fileCount": 1,
-      "lastAccessed": 1773230114349,
+      "lastAccessed": 1773415471041,
       "keyFiles": [
         "recalc.py"
       ]
@@ -1072,172 +1102,52 @@
   },
   "hotPaths": [
     {
-      "path": "skill-creator\\scripts\\init_skill.py",
-      "accessCount": 4,
-      "lastAccessed": 1773234309737,
+      "path": "notebooklm\\SKILL.md",
+      "accessCount": 3,
+      "lastAccessed": 1773564463858,
       "type": "file"
     },
     {
       "path": "baoyu-article-illustrator\\SKILL.md",
-      "accessCount": 4,
-      "lastAccessed": 1773292809493,
-      "type": "file"
-    },
-    {
-      "path": "baoyu-format-markdown\\SKILL.md",
-      "accessCount": 4,
-      "lastAccessed": 1773292843226,
-      "type": "file"
-    },
-    {
-      "path": "academic-writing-suite\\scripts\\orchestrator.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234744449,
-      "type": "file"
-    },
-    {
-      "path": "clinical-reports\\scripts\\check_deidentification.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234836879,
-      "type": "file"
-    },
-    {
-      "path": "clinical-reports\\scripts\\validate_case_report.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234837038,
-      "type": "file"
-    },
-    {
-      "path": "github-to-skills\\scripts\\create_skill.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234837063,
-      "type": "file"
-    },
-    {
-      "path": "clinical-reports\\scripts\\terminology_validator.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234837110,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\browser_session.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234846245,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\ask_question.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234846317,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\__init__.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234846405,
-      "type": "file"
-    },
-    {
-      "path": "treatment-plans\\scripts\\validate_treatment_plan.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234846487,
-      "type": "file"
-    },
-    {
-      "path": "treatment-plans\\scripts\\check_completeness.py",
-      "accessCount": 3,
-      "lastAccessed": 1773234846548,
+      "accessCount": 2,
+      "lastAccessed": 1773564439687,
       "type": "file"
     },
     {
       "path": "baoyu-compress-image\\SKILL.md",
-      "accessCount": 3,
-      "lastAccessed": 1773292856465,
+      "accessCount": 2,
+      "lastAccessed": 1773564440475,
+      "type": "file"
+    },
+    {
+      "path": "baoyu-format-markdown\\SKILL.md",
+      "accessCount": 2,
+      "lastAccessed": 1773564441098,
       "type": "file"
     },
     {
       "path": "planning-with-files\\SKILL.md",
-      "accessCount": 3,
-      "lastAccessed": 1773293147941,
+      "accessCount": 2,
+      "lastAccessed": 1773564464536,
       "type": "file"
     },
     {
-      "path": "bioservices\\scripts\\pathway_analysis.py",
+      "path": "gitnexus\\SKILL.md",
       "accessCount": 2,
-      "lastAccessed": 1773234734017,
-      "type": "file"
-    },
-    {
-      "path": "bioservices\\scripts\\protein_analysis_workflow.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234734050,
-      "type": "file"
-    },
-    {
-      "path": "skill-manager\\scripts\\scan_and_check.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234743117,
-      "type": "file"
-    },
-    {
-      "path": "scientific-schematics\\scripts\\generate_schematic_ai.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234753360,
-      "type": "file"
-    },
-    {
-      "path": "manga-learning-creator\\scripts\\merge_pdf.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234760357,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\cleanup_manager.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234896573,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\browser_utils.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234909835,
-      "type": "file"
-    },
-    {
-      "path": "notebooklm\\scripts\\notebook_manager.py",
-      "accessCount": 2,
-      "lastAccessed": 1773234931848,
+      "lastAccessed": 1773564471854,
       "type": "file"
     },
     {
       "path": "",
-      "accessCount": 2,
-      "lastAccessed": 1773293220510,
+      "accessCount": 1,
+      "lastAccessed": 1773415523646,
       "type": "directory"
     },
     {
-      "path": "notebooklm\\SKILL.md",
-      "accessCount": 2,
-      "lastAccessed": 1773293362093,
-      "type": "file"
-    },
-    {
-      "path": "skill-creator\\scripts\\encoding_utils.py",
+      "path": "skill-manager",
       "accessCount": 1,
-      "lastAccessed": 1773233645265,
-      "type": "file"
-    },
-    {
-      "path": "skill-creator\\scripts\\package_skill.py",
-      "accessCount": 1,
-      "lastAccessed": 1773234295731,
-      "type": "file"
-    },
-    {
-      "path": "skill-manager\\scripts\\batch_update.py",
-      "accessCount": 1,
-      "lastAccessed": 1773234715810,
-      "type": "file"
+      "lastAccessed": 1773415530081,
+      "type": "directory"
     }
   ],
   "userDirectives": []

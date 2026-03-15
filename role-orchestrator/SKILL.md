@@ -1,6 +1,6 @@
 ---
 name: role-orchestrator
-description: 多代理编排系统，协调专门代理（PM、架构师、DevOps、QA、技术负责人、安全）共同完成复杂任务。实现层次化的编排者-工作者模式。适用于需要多个角色/技能的复杂多步骤请求。关键词：构建产品，创建SaaS，全面实施，端到端，多代理，编排，协调角色，复杂项目。
+description: 多代理编排系统，协调专门代理（PM、架构师、DevOps、QA、技术负责人、安全）共同完成复杂任务。实现层次化的编排者-工作者模式。适用于需要多个角色/技能的复杂多步骤请求。关键词：构建产品，创建SaaS，全面实施，端到端，多代理，编排，协调角色，复杂项目。 Do NOT use for simple single-agent tasks (use oh-my-claudecode agents directly instead).
 version: 1.0.0
 metadata:
   category: workflow-automation

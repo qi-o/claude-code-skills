@@ -10,9 +10,10 @@ description: |
   (5) 用户说"索引项目"、"分析代码"、"查调用链"、"影响分析"
   核心功能：代码索引、知识图谱构建、MCP 工具集成（query/context/impact/rename/cypher）
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
+  Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories.
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 74c0e462c3ee8995eb2db8f69a693e9a7ea2f4f6
-version: 1.3.3
+github_hash: 62242d5f44ac59273a116d3fe9b0b3850e5ffbd6
+version: 1.4.0
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus
@@ -83,6 +84,9 @@ gitnexus analyze --force
 # 跳过嵌入生成（加快索引）
 gitnexus analyze --skip-embeddings
 
+# 生成 AI 代理技能文件（从知识图谱生成）
+gitnexus analyze --skills
+
 # 启动 MCP 服务器
 gitnexus mcp
 
@@ -136,7 +140,8 @@ gitnexus mcp
 
 ### 1. 代码索引
 
-- 支持 **10+ 编程语言**: TypeScript, JavaScript, Python, Java, C, C++, C#, Go, Rust
+- 支持 **10+ 编程语言**: TypeScript, JavaScript, Python, Java, C, C++, **C#**（完整支持）, Go, Rust
+- **语言感知符号解析引擎**：3 层解析（精确 FQN → 作用域遍历 → 模糊回退），支持 MRO、构造函数解析、接收者约束解析
 - 6 阶段索引管道：结构分析 → AST 解析 → 关系解析 → 聚类 → 流程追踪 → 搜索
 - 知识图谱存储在项目 `.gitnexus/` 目录（可移植、gitignore）
 
@@ -303,25 +308,42 @@ Web UI 限制约 5000 文件，大项目请使用 CLI + MCP 模式。
 
 ## 版本历史
 
+- **v1.4.0** (2026-03-13): 重大更新 — 语言感知符号解析引擎
+  - 新增语言感知符号解析（3 层：精确 FQN → 作用域遍历 → 模糊回退）
+  - 新增 MRO（方法解析顺序），支持 5 种语言策略（C++ 最左基类、C#/Java 类优先、Python C3 线性化、Rust 限定语法、默认 BFS）
+  - 新增构造函数 & 结构体字面量解析（`new Foo()`、`User{...}`、C# 主构造函数）
+  - 新增接收者约束解析（通过 TypeEnv 区分 `user.save()` vs `repo.save()`）
+  - 新增继承 & 所有权边（HAS_METHOD、OVERRIDES、Go 结构体嵌入、Swift 扩展继承）
+  - 新增可选技能生成：`gitnexus analyze --skills`（从知识图谱生成 AI 代理技能）
+  - 新增完整 C# 支持（record/delegate/property/field/event 声明类型）
+  - 修复 C/C++ 支持（`.h` → C++ 映射、静态链接导出检测、48 种入口点模式）
+  - 修复 Rust 支持（`pub` 可见性检测）
+  - 新增 DeepSeek 模型配置
+  - 1146 个测试全部通过
+
+- **v1.3.11** (2026-03-08): 安全修复
+  - 修复 FTS Cypher 注入漏洞（转义搜索查询中的反斜杠）
+  - 新增提交后自动重建索引 hook（`gitnexus analyze` 在 commit/merge 后自动运行）
+
+- **v1.3.10** (2026-03-07): 安全加固 + 双帧 MCP 传输
+  - MCP 传输缓冲区上限（10 MB 防 OOM 攻击）
+  - 新增双帧 MCP 传输（自动检测 Content-Length vs 换行分隔 JSON）
+  - 懒加载 CLI 模块（显著提升 `gitnexus mcp` 启动速度）
+
+- **v1.3.9** (2026-03-06): Bug 修复
+  - 修复 CALLS 边 sourceId 与节点 ID 格式对齐问题
+
 - **v1.3.2** (2026-03-11): 功能增量更新
   - 新增 `--embeddings` 参数（启用嵌入生成以改善搜索）
   - 新增 `--verbose` 参数（显示跳过的文件日志）
   - 增强 `wiki` 命令（支持 `--model` 和 `--base-url` 自定义）
   - 更新编辑器支持（Claude Code 新增 PostToolUse hooks）
-  - 加密货币警告声明（无官方代币）
 
 - **v1.3.1** (2026-02-26): 功能增量更新
-  - 新增 OpenCode 编辑器支持
-  - 新增社区集成（pi）
-  - 新增 MCP Resources 支持
-  - 新增 MCP Prompts（detect_impact, generate_map）
-  - 新增 Bridge 模式（CLI + Web UI 桥接）
-  - CLI 命令增强（status, clean, wiki 自定义模型）
+  - 新增 OpenCode 编辑器支持、MCP Resources、MCP Prompts、Bridge 模式
 
 - **v1.3.0** (2026-02-21): 初始版本
-  - 代码索引和分析
-  - MCP 工具封装
-  - 影响分析和调用链追踪
+  - 代码索引和分析、MCP 工具封装、影响分析和调用链追踪
 
 ---
 

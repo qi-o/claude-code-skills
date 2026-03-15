@@ -9,6 +9,7 @@ description: |
   (3) 自动为学术文本添加引用（auto_cite）
   (4) AI 科研绘图（sci_draw）
   (5) 与 deep-research、paper-search、academic-writing-suite 配合使用
+  Do NOT use for non-academic web searches (use ducksearch instead).
 license: MIT
 version: 1.0.0
 metadata:

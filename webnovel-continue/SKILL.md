@@ -1,6 +1,12 @@
 ---
 name: webnovel-continue
-description: 简化版续写命令。从指定章节或最新章节+1开始写作，类似 /webnovel-write 的快捷方式。
+description: |
+  简化版续写命令。从指定章节或最新章节+1开始写作，是 /webnovel-write 的快捷入口，支持自动检测起始章节。
+  触发场景：
+  (1) 用户说"续写"、"继续写"、"写下一章"、"接着写"、"/webnovel-continue"
+  (2) 用户想从当前进度继续写作，无需手动指定章节号
+  与 webnovel-write 的区别：自动检测最新章节+1，无需明确指定章节号。
+  Do NOT use for project initialization (use webnovel-init instead).
 allowed-tools: Read Write Edit Grep Bash Task
 ---
 

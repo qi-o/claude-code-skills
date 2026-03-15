@@ -1,6 +1,11 @@
 ﻿---
 name: opentargets-database
-description: Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for therapeutic target identification.
+description: |
+  Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for therapeutic target identification.
+  触发场景：
+  (1) 用户需要靶点发现、靶点-疾病关联分析、药物靶点评估、Open Targets 查询
+  (2) 用户说"靶点发现"、"靶点-疾病关联"、"药物靶点"、"Open Targets"、"target discovery"、"drug target"、"target-disease association"、"druggability"
+  Do NOT use for general drug information lookup (use drugbank-database instead) or pathway analysis (use reactome-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

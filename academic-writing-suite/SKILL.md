@@ -8,6 +8,7 @@ description: |
   (2) 用户说"写论文"、"写研究报告"、"写基金申请"
   (3) 需要文献调研 + 图表生成 + 文档输出的综合任务
   (4) 学术写作需要专业图表支持
+  Do NOT use for quick literature searches (use paper-search instead) or single-section writing tasks.
 license: MIT
 ---
 

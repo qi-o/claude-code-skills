@@ -1,6 +1,6 @@
 ﻿---
 name: qpcr-graphpad-formatter
-description: Format qPCR data for GraphPad Prism. This skill should be used when the user has qPCR data in CSV format and wants to convert it to a two-column format (LC and KO) with fold change values calculated using the 2^-螖螖Ct method, ready for direct copy-paste into GraphPad Prism. Use when user says "qPCR鏁版嵁", "GraphPad", "Ct鍊艰浆鎹?, "fold change", or "qPCR鏍煎紡鍖?.
+description: Format qPCR data for GraphPad Prism. Use when the user has qPCR data in CSV format and wants to convert it to a two-column format (LC and KO) with fold change values calculated using the 2^-ΔΔCt method, ready for direct copy-paste into GraphPad Prism. Use when user says "qPCR数据", "GraphPad", "Ct值转换", "fold change", or "qPCR格式化". Do NOT use for general data visualization (use pub-figures instead) or non-qPCR data.
 license: MIT
 allowed-tools: "Bash(python:*) Read Write"
 version: 0.1.0

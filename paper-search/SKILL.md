@@ -9,6 +9,7 @@ description: |
   (4) 用户进行学术调研需要专业数据库支持
   (5) 与 deep-research skill 配合使用，提供 L1 级别学术资料
   基于 openags/paper-search-mcp 转换，无需 MCP 配置。
+  Do NOT use for clinical trial searches (use clinicaltrials-database instead) or general web searches (use ducksearch instead).
 github_url: https://github.com/openags/paper-search-mcp
 github_hash: cf2697fd04a7b7c1ced0e382ab84f0c214614f83
 license: MIT

@@ -7,6 +7,7 @@ description: |
   (3) User has an MCP server codebase and wants to make it a reusable skill
   (4) User wants to analyze MCP server structure for skill creation
   Supports TypeScript/JavaScript and Python MCP servers. Generates complete skill package with SKILL.md, scripts, and references.
+  Do NOT use for creating skills from scratch (use skill-creator instead) or converting GitHub repos (use github-to-skills instead).
 license: MIT
 version: 0.1.0
 metadata:

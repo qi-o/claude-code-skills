@@ -1,6 +1,6 @@
 ﻿---
 name: skill-manager
-description: Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, check for updates on GitHub, perform guided upgrades, discover popular skills, and batch update outdated skills. Use when user says "妫€鏌ユ洿鏂?, "skill鏇存柊", "scan skills", "check for updates", or "batch update".
+description: Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, check for updates on GitHub, perform guided upgrades, discover popular skills, and batch update outdated skills. Use when user says "检查更新", "skill更新", "扫描技能", "批量更新", "推荐技能", "scan skills", "check for updates", "batch update", "update skills", or "/skill-manager". Do NOT use for installing new skills from scratch (use github-to-skills instead).
 license: MIT
 github_url: https://github.com/KKKKhazix/Khazix-Skills
 github_hash: fe15fea6cf7ac216027d11c2c64e87b462cc0427

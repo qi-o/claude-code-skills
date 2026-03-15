@@ -1,7 +1,7 @@
 {
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"C:\\\\Users\\\\ZDS\\\\.claude\\\\skills\\\\notebooklm-plus\\\\SKILL.md\",\"limit\":50}",
-  "error": "File does not exist. Note: your current working directory is C:\\Users\\ZDS\\.claude\\skills\\skill-manager.",
-  "timestamp": "2026-03-12T05:26:52.148Z",
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rsync -av --delete --exclude='.git' --exclude='.experimental' --exclude='node_modules' --exclude='__pycache__' --exclude='*.pyc' ~/.claude/skills/ ~/claude-code-skills/\",\"timeout\":180000,\"...",
+  "error": "Exit code 127\n/usr/bin/bash: line 1: rsync: command not found",
+  "timestamp": "2026-03-15T08:50:16.520Z",
   "retry_count": 1
 }

@@ -1,6 +1,12 @@
 ﻿---
 name: pdb-database
-description: Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural biology and drug discovery.
+description: |
+  Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural biology and drug discovery.
+  触发场景：
+  (1) 用户需要查询蛋白质三维结构
+  (2) 用户说"蛋白质结构"、"PDB数据库"、"晶体结构"、"结构生物学"、"药物发现"、"protein structure"
+  (3) 需要下载 PDB/mmCIF 坐标文件或做结构相似性搜索
+  Do NOT use for AI-predicted structures (use alphafold-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

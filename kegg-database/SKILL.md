@@ -1,6 +1,12 @@
 ﻿---
 name: kegg-database
-description: Direct REST API access to KEGG (academic use only). Pathway analysis, gene-pathway mapping, metabolic pathways, drug interactions, ID conversion. For Python workflows with multiple databases, prefer bioservices. Use this for direct HTTP/REST work or KEGG-specific control.
+description: |
+  Direct REST API access to KEGG (academic use only). Pathway analysis, gene-pathway mapping, metabolic pathways, drug interactions, ID conversion. For Python workflows with multiple databases, prefer bioservices. Use this for direct HTTP/REST work or KEGG-specific control.
+  触发场景：
+  (1) 用户需要 KEGG 通路分析、代谢通路查询
+  (2) 用户说"KEGG通路"、"代谢通路分析"、"基因通路映射"、"KEGG富集分析"、"KEGG pathway"
+  (3) 需要基因-通路映射或药物相互作用查询
+  Do NOT use for multi-database Python workflows (use bioservices instead).
 license: Non-academic use of KEGG requires a commercial license
 metadata:
     skill-author: K-Dense Inc.

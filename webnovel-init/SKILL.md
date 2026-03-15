@@ -1,6 +1,11 @@
 ---
 name: webnovel-init
-description: 深度初始化网文项目。通过分阶段交互收集完整创作信息，生成可直接进入规划与写作的项目骨架与约束文件。
+description: |
+  深度初始化网文项目。通过分阶段交互收集完整创作信息，生成可直接进入规划与写作的项目骨架与约束文件。
+  触发场景：
+  (1) 用户说"新建网文项目"、"初始化小说"、"创建网文"、"开始写小说"、"新建小说项目"、"/webnovel-init"
+  (2) 用户想从零开始创作一部新网文，需要收集题材/角色/世界观/金手指等完整设定
+  Do NOT use for importing existing novels (use webnovel-import instead), or writing chapters (use webnovel-write instead).
 allowed-tools: Read Write Edit Grep Bash Task AskUserQuestion WebSearch WebFetch
 ---
 

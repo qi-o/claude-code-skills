@@ -1,6 +1,12 @@
 ﻿---
 name: scanpy
-description: Standard single-cell RNA-seq analysis pipeline. Use for QC, normalization, dimensionality reduction (PCA/UMAP/t-SNE), clustering, differential expression, and visualization. Best for exploratory scRNA-seq analysis with established workflows. For deep learning models use scvi-tools; for data format questions use anndata.
+description: |
+  Standard single-cell RNA-seq analysis pipeline. Use for QC, normalization, dimensionality reduction (PCA/UMAP/t-SNE), clustering, differential expression, and visualization. Best for exploratory scRNA-seq analysis with established workflows.
+  触发场景：
+  (1) 用户需要单细胞分析、scRNA-seq 数据处理、细胞聚类
+  (2) 用户说"单细胞"、"scRNA-seq"、"UMAP"、"t-SNE"、"聚类分析"、"细胞类型注释"、"marker基因"、"单细胞转录组"
+  (3) 用户需要 QC 过滤、归一化、降维、Leiden/Louvain 聚类、轨迹推断
+  Do NOT use for bulk RNA-seq DE analysis (use pydeseq2); for format-only questions (use anndata); for deep learning models (use scvi-tools).
 license: SD-3-Clause license
 metadata:
     skill-author: K-Dense Inc.

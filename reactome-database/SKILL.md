@@ -1,6 +1,11 @@
 ﻿---
 name: reactome-database
-description: Query Reactome REST API for pathway analysis, enrichment, gene-pathway mapping, disease pathways, molecular interactions, expression analysis, for systems biology studies.
+description: |
+  Query Reactome REST API for pathway analysis, enrichment, gene-pathway mapping, disease pathways, molecular interactions, expression analysis, for systems biology studies.
+  触发场景：
+  (1) 用户需要通路富集分析、Reactome通路查询、分子互作、疾病通路探索
+  (2) 用户说"Reactome通路"、"通路富集分析"、"分子互作"、"疾病通路"、"pathway enrichment"、"Reactome"、"gene-pathway mapping"、"overrepresentation analysis"
+  Do NOT use for drug-target interactions (use opentargets-database or drugbank-database instead) or genome annotation (use ensembl-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

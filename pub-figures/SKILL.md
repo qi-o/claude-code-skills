@@ -7,6 +7,10 @@ description: |
   visualization requiring precise alignment, consistent typography, and
   professional styling. Trigger phrases: publication figure, journal figure,
   multi-panel figure, forest plot, scientific visualization, 600 DPI figure.
+  触发场景：
+  (1) 用户需要发表图、期刊图、多面板图、森林图、热图、科研绘图
+  (2) 用户说"发表图"、"期刊图"、"多面板图"、"森林图"、"热图"、"科研绘图"、"publication figure"、"journal figure"、"heatmap"、"forest plot"、"multi-panel"
+  Do NOT use for conceptual diagrams or schematics (use scientific-schematics instead) or DICOM imaging (use pydicom instead).
 license: MIT
 compatibility: Requires Python with matplotlib and seaborn
 version: 0.1.0

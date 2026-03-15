@@ -1,6 +1,11 @@
 ﻿---
 name: ensembl-database
-description: Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions, for genomic research.
+description: |
+  Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions, for genomic research.
+  触发场景：
+  (1) 用户需要Ensembl基因组注释、基因坐标查询、转录本信息、变异效应预测
+  (2) 用户说"Ensembl"、"基因组注释"、"基因坐标"、"转录本信息"、"VEP"、"gene annotation"、"genome coordinates"、"variant effect predictor"、"ortholog"
+  Do NOT use for protein structure (use alphafold-database instead) or pathway analysis (use reactome-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

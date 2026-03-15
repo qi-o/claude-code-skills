@@ -1,6 +1,6 @@
 ---
 name: skill-evolution-manager
-description: 专门用于在对话结束时，根据用户反馈和对话内容总结优化并迭代现有 Skills 的核心工具。它通过吸取对话中的"精华"（如成功的解决方案、失败的教训、特定的代码规范）来持续演进 Skills 库。
+description: 在对话结束时，根据用户反馈总结优化并迭代现有 Skills 的核心工具。通过吸取对话"精华"持续演进 Skills 库。当用户说"优化skill"、"迭代技能"、"总结对话经验"、"把这个经验保存到skill"、"记录一下这个教训"、"evolve skill"、"update skill from conversation"、"/skill-evolution-manager"或对话结束时主动触发。Do NOT use for installing or updating skills from GitHub (use skill-manager instead).
 license: MIT
 github_url: https://github.com/KKKKhazix/Khazix-Skills
 github_hash: fe15fea6cf7ac216027d11c2c64e87b462cc0427

@@ -1,6 +1,11 @@
 ---
 name: webnovel-analyze
-description: 分析已有小说内容，提取角色/世界观/伏笔等结构化信息。用于理解已有章节并生成可被续写消费的数据。
+description: |
+  分析已有小说内容，提取角色/世界观/伏笔等结构化信息。用于理解已有章节并生成可被续写消费的数据。
+  触发场景：
+  (1) 用户说"分析小说"、"提取角色信息"、"分析世界观"、"分析伏笔"、"回顾章节内容"、"/webnovel-analyze"
+  (2) 用户想了解已有章节的结构化信息，或检查章节与设定的一致性
+  Do NOT use for importing novels into a project (use webnovel-import instead), or writing new chapters (use webnovel-write instead).
 allowed-tools: Read Write Edit Grep Bash Task AskUserQuestion Glob
 ---
 

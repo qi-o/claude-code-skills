@@ -1,9 +1,9 @@
 ---
 name: planning-with-files
-description: Implements Manus-style file-based planning to organize and track progress on complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring >5 tool calls. Supports automatic session recovery after /clear.
+description: Implements Manus-style file-based planning to organize and track progress on complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when asked to "plan out", "break down", "organize a project", "制定计划", "任务规划", "分解任务", "多步骤项目", "复杂任务规划", or any work requiring >5 tool calls. Supports automatic session recovery after /clear. Do NOT use for simple single-step tasks or quick questions.
 user-invocable: true
 github_url: https://github.com/OthmanAdi/planning-with-files
-github_hash: 74ad69e01d9616af4509d9140d76f168aedeadde
+github_hash: 57d13d7bd4de012089859098751e64f2f7fab9a3
 allowed-tools: "Read, Write, Edit, Bash, Glob, Grep"
 hooks:
   PreToolUse:

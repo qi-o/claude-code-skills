@@ -1,6 +1,12 @@
 ﻿---
 name: anndata
-description: Data structure for annotated matrices in single-cell analysis. Use when working with .h5ad files or integrating with the scverse ecosystem. This is the data format skill鈥攆or analysis workflows use scanpy; for probabilistic models use scvi-tools; for population-scale queries use cellxgene-census.
+description: |
+  Data structure for annotated matrices in single-cell analysis. Use when working with .h5ad files or integrating with the scverse ecosystem. This is the data format skill—for analysis workflows use scanpy; for probabilistic models use scvi-tools; for population-scale queries use cellxgene-census.
+  触发场景：
+  (1) 用户需要读写 h5ad 文件、操作 AnnData 对象
+  (2) 用户说"h5ad文件"、"AnnData"、"单细胞数据格式"、"obs/var"、"数据拼接"、"稀疏矩阵"
+  (3) 用户需要合并多个数据集、内存优化、格式转换（loom/zarr/10X）
+  Do NOT use for full analysis workflows (use scanpy instead).
 license: BSD-3-Clause license
 metadata:
     skill-author: K-Dense Inc.

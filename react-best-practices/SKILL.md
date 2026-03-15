@@ -3,6 +3,7 @@ name: react-best-practices
 description: |
   React/Next.js 性能优化最佳实践。包含 62 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
+  Do NOT use for non-React/Vue frameworks or backend code optimization.
 github_url: https://github.com/vercel-labs/agent-skills
 github_hash: 5847a7c7e79bab3e400cf47800b83449d7aea2d4
 version: 1.1.0

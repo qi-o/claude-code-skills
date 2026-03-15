@@ -1,6 +1,6 @@
 ---
 name: sync-to-github
-description: 同步 Claude Code 技能和配置到 GitHub 仓库。当用户说"sync-to-github"、"同步到github"、"同步配置和技能"、"推送到github"时使用。自动同步 ~/.claude/skills/ 到 claude-code-skills 仓库，同步配置文件到 claude-code-config 仓库，执行 git add 和 commit，最后提示用户使用 GitHub Desktop 推送。
+description: 同步 Claude Code 技能和配置到 GitHub 仓库。当用户说"sync-to-github"、"同步到github"、"同步配置和技能"、"推送到github"时使用。自动同步 ~/.claude/skills/ 到 claude-code-skills 仓库，同步配置文件到 claude-code-config 仓库，执行 git add 和 commit，最后提示用户使用 GitHub Desktop 推送。 Do NOT use for general git operations or pushing individual project code.
 ---
 
 # Sync to GitHub

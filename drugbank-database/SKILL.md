@@ -1,6 +1,11 @@
 ﻿---
 name: drugbank-database
-description: Access and analyze comprehensive drug information from the DrugBank database including drug properties, interactions, targets, pathways, chemical structures, and pharmacology data. This skill should be used when working with pharmaceutical data, drug discovery research, pharmacology studies, drug-drug interaction analysis, target identification, chemical similarity searches, ADMET predictions, or any task requiring detailed drug and drug target information from DrugBank.
+description: |
+  Access and analyze comprehensive drug information from the DrugBank database including drug properties, interactions, targets, pathways, chemical structures, and pharmacology data. Use for pharmaceutical data, drug discovery, pharmacology studies, drug-drug interaction analysis, target identification, chemical similarity searches, ADMET predictions.
+  触发场景：
+  (1) 用户需要DrugBank药物信息、药物相互作用、药物靶点、药物数据库查询
+  (2) 用户说"DrugBank"、"药物数据库"、"药物信息查询"、"药物靶点"、"药物相互作用"、"drug interaction"、"drug target"、"ADMET"、"polypharmacy"
+  Do NOT use for disease-target associations (use opentargets-database instead) or pathway analysis (use reactome-database instead).
 license: Unknown
 metadata:
     skill-author: K-Dense Inc.

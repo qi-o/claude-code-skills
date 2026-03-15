@@ -1,6 +1,11 @@
 ---
 name: webnovel-import
-description: 导入已有小说（大纲/章节/设定）到网文项目。用于续写已有内容，而非从零创建项目。
+description: |
+  导入已有小说（大纲/章节/设定）到网文项目。用于续写已有内容，而非从零创建项目。
+  触发场景：
+  (1) 用户说"导入小说"、"导入已有章节"、"续写已有小说"、"把我的小说导入进来"、"/webnovel-import"
+  (2) 用户已有小说内容（大纲/章节/设定），想导入后继续写作
+  Do NOT use for creating a brand new novel from scratch (use webnovel-init instead), or for analyzing content only (use webnovel-analyze instead).
 allowed-tools: Read Write Edit Grep Bash Task AskUserQuestion Glob
 ---
 

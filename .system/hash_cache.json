@@ -1,12 +1,12 @@
 {
   "6044e2123277b661c1062ae9678bff31": {
-    "hash": "994e47d1be5ebe5a17302da2d26db6abc1185670",
-    "ts": 1773369318.8986812,
+    "hash": "4d2b95d1d1da32912a5173ba82dc30d7073db166",
+    "ts": 1773475136.9132762,
     "url": "https://github.com/JimLiu/baoyu-skills"
   },
   "67561a77cffc81c1edc3b5bb22378468": {
     "hash": "b0cbd3df1533b396d281a6886d5132f623393a9c",
-    "ts": 1773369429.7319837,
+    "ts": 1773564264.1710577,
     "url": "https://github.com/anthropics/skills"
   },
   "73aaba2643765107c507b6abcac70789": {
@@ -16,17 +16,17 @@
   },
   "5516c3c08a789a6b30bdb338d4934f98": {
     "hash": "5847a7c7e79bab3e400cf47800b83449d7aea2d4",
-    "ts": 1773370790.2199767,
+    "ts": 1773564276.2115128,
     "url": "https://github.com/vercel-labs/agent-skills"
   },
   "1c7950831fb4c60ed3f5903cf670332c": {
     "hash": "fe15fea6cf7ac216027d11c2c64e87b462cc0427",
-    "ts": 1773369338.0581427,
+    "ts": 1773564272.9333665,
     "url": "https://github.com/KKKKhazix/Khazix-Skills"
   },
   "b6626de683efc6e362465105fa3f758a": {
     "hash": "cf2697fd04a7b7c1ced0e382ab84f0c214614f83",
-    "ts": 1773369327.876654,
+    "ts": 1773564269.9763377,
     "url": "https://github.com/openags/paper-search-mcp"
   },
   "d8b3c6808a62b30e26093841659ea9e3": {
@@ -35,23 +35,28 @@
     "url": "https://github.com/OthmanAdi/planning-with-files"
   },
   "ce77376d725fac2664e9a7db3de66749": {
-    "hash": "3e36cf9cdb12ef566416c5620a1a95b5a0221017",
-    "ts": 1773369425.845272,
+    "hash": "e68afb28277b4bee39726dbcbb06801edde9f659",
+    "ts": 1773564261.2810154,
     "url": "https://github.com/yt-dlp/yt-dlp"
   },
   "fb4d6fd62eb4a74bb18a9acc579a6c5e": {
     "hash": "eea5cb28ba79ab8b078a1eaa44ce9ec44f75dbf8",
-    "ts": 1773369427.1457124,
+    "ts": 1773413398.4066222,
     "url": "https://github.com/PleasePrompto/notebooklm-skill"
   },
   "657f063208db4d7fd4196adf43b58f89": {
     "hash": "c8a4ddc1bc6bacfa3f8eb24643b2d37ba3522af7",
-    "ts": 1773369321.59131,
+    "ts": 1773413397.237259,
     "url": "https://github.com/zhangyanxs/repo2skill"
   },
   "3bf01ab07ba6417548d30b16a4d8ce21": {
     "hash": "8711b7678fc7cc3f1aacf70100ec3a9d6ceccbc4",
-    "ts": 1773370787.9804487,
+    "ts": 1773564482.4750216,
     "url": "https://github.com/wshuyi/deep-research"
+  },
+  "28a62ef31b40d3ea129e98ce77d5f68c": {
+    "hash": "b31ec577f8180fff12e932bceeec240744661149",
+    "ts": 1773564484.4704666,
+    "url": "https://github.com/teng-lin/notebooklm-py"
   }
 }
