@@ -12,8 +12,8 @@ description: |
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories.
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 62242d5f44ac59273a116d3fe9b0b3850e5ffbd6
-version: 1.4.0
+github_hash: 6c18ae08f7480be5120602908aa19b4ce38e18dc
+version: 1.5.0
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus
@@ -348,3 +348,19 @@ Web UI 限制约 5000 文件，大项目请使用 CLI + MCP 模式。
 ---
 
 *此 Skill 由 github-to-skills 自动生成，支持 skill-manager 更新检查*
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### User Preferences
+- 索引项目时使用 --skip-embeddings 加快速度
+
+### Known Fixes & Workarounds
+- Skill 创建后需检查根目录和 .curated/ 目录是否都有副本
+- scan_and_check.py 扫描时需要检查正确的目录路径
+
+### Custom Instruction Injection
+
+分析项目时先执行 gitnexus analyze 索引代码库

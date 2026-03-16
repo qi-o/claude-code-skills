@@ -484,7 +484,6 @@ ai4scholar 需要 API Key 才能使用完整功能：
   - 与 deep-research、academic-writing-suite、pub-figures 集成
   - 提供完整使用指南和最佳实践
 
-
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.

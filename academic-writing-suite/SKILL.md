@@ -306,7 +306,6 @@ python ~/.claude/skills/academic-writing-suite/scripts/orchestrator.py status
   - 5 阶段工作流
   - orchestrator 脚本支持
 
-
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.

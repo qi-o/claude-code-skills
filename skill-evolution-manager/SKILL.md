@@ -61,7 +61,6 @@ Agent 调用 `scripts/smart_stitch.py`，将 `evolution.json` 的内容转化为
 - **不要直接修改 SKILL.md 的正文**：除非是明显的拼写错误。所有的经验修正应通过 `evolution.json` 通道进行，这样可以保证在 Skill 升级时经验不丢失。
 - **多 Skill 协同**：如果一次对话涉及多个 Skill，请依次为每个 Skill 执行上述流程。
 
-
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
