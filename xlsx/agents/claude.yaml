@@ -1,5 +1,5 @@
 display_name: "xlsx"
-description: "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and v..."
+description: "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Handles .xlsx, .xlsm, .csv, and .tsv files."
 icon: "📈"
 triggers:
   - "xlsx"

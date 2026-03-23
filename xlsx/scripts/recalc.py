@@ -16,6 +16,7 @@ from openpyxl import load_workbook
 
 MACRO_DIR_MACOS = "~/Library/Application Support/LibreOffice/4/user/basic/Standard"
 MACRO_DIR_LINUX = "~/.config/libreoffice/4/user/basic/Standard"
+MACRO_DIR_WINDOWS = os.path.join(os.environ.get("APPDATA", ""), "LibreOffice", "4", "user", "basic", "Standard")
 MACRO_FILENAME = "Module1.xba"
 
 RECALCULATE_MACRO = """<?xml version="1.0" encoding="UTF-8"?>
@@ -40,9 +41,13 @@ def has_gtimeout():
 
 
 def setup_libreoffice_macro():
-    macro_dir = os.path.expanduser(
-        MACRO_DIR_MACOS if platform.system() == "Darwin" else MACRO_DIR_LINUX
-    )
+    system = platform.system()
+    if system == "Windows":
+        macro_dir = MACRO_DIR_WINDOWS
+    elif system == "Darwin":
+        macro_dir = os.path.expanduser(MACRO_DIR_MACOS)
+    else:
+        macro_dir = os.path.expanduser(MACRO_DIR_LINUX)
     macro_file = os.path.join(macro_dir, MACRO_FILENAME)
 
     if (
@@ -84,16 +89,17 @@ def recalc(filename, timeout=30):
         abs_path,
     ]
 
-    if platform.system() == "Linux":
-        cmd = ["timeout", str(timeout)] + cmd
-    elif platform.system() == "Darwin" and has_gtimeout():
-        cmd = ["gtimeout", str(timeout)] + cmd
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True,
+            env=get_soffice_env(), timeout=timeout
+        )
+    except subprocess.TimeoutExpired:
+        return {"error": f"LibreOffice timed out after {timeout}s"}
 
-    result = subprocess.run(cmd, capture_output=True, text=True, env=get_soffice_env())
-
-    if result.returncode != 0 and result.returncode != 124:  
+    if result.returncode != 0:  
         error_msg = result.stderr or "Unknown error during recalculation"
-        if "Module1" in error_msg or "RecalculateAndSave" not in error_msg:
+        if "Module1" in error_msg and "RecalculateAndSave" not in error_msg:
             return {"error": "LibreOffice macro not configured properly"}
         return {"error": error_msg}
 

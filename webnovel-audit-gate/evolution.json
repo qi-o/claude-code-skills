@@ -1,0 +1,10 @@
+{
+  "preferences": [],
+  "fixes": [
+    "IssueSeverity 必须使用 class IssueSeverity(str, Enum)，不能是普通类，否则与其他模块不兼容",
+    "P2 审查器返回的 risk_level 为字符串 'high'/'medium'/'low'，不是枚举，需注意类型比较",
+    "HILGateTrigger.check_trigger() 接受单个 dict 参数，键为 p1_result, p2_result, anti_ai_result, scores, is_first_chapter, is_volume_end",
+    "FatigueWords 词典中避免重复键，如 '十分' 只应出现一次"
+  ],
+  "custom_prompts": []
+}

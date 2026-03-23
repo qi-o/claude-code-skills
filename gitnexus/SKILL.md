@@ -10,10 +10,10 @@ description: |
   (5) 用户说"索引项目"、"分析代码"、"查调用链"、"影响分析"
   核心功能：代码索引、知识图谱构建、MCP 工具集成（query/context/impact/rename/cypher）
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
-  Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories.
+  Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 6c18ae08f7480be5120602908aa19b4ce38e18dc
-version: 1.5.0
+github_hash: 862fdf91856daf8b1d5df3ff2adc70ddc0de40be
+version: 1.6.2
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus

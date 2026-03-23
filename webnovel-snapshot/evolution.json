@@ -1,0 +1,9 @@
+{
+  "preferences": [],
+  "fixes": [
+    "快照管理器返回的 chapter_range 为字符串如 '1-10'，不是数组，调用者需注意解析",
+    "SnapshotManager.create_snapshot() 返回 (success, message) 元组，不是单个值",
+    "快照文件命名格式为 {type}_{timestamp}.json，如 auto_10ch_20260319_123045.json"
+  ],
+  "custom_prompts": []
+}

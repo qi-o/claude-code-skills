@@ -4,12 +4,19 @@ description: Use this skill whenever the user wants to do anything with PDF file
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
 github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c
-version: 0.3.0source: skills/pdf
+version: 0.3.0
+source: skills/pdf
 metadata:
   category: document-creation
 ---
 
 # PDF Processing Guide
+
+## Quick Content Extraction
+
+```bash
+python -m markitdown document.pdf
+```
 
 ## Overview
 
@@ -311,9 +318,63 @@ with open("encrypted.pdf", "wb") as output:
 | OCR scanned PDFs | pytesseract | Convert to image first |
 | Fill PDF forms | pdf-lib or pypdf (see FORMS.md) | See FORMS.md |
 
+## QA (Required)
+
+**Assume there are problems. Your job is to find them.**
+
+### Content QA
+
+```bash
+python -m markitdown output.pdf
+```
+
+### Visual QA
+
+Convert to images, then use a subagent to inspect:
+
+```bash
+python scripts/convert_pdf_to_images.py output.pdf output_images/
+```
+
+**⚠️ USE SUBAGENTS** for visual inspection — fresh eyes catch what you miss.
+
+### Verification Loop
+
+1. Generate → Convert to images → Inspect
+2. List issues found
+3. Fix issues
+4. Re-verify affected pages
+5. Repeat until a full pass reveals no new issues
+
+## Dependencies
+
+- `pip install "markitdown[pdf]"` - quick text extraction
+- `pip install pypdf` - merge, split, rotate, encrypt
+- `pip install pdfplumber` - text and table extraction with layout
+- `pip install reportlab` - create PDFs from scratch
+- `pip install pdf2image` - convert pages to images
+- `pip install pytesseract` - OCR for scanned PDFs
+- `pip install Pillow` - image manipulation
+- Poppler (`pdftotext`, `pdftoppm`, `pdfimages`) - CLI tools
+- `qpdf` - CLI merge/split/encrypt
+
 ## Next Steps
 
 - For advanced pypdfium2 usage, see REFERENCE.md
 - For JavaScript libraries (pdf-lib), see REFERENCE.md
 - If you need to fill out a PDF form, follow the instructions in FORMS.md
 - For troubleshooting guides, see REFERENCE.md
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### User Preferences
+- pdf/xlsx/docx 三个 skill 应保持结构对齐：Quick Content Extraction、QA、Dependencies 章节
+- QA 章节应包含 markitdown 内容验证和 convert_pdf_to_images 视觉验证两步
+
+### Known Fixes & Workarounds
+- convert_pdf_to_images.py 需在函数内调用 os.makedirs(output_dir, exist_ok=True) 自动创建输出目录
+- check_fillable_fields.py 需包装为 main() 函数并添加参数数量校验和 try/except 异常处理
+- pdf/SKILL.md frontmatter 中 version 和 source 字段被合并到同一行，需拆分为独立行

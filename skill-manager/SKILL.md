@@ -252,6 +252,9 @@ Total skills: 25
 - 验证本地安装的 Skill（无 GitHub 源）时应使用 migrate.py --verify，scan_and_check.py 只扫描有 GitHub 远程源的 Skill
 - skills 目录结构：技能同时存在于根目录（符号链接）和子目录（.curated/、.experimental/），扫描脚本应同时扫描两处
 - scan_and_check.py 已支持递归扫描子目录，自动发现 .curated/ 和 .experimental/ 中的 skills
+- 更新 skill 时必须同时更新 description frontmatter 以反映新增数据源
+- paper-search 更新采用混合策略：保留本地中文内容，合并上游新数据源和架构说明
+- 更新后版本号规则：新增数据源/功能升级用 minor 版本（1.0.0→1.1.0）
 
 ### Known Fixes & Workarounds
 - skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON
@@ -282,6 +285,8 @@ Total skills: 25
 - 稀疏克隆安装本地 Skill 后 scan_and_check.py 显示 MISSING 属正常现象（无 GitHub URL），migrate.py --verify 的 Check 5 才是正确验证入口
 - 技能整理方案：将散落的 skills 移动到 .curated/（精选）或 .experimental/（实验），根目录通过符号链接暴露
 - scan_and_check.py 扫描时会同时发现根目录符号链接和子目录源文件，导致重复扫描，这是预期行为不影响功能
+- paper-search 环境变量统一改为 PAPER_SEARCH_MCP_* 前缀，旧名仍向后兼容
+- scan_and_check.py 对 local-only skill（github_url 为空）应直接标记为 current 跳过远程检查
 
 ### Custom Instruction Injection
 

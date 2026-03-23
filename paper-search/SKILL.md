@@ -1,7 +1,7 @@
 ---
 name: paper-search
 description: |
-  学术论文搜索与下载工具。支持 arXiv、PubMed、bioRxiv、medRxiv、Google Scholar、Semantic Scholar、CrossRef、IACR 等学术数据库。
+  学术论文搜索与下载工具。支持 arXiv、PubMed、bioRxiv、medRxiv、Google Scholar、Semantic Scholar、CrossRef、IACR、OpenAlex、PMC、CORE、Europe PMC、Zenodo、HAL、SSRN 等 20+ 学术数据库。
   触发场景：
   (1) 用户需要搜索学术论文、文献
   (2) 用户提到 arXiv、PubMed、bioRxiv 等学术数据库
@@ -11,10 +11,10 @@ description: |
   基于 openags/paper-search-mcp 转换，无需 MCP 配置。
   Do NOT use for clinical trial searches (use clinicaltrials-database instead) or general web searches (use ducksearch instead).
 github_url: https://github.com/openags/paper-search-mcp
-github_hash: cf2697fd04a7b7c1ced0e382ab84f0c214614f83
+github_hash: 4860916c8da4e58b9cded756e0bc2327d334146d
 license: MIT
 allowed-tools: "Bash(python:*) WebFetch Read Write"
-version: 1.0.0
+version: 1.1.0
 metadata:
   category: research-knowledge
 ---
@@ -31,16 +31,34 @@ metadata:
 | **PubMed** | ✅ | ❌ | 生物医学文献 |
 | **bioRxiv** | ✅ | ✅ | 生物学预印本 |
 | **medRxiv** | ✅ | ✅ | 医学预印本 |
-| **Google Scholar** | ✅ | ❌ | 综合学术搜索 |
-| **Semantic Scholar** | ✅ | ✅ | AI 驱动的学术搜索 |
+| **Google Scholar** | ⚠️ | ❌ | 综合学术搜索（有反爬，需代理） |
+| **Semantic Scholar** | ✅ | ✅(OA) | AI 驱动的学术搜索 |
 | **CrossRef** | ✅ | ❌ | DOI 元数据库 |
 | **IACR** | ✅ | ✅ | 密码学论文 |
+| **OpenAlex** | ✅ | ❌ | 免费开放元数据骨干 |
+| **PMC** | ✅ | ✅(OA) | PubMed Central 全文 |
+| **CORE** | ✅ | ✅ | 开放获取仓库聚合 |
+| **Europe PMC** | ✅ | ✅(OA) | 欧洲生物医学全文 |
+| **dblp** | ✅ | ❌ | CS 文献索引 |
+| **OpenAIRE** | ✅ | ❌ | 欧洲开放获取 |
+| **Zenodo** | ✅ | ✅ | 研究数据/论文仓库 |
+| **HAL** | ✅ | ✅ | 法国开放获取平台 |
+| **SSRN** | ⚠️ | ⚠️ | 社科/经济预印本 |
+| **DOAJ** | ✅ | ⚠️ | 开放获取期刊目录 |
+| **Unpaywall** | ✅(DOI) | ❌ | OA 元数据（需邮箱） |
+| **IEEE Xplore** | 🚧 | 🚧 | 需 `PAPER_SEARCH_MCP_IEEE_API_KEY` |
+| **ACM DL** | 🚧 | 🚧 | 需 `PAPER_SEARCH_MCP_ACM_API_KEY` |
+
+> ✅ 稳定可用  ⚠️ 受上游限制  ❌ 不支持  🚧 需 API Key 激活
 
 ## 快速使用
 
-### 搜索论文
+### 多源并发搜索（推荐）
 
 ```bash
+# 跨多个数据库并发搜索 + 自动去重
+python scripts/search.py multi "large language model" --sources arxiv,semantic,openalex --max 10
+
 # 搜索 arXiv
 python scripts/search.py arxiv "large language model" --max 10
 
@@ -55,11 +73,20 @@ python scripts/search.py semantic "transformer architecture" --max 10
 
 # 搜索 CrossRef（通过 DOI 数据库）
 python scripts/search.py crossref "climate change" --max 10
+
+# 搜索 OpenAlex（免费开放元数据）
+python scripts/search.py openalex "climate change" --max 10
+
+# 搜索 Zenodo（研究数据/论文）
+python scripts/search.py zenodo "RNA sequencing" --max 10
 ```
 
-### 下载论文 PDF
+### 下载论文 PDF（OA 优先回退链）
 
 ```bash
+# 自动回退：源站 → OpenAIRE/CORE/PMC → Unpaywall → (可选 Sci-Hub)
+python scripts/download.py fallback 10.1038/nature12373 --output ./papers
+
 # 下载 arXiv 论文
 python scripts/download.py arxiv 2301.07041 --output ./papers
 
@@ -68,6 +95,9 @@ python scripts/download.py biorxiv 10.1101/2023.01.01.123456 --output ./papers
 
 # 下载 IACR 论文
 python scripts/download.py iacr 2023/123 --output ./papers
+
+# 下载 Zenodo 论文
+python scripts/download.py zenodo 1234567 --output ./papers
 ```
 
 ### 通过 DOI 获取论文信息
@@ -164,6 +194,36 @@ python scripts/search.py doi 10.1038/nature12373
 3. **使用领域术语**：避免过于通俗的表述
 4. **限制时间范围**：对于快速发展的领域，优先搜索近 2 年的论文
 
+## 环境变量配置（可选）
+
+所有变量均为可选，统一使用 `PAPER_SEARCH_MCP_*` 前缀（兼容旧名）：
+
+```bash
+# Google Scholar 代理（绕过反爬）
+export PAPER_SEARCH_MCP_GOOGLE_SCHOLAR_PROXY_URL="http://your-proxy:port"
+
+# Semantic Scholar（提升速率限制）
+export PAPER_SEARCH_MCP_SEMANTIC_SCHOLAR_API_KEY="your_key"
+
+# Unpaywall（启用 DOI OA 元数据查询，必填才能使用）
+export PAPER_SEARCH_MCP_UNPAYWALL_EMAIL="your@email.com"
+
+# CORE（推荐，提升速率限制）
+export PAPER_SEARCH_MCP_CORE_API_KEY="your_key"
+
+# DOAJ（可选，提升速率限制）
+export PAPER_SEARCH_MCP_DOAJ_API_KEY="your_key"
+
+# Zenodo（可选，访问私有记录）
+export PAPER_SEARCH_MCP_ZENODO_ACCESS_TOKEN="your_token"
+
+# IEEE Xplore（必填才能激活）
+export PAPER_SEARCH_MCP_IEEE_API_KEY="your_key"
+
+# ACM DL（必填才能激活）
+export PAPER_SEARCH_MCP_ACM_API_KEY="your_key"
+```
+
 ## 依赖安装
 
 ```bash
@@ -173,21 +233,18 @@ pip install requests feedparser PyPDF2 scholarly httpx beautifulsoup4
 ## 常见问题
 
 ### Google Scholar 被限制
-Google Scholar 有反爬机制，频繁请求可能被限制。建议：
-- 降低请求频率
-- 使用代理
-- 优先使用 Semantic Scholar 替代
+配置代理变量 `PAPER_SEARCH_MCP_GOOGLE_SCHOLAR_PROXY_URL`，或优先使用 Semantic Scholar / OpenAlex 替代。
 
 ### PubMed 无法下载 PDF
 PubMed 是索引数据库，不直接提供 PDF。可以：
-- 使用论文的 DOI 到出版商网站下载
-- 检查 PubMed Central (PMC) 是否有免费全文
+- 使用 `download_with_fallback` 通过 DOI 自动查找 OA 全文
+- 检查 PMC 是否有免费全文：`python scripts/search.py pmc "PMID:12345678"`
 
-### Semantic Scholar API Key
-可选配置 API Key 获得更高配额：
-```bash
-export SEMANTIC_SCHOLAR_API_KEY="your_key"
-```
+### Semantic Scholar 速率限制
+配置 `PAPER_SEARCH_MCP_SEMANTIC_SCHOLAR_API_KEY`；若 key 被拒（403），连接器会自动降级为无 key 模式重试。
+
+### CORE / OpenAIRE 不稳定
+CORE 建议配置免费 API Key；OpenAIRE 连接器内置 3 次重试和请求头升级策略，失败时静默返回空结果。
 
 ## User-Learned Best Practices & Constraints
 

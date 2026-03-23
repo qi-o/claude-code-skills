@@ -10,6 +10,12 @@ metadata:
   category: document-creation
 ---
 
+## Quick Content Extraction
+
+```bash
+python -m markitdown spreadsheet.xlsx
+```
+
 # Requirements for Outputs
 
 ## All Excel files
@@ -286,6 +292,31 @@ The script returns JSON with error details:
 - For large files, read specific columns: `pd.read_excel('file.xlsx', usecols=['A', 'C', 'E'])`
 - Handle dates properly: `pd.read_excel('file.xlsx', parse_dates=['date_column'])`
 
+## QA (Required)
+
+### Content QA
+
+```bash
+python -m markitdown output.xlsx
+```
+
+### Formula QA
+
+After any formula changes, always recalculate:
+
+```bash
+python scripts/recalc.py output.xlsx
+```
+
+Check the JSON output for `"total_errors": 0`.
+
+## Dependencies
+
+- `pip install "markitdown[xlsx]"` - quick text extraction
+- `pip install openpyxl` - create and edit spreadsheets
+- `pip install pandas` - data analysis and reading
+- LibreOffice (`soffice`) - formula recalculation (auto-configured via `scripts/office/soffice.py`)
+
 ## Code Style Guidelines
 **IMPORTANT**: When generating Python code for Excel operations:
 - Write minimal, concise Python code without unnecessary comments
@@ -296,3 +327,16 @@ The script returns JSON with error details:
 - Add comments to cells with complex formulas or important assumptions
 - Document data sources for hardcoded values
 - Include notes for key calculations and model sections
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### User Preferences
+- xlsx/pdf/docx 三个 skill 应保持结构对齐：Quick Content Extraction、QA、Dependencies 章节
+- recalc.py 超时处理应使用 subprocess timeout 参数而非 Linux/macOS 专用的 timeout/gtimeout 命令
+
+### Known Fixes & Workarounds
+- recalc.py 错误判断逻辑 or 应改为 and，否则真实错误被误判为宏配置错误
+- setup_libreoffice_macro 需要为 Windows 单独处理 MACRO_DIR_WINDOWS 路径
+- MACRO_DIR_WINDOWS 使用 os.environ.get(APPDATA) 构建路径

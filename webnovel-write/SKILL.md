@@ -293,6 +293,40 @@ cat "${SKILL_ROOT}/references/writing/typesetting.md"
 债务利息：
 - 默认关闭，仅在用户明确要求或开启追踪时执行（见 `step-5-debt-switch.md`）。
 
+### Step 5.5：Truth Files 更新（v5.5 新增）
+
+每个章节写作完成后，自动更新 Truth Files：
+
+```bash
+# 初始化项目 Truth Files（如首次使用）
+python "${SCRIPTS_DIR}/update_state.py" --init-truth-files --project-root "${PROJECT_ROOT}"
+
+# 更新章节摘要
+python "${SCRIPTS_DIR}/update_state.py" --truth-file chapter_summaries \
+  --data '{"chapter": N, "title": "...", "summary": "...", "key_events": [...]}'
+
+# 更新角色位置
+python "${SCRIPTS_DIR}/update_state.py" --truth-file current_state \
+  --data '{"character": "主角", "location": "..."}'
+
+# 添加物品变化
+python "${SCRIPTS_DIR}/update_state.py" --truth-file particle_ledger \
+  --data '{"type": "武器", "name": "玄铁剑", "quantity": 1, "owner": "主角"}'
+
+# 更新情感弧线
+python "${SCRIPTS_DIR}/update_state.py" --truth-file emotional_arcs \
+  --data '{"character": "女主", "emotion": "感动", "intensity": 7, "chapter": N}'
+```
+
+Truth Files 位置：`.webnovel/truth_files/`
+- `current_state.json` - 场景状态与角色位置
+- `particle_ledger.json` - 物品/资源流转追踪
+- `pending_hooks.json` - 伏笔和悬念追踪
+- `chapter_summaries.json` - 强化版章节摘要
+- `subplot_board.json` - 支线进度看板
+- `emotional_arcs.json` - 角色情感弧线
+- `character_matrix.json` - 角色互动矩阵
+
 ### Step 6：Git 备份（可失败但需说明）
 
 ```bash
@@ -312,7 +346,8 @@ git commit -m "Ch{chapter_num}: {title}"
 3. Step 4 已处理全部 `critical`，`high` 未修项有 deviation 记录
 4. Step 4 的 `anti_ai_force_check=pass`（基于全文检查；fail 时不得进入 Step 5）
 5. Step 5 已回写 `state.json`、`index.db`、`summaries/ch{chapter_padded}.md`
-6. 若开启性能观测，已读取最新 timing 记录并输出结论
+6. Step 5.5 已更新 Truth Files（`.webnovel/truth_files/`）
+7. 若开启性能观测，已读取最新 timing 记录并输出结论
 
 ## 验证与交付
 

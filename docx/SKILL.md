@@ -17,7 +17,7 @@ A .docx file is a ZIP archive containing XML files.
 
 | Task | Approach |
 |------|----------|
-| Read/analyze content | `pandoc` or unpack for raw XML |
+| Read/analyze content | `python -m markitdown document.docx` or unpack for raw XML |
 | Create new document | Use `docx-js` — see `references/docx_reference.md` |
 | Edit existing document | Unpack → edit XML → repack — see `references/docx_reference.md` |
 
@@ -113,8 +113,34 @@ For complete XML reference (tracked changes, comments, images, schema compliance
 
 ---
 
+## QA (Required)
+
+### Content QA
+
+```bash
+python -m markitdown output.docx
+```
+
+### Visual QA
+
+```bash
+python scripts/office/soffice.py --headless --convert-to pdf output.docx
+pdftoppm -jpeg -r 150 output.pdf page
+```
+
+**⚠️ USE SUBAGENTS** for visual inspection.
+
+### Verification Loop
+
+1. Generate → Convert to images → Inspect
+2. List issues found
+3. Fix issues
+4. Re-verify
+5. Repeat until clean pass
+
 ## Dependencies
 
+- `pip install "markitdown[docx]"` - quick text extraction
 - **pandoc**: Text extraction
 - **docx**: `npm install -g docx` (new documents)
 - **LibreOffice**: PDF conversion (auto-configured via `scripts/office/soffice.py`)

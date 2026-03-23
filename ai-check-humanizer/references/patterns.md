@@ -252,6 +252,71 @@
 
 ---
 
+## Stop Slop 结构模式（新增借鉴）
+
+### 模式 A: 虚假主语 (False Agency)
+
+**定义**：使用抽象主体隐藏实际执行动作的人。
+
+**示例：**
+| 原文 | 修复后 |
+|------|--------|
+| "The decision emerges from the committee" | "The committee decided" |
+| "The complaint becomes a fix" | "Users' complaints led us to create a fix" |
+| "the system enables teams to..." | "Our platform helps teams..." |
+| "the solution addresses the issue" | "We built X to solve Y" |
+
+---
+
+### 模式 B: 被动语态过度 (Passive Voice Overuse)
+
+**定义**：过度使用被动语态，隐藏行动者。
+
+**示例：**
+| 原文 | 修复后 |
+|------|--------|
+| "Changes were made to the policy" | "We updated the policy" |
+| "It was found that the drug was effective" | "Researchers found the drug reduced symptoms by 40%" |
+| "The data shows a significant correlation" | "Our analysis found a strong correlation" |
+
+---
+
+### 模式 C: 二元对比 (Binary Contrasts)
+
+**定义**：使用 "Not X. But Y." 结构制造虚假戏剧性。
+
+**示例：**
+| 原文 | 修复后 |
+|------|--------|
+| "Not everyone agrees. But we believe..." | "We believe..." |
+| "It's not about X. It's about Y." | 直接陈述 Y 的具体内容 |
+
+---
+
+### 模式 D: 负面列表 (Negative Listing)
+
+**定义**：先否定再肯定的结构，用"不是什么"来定义"是什么"。
+
+**示例：**
+| 原文 | 修复后 |
+|------|--------|
+| "Not a simple tool. Not a basic calculator. A complete solution." | 直接说明产品是什么 |
+| "This isn't just about cost. It's not about speed. It's about reliability." | 直接说明核心优势 |
+
+---
+
+### 模式 E: 远距离叙述者 (Distant Narrator)
+
+**定义**：使用 "Nobody designed this" 等叙述方式，让读者感觉置身事外。
+
+**示例：**
+| 原文 | 修复后 |
+|------|--------|
+| "Nobody could have predicted this" | "We didn't predict X" |
+| "It goes without saying" | 删除，或直接说明 |
+
+---
+
 ## 参考来源
 
 - Wikipedia: Signs of AI writing (WikiProject AI Cleanup)

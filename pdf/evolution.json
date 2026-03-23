@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-03-16T18:32:22.114336",
+  "preferences": [
+    "pdf/xlsx/docx 三个 skill 应保持结构对齐：Quick Content Extraction、QA、Dependencies 章节",
+    "QA 章节应包含 markitdown 内容验证和 convert_pdf_to_images 视觉验证两步"
+  ],
+  "fixes": [
+    "convert_pdf_to_images.py 需在函数内调用 os.makedirs(output_dir, exist_ok=True) 自动创建输出目录",
+    "check_fillable_fields.py 需包装为 main() 函数并添加参数数量校验和 try/except 异常处理",
+    "pdf/SKILL.md frontmatter 中 version 和 source 字段被合并到同一行，需拆分为独立行"
+  ]
+}

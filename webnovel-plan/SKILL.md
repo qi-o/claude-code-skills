@@ -448,6 +448,27 @@ python "${SCRIPTS_DIR}/webnovel.py" --project-root "$PROJECT_ROOT" update-state 
   --chapters-range "{start}-{end}"
 ```
 
+### Truth Files 初始化（v5.5 新增）
+
+卷大纲规划完成后，初始化项目的 Truth Files：
+
+```bash
+# 初始化项目 Truth Files（如首次使用）
+python "${SCRIPTS_DIR}/update_state.py" --init-truth-files --project-root "$PROJECT_ROOT"
+
+# 初始化支线看板（从卷大纲提取支线）
+python "${SCRIPTS_DIR}/update_state.py" --truth-file subplot_board \
+  --data '{"id": "subplot_1", "title": "...", "status": "计划中", "chapter": null}'
+
+# 初始化章节摘要占位（从详细大纲提取）
+python "${SCRIPTS_DIR}/update_state.py" --truth-file chapter_summaries \
+  --data '{"chapter": N, "title": "...", "summary": "", "key_events": []}'
+```
+
+Truth Files 位置：`.webnovel/truth_files/`
+- `subplot_board.json` - 支线进度看板
+- `chapter_summaries.json` - 章节摘要（将随着章节写作更新）
+
 Final check:
 - 节拍表文件已写入：`大纲/第{volume_id}卷-节拍表.md`
 - 时间线表文件已写入：`大纲/第{volume_id}卷-时间线.md`
