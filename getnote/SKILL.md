@@ -16,7 +16,7 @@ description: |
   **注意**：此技能需要配置 Get笔记 API 凭证。
 license: MIT-0
 github_url: https://github.com/iswalle/getnote-openclaw
-github_hash: 53e38bdc53a22cc1d746ce53796a15aed34dcabe
+github_hash: 7f3f8d5a88d5fb685a27da63078af2b928302787
 version: 1.3.2
 source: skills/getnote
 metadata:
@@ -527,7 +527,6 @@ GET /open/api/v1/resource/knowledge/live/detail?topic_id={alias_id}&live_id={liv
 | 42900 | 限流 | 降低频率，查看 rate_limit 字段 |
 | 50000 | 系统错误 | 稍后重试 |
 
-
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
@@ -543,6 +542,9 @@ GET /open/api/v1/resource/knowledge/live/detail?topic_id={alias_id}&live_id={liv
 - Get笔记 API 参数类型不一致：添加标签 POST /note/tags/add 的 note_id 必须是整数
 - 删除标签 POST /note/tags/delete 的 tag_id 必须是字符串
 - 知识库列表返回的 id 字段就是 topic_id，可直接用于其他知识库 API
+- Get笔记 API 的 created_at 是字符串格式如 2026-03-24 13:05:03，不是 Unix 时间戳，解析时需用 datetime.strptime(ts, "%Y-%m-%d %H:%M:%S") 而不是 datetime.fromtimestamp()
+- 对 (datetime, dict) 元组列表排序时必须加 key=lambda x: x[0]，否则 Python 3 无法比较 dict 的大小
+- datetime 的 timedelta 需要 from datetime import timedelta 显式导入，不能依赖其他调用路径的隐式 import
 
 ### Custom Instruction Injection
 

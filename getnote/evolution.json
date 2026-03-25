@@ -9,7 +9,11 @@
     "curl 在 Windows 终端发送中文会变成乱码，必须用 Python requests 替代",
     "Get笔记 API 参数类型不一致：添加标签 POST /note/tags/add 的 note_id 必须是整数",
     "删除标签 POST /note/tags/delete 的 tag_id 必须是字符串",
-    "知识库列表返回的 id 字段就是 topic_id，可直接用于其他知识库 API"
+    "知识库列表返回的 id 字段就是 topic_id，可直接用于其他知识库 API",
+    "Get笔记 API 的 created_at 是字符串格式如 2026-03-24 13:05:03，不是 Unix 时间戳，解析时需用 datetime.strptime(ts, \"%Y-%m-%d %H:%M:%S\") 而不是 datetime.fromtimestamp()",
+    "对 (datetime, dict) 元组列表排序时必须加 key=lambda x: x[0]，否则 Python 3 无法比较 dict 的大小",
+    "datetime 的 timedelta 需要 from datetime import timedelta 显式导入，不能依赖其他调用路径的隐式 import"
   ],
-  "custom_prompts": "调用 Get笔记 API 时，统一使用 Python requests 库，设置 PYTHONIOENCODING=utf-8 环境变量确保中文处理正确"
+  "custom_prompts": "调用 Get笔记 API 时，统一使用 Python requests 库，设置 PYTHONIOENCODING=utf-8 环境变量确保中文处理正确",
+  "last_updated": "2026-03-25T19:00:59.497684"
 }
