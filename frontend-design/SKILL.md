@@ -1,15 +1,14 @@
-﻿---
+---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics. 触发词：前端设计、网页设计、UI组件、创建网页、设计界面、做个网页、前端界面。Do NOT use for backend API development or non-UI code.
+description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
-github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c
-version: 0.4.0
-source: skills/frontend-design
+github_hash: 98669c11ca63e9c81c11501e1437e5c47b556621
+version: 0.0.1
 secondary_sources:
   - name: react-best-practices
     url: https://github.com/vercel-labs/agent-skills
-    hash: 9aec8ee6aaf702e49312a071e672f1c1b7b7e948
+    hash: 64484e9a6022c81e3af59f5dcee6fb6d631bf53e
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
@@ -48,23 +47,3 @@ Interpret creatively and make unexpected choices that feel genuinely designed fo
 **IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
 
 Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
-
-## References
-
-When working on specific design aspects, refer to these reference guides:
-
-- [Typography](./reference/typography.md) - Font selection, pairing, scale, line height
-- [Color & Contrast](./reference/color-and-contrast.md) - Palette building, accessibility contrast ratios
-- [Spatial Design](./reference/spatial-design.md) - Spacing scale, layout principles, grid systems
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### User Preferences
-- 融合 skill 时需要在 frontmatter 中添加 secondary_sources 字段
-- 融合后的 skill 应在 description 中说明融合了哪些功能
-
-### Known Fixes & Workarounds
-- fusion skill 需要同时更新主源和次源的 hash
-- 融合内容应添加到 SKILL.md 正文中，包含关键规则速查和工作流说明

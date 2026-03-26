@@ -185,3 +185,15 @@ git clone https://github.com/qi-o/claude-code-config.git ~/claude-code-config
 2. **检查差异**: 提交前使用 `git diff` 检查更改
 3. **敏感信息**: 确保 API token 等敏感信息已被清理
 4. **测试验证**: 推送后在 GitHub 上验证文件是否正确同步
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### Known Fixes & Workarounds
+- Windows Git Bash 下 robocopy /MIR 会被当作路径参数，用 cmd /c robocopy 或 PowerShell Copy-Item 替代
+- robocopy exit 0 但未拷贝文件时，检查目标目录结构——若已存在同名子目录会导致嵌套而非覆盖，改用 Python shutil.copytree dirs_exist_ok=True
+- GitHub token 缺 repo scope 导致 push 失败时，用 GitHub Desktop 推送（其凭证与 git CLI 隔离）
+- git reset --hard origin/master 会强制覆盖 working tree——reset 前确认没有 unstaged 变更，reset 后重新执行 Python shutil.copytree 重新拷贝文件
+- repo 起源不一致时（本地基于旧仓库，上游已切换 remote），git reset --hard origin/master 重建干净状态比 cherry-pick 更可靠

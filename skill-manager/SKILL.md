@@ -287,7 +287,4 @@ Total skills: 25
 - scan_and_check.py 扫描时会同时发现根目录符号链接和子目录源文件，导致重复扫描，这是预期行为不影响功能
 - paper-search 环境变量统一改为 PAPER_SEARCH_MCP_* 前缀，旧名仍向后兼容
 - scan_and_check.py 对 local-only skill（github_url 为空）应直接标记为 current 跳过远程检查
-
-### Custom Instruction Injection
-
-批量更新完成后运行 python .migration/migrate.py --verify 验证所有技能状态
+- scan_and_check.py 在 Windows 下 table 格式输出中文编码异常，确认数据正确性永远用 --format json，再通过 python -c "import json; ..." 管道解析字段，而非读取 table 文本

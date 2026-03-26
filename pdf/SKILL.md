@@ -1,22 +1,12 @@
-﻿---
+---
 name: pdf
-description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill. 触发词：处理PDF、PDF提取、合并PDF、PDF转换、读取PDF、PDF文件。Do NOT use for Word documents (use docx instead) or spreadsheets (use xlsx instead).
+description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c
-version: 0.3.0
-source: skills/pdf
-metadata:
-  category: document-creation
+github_hash: 98669c11ca63e9c81c11501e1437e5c47b556621
 ---
 
 # PDF Processing Guide
-
-## Quick Content Extraction
-
-```bash
-python -m markitdown document.pdf
-```
 
 ## Overview
 
@@ -180,7 +170,7 @@ doc.build(story)
 
 #### Subscripts and Superscripts
 
-**IMPORTANT**: Never use Unicode subscript/superscript characters (鈧€鈧佲倐鈧冣倓鈧呪倖鈧団倛鈧? 鈦奥孤猜斥伌鈦碘伓鈦封伕鈦? in ReportLab PDFs. The built-in fonts do not include these glyphs, causing them to render as solid black boxes.
+**IMPORTANT**: Never use Unicode subscript/superscript characters (₀₁₂₃₄₅₆₇₈₉, ⁰¹²³⁴⁵⁶⁷⁸⁹) in ReportLab PDFs. The built-in fonts do not include these glyphs, causing them to render as solid black boxes.
 
 Instead, use ReportLab's XML markup tags in Paragraph objects:
 ```python
@@ -318,63 +308,9 @@ with open("encrypted.pdf", "wb") as output:
 | OCR scanned PDFs | pytesseract | Convert to image first |
 | Fill PDF forms | pdf-lib or pypdf (see FORMS.md) | See FORMS.md |
 
-## QA (Required)
-
-**Assume there are problems. Your job is to find them.**
-
-### Content QA
-
-```bash
-python -m markitdown output.pdf
-```
-
-### Visual QA
-
-Convert to images, then use a subagent to inspect:
-
-```bash
-python scripts/convert_pdf_to_images.py output.pdf output_images/
-```
-
-**⚠️ USE SUBAGENTS** for visual inspection — fresh eyes catch what you miss.
-
-### Verification Loop
-
-1. Generate → Convert to images → Inspect
-2. List issues found
-3. Fix issues
-4. Re-verify affected pages
-5. Repeat until a full pass reveals no new issues
-
-## Dependencies
-
-- `pip install "markitdown[pdf]"` - quick text extraction
-- `pip install pypdf` - merge, split, rotate, encrypt
-- `pip install pdfplumber` - text and table extraction with layout
-- `pip install reportlab` - create PDFs from scratch
-- `pip install pdf2image` - convert pages to images
-- `pip install pytesseract` - OCR for scanned PDFs
-- `pip install Pillow` - image manipulation
-- Poppler (`pdftotext`, `pdftoppm`, `pdfimages`) - CLI tools
-- `qpdf` - CLI merge/split/encrypt
-
 ## Next Steps
 
 - For advanced pypdfium2 usage, see REFERENCE.md
 - For JavaScript libraries (pdf-lib), see REFERENCE.md
 - If you need to fill out a PDF form, follow the instructions in FORMS.md
 - For troubleshooting guides, see REFERENCE.md
-
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### User Preferences
-- pdf/xlsx/docx 三个 skill 应保持结构对齐：Quick Content Extraction、QA、Dependencies 章节
-- QA 章节应包含 markitdown 内容验证和 convert_pdf_to_images 视觉验证两步
-
-### Known Fixes & Workarounds
-- convert_pdf_to_images.py 需在函数内调用 os.makedirs(output_dir, exist_ok=True) 自动创建输出目录
-- check_fillable_fields.py 需包装为 main() 函数并添加参数数量校验和 try/except 异常处理
-- pdf/SKILL.md frontmatter 中 version 和 source 字段被合并到同一行，需拆分为独立行

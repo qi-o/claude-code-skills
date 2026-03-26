@@ -1,20 +1,10 @@
-﻿---
+---
 name: xlsx
-description: "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path 鈥?even casually (like \"the xlsx in my downloads\") 鈥?and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved."
+description: "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: b0cbd3df1533b396d281a6886d5132f623393a9c
-version: 0.3.0
-source: skills/xlsx
-metadata:
-  category: document-creation
+github_hash: 98669c11ca63e9c81c11501e1437e5c47b556621
 ---
-
-## Quick Content Extraction
-
-```bash
-python -m markitdown spreadsheet.xlsx
-```
 
 # Requirements for Outputs
 
@@ -112,7 +102,7 @@ df.to_excel('output.xlsx', index=False)
 
 **Always use Excel formulas instead of calculating values in Python and hardcoding them.** This ensures the spreadsheet remains dynamic and updateable.
 
-### 鉂?WRONG - Hardcoding Calculated Values
+### ❌ WRONG - Hardcoding Calculated Values
 ```python
 # Bad: Calculating in Python and hardcoding result
 total = df['Sales'].sum()
@@ -127,7 +117,7 @@ avg = sum(values) / len(values)
 sheet['D20'] = avg  # Hardcodes 42.5
 ```
 
-### 鉁?CORRECT - Using Excel Formulas
+### ✅ CORRECT - Using Excel Formulas
 ```python
 # Good: Let Excel calculate the sum
 sheet['B10'] = '=SUM(B2:B9)'
@@ -292,31 +282,6 @@ The script returns JSON with error details:
 - For large files, read specific columns: `pd.read_excel('file.xlsx', usecols=['A', 'C', 'E'])`
 - Handle dates properly: `pd.read_excel('file.xlsx', parse_dates=['date_column'])`
 
-## QA (Required)
-
-### Content QA
-
-```bash
-python -m markitdown output.xlsx
-```
-
-### Formula QA
-
-After any formula changes, always recalculate:
-
-```bash
-python scripts/recalc.py output.xlsx
-```
-
-Check the JSON output for `"total_errors": 0`.
-
-## Dependencies
-
-- `pip install "markitdown[xlsx]"` - quick text extraction
-- `pip install openpyxl` - create and edit spreadsheets
-- `pip install pandas` - data analysis and reading
-- LibreOffice (`soffice`) - formula recalculation (auto-configured via `scripts/office/soffice.py`)
-
 ## Code Style Guidelines
 **IMPORTANT**: When generating Python code for Excel operations:
 - Write minimal, concise Python code without unnecessary comments
@@ -327,16 +292,3 @@ Check the JSON output for `"total_errors": 0`.
 - Add comments to cells with complex formulas or important assumptions
 - Document data sources for hardcoded values
 - Include notes for key calculations and model sections
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### User Preferences
-- xlsx/pdf/docx 三个 skill 应保持结构对齐：Quick Content Extraction、QA、Dependencies 章节
-- recalc.py 超时处理应使用 subprocess timeout 参数而非 Linux/macOS 专用的 timeout/gtimeout 命令
-
-### Known Fixes & Workarounds
-- recalc.py 错误判断逻辑 or 应改为 and，否则真实错误被误判为宏配置错误
-- setup_libreoffice_macro 需要为 Windows 单独处理 MACRO_DIR_WINDOWS 路径
-- MACRO_DIR_WINDOWS 使用 os.environ.get(APPDATA) 构建路径

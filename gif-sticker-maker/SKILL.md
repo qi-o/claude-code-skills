@@ -1,124 +1,129 @@
 ---
-name: gif-sticker-maker
-description: Create animated GIF stickers from photos — Funko Pop / Pop Mart style 3D figurines with captions. Uses MiniMax Image→Video→GIF pipeline. Trigger when user asks to make GIF stickers, animated stickers, or dynamic emoji from photos.
-type: skill
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: b4c7c3fcd4d8c1f6e2a3d7b9c5e1f4a8d2b7c3e9
-version: 1.0.0
+github_hash: 34c6cf05d7a2b68076bafa00e6f360bc9506bba6
+name: gif-sticker-maker
+description: |
+  Convert photos (people, pets, objects, logos) into 4 animated GIF stickers with captions.
+  Use when: user wants to create cartoon stickers, GIF expressions, emoji packs, animated avatars,
+  or convert photos to Funko Pop / Pop Mart blind box style animations.
+  Triggers: sticker, GIF, cartoon, emoji, expression pack, avatar animation.
+license: MIT
+metadata:
+  version: "1.2.0"
+  category: creative-tools
+  style: Funko Pop / Pop Mart
+  output_format: GIF
+  output_count: 4
+  sources:
+    - MiniMax Image Generation API
+    - MiniMax Video Generation API
 ---
 
 # GIF Sticker Maker
 
-Create 4 animated GIF stickers from a photo (person, pet, object, logo) in Funko Pop / Pop Mart blind box style. MiniMax Image→Video→GIF pipeline.
+Convert user photos into 4 animated GIF stickers (Funko Pop / Pop Mart style).
+
+## Style Spec
+
+- Funko Pop / Pop Mart blind box 3D figurine
+- C4D / Octane rendering quality
+- White background, soft studio lighting
+- Caption: black text + white outline, bottom of image
 
 ## Prerequisites
 
-1. `MINIMAX_API_KEY` set (via `~/.claude/env.d/minimax.env`)
-2. Python with `requests` library
-3. `ffmpeg` on PATH (for GIF conversion)
-4. MiniMax multimodal toolkit scripts available at `../minimax-multimodal-toolkit/scripts/`
+Before starting any generation step, ensure:
 
-## Full Workflow
+1. **Python venv** is activated with dependencies from [requirements.txt](references/requirements.txt) installed
+2. **`MINIMAX_API_KEY`** is exported (e.g. `export MINIMAX_API_KEY='your-key'`)
+3. **`ffmpeg`** is available on PATH (for Step 3 GIF conversion)
+
+If any prerequisite is missing, set it up first. Do NOT proceed to generation without all three.
+
+## Workflow
 
 ### Step 0: Collect Captions
 
-Ask user: "Custom captions or use defaults?"
+Ask user (in their language):
+> "Would you like to customize the captions for your stickers, or use the defaults?"
 
-**Default captions** (by language):
-| Action | EN | CN | JP |
-|--------|----|----|-----|
-| Waving | Hi~ | 嗨~ | やあ~ |
-| Laughing | LOL | 哈哈哈 | 笑 |
-| Crying | Boo-hoo | 呜呜呜 | えーん |
-| Heart | Love ya | 爱你哦 | 大好き |
-
-**Default actions**:
-1. Happy waving — wave hand, slight head tilt
-2. Laughing hard — shake with laughter, eyes squint
-3. Crying tears — tears stream, body trembles
-4. Heart gesture — heart hands, eyes sparkle
+- **Custom**: Collect 4 short captions (1–3 words). Actions auto-match caption meaning.
+- **Default**: Look up [captions table](references/captions.md) by **detected user language**. **Never mix languages.**
 
 ### Step 1: Generate 4 Static Sticker Images
 
-```bash
-python ../minimax-multimodal-toolkit/scripts/minimax_image.py \
-  --prompt "Transform the subject into a Funko Pop / Pop Mart blind box style 3D figurine. Cute cartoon proportions (large head, small body), 3D rendered (C4D/Octane quality), premium plastic/vinyl finish, clean white background, soft studio lighting. Action: waving cheerfully. Caption: Hi~" \
-  --subject-ref photo.jpg \
-  --subject-type character \
-  -o minimax-output/sticker_hi.png --ratio 1:1
-```
+**Tool**: `scripts/minimax_image.py`
 
-Run all 4 concurrently:
-- `sticker_hi.png` — Hi~ / waving
-- `sticker_laugh.png` — LOL / laughing
-- `sticker_cry.png` — Boo-hoo / crying
-- `sticker_love.png` — Love ya / heart gesture
-
-### Step 2: Animate Each Image → Video (I2V)
+1. Analyze the user's photo — identify subject type (person / animal / object / logo).
+2. For each of the 4 stickers, build a prompt from [image-prompt-template.txt](assets/image-prompt-template.txt) by filling `{action}` and `{caption}`.
+3. **If subject is a person**: pass `--subject-ref <user_photo_path>` so the generated figurine preserves the person's actual facial likeness.
+4. Generate (all 4 are independent — **run concurrently**):
 
 ```bash
-python ../minimax-multimodal-toolkit/scripts/minimax_video.py \
-  --mode i2v \
-  --prompt "Animate this cute 3D cartoon figurine waving hand cheerfully, slight head tilt. Smooth loopable motion, character stays centered, white background remains static." \
-  --image minimax-output/sticker_hi.png \
-  -o minimax-output/sticker_hi.mp4 --duration 6 --resolution 768P
+python3 scripts/minimax_image.py "<prompt>" -o output/sticker_hi.png --ratio 1:1 --subject-ref <photo>
+python3 scripts/minimax_image.py "<prompt>" -o output/sticker_laugh.png --ratio 1:1 --subject-ref <photo>
+python3 scripts/minimax_image.py "<prompt>" -o output/sticker_cry.png --ratio 1:1 --subject-ref <photo>
+python3 scripts/minimax_image.py "<prompt>" -o output/sticker_love.png --ratio 1:1 --subject-ref <photo>
 ```
 
-Run all 4 concurrently.
+> `--subject-ref` only works for person subjects (API limitation: type=character).
+> For animals/objects/logos, omit the flag and rely on text description.
+
+### Step 2: Animate Each Image → Video
+
+**Tool**: `scripts/minimax_video.py` with `--image` flag (image-to-video mode)
+
+For each sticker image, build a prompt from [video-prompt-template.txt](assets/video-prompt-template.txt), then:
+
+```bash
+python3 scripts/minimax_video.py "<prompt>" --image output/sticker_hi.png -o output/sticker_hi.mp4
+python3 scripts/minimax_video.py "<prompt>" --image output/sticker_laugh.png -o output/sticker_laugh.mp4
+python3 scripts/minimax_video.py "<prompt>" --image output/sticker_cry.png -o output/sticker_cry.mp4
+python3 scripts/minimax_video.py "<prompt>" --image output/sticker_love.png -o output/sticker_love.mp4
+```
+
+All 4 calls are independent — **run concurrently**.
 
 ### Step 3: Convert Videos → GIF
 
-Use `scripts/convert_mp4_to_gif.py`:
+**Tool**: `scripts/convert_mp4_to_gif.py`
 
 ```bash
-python scripts/convert_mp4_to_gif.py \
-  minimax-output/sticker_hi.mp4 \
-  minimax-output/sticker_laugh.mp4 \
-  minimax-output/sticker_cry.mp4 \
-  minimax-output/sticker_love.mp4 \
-  --fps 15 --width 360
+python3 scripts/convert_mp4_to_gif.py output/sticker_hi.mp4 output/sticker_laugh.mp4 output/sticker_cry.mp4 output/sticker_love.mp4
 ```
 
-Output: `minimax-output/sticker_hi.gif`, `sticker_laugh.gif`, `sticker_cry.gif`, `sticker_love.gif`
+Outputs GIF files alongside each MP4 (e.g. `sticker_hi.gif`).
 
 ### Step 4: Deliver
 
-Output format:
-1. Brief status line
-2. `<deliver_assets>` block with all 4 GIF files
-3. NO text after deliver_assets
+Output format (strict order):
+1. Brief status line (e.g. "4 stickers created:")
+2. `<deliver_assets>` block with all GIF files
+3. **NO text after deliver_assets**
 
-## Caption Prompt Template
-
-```
-Transform the subject into a Funko Pop / Pop Mart blind box style 3D figurine.
-
-Style:
-- Cute cartoon proportions (large head, small body)
-- 3D rendered (C4D/Octane quality), premium plastic/vinyl finish
-- Clean white background, soft studio lighting
-
-Subject handling:
-- Person: preserve facial features, hairstyle, clothing
-- Animal/Pet: preserve species, fur color, markings
-- Object: stylize into cute mascot figurine
-- Logo/Icon: transform to 3D toy, preserve original colors and shape
-
-Action: {action}
-Caption: "{caption}"
-
-Caption rendering:
-- Black bold text with thick white outline stroke
-- Large, clear sans-serif font
-- Placed at absolute bottom center of image as standalone text banner
-- NOT on character's body, clothing, or any accessory
-- Leave visible gap between character's feet and caption text
+```xml
+<deliver_assets>
+<item><path>output/sticker_hi.gif</path></item>
+<item><path>output/sticker_laugh.gif</path></item>
+<item><path>output/sticker_cry.gif</path></item>
+<item><path>output/sticker_love.gif</path></item>
+</deliver_assets>
 ```
 
-## Common Errors
+## Default Actions
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| No face recognized | subject-ref not working | Try without --subject-ref, use full prompt description |
-| GIF too large | fps or resolution too high | Lower --fps to 12, --width to 280 |
-|表情动作不自然 | Video prompt too vague | Be specific: "wave hand", not just "action" |
+| # | Action | Filename ID | Animation |
+|---|--------|-------------|-----------|
+| 1 | Happy waving | hi | Wave hand, slight head tilt |
+| 2 | Laughing hard | laugh | Shake with laughter, eyes squint |
+| 3 | Crying tears | cry | Tears stream, body trembles |
+| 4 | Heart gesture | love | Heart hands, eyes sparkle |
+
+See [references/captions.md](references/captions.md) for multilingual caption defaults.
+
+## Rules
+
+- Detect user's language, all outputs follow it
+- Captions MUST come from [captions.md](references/captions.md) matching user's language column — never mix languages
+- All image prompts must be in **English** regardless of user language (only caption text is localized)
+- `<deliver_assets>` must be LAST in response, no text after

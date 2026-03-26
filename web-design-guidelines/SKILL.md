@@ -1,14 +1,12 @@
-﻿---
+---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", "check my site against best practices", "检查可访问性", "审查界面", "UI审查", "检查组件的可访问性", "审查一下这个页面", "a11y check", "accessibility audit". Do NOT use for general code review unrelated to UI/UX (use code-reviewer instead).
+description: |
+  Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", "check my site against best practices", "检查可访问性", "审查界面", "UI审查", "检查组件的可访问性", "审查一下这个页面", "a11y check", "accessibility audit".
+  Do NOT use for general code review unrelated to UI/UX (use code-reviewer instead).
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 9aec8ee6aaf702e49312a071e672f1c1b7b7e948
-version: 1.2.0
-created_at: 2026-01-27
-platform: github
+github_hash: 64484e9a6022c81e3af59f5dcee6fb6d631bf53e
+version: 1.2.1
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines
-stars: 17000
-language: JavaScript
 author: vercel
 tags: [ui, ux, accessibility, a11y, web, design, review, audit]
 license: MIT
@@ -40,8 +38,11 @@ https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/comm
 - "audit design"
 - "review UX"
 - "check my site against best practices"
-- "妫€鏌ヨ繖涓粍浠剁殑鍙闂€?
-- "瀹℃煡涓€涓嬭繖涓〉闈?
+- "检查可访问性"
+- "审查界面"
+- "UI审查"
+- "检查组件的可访问性"
+- "审查一下这个页面"
 
 **With file pattern:**
 ```
@@ -59,7 +60,7 @@ Review src/components/*.tsx for web design guidelines
 - Decorative icons need `aria-hidden="true"`
 - Async updates need `aria-live="polite"` for toasts/validation
 - Prefer semantic HTML before ARIA attributes
-- Hierarchical headings `<h1>`鈥揱<h6>` with skip link for main content
+- Hierarchical headings `<h1>`–`<h6>` with skip link for main content
 - `scroll-margin-top` on heading anchors
 
 ### 2. Focus States (4 rules)
@@ -77,23 +78,23 @@ Review src/components/*.tsx for web design guidelines
 - Checkboxes/radios share single hit target with label
 - Submit button enabled until request starts; show spinner during request
 - Inline errors next to fields; focus first error on submit
-- Placeholders end with `鈥 showing example patterns
+- Placeholders end with `…` showing example patterns
 - `autocomplete="off"` on non-auth fields
 - Warn before navigation with unsaved changes
 
 ### 4. Animation (6 rules)
 - Honor `prefers-reduced-motion` media query
 - Animate only `transform`/`opacity` (compositor-friendly)
-- Never `transition: all`鈥攍ist properties explicitly
+- Never `transition: all`—list properties explicitly
 - Set correct `transform-origin`
 - SVG transforms on `<g>` wrapper with `transform-box: fill-box`
 - Animations must be interruptible
 
 ### 5. Typography (6 rules)
-- Use `鈥 not `...`
+- Use `…` not `...`
 - Curly quotes `"` `"` not straight `"`
-- Non-breaking spaces: `10&nbsp;MB`, `鈱?nbsp;K`
-- Loading states end with `鈥: `"Loading鈥?`
+- Non-breaking spaces: `10&nbsp;MB`, `价&nbsp;K`
+- Loading states end with `…`: `"Loading…"`
 - `font-variant-numeric: tabular-nums` for number columns
 - `text-wrap: balance` or `text-pretty` on headings
 
@@ -127,7 +128,7 @@ Review src/components/*.tsx for web design guidelines
 - Set `-webkit-tap-highlight-color` intentionally
 - `overscroll-behavior: contain` in modals/drawers
 - Disable text selection during drag
-- `autoFocus` sparingly鈥攄esktop only, avoid mobile
+- `autoFocus` sparingly—desktop only, avoid mobile
 
 ### 11. Safe Areas & Layout (3 rules)
 - Full-bleed layouts need `env(safe-area-inset-*)`
