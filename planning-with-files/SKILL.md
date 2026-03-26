@@ -19,7 +19,7 @@ hooks:
   Stop:
     - hooks:
         - type: command
-          command: "SD=\"${OPENCODE_SKILL_ROOT:-$HOME/.config/opencode/skills/planning-with-files}/scripts\"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$SD/check-complete.ps1\" 2>/dev/null || sh \"$SD/check-complete.sh\""
+          command: "SD=\"${OPENCODE_SKILL_ROOT:-$HOME/.claude/skills/planning-with-files}/scripts\"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$SD/check-complete.ps1\" 2>/dev/null || sh \"$SD/check-complete.sh\""
 metadata:
   version: "2.21.0"
 ---
@@ -34,12 +34,12 @@ Work like Manus: Use persistent markdown files as your "working memory on disk."
 
 ```bash
 # Linux/macOS (auto-detects python3 or python)
-$(command -v python3 || command -v python) ~/.config/opencode/skills/planning-with-files/scripts/session-catchup.py "$(pwd)"
+$(command -v python3 || command -v python) ~/.claude/skills/planning-with-files/scripts/session-catchup.py "$(pwd)"
 ```
 
 ```powershell
 # Windows PowerShell
-python "$env:USERPROFILE\.opencode\skills\planning-with-files\scripts\session-catchup.py" (Get-Location)
+python "$env:USERPROFILE\.claude\skills\planning-with-files\scripts\session-catchup.py" (Get-Location)
 ```
 
 If catchup report shows unsynced context:
@@ -50,12 +50,12 @@ If catchup report shows unsynced context:
 
 ## Important: Where Files Go
 
-- **Templates** are in `~/.config/opencode/skills/planning-with-files/templates/`
+- **Templates** are in `~/.claude/skills/planning-with-files/templates/`
 - **Your planning files** go in **your project directory**
 
 | Location | What Goes There |
 |----------|-----------------|
-| Skill directory (`~/.config/opencode/skills/planning-with-files/`) | Templates, scripts, reference docs |
+| Skill directory (`~/.claude/skills/planning-with-files/`) | Templates, scripts, reference docs |
 | Your project directory | `task_plan.md`, `findings.md`, `progress.md` |
 
 ## Quick Start
