@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"python -c \\\"\\nimport os, requests\\nkey = os.environ.get('MINIMAX_API_KEY') or open('C:/Users/ZDS/.claude/env.d/minimax.env').read().split('MINIMAX_API_KEY=')[1].split('\\\\n')[0]\\nresp = req...",
+  "error": "Exit code 1\nTraceback (most recent call last):\r\n  File \"<string>\", line 3, in <module>\r\n    key = os.environ.get('MINIMAX_API_KEY') or open('C:/Users/ZDS/.claude/env.d/minimax.env').read().split('MINIMAX_API_KEY=')[1].split('\\n')[0]\r\n                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\r\nUnicodeDecodeError: 'gbk' codec can't decode byte 0x94 in position 274: illegal multibyte sequence",
+  "timestamp": "2026-03-26T11:25:44.419Z",
+  "retry_count": 2
+}

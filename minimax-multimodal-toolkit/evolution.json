@@ -1,0 +1,9 @@
+{
+  "last_updated": "2026-03-26T19:51:00.118021",
+  "preferences": [],
+  "fixes": [
+    "TTS API output_format 只支持 hex，不支持 mp3，否则返回 2013 invalid params",
+    "TTS 默认 voice 应为 female-tianmei，female-shaonu 返回 2054 voice id not exist"
+  ],
+  "custom_prompts": ""
+}
