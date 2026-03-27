@@ -1,9 +1,9 @@
 ---
 name: baoyu-compress-image
 description: Compresses images to WebP (default) or PNG with automatic tool selection. Use when user asks to "compress image", "optimize image", "convert to webp", or reduce image file size. 触发词：压缩图片、转换WebP、图片压缩、compress image、convert to webp。Do NOT use for image editing or resizing.
-version: 1.82.0
+version: 1.56.1
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: bec1f1e2a1c718363f6c4abec2bed4d406bcca54
+github_hash: 02a4ca498a64aba39186fccd80f04a91d286eb06
 source: skills/baoyu-compress-image
 license: MIT
 metadata:

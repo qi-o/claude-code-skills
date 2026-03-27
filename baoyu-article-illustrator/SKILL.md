@@ -1,9 +1,9 @@
 ---
 name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style two-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图". Do NOT use for data charts or scientific figures (use pub-figures instead).
-version: 1.82.0
+version: 1.56.1
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: bec1f1e2a1c718363f6c4abec2bed4d406bcca54
+github_hash: 02a4ca498a64aba39186fccd80f04a91d286eb06
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:
@@ -122,7 +122,7 @@ Full template: [references/workflow.md](references/workflow.md#step-4-generate-o
 
 ⛔ **BLOCKING: Prompt files MUST be saved before ANY image generation.**
 
-**Execution strategy**: When multiple illustrations have saved prompt files and the task is now plain generation, prefer `baoyu-image-gen` batch mode (`build-batch.ts` → `--batchfile`) over spawning subagents. Use subagents only when each image still needs separate prompt iteration or creative exploration.
+**Execution strategy**: When multiple illustrations have saved prompt files and the task is now plain generation, prefer `baoyu-imagine` batch mode (`build-batch.ts` → `--batchfile`) over spawning subagents. Use subagents only when each image still needs separate prompt iteration or creative exploration.
 
 1. For each illustration, create a prompt file per [references/prompt-construction.md](references/prompt-construction.md)
 2. Save to `prompts/NN-{type}-{slug}.md` with YAML frontmatter
@@ -161,7 +161,7 @@ illustrations/{topic-slug}/
 ## Modification
 
 | Action | Steps |
-|--------|-------|
+|--------|--------|
 | Edit | Update prompt → Regenerate → Update reference |
 | Add | Position → Prompt → Generate → Update outline → Insert |
 | Delete | Delete files → Remove reference → Update outline |
@@ -175,4 +175,4 @@ illustrations/{topic-slug}/
 | [references/styles.md](references/styles.md) | Style gallery |
 | [references/style-presets.md](references/style-presets.md) | Preset shortcuts (type + style) |
 | [references/prompt-construction.md](references/prompt-construction.md) | Prompt templates |
-| [references/config/first-time-setup.md](references/config/first-time-setup.md) | First-time setup |
+| [references/config/first-time-setup.md](references/config/first-time-setup.md) | First-time setup

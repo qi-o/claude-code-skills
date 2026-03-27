@@ -13,8 +13,8 @@ description: |
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 546128cdcbbcd439ffc03bb17a21886f12fae7db
-version: 1.8.0
+github_hash: 9edf06bda2ee56cc42015ba991b7679cd12b7d09
+version: 1.4.10
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus
@@ -48,595 +48,436 @@ metadata:
     <img src="https://img.shields.io/discord/1477255801545429032?color=5865F2&logo=discord&logoColor=white" alt="Discord"/>
   </a>
   <a href="https://www.npmjs.com/package/gitnexus">
-    <img src="https://img.shields.io/npm/v/gitnexus.svg" alt="npm version"/>
+    <img src="https://img.shields.io/badge/npm-v2.4.1-blue" alt="npm"/>
   </a>
-  <a href="https://polyformproject.org/licenses/noncommercial/1.0.0/">
-    <img src="https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue.svg" alt="License: PolyForm Noncommercial"/>
+  <a href="https://opensource.org/licenses/PolyForm-Noncommercial">
+    <img src="https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue" alt="License"/>
   </a>
 
 </div>
 
-**Building nervous system for agent context.**
+## Overview
 
-Indexes any codebase into a knowledge graph — every dependency, call chain, cluster, and execution flow — then exposes it through smart tools so AI agents never miss code.
+GitNexus is a **client-side code knowledge graph engine** that helps AI agents understand code structure. It indexes local repositories, builds a queryable knowledge graph, and provides MCP tools for:
 
----
+| Tool | What it does |
+|------|-------------|
+| `query` | Find code related to a concept — returns execution flows |
+| `context` | 360° view of a symbol — callers, callees, processes |
+| `impact` | Symbol blast radius — what breaks at depth 1/2/3 |
+| `detect_changes` | Git-diff impact — what your changes affect |
+| `rename` | Multi-file coordinated rename with confidence scoring |
+| `cypher` | Raw graph queries |
+| `list_repos` | Discover indexed repositories |
 
-## Star History
+> **Important:** GitNexus analyzes **local code**, not external knowledge. Use `deep-research` for调研外部知识.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=abhigyanpatwari/GitNexus&type=date&legend=top-left)](https://www.star-history.com/#abhigyanpatwari/GitNexus&type=date&legend=top-left)
-
----
-
-## Two Ways to Use GitNexus
-
-|                   | **CLI + MCP**                                            | **Web UI**                                             |
-| ----------------- | -------------------------------------------------------------- | ------------------------------------------------------------ |
-| **What**    | Index repos locally, connect AI agents via MCP                 | Visual graph explorer + AI chat in browser                   |
-| **For**     | Daily development with Cursor, Claude Code, Codex, Windsurf, OpenCode | Quick exploration, demos, one-off analysis                   |
-| **Scale**   | Full repos, any size                                           | Limited by browser memory (~5k files), or unlimited via backend mode |
-| **Install** | `npm install -g gitnexus`                                    | No install —[gitnexus.vercel.app](https://gitnexus.vercel.app) |
-| **Storage** | LadybugDB native (fast, persistent)                               | LadybugDB WASM (in-memory, per session)                         |
-| **Parsing** | Tree-sitter native bindings                                    | Tree-sitter WASM                                             |
-| **Privacy** | Everything local, no network                                   | Everything in-browser, no server                             |
-
-> **Bridge mode:** `gitnexus serve` connects the two — the web UI auto-detects the local server and can browse all your CLI-indexed repos without re-uploading or re-indexing.
-
----
-
-## CLI + MCP (recommended)
-
-The CLI indexes your repository and runs an MCP server that gives AI agents deep codebase awareness.
-
-### Quick Start
+## Quick Start
 
 ```bash
-# Index your repo (run from repo root)
+# First time in a project — index it
+npx gitnexus analyze
+
+# Check if index needs refresh
+npx gitnexus status
+```
+
+Then read `gitnexus://repo/{name}/context` to verify the index loaded.
+
+## Skill Guide
+
+Use the right skill for your task:
+
+| Task | When to use | Skill |
+|------|-------------|-------|
+| **Index / CLI** | Index a repo, check status, clean, generate wiki | `gitnexus-cli` |
+| **Exploring** | Understand architecture, trace execution flows | `gitnexus-exploring` |
+| **Debugging** | Trace bugs, find error sources | `gitnexus-debugging` |
+| **Impact Analysis** | Blast radius, safety before editing | `gitnexus-impact-analysis` |
+| **Refactoring** | Rename, extract, split safely | `gitnexus-refactoring` |
+| **PR Review** | Review PR changes, assess merge risk | `gitnexus-pr-review` |
+| **Reference** | Tool/schema quick reference | `gitnexus-guide` |
+
+---
+
+# gitnexus-cli
+
+> Use when the user needs to run GitNexus CLI commands like analyze/index a repo, check status, clean the index, generate a wiki, or list indexed repos. Examples: "Index this repo", "Reanalyze the codebase", "Generate a wiki"
+
+## Commands
+
+All commands work via `npx` — no global install required.
+
+### analyze — Build or refresh the index
+
+```bash
 npx gitnexus analyze
 ```
 
-That's it. This indexes the codebase, installs agent skills, registers Claude Code hooks, and creates `AGENTS.md` / `CLAUDE.md` context files — all in one command.
+Run from the project root. Parses all source files, builds the knowledge graph, writes it to `.gitnexus/`, and generates CLAUDE.md / AGENTS.md context files.
 
-To configure MCP for your editor, run `npx gitnexus setup` once — or set it up manually below.
+| Flag | Effect |
+|------|--------|
+| `--force` | Force full re-index even if up to date |
+| `--embeddings` | Enable embedding generation for semantic search (off by default) |
 
-### MCP Setup
+**When to run:** First time in a project, after major code changes, or when `gitnexus://repo/{name}/context` reports the index is stale. In Claude Code, a PostToolUse hook runs `analyze` automatically after `git commit` and `git merge`, preserving embeddings if previously generated.
 
-`gitnexus setup` auto-detects your editors and writes the correct global MCP config. You only need to run it once.
-
-### Editor Support
-
-| Editor                | MCP | Skills | Hooks (auto-augment) | Support        |
-| --------------------- | --- | ------ | -------------------- | -------------- |
-| **Claude Code** | Yes | Yes    | Yes (PreToolUse + PostToolUse) | **Full** |
-| **Cursor**      | Yes | Yes    | —                   | MCP + Skills   |
-| **Codex**       | Yes | Yes    | —                   | MCP + Skills   |
-| **Windsurf**    | Yes | —     | —                   | MCP            |
-| **OpenCode**    | Yes | Yes    | —                   | MCP + Skills   |
-| **Codex**       | Yes | —     | —                   | MCP            |
-
-> **Claude Code** gets the deepest integration: MCP tools + agent skills + PreToolUse hooks that enrich searches with graph context + PostToolUse hooks that auto-reindex after commits.
-
-## Community Integrations
-
-Built by the community — not officially maintained, but worth checking out.
-
-| Project | Author | Description |
-|---------|--------|-------------|
-| [pi-gitnexus](https://github.com/tintinweb/pi-gitnexus) | [@tintinweb](https://github.com/tintinweb) | GitNexus plugin for [pi](https://pi.dev) — `pi install npm:pi-gitnexus` |
-| [gitnexus-stable-ops](https://github.com/ShunsukeHayashi/gitnexus-stable-ops) | [@ShunsukeHayashi](https://github.com/ShunsukeHayashi) | Stable ops & deployment workflows (Miyabi ecosystem) |
-
-> Have a project built on GitNexus? Open a PR to add it here!
-
-If you prefer manual configuration:
-
-**Claude Code** (full support — MCP + skills + hooks):
+### status — Check index freshness
 
 ```bash
-claude mcp add gitnexus -- npx -y gitnexus@latest mcp
+npx gitnexus status
 ```
 
-**Codex** (full support — MCP + skills):
+Shows whether the current repo has a GitNexus index, when it was last updated, and symbol/relationship counts.
+
+### clean — Delete the index
 
 ```bash
-codex mcp add gitnexus -- npx -y gitnexus@latest mcp
+npx gitnexus clean
 ```
 
-**Cursor** (`~/.cursor/mcp.json` — global, works for all projects):
+Deletes the `.gitnexus/` directory and unregisters the repo from the global registry.
 
-```json
-{
-  "mcpServers": {
-    "gitnexus": {
-      "command": "npx",
-      "args": ["-y", "gitnexus@latest", "mcp"]
-    }
-  }
-}
-```
+| Flag | Effect |
+|------|--------|
+| `--force` | Skip confirmation prompt |
+| `--all` | Clean all indexed repos |
 
-**OpenCode** (`~/.config/opencode/config.json`):
-
-```json
-{
-  "mcp": {
-    "gitnexus": {
-      "command": "npx",
-      "args": ["-y", "gitnexus@latest", "mcp"]
-    }
-  }
-}
-```
-
-**Codex** (`~/.codex/config.toml` for system scope, or `.codex/config.toml` for project scope):
-
-```toml
-[mcp_servers.gitnexus]
-command = "npx"
-args = ["-y", "gitnexus@latest", "mcp"]
-```
-
-### CLI Commands
+### wiki — Generate documentation from the graph
 
 ```bash
-gitnexus setup                    # Configure MCP for your editors (one-time)
-gitnexus analyze [path]           # Index a repository (or update stale index)
-gitnexus analyze --force          # Force full re-index
-gitnexus analyze --skills         # Generate repo-specific skill files from detected communities
-gitnexus analyze --skip-embeddings  # Skip embedding generation (faster)
-gitnexus analyze --embeddings     # Enable embedding generation (slower, better search)
-gitnexus analyze --verbose        # Log skipped files when parsers are unavailable
-gitnexus mcp                     # Start MCP server (stdio) — serves all indexed repos
-gitnexus serve                   # Start local HTTP server (multi-repo) for web UI connection
-gitnexus list                    # List all indexed repositories
-gitnexus status                  # Show index status for current repo
-gitnexus clean                   # Delete index for current repo
-gitnexus clean --all --force     # Delete all indexes
-gitnexus wiki [path]             # Generate repository wiki from knowledge graph
-gitnexus wiki --model <model>    # Wiki with custom LLM model (default: gpt-4o-mini)
-gitnexus wiki --base-url <url>   # Wiki with custom LLM API base URL
+npx gitnexus wiki
 ```
 
-### What Your AI Agent Gets
+Generates repository documentation from the knowledge graph using an LLM.
 
-**7 tools** exposed via MCP:
+| Flag | Effect |
+|------|--------|
+| `--force` | Force full regeneration |
+| `--model <model>` | LLM model (default: minimax/minimax-m2.5) |
+| `--base-url <url>` | LLM API base URL |
+| `--api-key <key>` | LLM API key |
+| `--concurrency <n>` | Parallel LLM calls (default: 3) |
+| `--gist` | Publish wiki as a public GitHub Gist |
 
-| Tool               | What It Does                                                      | `repo` Param |
-| ------------------ | ----------------------------------------------------------------- | -------------- |
-| `list_repos`     | Discover all indexed repositories                                 | —             |
-| `query`          | Process-grouped hybrid search (BM25 + semantic + RRF)             | Optional       |
-| `context`        | 360-degree symbol view — categorized refs, process participation | Optional       |
-| `impact`         | Blast radius analysis with depth grouping and confidence          | Optional       |
-| `detect_changes` | Git-diff impact — maps changed lines to affected processes       | Optional       |
-| `rename`         | Multi-file coordinated rename with graph + text search            | Optional       |
-| `cypher`         | Raw Cypher graph queries                                          | Optional       |
-
-> When only one repo is indexed, the `repo` parameter is optional. With multiple repos, specify which one: `query({query: "auth", repo: "my-app"})`.
-
-**Resources** for instant context:
-
-| Resource                                  | Purpose                                              |
-| ----------------------------------------- | ---------------------------------------------------- |
-| `gitnexus://repos`                      | List all indexed repositories (read this first)      |
-| `gitnexus://repo/{name}/context`        | Codebase stats, staleness check, and available tools |
-| `gitnexus://repo/{name}/clusters`       | All functional clusters with cohesion scores         |
-| `gitnexus://repo/{name}/cluster/{name}` | Cluster members and details                          |
-| `gitnexus://repo/{name}/processes`      | All execution flows                                  |
-| `gitnexus://repo/{name}/process/{name}` | Full process trace with steps                        |
-| `gitnexus://repo/{name}/schema`         | Graph schema for Cypher queries                      |
-
-**2 MCP prompts** for guided workflows:
-
-| Prompt            | What It Does                                                              |
-| ----------------- | ------------------------------------------------------------------------- |
-| `detect_impact` | Pre-commit change analysis — scope, affected processes, risk level       |
-| `generate_map`  | Architecture documentation from the knowledge graph with mermaid diagrams |
-
-**4 agent skills** installed to `.claude/skills/` automatically:
-
-- **Exploring** — Navigate unfamiliar code using the knowledge graph
-- **Debugging** — Trace bugs through call chains
-- **Impact Analysis** — Analyze blast radius before changes
-- **Refactoring** — Plan safe refactors using dependency mapping
-
-**Repo-specific skills** generated with `--skills`:
-
-When you run `gitnexus analyze --skills`, GitNexus detects the functional areas of your codebase (via Leiden community detection) and generates a `SKILL.md` file for each one under `.claude/skills/generated/`. Each skill describes a module's key files, entry points, execution flows, and cross-area connections — so your AI agent gets targeted context for the exact area of code you're working in. Skills are regenerated on each `--skills` run to stay current with the codebase.
-
----
-
-## Multi-Repo MCP Architecture
-
-GitNexus uses a **global registry** so one MCP server can serve multiple indexed repos. No per-project MCP config needed — set it up once and it works everywhere.
-
-```mermaid
-flowchart TD
-    subgraph CLI [CLI Commands]
-        Setup["gitnexus setup"]
-        Analyze["gitnexus analyze"]
-        Clean["gitnexus clean"]
-        List["gitnexus list"]
-    end
-
-    subgraph Registry ["~/.gitnexus/"]
-        RegFile["registry.json"]
-    end
-
-    subgraph Repos [Project Repos]
-        RepoA[".gitnexus/ in repo A"]
-        RepoB[".gitnexus/ in repo B"]
-    end
-
-    subgraph MCP [MCP Server]
-        Server["server.ts"]
-        Backend["LocalBackend"]
-        Pool["Connection Pool"]
-        ConnA["LadybugDB conn A"]
-        ConnB["LadybugDB conn B"]
-    end
-
-    Setup -->|"writes global MCP config"| CursorConfig["~/.cursor/mcp.json"]
-    Analyze -->|"registers repo"| RegFile
-    Analyze -->|"stores index"| RepoA
-    Clean -->|"unregisters repo"| RegFile
-    List -->|"reads"| RegFile
-    Server -->|"reads registry"| RegFile
-    Server --> Backend
-    Backend --> Pool
-    Pool -->|"lazy open"| ConnA
-    Pool -->|"lazy open"| ConnB
-    ConnA -->|"queries"| RepoA
-    ConnB -->|"queries"| RepoB
-```
-
-**How it works:** Each `gitnexus analyze` stores the index in `.gitnexus/` inside the repo (portable, gitignored) and registers a pointer in `~/.gitnexus/registry.json`. When an AI agent starts, the MCP server reads the registry and can serve any indexed repo. LadybugDB connections are opened lazily on first query and evicted after 5 minutes of inactivity (max 5 concurrent). If only one repo is indexed, the `repo` parameter is optional on all tools — agents don't need to change anything.
-
----
-
-## Web UI (browser-based)
-
-A fully client-side graph explorer and AI chat. No server, no install — your code never leaves the browser.
-
-**Try it now:** [gitnexus.vercel.app](https://gitnexus.vercel.app) — drag & drop a ZIP and start exploring.
-
-Or run locally:
+### list — Show all indexed repos
 
 ```bash
-git clone https://github.com/abhigyanpatwari/gitnexus.git
-cd gitnexus/gitnexus-web
-npm install
-npm run dev
+npx gitnexus list
 ```
-
-The web UI uses the same indexing pipeline as the CLI but runs entirely in WebAssembly (Tree-sitter WASM, LadybugDB WASM, in-browser embeddings). It's great for quick exploration but limited by browser memory for larger repos.
-
-**Local Backend Mode:** Run `gitnexus serve` and open the web UI locally — it auto-detects the server and shows all your indexed repos, with full AI chat support. No need to re-upload or re-index. The agent's tools (Cypher queries, search, code navigation) route through the backend HTTP API automatically.
 
 ---
 
-## The Problem GitNexus Solves
+# gitnexus-exploring
 
-Tools like **Cursor**, **Claude Code**, **Codex**, **Cline**, **Roo Code**, and **Windsurf** are powerful — but they don't truly know your codebase structure.
+> Use when the user asks how code works, wants to understand architecture, trace execution flows, or explore unfamiliar parts of the codebase. Examples: "How does X work?", "What calls this function?", "Show me the auth flow"
 
-**What happens:**
+## Workflow
 
-1. AI edits `UserService.validate()`
-2. Doesn't know 47 functions depend on its return type
-3. **Breaking changes ship**
-
-### Traditional Graph RAG vs GitNexus
-
-Traditional approaches give the LLM raw graph edges and hope it explores enough. GitNexus **precomputes structure at index time** — clustering, tracing, scoring — so tools return complete context in one call:
-
-```mermaid
-flowchart TB
-    subgraph Traditional["Traditional Graph RAG"]
-        direction TB
-        U1["User: What depends on UserService?"]
-        U1 --> LLM1["LLM receives raw graph"]
-        LLM1 --> Q1["Query 1: Find callers"]
-        Q1 --> Q2["Query 2: What files?"]
-        Q2 --> Q3["Query 3: Filter tests?"]
-        Q3 --> Q4["Query 4: High-risk?"]
-        Q4 --> OUT1["Answer after 4+ queries"]
-    end
-
-    subgraph GN["GitNexus Smart Tools"]
-        direction TB
-        U2["User: What depends on UserService?"]
-        U2 --> TOOL["impact UserService upstream"]
-        TOOL --> PRECOMP["Pre-structured response:
-        8 callers, 3 clusters, all 90%+ confidence"]
-        PRECOMP --> OUT2["Complete answer, 1 query"]
-    end
+```
+1. READ gitnexus://repos                          → Discover indexed repos
+2. READ gitnexus://repo/{name}/context             → Codebase overview, check staleness
+3. gitnexus_query({query: "<what you want to understand>"})  → Find related execution flows
+4. gitnexus_context({name: "<symbol>"})            → Deep dive on specific symbol
+5. READ gitnexus://repo/{name}/process/{name}      → Trace full execution flow
 ```
 
-**Core innovation: Precomputed Relational Intelligence**
+> If step 2 says "Index is stale" → run `npx gitnexus analyze` in terminal.
 
-- **Reliability** — LLM can't miss context, it's already in the tool response
-- **Token efficiency** — No 10-query chains to understand one function
-- **Model democratization** — Smaller LLMs work because tools do the heavy lifting
+## Checklist
+
+```
+- [ ] READ gitnexus://repo/{name}/context
+- [ ] gitnexus_query for the concept you want to understand
+- [ ] Review returned processes (execution flows)
+- [ ] gitnexus_context on key symbols for callers/callees
+- [ ] READ process resource for full execution traces
+- [ ] Read source files for implementation details
+```
+
+## Tools
+
+**gitnexus_query** — find execution flows related to a concept:
+
+```
+gitnexus_query({query: "payment processing"})
+→ Processes: CheckoutFlow, RefundFlow, WebhookHandler
+→ Symbols grouped by flow with file locations
+```
+
+**gitnexus_context** — 360-degree view of a symbol:
+
+```
+gitnexus_context({name: "validateUser"})
+→ Incoming calls: loginHandler, apiMiddleware
+→ Outgoing calls: checkToken, getUserById
+→ Processes: LoginFlow (step 2/5), TokenRefresh (step 1/3)
+```
+
+## Resources
+
+| Resource | What you get |
+|----------|-------------|
+| `gitnexus://repo/{name}/context` | Stats, staleness warning (~150 tokens) |
+| `gitnexus://repo/{name}/clusters` | All functional areas with cohesion scores (~300 tokens) |
+| `gitnexus://repo/{name}/cluster/{name}` | Area members with file paths (~500 tokens) |
+| `gitnexus://repo/{name}/process/{name}` | Step-by-step execution trace (~200 tokens) |
 
 ---
 
-## How It Works
+# gitnexus-debugging
 
-GitNexus builds a complete knowledge graph of your codebase through a multi-phase indexing pipeline:
+> Use when the user is debugging a bug, tracing an error, or asking why something fails. Examples: "Why is X failing?", "Where does this error come from?", "Trace this bug"
 
-1. **Structure** — Walks the file tree and maps folder/file relationships
-2. **Parsing** — Extracts functions, classes, methods, and interfaces using Tree-sitter ASTs
-3. **Resolution** — Resolves imports, function calls, heritage, constructor inference, and `self`/`this` receiver types across files with language-aware logic
-4. **Clustering** — Groups related symbols into functional communities
-5. **Processes** — Traces execution flows from entry points through call chains
-6. **Search** — Builds hybrid search indexes for fast retrieval
+## Workflow
 
-### Supported Languages
+```
+1. gitnexus_query({query: "<error or symptom>"})     → Find related execution flows
+2. gitnexus_context({name: "<suspect>"})              → See callers/callees/processes
+3. READ gitnexus://repo/{name}/process/{name}         → Trace execution flow
+4. gitnexus_cypher({query: "MATCH path..."})          → Custom traces if needed
+```
 
-| Language | Imports | Named Bindings | Exports | Heritage | Type Annotations | Constructor Inference | Config | Frameworks | Entry Points |
-|----------|---------|----------------|---------|----------|-----------------|---------------------|--------|------------|-------------|
-| TypeScript | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| JavaScript | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ |
-| Python | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Java | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
-| Kotlin | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
-| C# | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Go | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Rust | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
-| PHP | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Ruby | ✓ | — | ✓ | ✓ | — | ✓ | — | ✓ | ✓ |
-| Swift | — | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| C | — | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ |
-| C++ | — | — | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
+> If "Index is stale" → run `npx gitnexus analyze` in terminal.
 
-**Imports** — cross-file import resolution · **Named Bindings** — `import { X as Y }` / re-export tracking · **Exports** — public/exported symbol detection · **Heritage** — class inheritance, interfaces, mixins · **Type Annotations** — explicit type extraction for receiver resolution · **Constructor Inference** — infer receiver type from constructor calls (`self`/`this` resolution included for all languages) · **Config** — language toolchain config parsing (tsconfig, go.mod, etc.) · **Frameworks** — AST-based framework pattern detection · **Entry Points** — entry point scoring heuristics
+## Checklist
+
+```
+- [ ] Understand the symptom (error message, unexpected behavior)
+- [ ] gitnexus_query for error text or related code
+- [ ] Identify the suspect function from returned processes
+- [ ] gitnexus_context to see callers and callees
+- [ ] Trace execution flow via process resource if applicable
+- [ ] gitnexus_cypher for custom call chain traces if needed
+- [ ] Read source files to confirm root cause
+```
+
+## Debugging Patterns
+
+| Symptom | GitNexus Approach |
+|---------|-------------------|
+| Error message | `gitnexus_query` for error text → `context` on throw sites |
+| Wrong return value | `context` on the function → trace callees for data flow |
+| Intermittent failure | `context` → look for external calls, async deps |
+| Performance issue | `context` → find symbols with many callers (hot paths) |
+| Recent regression | `detect_changes` to see what your changes affect |
+
+## Tools
+
+**gitnexus_query** — find code related to error:
+
+```
+gitnexus_query({query: "payment validation error"})
+→ Processes: CheckoutFlow, ErrorHandling
+→ Symbols: validatePayment, handlePaymentError, PaymentException
+```
+
+**gitnexus_context** — full context for a suspect:
+
+```
+gitnexus_context({name: "validatePayment"})
+→ Incoming calls: processCheckout, webhookHandler
+→ Outgoing calls: verifyCard, fetchRates (external API!)
+→ Processes: CheckoutFlow (step 3/7)
+```
 
 ---
 
-## Tool Examples
+# gitnexus-impact-analysis
 
-### Impact Analysis
+> Use when the user wants to know what will break if they change something, or needs safety analysis before editing code. Examples: "Is it safe to change X?", "What depends on this?", "What will break?"
 
-```
-impact({target: "UserService", direction: "upstream", minConfidence: 0.8})
-
-TARGET: Class UserService (src/services/user.ts)
-
-UPSTREAM (what depends on this):
-  Depth 1 (WILL BREAK):
-    handleLogin [CALLS 90%] -> src/api/auth.ts:45
-    handleRegister [CALLS 90%] -> src/api/auth.ts:78
-    UserController [CALLS 85%] -> src/controllers/user.ts:12
-  Depth 2 (LIKELY AFFECTED):
-    authRouter [IMPORTS] -> src/routes/auth.ts
-```
-
-Options: `maxDepth`, `minConfidence`, `relationTypes` (`CALLS`, `IMPORTS`, `EXTENDS`, `IMPLEMENTS`), `includeTests`
-
-### Process-Grouped Search
+## Workflow
 
 ```
-query({query: "authentication middleware"})
-
-processes:
-  - summary: "LoginFlow"
-    priority: 0.042
-    symbol_count: 4
-    process_type: cross_community
-    step_count: 7
-
-process_symbols:
-  - name: validateUser
-    type: Function
-    filePath: src/auth/validate.ts
-    process_id: proc_login
-    step_index: 2
-
-definitions:
-  - name: AuthConfig
-    type: Interface
-    filePath: src/types/auth.ts
+1. gitnexus_impact({target: "X", direction: "upstream"})  → What depends on this
+2. READ gitnexus://repo/{name}/processes                   → Check affected execution flows
+3. gitnexus_detect_changes()                               → Map current git changes to affected flows
+4. Assess risk and report to user
 ```
 
-### Context (360-degree Symbol View)
+> If "Index is stale" → run `npx gitnexus analyze` in terminal.
+
+## Checklist
 
 ```
-context({name: "validateUser"})
-
-symbol:
-  uid: "Function:validateUser"
-  kind: Function
-  filePath: src/auth/validate.ts
-  startLine: 15
-
-incoming:
-  calls: [handleLogin, handleRegister, UserController]
-  imports: [authRouter]
-
-outgoing:
-  calls: [checkPassword, createSession]
-
-processes:
-  - name: LoginFlow (step 2/7)
-  - name: RegistrationFlow (step 3/5)
+- [ ] gitnexus_impact({target, direction: "upstream"}) to find dependents
+- [ ] Review d=1 items first (these WILL BREAK)
+- [ ] Check high-confidence (>0.8) dependencies
+- [ ] READ processes to check affected execution flows
+- [ ] gitnexus_detect_changes() for pre-commit check
+- [ ] Assess risk level and report to user
 ```
 
-### Detect Changes (Pre-Commit)
+## Understanding Output
+
+| Depth | Risk Level | Meaning |
+|-------|-----------|---------|
+| d=1 | **WILL BREAK** | Direct callers/importers |
+| d=2 | LIKELY AFFECTED | Indirect dependencies |
+| d=3 | MAY NEED TESTING | Transitive effects |
+
+## Risk Assessment
+
+| Affected | Risk |
+|----------|------|
+| <5 symbols, few processes | LOW |
+| 5-15 symbols, 2-5 processes | MEDIUM |
+| >15 symbols or many processes | HIGH |
+| Critical path (auth, payments) | CRITICAL |
+
+---
+
+# gitnexus-refactoring
+
+> Use when the user wants to rename, extract, split, move, or restructure code safely. Examples: "Rename this function", "Extract this into a module", "Refactor this class", "Move this to a separate file"
+
+## Workflow
 
 ```
-detect_changes({scope: "all"})
-
-summary:
-  changed_count: 12
-  affected_count: 3
-  changed_files: 4
-  risk_level: medium
-
-changed_symbols: [validateUser, AuthService, ...]
-affected_processes: [LoginFlow, RegistrationFlow, ...]
+1. gitnexus_impact({target: "X", direction: "upstream"})  → Map all dependents
+2. gitnexus_query({query: "X"})                            → Find execution flows involving X
+3. gitnexus_context({name: "X"})                           → See all incoming/outgoing refs
+4. Plan update order: interfaces → implementations → callers → tests
 ```
 
-### Rename (Multi-File)
+> If "Index is stale" → run `npx gitnexus analyze` in terminal.
+
+## Checklists
+
+### Rename Symbol
 
 ```
-rename({symbol_name: "validateUser", new_name: "verifyUser", dry_run: true})
-
-status: success
-files_affected: 5
-total_edits: 8
-graph_edits: 6     (high confidence)
-text_search_edits: 2  (review carefully)
-changes: [...]
+- [ ] gitnexus_rename({symbol_name: "oldName", new_name: "newName", dry_run: true}) — preview all edits
+- [ ] Review graph edits (high confidence) and ast_search edits (review carefully)
+- [ ] If satisfied: gitnexus_rename({..., dry_run: false}) — apply edits
+- [ ] gitnexus_detect_changes() — verify only expected files changed
+- [ ] Run tests for affected processes
 ```
 
-### Cypher Queries
+### Extract Module
+
+```
+- [ ] gitnexus_context({name: target}) — see all incoming/outgoing refs
+- [ ] gitnexus_impact({target, direction: "upstream"}) — find all external callers
+- [ ] Define new module interface
+- [ ] Extract code, update imports
+- [ ] gitnexus_detect_changes() — verify affected scope
+- [ ] Run tests for affected processes
+```
+
+## Tools
+
+**gitnexus_rename** — automated multi-file rename:
+
+```
+gitnexus_rename({symbol_name: "validateUser", new_name: "authenticateUser", dry_run: true})
+→ 12 edits across 8 files
+→ 10 graph edits (high confidence), 2 ast_search edits (review)
+→ Changes: [{file_path, edits: [{line, old_text, new_text, confidence}]}]
+```
+
+---
+
+# gitnexus-pr-review
+
+> Use when the user wants to review a pull request, understand what a PR changes, assess risk of merging, or check for missing test coverage. Examples: "Review this PR", "What does PR #42 change?", "Is this PR safe to merge?"
+
+## Workflow
+
+```
+1. gh pr diff <number>                                    → Get the raw diff
+2. gitnexus_detect_changes({scope: "compare", base_ref: "main"})  → Map diff to affected flows
+3. For each changed symbol:
+   gitnexus_impact({target: "<symbol>", direction: "upstream"})    → Blast radius per change
+4. gitnexus_context({name: "<key symbol>"})               → Understand callers/callees
+5. READ gitnexus://repo/{name}/processes                   → Check affected execution flows
+6. Summarize findings with risk assessment
+```
+
+> If "Index is stale" → run `npx gitnexus analyze` in terminal before reviewing.
+
+## Checklist
+
+```
+- [ ] Fetch PR diff (gh pr diff or git diff base...head)
+- [ ] gitnexus_detect_changes to map changes to affected execution flows
+- [ ] gitnexus_impact on each non-trivial changed symbol
+- [ ] Review d=1 items (WILL BREAK) — are callers updated?
+- [ ] gitnexus_context on key changed symbols to understand full picture
+- [ ] Check if affected processes have test coverage
+- [ ] Assess overall risk level
+- [ ] Write review summary with findings
+```
+
+## Risk Assessment
+
+| Signal | Risk |
+|--------|------|
+| Changes touch <3 symbols, 0-1 processes | LOW |
+| Changes touch 3-10 symbols, 2-5 processes | MEDIUM |
+| Changes touch >10 symbols or many processes | HIGH |
+| Changes touch auth, payments, or data integrity code | CRITICAL |
+| d=1 callers exist outside the PR diff | Potential breakage — flag it |
+
+---
+
+# gitnexus-guide
+
+> Use when the user asks about GitNexus itself — available tools, how to query the knowledge graph, MCP resources, graph schema, or workflow reference. Examples: "What GitNexus tools are available?", "How do I use GitNexus?"
+
+## Always Start Here
+
+For any task involving code understanding, debugging, impact analysis, or refactoring:
+
+1. **Read `gitnexus://repo/{name}/context`** — codebase overview + check index freshness
+2. **Match your task to a skill above** and follow that skill's workflow
+3. **Follow the checklist** for your task type
+
+> If step 1 warns the index is stale, run `npx gitnexus analyze` in the terminal first.
+
+## Skills Quick Reference
+
+| Task | Skill |
+|------|-------|
+| Understand architecture / "How does X work?" | `gitnexus-exploring` |
+| Blast radius / "What breaks if I change X?" | `gitnexus-impact-analysis` |
+| Trace bugs / "Why is X failing?" | `gitnexus-debugging` |
+| Rename / extract / split / refactor | `gitnexus-refactoring` |
+| Tools, resources, schema reference | `gitnexus-guide` (this file) |
+| Index, status, clean, wiki CLI commands | `gitnexus-cli` |
+| Review PR | `gitnexus-pr-review` |
+
+## Tools Reference
+
+| Tool | What it gives you |
+|------|-------------------|
+| `query` | Process-grouped code intelligence — execution flows related to a concept |
+| `context` | 360-degree symbol view — categorized refs, processes it participates in |
+| `impact` | Symbol blast radius — what breaks at depth 1/2/3 with confidence |
+| `detect_changes` | Git-diff impact — what do your current changes affect |
+| `rename` | Multi-file coordinated rename with confidence-tagged edits |
+| `cypher` | Raw graph queries (read `gitnexus://repo/{name}/schema` first) |
+| `list_repos` | Discover indexed repos |
+
+## Resources Reference
+
+| Resource | Content |
+|----------|---------|
+| `gitnexus://repo/{name}/context` | Stats, staleness check |
+| `gitnexus://repo/{name}/clusters` | All functional areas with cohesion scores |
+| `gitnexus://repo/{name}/cluster/{clusterName}` | Area members |
+| `gitnexus://repo/{name}/processes` | All execution flows |
+| `gitnexus://repo/{name}/process/{processName}` | Step-by-step trace |
+| `gitnexus://repo/{name}/schema` | Graph schema for Cypher |
+
+## Graph Schema
+
+**Nodes:** File, Function, Class, Interface, Method, Community, Process
+**Edges (via CodeRelation.type):** CALLS, IMPORTS, EXTENDS, IMPLEMENTS, DEFINES, MEMBER_OF, STEP_IN_PROCESS
 
 ```cypher
--- Find what calls auth functions with high confidence
-MATCH (c:Community {heuristicLabel: 'Authentication'})<-[:CodeRelation {type: 'MEMBER_OF'}]-(fn)
-MATCH (caller)-[r:CodeRelation {type: 'CALLS'}]->(fn)
-WHERE r.confidence > 0.8
-RETURN caller.name, fn.name, r.confidence
-ORDER BY r.confidence DESC
+MATCH (caller)-[:CodeRelation {type: 'CALLS'}]->(f:Function {name: "myFunc"})
+RETURN caller.name, caller.filePath
 ```
-
----
-
-## Wiki Generation
-
-Generate LLM-powered documentation from your knowledge graph:
-
-```bash
-# Requires an LLM API key (OPENAI_API_KEY, etc.)
-gitnexus wiki
-
-# Use a custom model or provider
-gitnexus wiki --model gpt-4o
-gitnexus wiki --base-url https://api.anthropic.com/v1
-
-# Force full regeneration
-gitnexus wiki --force
-```
-
-The wiki generator reads the indexed graph structure, groups files into modules via LLM, generates per-module documentation pages, and creates an overview page — all with cross-references to the knowledge graph.
-
----
-
-## Tech Stack
-
-| Layer                     | CLI                                   | Web                                     |
-| ------------------------- | ------------------------------------- | --------------------------------------- |
-| **Runtime**         | Node.js (native)                      | Browser (WASM)                          |
-| **Parsing**         | Tree-sitter native bindings           | Tree-sitter WASM                        |
-| **Database**        | LadybugDB native                         | LadybugDB WASM                             |
-| **Embeddings**      | HuggingFace transformers.js (GPU/CPU) | transformers.js (WebGPU/WASM)           |
-| **Search**          | BM25 + semantic + RRF                | BM25 + semantic + RRF                   |
-| **Agent Interface** | MCP (stdio)                           | LangChain ReAct agent                   |
-| **Visualization**   | —                                    | Sigma.js + Graphology (WebGL)           |
-| **Frontend**        | —                                    | React 18, TypeScript, Vite, Tailwind v4 |
-| **Clustering**      | Graphology                            | Graphology                              |
-| **Concurrency**     | Worker threads + async                | Web Workers + Comlink                   |
-
----
-
-## Roadmap
-
-### Actively Building
-
-- [ ] **LLM Cluster Enrichment** — Semantic cluster names via LLM API
-- [ ] **AST Decorator Detection** — Parse @Controller, @Get, etc.
-- [ ] **Incremental Indexing** — Only re-index changed files
-
-### Recently Completed
-
-- [X] Constructor-Inferred Type Resolution, `self`/`this` Receiver Mapping
-- [X] Wiki Generation, Multi-File Rename, Git-Diff Impact Analysis
-- [X] Process-Grouped Search, 360-Degree Context, Claude Code Hooks
-- [X] Multi-Repo MCP, Zero-Config Setup, 13 Language Support
-- [X] Community Detection, Process Detection, Confidence Scoring
-- [X] Hybrid Search, Vector Index
-
----
-
-## Security & Privacy
-
-- **CLI**: Everything runs locally on your machine. No network calls. Index stored in `.gitnexus/` (gitignored). Global registry at `~/.gitnexus/` stores only paths and metadata.
-- **Web**: Everything runs in your browser. No code uploaded to any server. API keys stored in localStorage only.
-- Open source — audit the code yourself.
-
----
-
-## Acknowledgments
-
-- [Tree-sitter](https://tree-sitter.github.io/) — AST parsing
-- [LadybugDB](https://ladybugdb.com/) — Embedded graph database with vector support (formerly KuzuDB)
-- [Sigma.js](https://www.sigmajs.org/) — WebGL graph rendering
-- [transformers.js](https://huggingface.co/docs/transformers.js) — Browser ML
-- [Graphology](https://graphology.github.io/) — Graph data structures
-- [MCP](https://modelcontextprotocol.io/) — Model Context Protocol
-
----
-
-## 版本历史
-
-- **v1.7.0**: 上游重大更新
-  - 存储引擎从 KuzuDB 迁移到 LadybugDB（更快、持久化）
-  - 新增 Codex 编辑器支持（MCP + Skills）
-  - 社区集成新增 gitnexus-stable-ops
-  - Quick Start 简化：`npx gitnexus analyze` 一键完成索引+skills+hooks+上下文文件
-  - Web UI 后端模式支持无限文件数（不再受浏览器内存限制）
-
-- **v1.4.0** (2026-03-13): 重大更新 — 语言感知符号解析引擎
-  - 新增语言感知符号解析（3 层：精确 FQN → 作用域遍历 → 模糊回退）
-  - 新增 MRO（方法解析顺序），支持 5 种语言策略（C++ 最左基类、C#/Java 类优先、Python C3 线性化、Rust 限定语法、默认 BFS）
-  - 新增构造函数 & 结构体字面量解析（`new Foo()`、`User{...}`、C# 主构造函数）
-  - 新增接收者约束解析（通过 TypeEnv 区分 `user.save()` vs `repo.save()`）
-  - 新增继承 & 所有权边（HAS_METHOD、OVERRIDES、Go 结构体嵌入、Swift 扩展继承）
-  - 新增可选技能生成：`gitnexus analyze --skills`（从知识图谱生成 AI 代理技能）
-  - 新增完整 C# 支持（record/delegate/property/field/event 声明类型）
-  - 修复 C/C++ 支持（`.h` → C++ 映射、静态链接导出检测、48 种入口点模式）
-  - 修复 Rust 支持（`pub` 可见性检测）
-  - 新增 DeepSeek 模型配置
-  - 1146 个测试全部通过
-
-- **v1.3.11** (2026-03-08): 安全修复
-  - 修复 FTS Cypher 注入漏洞（转义搜索查询中的反斜杠）
-  - 新增提交后自动重建索引 hook（`gitnexus analyze` 在 commit/merge 后自动运行）
-
-- **v1.3.10** (2026-03-07): 安全加固 + 双帧 MCP 传输
-  - MCP 传输缓冲区上限（10 MB 防 OOM 攻击）
-  - 新增双帧 MCP 传输（自动检测 Content-Length vs 换行分隔 JSON）
-  - 懒加载 CLI 模块（显著提升 `gitnexus mcp` 启动速度）
-
-- **v1.3.9** (2026-03-06): Bug 修复
-  - 修复 CALLS 边 sourceId 与节点 ID 格式对齐问题
-
-- **v1.3.2** (2026-03-11): 功能增量更新
-  - 新增 `--embeddings` 参数（启用嵌入生成以改善搜索）
-  - 新增 `--verbose` 参数（显示跳过的文件日志）
-  - 增强 `wiki` 命令（支持 `--model` 和 `--base-url` 自定义）
-  - 更新编辑器支持（Claude Code 新增 PostToolUse hooks）
-
-- **v1.3.1** (2026-02-26): 功能增量更新
-  - 新增 OpenCode 编辑器支持、MCP Resources、MCP Prompts、Bridge 模式
-
-- **v1.3.0** (2026-02-21): 初始版本
-  - 代码索引和分析、MCP 工具封装、影响分析和调用链追踪
-
----
-
-*此 Skill 由 github-to-skills 自动生成，支持 skill-manager 更新检查*
-
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### User Preferences
-- 索引项目时使用 --skip-embeddings 加快速度
-
-### Known Fixes & Workarounds
-- Skill 创建后需检查根目录和 .curated/ 目录是否都有副本
-- scan_and_check.py 扫描时需要检查正确的目录路径
-
-### Custom Instruction Injection
-
-分析项目时先执行 gitnexus analyze 索引代码库
