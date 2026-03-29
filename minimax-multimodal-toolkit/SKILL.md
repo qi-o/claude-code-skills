@@ -133,38 +133,9 @@ Entry point: `scripts/minimax_tts.py`
 | Single voice / no multi-character need | `tts` command — generate the entire text in one call |
 | Multiple characters / narrator + dialogue | `generate` command with segments.json |
 
-**Default behavior:** When the user simply asks to generate speech/voice and does NOT mention multiple voices or characters, use the `tts` command directly with a single appropriate voice. Do NOT split into segments or use the multi-segment pipeline — just pass the full text to `tts` in one call.
+**Default behavior:** Use `tts` for single voice, `generate` for multi-character audiobooks/podcasts.
 
-Only use multi-segment `generate` when:
-- The user explicitly needs multiple voices/characters
-- The text requires narrator + character dialogue separation
-- The text exceeds **10,000 characters** (API limit per request) — in this case, split into segments with the same voice
-
-### Single-voice generation (DEFAULT)
-
-```bash
-python scripts/minimax_tts.py tts "Hello world" -o minimax-output/hello.mp3
-python scripts/minimax_tts.py tts "你好世界" -v female-shaonv -o minimax-output/hello_cn.mp3
-```
-
-### Multi-segment generation (multi-voice / audiobook / podcast)
-
-**Complete workflow — follow ALL steps in order:**
-
-1. **Write segments.json** — split text into segments with voice assignments (see format and rules below)
-2. **Run `generate` command** — this reads segments.json, generates audio for EACH segment via TTS API, then merges them into a single output file with crossfade
-
-```bash
-# Step 1: Write segments.json to minimax-output/
-# (use the Write tool to create minimax-output/segments.json)
-
-# Step 2: Generate audio from segments.json — this is the CRITICAL step
-# It generates each segment individually and merges them into one file
-python scripts/minimax_tts.py generate minimax-output/segments.json \
-  -o minimax-output/output.mp3 --crossfade 200
-```
-
-**Do NOT skip Step 2.** Writing segments.json alone does nothing — you MUST run the `generate` command to actually produce audio.
+> **For detailed TTS usage, voice management, and segments.json format, see [references/tts-guide.md](references/tts-guide.md)**
 
 ### Voice management
 
@@ -179,13 +150,6 @@ python scripts/minimax_voice.py clone sample.mp3 --voice-id my-voice
 python scripts/minimax_voice.py design "A warm female narrator voice" --voice-id narrator
 ```
 
-### Audio processing
-
-```bash
-python scripts/minimax_tts.py merge part1.mp3 part2.mp3 -o minimax-output/combined.mp3
-python scripts/minimax_tts.py convert input.wav -o minimax-output/output.mp3
-```
-
 ### TTS Models
 
 | Model | Notes |
@@ -195,94 +159,24 @@ python scripts/minimax_tts.py convert input.wav -o minimax-output/output.mp3
 | speech-2.6-hd | Previous gen, manual emotion |
 | speech-2.6-turbo | Previous gen, faster |
 
-### segments.json Format
-
-Default crossfade between segments: **200ms** (`--crossfade 200`).
-
-```json
-[
-  { "text": "Hello!", "voice_id": "female-shaonv", "emotion": "" },
-  { "text": "Welcome.", "voice_id": "male-qn-qingse", "emotion": "happy" }
-]
-```
-
-Leave `emotion` empty for speech-2.8 models (auto-matched from text).
-
-### IMPORTANT: Multi-Segment Script Generation Rules (Audiobooks, Podcasts, etc.)
-
-When generating segments.json for audiobooks, podcasts, or any multi-character narration, you MUST split narration text from character dialogue into separate segments with distinct voices.
-
-**Rule: Narration and dialogue are ALWAYS separate segments.**
-
-A sentence like `"Tom said: The weather is great today!"` must be split into two segments:
-- Segment 1 (narrator voice): `"Tom said:"`
-- Segment 2 (character voice): `"The weather is great today!"`
-
-**Example — Audiobook with narrator + 2 characters:**
-
-```json
-[
-  { "text": "Morning sunlight streamed into the classroom as students filed in one by one.", "voice_id": "narrator-voice", "emotion": "" },
-  { "text": "Tom smiled and turned to Lisa:", "voice_id": "narrator-voice", "emotion": "" },
-  { "text": "The weather is amazing today! Let's go to the park after school!", "voice_id": "tom-voice", "emotion": "happy" },
-  { "text": "Lisa thought for a moment, then replied:", "voice_id": "narrator-voice", "emotion": "" },
-  { "text": "Sure, but I need to drop off my backpack at home first.", "voice_id": "lisa-voice", "emotion": "" },
-  { "text": "They exchanged a smile and went back to listening to the lecture.", "voice_id": "narrator-voice", "emotion": "" }
-]
-```
-
-**Key principles:**
-1. **Narrator** uses a consistent neutral narrator voice throughout
-2. **Each character** has a dedicated voice_id, maintained consistently across all their dialogue
-3. **Split at dialogue boundaries** — `"He said:"` is narrator, the quoted content is the character
-4. **Do NOT merge** narrator text and character speech into a single segment
-5. For characters without pre-existing voice_ids, use voice cloning or voice design to create them first, then reference the created voice_id in segments
-
 ## Music Generation
 
 Entry point: `scripts/minimax_music.py`
 
-### IMPORTANT: Instrumental vs Lyrics — When to use which
+**BGM for video/podcast:** Use `--instrumental` by default (don't ask user).
 
-| Scenario | Mode | Action |
-|----------|------|--------|
-| BGM for video / voice / podcast | Instrumental (default) | Use `--instrumental` directly, do NOT ask user |
-| User explicitly asks to "create music" / "make a song" | Ask user first | Ask whether they want instrumental or with lyrics |
+**Explicit music request:** Ask user: instrumental or with lyrics?
 
-**When adding background music to video or voice content**, always default to instrumental mode (`--instrumental`). Do not ask the user — BGM should never have vocals competing with the main content.
+> **For detailed music generation options and lyrics format, see [references/music-api.md](references/references/music-api.md)**
 
-**When the user explicitly asks to create/generate music as the primary task**, ask them whether they want:
-- Instrumental (pure music, no vocals)
-- With lyrics (song with vocals — user provides or you help write lyrics)
-
+**Quick examples:**
 ```bash
-# Instrumental (for BGM or when user chooses instrumental)
-python scripts/minimax_music.py \
-  --instrumental \
-  --prompt "ambient electronic, atmospheric" \
-  --output minimax-output/ambient.mp3 --download
+# Instrumental (BGM)
+python scripts/minimax_music.py --instrumental --prompt "ambient electronic" -o minimax-output/ambient.mp3 --download
 
-# Song with lyrics (when user chooses vocal music)
-python scripts/minimax_music.py \
-  --lyrics "[verse]\nHello world\n[chorus]\nLa la la" \
-  --prompt "indie folk, melancholic" \
-  --output minimax-output/song.mp3 --download
-
-# With style fields
-python scripts/minimax_music.py \
-  --lyrics "[verse]\nLyrics here" \
-  --genre "pop" --mood "upbeat" --tempo "fast" \
-  --output minimax-output/pop_track.mp3 --download
+# With lyrics
+python scripts/minimax_music.py --lyrics "[verse]\nHello\n[chorus]\nLa la" --prompt "indie folk" -o minimax-output/song.mp3 --download
 ```
-
-### Music Model
-
-Default model: `music-2.5`
-
-`music-2.5` does **not** support `--instrumental` directly. When instrumental music is needed, the script automatically applies a workaround:
-- Sets lyrics to `[intro] [outro]` (empty structural tags, no actual vocals), appends `pure music, no lyrics` to the prompt
-
-This produces instrumental-style output without requiring manual intervention. You can always use `--instrumental` and the script handles the rest.
 
 ## Image Generation
 
@@ -290,275 +184,57 @@ Entry point: `scripts/minimax_image.py`
 
 Model: `image-01` — photorealistic image generation from text prompts, with optional character reference for image-to-image.
 
-### IMPORTANT: Mode Selection — t2i vs i2i
+### Mode Selection
 
 | User intent | Mode |
 |-------------|------|
-| Generate image from text description (default) | `t2i` — text-to-image |
-| Generate image with a character reference photo (keep same person) | `i2i` — image-to-image |
+| Generate from text (default) | `t2i` |
+| With character reference | `i2i` |
 
-**Default behavior:** When the user asks to generate/create an image without mentioning a reference photo, use `t2i` mode (default). Only use `i2i` mode when the user provides a character reference image or explicitly asks to base the image on an existing person's appearance.
+> **For detailed image generation examples, aspect ratios, and options, see [references/image-api.md](references/references/image-api.md)**
 
-### IMPORTANT: Aspect Ratio — Infer from user context
-
-Do NOT always default to `1:1`. Analyze the user's request and choose the most appropriate aspect ratio:
-
-| User intent / context | Recommended ratio | Resolution |
-|-----------------------|-------------------|------------|
-| 头像、图标、社交媒体头像、avatar、icon、profile pic | `1:1` | 1024×1024 |
-| 风景、横幅、桌面壁纸、landscape、banner、desktop wallpaper | `16:9` | 1280×720 |
-| 传统照片、经典比例、classic photo | `4:3` | 1152×864 |
-| 摄影作品、杂志封面、photography、magazine | `3:2` | 1248×832 |
-| 人像竖图、海报、portrait photo、poster | `2:3` | 832×1248 |
-| 竖版海报、书籍封面、tall poster、book cover | `3:4` | 864×1152 |
-| 手机壁纸、社交媒体故事、phone wallpaper、story、reel | `9:16` | 720×1280 |
-| 超宽全景、电影画幅、panoramic、cinematic ultrawide | `21:9` | 1344×576 |
-| 未指定特定需求 / ambiguous | `1:1` | 1024×1024 |
-
-### IMPORTANT: Image Count — When to generate multiple images
-
-| User intent | Count (`-n`) |
-|-------------|--------------|
-| Default / single image request | `1` (default) |
-| 用户说"几张"、"多张"、"一些" / "a few", "several" | `3` |
-| 用户说"多种方案"、"备选" / "variations", "options" | `3`–`4` |
-| 用户明确指定数量 | Use the specified number (1–9) |
-
-### Text-to-Image Examples
-
+**Quick examples:**
 ```bash
 # Basic text-to-image
-python scripts/minimax_image.py \
-  --prompt "A cat sitting on a rooftop at sunset, cinematic lighting, warm tones, photorealistic" \
-  -o minimax-output/cat.png
+python scripts/minimax_image.py --prompt "A cat on a rooftop, cinematic" -o minimax-output/cat.png
 
-# Landscape with inferred aspect ratio
-python scripts/minimax_image.py \
-  --prompt "Mountain landscape with misty valleys, photorealistic, golden hour" \
-  --aspect-ratio 16:9 \
-  -o minimax-output/landscape.png
-
-# Phone wallpaper (portrait 9:16)
-python scripts/minimax_image.py \
-  --prompt "Aurora borealis over a snowy forest, vivid colors, magical atmosphere" \
-  --aspect-ratio 9:16 \
-  -o minimax-output/wallpaper.png
+# Character reference (same person, new scene)
+python scripts/minimax_image.py --mode i2i --ref-image face.jpg --prompt "Reading in library" -o minimax-output/girl.png
 
 # Multiple variations
-python scripts/minimax_image.py \
-  --prompt "Abstract geometric art, vibrant colors" \
-  -n 3 \
-  -o minimax-output/art.png
-
-# With prompt optimizer
-python scripts/minimax_image.py \
-  --prompt "A man standing on Venice Beach, 90s documentary style" \
-  --aspect-ratio 16:9 --prompt-optimizer \
-  -o minimax-output/beach.png
-
-# Custom dimensions (must be multiple of 8)
-python scripts/minimax_image.py \
-  --prompt "Product photo of a luxury watch on marble surface" \
-  --width 1024 --height 768 \
-  -o minimax-output/watch.png
+python scripts/minimax_image.py --prompt "Abstract art" -n 3 -o minimax-output/art.png
 ```
-
-### Image-to-Image (Character Reference)
-
-Use a reference photo to generate images with the same character in new scenes. Best results with a single front-facing portrait. Supported formats: JPG, JPEG, PNG (max 10MB).
-
-```bash
-# Character reference — place same person in a new scene
-python scripts/minimax_image.py \
-  --mode i2i \
-  --prompt "A girl looking into the distance from a library window, warm afternoon light" \
-  --ref-image face.jpg \
-  --aspect-ratio 16:9 \
-  -o minimax-output/girl_library.png
-
-# Multiple character variations
-python scripts/minimax_image.py \
-  --mode i2i \
-  --prompt "A woman in a red dress at a gala event, elegant, cinematic" \
-  --ref-image face.jpg -n 3 \
-  -o minimax-output/gala.png
-```
-
-### Aspect Ratio Reference
-
-| Ratio | Resolution | Best for |
-|-------|------------|----------|
-| `1:1` | 1024×1024 | Default, avatars, icons, social media |
-| `16:9` | 1280×720 | Landscape, banner, desktop wallpaper |
-| `4:3` | 1152×864 | Classic photo, presentations |
-| `3:2` | 1248×832 | Photography, magazine layout |
-| `2:3` | 832×1248 | Portrait photo, poster |
-| `3:4` | 864×1152 | Book cover, tall poster |
-| `9:16` | 720×1280 | Phone wallpaper, social story/reel |
-| `21:9` | 1344×576 | Ultra-wide panoramic, cinematic |
-
-### Key Options
-
-| Option | Description |
-|--------|-------------|
-| `--prompt TEXT` | Image description, max 1500 chars (required) |
-| `--aspect-ratio RATIO` | Aspect ratio (see table above). Infer from user context |
-| `--width PX` / `--height PX` | Custom size, 512–2048, must be multiple of 8, both required together. Overridden by `--aspect-ratio` if both set |
-| `-n N` | Number of images to generate, 1–9 (default 1) |
-| `--seed N` | Random seed for reproducibility. Same seed + same params → similar results |
-| `--prompt-optimizer` | Enable automatic prompt optimization by the API |
-| `--ref-image FILE` | Character reference image for i2i mode (local file or URL, JPG/JPEG/PNG, max 10MB) |
-| `--no-download` | Print image URLs instead of downloading files |
-| `--aigc-watermark` | Add AIGC watermark to generated images |
 
 ## Video Generation
 
-### IMPORTANT: Single vs Multi-Segment — Choose the right script
+**Default:** Single segment, 6s, 768P. Use `long-video` only for explicit multi-scene requests.
 
-| User intent | Script to use |
-|-------------|---------------|
-| Default / no special request | `scripts/minimax_video.py video` (single segment, **6s, 768P**) |
-| User explicitly asks for "long video", "multi-scene", "story", or duration > 10s | `scripts/minimax_video.py long-video` (multi-segment) |
+> **CRITICAL: Read [references/video-prompt-guide.md](references/references/video-prompt-guide.md) before generating video. Apply the Professional Formula and camera instructions.**
 
-**Default behavior:** Always use single-segment `minimax_video.py video` with **duration 6s and resolution 768P** unless the user explicitly asks for a long video or multi-scene video. Do NOT automatically split into multiple segments — a single 6s video is the standard output. Only use `minimax_video.py long-video` when the user clearly needs multi-scene or longer content.
+**Video Model Constraints:**
+- **Default: 6s + 768P** (quota counted in 6-second units)
+- **1080P NOT supported** — use 768P for Hailuo-2.3/2.3-Fast
+- Older models (T2V-01, I2V-01, S2V-01): 6s only at 720P
 
-Entry point (single video): `scripts/minimax_video.py video`
-Entry point (long/multi-scene): `scripts/minimax_video.py long-video`
-
-### Video Model Constraints (MUST follow)
-
-**Supported resolutions and durations by model:**
-
-| Model | Resolution | Duration |
-|-------|-----------|----------|
-| MiniMax-Hailuo-2.3 | 768P only | 6s or 10s |
-| MiniMax-Hailuo-2.3-Fast | 768P only | 6s or 10s |
-| MiniMax-Hailuo-02 | 512P, 768P (default) | 6s or 10s |
-| T2V-01 / T2V-01-Director | 720P | 6s only |
-| I2V-01 / I2V-01-Director / I2V-01-live | 720P | 6s only |
-| S2V-01 (ref) | 720P | 6s only |
-
-**Key rules:**
-- **Default: 6s + 768P** — plan quotas are counted in 6-second units; use 6s unless user explicitly requests 10s
-- **1080P is NOT supported** on any plan — always use 768P for Hailuo-2.3/2.3-Fast
-- Older models (T2V-01, I2V-01, S2V-01) only support 6s at 720P
-
-### IMPORTANT: Prompt Optimization (MUST follow before generating any video)
-
-Before calling any video generation script, you MUST optimize the user's prompt by reading and applying `references/video-prompt-guide.md`. Never pass the user's raw description directly as `--prompt`.
-
-**Optimization steps:**
-
-1. **Apply the Professional Formula**: `Main subject + Scene + Movement + Camera motion + Aesthetic atmosphere`
-   - BAD: `"A puppy in a park"`
-   - GOOD: `"A golden retriever puppy runs toward the camera on a sun-dappled grass path in a park, [跟随] smooth tracking shot, warm golden hour lighting, shallow depth of field, joyful atmosphere"`
-
-2. **Add camera instructions** using `[指令]` syntax: `[推进]`, `[拉远]`, `[跟随]`, `[固定]`, `[左摇]`, etc.
-
-3. **Include aesthetic details**: lighting (golden hour, dramatic side lighting), color grading (warm tones, cinematic), texture (dust particles, rain droplets), atmosphere (intimate, epic, peaceful)
-
-4. **Keep to 1-2 key actions** for 6-10 second videos — do not overcrowd with events
-
-5. **For i2v mode** (image-to-video): Focus prompt on **movement and change only**, since the image already establishes the visual. Do NOT re-describe what's in the image.
-   - BAD: `"A lake with mountains"` (just repeating the image)
-   - GOOD: `"Gentle ripples spread across the water surface, a breeze rustles the distant trees, [固定] fixed camera, soft morning light, peaceful and serene"`
-
-6. **For multi-segment long videos**: Each segment's prompt must be self-contained and optimized individually. The i2v segments (segment 2+) should describe motion/change relative to the previous segment's ending frame.
-
+**Quick examples:**
 ```bash
-# Text-to-video (default: 6s, 768P)
-python scripts/minimax_video.py video \
-  --mode t2v \
-  --prompt "A golden retriever puppy bounds toward the camera on a sunlit grass path, [跟随] tracking shot, warm golden hour, shallow depth of field, joyful" \
-  --output minimax-output/puppy.mp4
+# Text-to-video (optimized prompt!)
+python scripts/minimax_video.py video --mode t2v \
+  --prompt "A golden retriever puppy bounds toward camera on sunlit grass, [跟随] tracking, warm golden hour, joyful" \
+  -o minimax-output/puppy.mp4
 
-# Image-to-video (prompt focuses on MOTION, not image content)
-python scripts/minimax_video.py video \
-  --mode i2v \
-  --prompt "The petals begin to sway gently in the breeze, soft light shifts across the surface, [固定] fixed framing, dreamy pastel tones" \
-  --first-frame photo.jpg \
-  --output minimax-output/animated.mp4
+# Image-to-video (focus on MOTION, not image content)
+python scripts/minimax_video.py video --mode i2v \
+  --prompt "Petals sway in breeze, soft light shifts, [固定] fixed, dreamy tones" \
+  --first-frame photo.jpg -o minimax-output/animated.mp4
 
-# Start-end frame interpolation (sef mode uses MiniMax-Hailuo-02)
-python scripts/minimax_video.py video \
-  --mode sef \
-  --first-frame start.jpg --last-frame end.jpg \
-  --output minimax-output/transition.mp4
-
-# Subject reference (face consistency, ref mode uses S2V-01, 6s only)
-python scripts/minimax_video.py video \
-  --mode ref \
-  --prompt "A young woman in a white dress walks slowly through a sunlit garden, [跟随] smooth tracking, warm natural lighting, cinematic depth of field" \
-  --subject-image face.jpg \
-  --duration 6 \
-  --output minimax-output/person.mp4
-```
-
-### Long-form Video (Multi-scene)
-
-Multi-scene long videos chain segments together: the first segment generates via text-to-video (t2v), then each subsequent segment uses the last frame of the previous segment as its first frame (i2v). Segments are joined with crossfade transitions for smooth continuity. Default is 6 seconds per segment.
-
-**Workflow:**
-1. Segment 1: t2v — generated purely from the optimized text prompt
-2. Segment 2+: i2v — the previous segment's last frame becomes `first_frame_image`, prompt describes **motion and change from that ending state**
-3. All segments are concatenated with 0.5s crossfade transitions to eliminate jump cuts
-4. Optional: AI-generated background music is overlaid
-
-**Prompt rules for each segment:**
-- Each segment prompt MUST be independently optimized using the Professional Formula
-- Segment 1 (t2v): Full scene description with subject, scene, camera, atmosphere
-- Segment 2+ (i2v): Focus on **what changes and moves** from the previous ending frame. Do NOT repeat the visual description — the first frame already provides it
-- Maintain visual consistency: keep lighting, color grading, and style keywords consistent across segments
-- Each segment covers only 6 seconds of action — keep it focused
-
-```bash
-# Example: 3-segment story with optimized per-segment prompts (default: 6s/segment, 768P)
+# Long multi-scene video
 python scripts/minimax_video.py long-video \
-  --scenes \
-    "A lone astronaut stands on a red desert planet surface, wind blowing dust particles, [推进] slow push in toward the visor, dramatic rim lighting, cinematic sci-fi atmosphere" \
-    "The astronaut turns and begins walking toward a distant glowing structure on the horizon, dust swirling around boots, [跟随] tracking from behind, vast desolate landscape, golden light from the structure" \
-    "The astronaut reaches the structure entrance, a massive doorway pulses with blue energy, [推进] slow push in toward the doorway, light reflects off the visor, awe-inspiring epic scale" \
-  --music-prompt "cinematic orchestral ambient, slow build, sci-fi atmosphere" \
-  --output minimax-output/long_video.mp4
-
-# With custom settings
-python scripts/minimax_video.py long-video \
-  --scenes "Scene 1 prompt" "Scene 2 prompt" \
-  --segment-duration 6 \
-  --resolution 768P \
-  --crossfade 0.5 \
-  --music-prompt "calm ambient background music" \
-  --output minimax-output/long_video.mp4
+  --scenes "Scene 1 prompt" "Scene 2 prompt" "Scene 3 prompt" \
+  -o minimax-output/story.mp4
 ```
 
-### Add Background Music
-
-```bash
-python scripts/minimax_video.py add-bgm \
-  --video input.mp4 \
-  --generate-bgm --instrumental \
-  --music-prompt "soft piano background" \
-  --bgm-volume 0.3 \
-  --output minimax-output/output_with_bgm.mp4
-```
-
-### Template Video
-
-```bash
-python scripts/minimax_video.py template \
-  --template-id 392753057216684038 \
-  --media photo.jpg \
-  --output minimax-output/template_output.mp4
-```
-
-### Video Models
-
-| Mode | Default Model | Default Duration | Default Resolution | Notes |
-|------|--------------|-----------------|-------------------|-------|
-| t2v | MiniMax-Hailuo-2.3 | 6s | 768P | Latest text-to-video |
-| i2v | MiniMax-Hailuo-2.3 | 6s | 768P | Latest image-to-video |
-| sef | MiniMax-Hailuo-02 | 6s | 768P | Start-end frame |
-| ref | S2V-01 | 6s | 720P | Subject reference, 6s only |
+> **For detailed video generation modes, prompt optimization, and long-video workflows, see [references/video-api.md](references/references/video-api.md)**
 
 ## Media Tools (Audio/Video Processing)
 

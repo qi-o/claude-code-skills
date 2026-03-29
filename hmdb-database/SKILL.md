@@ -194,6 +194,27 @@ These databases share similar structure and identifiers, enabling integrated que
 - Use appropriate file formats (XML for comprehensive data, CSV for tabular analysis)
 - Consider local caching of frequently accessed metabolite information
 
+## Error Handling
+
+| Error Type | Meaning | Action |
+|------------|---------|--------|
+| 404 | Not found | HMDB ID doesn't exist; verify format (HMDB########) |
+| Search timeout | Server load | Retry query; use more specific search terms |
+| Download timeout | Large file | Use aria2 or download manager for bulk datasets |
+| No API access | Rate limiting | HMDB has no public REST API; contact team for access |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (2s → 4s → 8s)
+- Bulk downloads: Use download managers for large files (>100 MB)
+
+### Common Pitfalls
+- No public REST API: Programmatic access requires contacting HMDB team
+- Commercial use: Requires explicit permission from HMDB developers
+- Version mismatches: IDs may change between versions; verify current data
+- Large downloads: Full XML >1 GB; plan disk space and download time
+- Spectral matching: Multiple candidates may match; verify with additional evidence
+
 ## Reference Documentation
 
 See `references/hmdb_data_fields.md` for detailed information about available data fields and their meanings.

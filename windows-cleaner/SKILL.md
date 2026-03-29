@@ -12,54 +12,54 @@ metadata:
 
 ## Overview
 
-分析 Windows 磁盘ʹ用情况，提供安鍏ㄧ殑娓呯悊寤鸿。遵寰?*安ȫ优先**ԭ则：先分析，再纭，最后ִ琛屻€?
+分析 Windows 磁盘使用情况，提供安全的清理建议。遵循**安全优先**原则：先分析，再确认，最后执行。
 
-## 核心ԭ则
+## 核心原则
 
-1. **安ȫ绗竴**：ɾ闄ゆ搷浣滃繀椤荤敤鎴风‘璁?
-2. **浠峰€间紭鍏?*：不Ϊ了数字好看而ɾ闄ゆ湁鐢ㄧ殑缂撳瓨
-3. **网络鐜意ʶ**锛氳€冭檻閲嶆柊涓嬭浇鐨勬椂闂存垚鏈?
-4. **Ӱ响分析**：ÿ涓竻鐞嗗缓璁繀椤昏明ɾ闄ゅ悗鏋?
+1. **安全第一**：删除操作必须用户确认
+2. **价值优先**：不为数字好看而删除有用的缓存
+3. **网络环境意识**：考虑重新下载的时间成本
+4. **影响分析**：每个清理建议必须说明删除后果
 
-## 鎶€鏈点：PowerShell 鎵ц方ʽ
+## 技术要点：PowerShell 执行方式
 
-**关键**锛氬鏉?PowerShell 命令必须д成 `.ps1` 脚本文件鎵ц，不能内联ִ琛屻€?
+**关键**：复杂 PowerShell 命令必须写成 `.ps1` 脚本文件执行，不能内联执行。
 
-### 正ȷ方ʽ
+### 正确方式
 
 ```bash
-# 1. ʹ用 Write 宸ュ叿鍐欏叆鑴氭湰鏂囦欢
+# 1. 使用 Write 工具写入脚本文件
 # Write tool -> C:\Users\USERNAME\script.ps1
 
-# 2. 鎵ц脚本
+# 2. 执行脚本
 powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\USERNAME\script.ps1"
 
-# 3. ɾ除脚本
+# 3. 删除脚本
 rm -f "C:\Users\USERNAME\script.ps1"
 ```
 
-### 閿欒方ʽ（会因ת义问棰樺け璐ワ級
+### 错误方式（会因转义问题失败）
 
 ```bash
-# 这Щ浼氬け璐ワ細
-powershell -Command "Get-PSDrive | Select-Object @{N='Size';E={$_.Used}}"  # ʧ败
-powershell -Command "$arr = @('a','b'); foreach ($i in $arr) { ... }"      # ʧ败
-powershell -Command "... $_.Property ..."                                   # ʧ败
+# 这些会失败：
+powershell -Command "Get-PSDrive | Select-Object @{N='Size';E={$_.Used}}"  # 失败
+powershell -Command "$arr = @('a','b'); foreach ($i in $arr) { ... }"      # 失败
+powershell -Command "... $_.Property ..."                                   # 失败
 ```
 
-### 绠€单命浠ゅ彲浠ュ唴鑱?
+### 简单命令可以内联
 
 ```bash
-# 这Щ绠€单命浠ゅ彲浠ュ唴鑱旓細
+# 这些简单命令可以内联：
 powershell -NoProfile -Command "(Get-PSDrive C).Free / 1GB"
 powershell -NoProfile -Command "Clear-RecycleBin -Force -ErrorAction SilentlyContinue"
 powershell -NoProfile -Command "Test-Path 'C:\some\path'"
 powershell -NoProfile -Command "Remove-Item -Path 'C:\path' -Recurse -Force"
 ```
 
-## 分析脚本妯℃澘
+## 分析脚本模板
 
-### 脚本 1锛氱鐩樻瑙?(disk_overview.ps1)
+### 脚本 1：磁盘概览 (disk_overview.ps1)
 
 ```powershell
 Write-Host "=== Disk Space Overview ===" -ForegroundColor Cyan
@@ -73,7 +73,7 @@ Get-PSDrive -PSProvider FileSystem | ForEach-Object {
 }
 ```
 
-### 脚本 2：用户文浠跺す分析 (user_folders.ps1)
+### 脚本 2：用户文件夹分析 (user_folders.ps1)
 
 ```powershell
 Write-Host "=== User Temp Folder ===" -ForegroundColor Yellow
@@ -84,7 +84,7 @@ if (Test-Path $tempPath) {
 }
 
 Write-Host "`n=== Downloads Folder ===" -ForegroundColor Yellow
-# 閲嶈：ʹ鐢?$env:USERPROFILE\Downloads，不Ҫ用 [Environment]::GetFolderPath("Downloads")
+# 重要：使用 $env:USERPROFILE\Downloads，不要用 [Environment]::GetFolderPath("Downloads")
 $downloadsPath = "$env:USERPROFILE\Downloads"
 if (Test-Path $downloadsPath) {
     $totalSize = (Get-ChildItem -Path $downloadsPath -Recurse -Force -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
@@ -111,7 +111,7 @@ try {
 }
 ```
 
-### 脚本 3：AppData 澶ф枃浠跺す分析 (appdata_analysis.ps1)
+### 脚本 3：AppData 大文件夹分析 (appdata_analysis.ps1)
 
 ```powershell
 Write-Host "=== AppData\Local Large Folders ===" -ForegroundColor Yellow
@@ -148,12 +148,12 @@ Get-ChildItem -Path $env:USERPROFILE -Directory -Force -ErrorAction SilentlyCont
     ForEach-Object { Write-Host "$($_.SizeGB) GB - $($_.Name)" }
 ```
 
-### 脚本 4：开鍙戣€呯紦瀛樺垎鏋?(dev_caches.ps1)
+### 脚本 4：开发者缓存分析 (dev_caches.ps1)
 
 ```powershell
 Write-Host "=== Developer Caches ===" -ForegroundColor Cyan
 
-# 定义瑕佹鏌ョ殑缂撳瓨璺緞锛堟瘡涓紦瀛樺彲鑳芥湁澶氫釜浣嶇疆锛?
+# 定义要检查的缓存路径（每个缓存可能有多个位置）
 $caches = @{
     "npm cache" = @("$env:LOCALAPPDATA\npm-cache", "$env:APPDATA\npm-cache")
     "pip cache" = @("$env:LOCALAPPDATA\pip\cache")
@@ -236,9 +236,9 @@ if (Get-Command docker -ErrorAction SilentlyContinue) {
 }
 ```
 
-## 清理脚本妯℃澘
+## 清理脚本模板
 
-### 清理 Playwright 鏃х増鏈?(cleanup_playwright.ps1)
+### 清理 Playwright 旧版本 (cleanup_playwright.ps1)
 
 ```powershell
 $basePath = "$env:LOCALAPPDATA\ms-playwright"
@@ -304,128 +304,128 @@ if (Test-Path $puppeteerPath) {
 }
 ```
 
-## 清理分类琛?
+## 清理分类表
 
-### [SAFE] 安ȫ清理项Ŀ
+### [SAFE] 安全清理项目
 
-| 项Ŀ | Ӱ响 | 清理方ʽ |
+| 项目 | 影响 | 清理方式 |
 |------|------|----------|
-| 回收绔?| 鏃?| `Clear-RecycleBin -Force` |
-| 鏃х増 Playwright 娴忚鍣?| 无（保留鏈€新版鏈級 | cleanup_playwright.ps1 |
-| npm _npx 缓存 | npx 涓嬫ʹ用ʱ重新下杞?| cleanup_npx.ps1 |
-| puppeteer 缓存 | 闇€Ҫʱ重新下载 | cleanup_puppeteer.ps1 |
-| 超过7澶╃殑 Temp 文件 | 鏃?| 脚本鎴?cleanmgr |
-| Windows Update 缓存 | 无（闇€管理ԱȨ限） | cleanmgr |
+| 回收站 | 无 | `Clear-RecycleBin -Force` |
+| 旧版 Playwright 浏览器 | 无（保留最新版本） | cleanup_playwright.ps1 |
+| npm _npx 缓存 | npx 下次使用时重新下载 | cleanup_npx.ps1 |
+| puppeteer 缓存 | 需要时重新下载 | cleanup_puppeteer.ps1 |
+| 超过7天的 Temp 文件 | 无 | 脚本或 cleanmgr |
+| Windows Update 缓存 | 无（需管理员权限） | cleanmgr |
 
-### [TRADEOFF] 闇€纭的清理项鐩?
+### [TRADEOFF] 需确认的清理项目
 
-| 项Ŀ | Ӱ响 | 备ע |
+| 项目 | 影响 | 备注 |
 |------|------|------|
-| npm _cacache | npm install 闇€重新下载 | 国内网络较慢 |
-| pip cache | pip install 闇€重新下载 | |
-| uv cache | Python 包需重新下载 | 鍙兘闈炲父澶?|
-| NuGet packages | .NET 项Ŀ鎭㈠变慢 | |
-| Conda packages | 鐜创建闇€重新下载 | |
-| torch/huggingface cache | AI 妯″瀷闇€重新下载 | 鍙兘闇€Ҫ数Сʱ |
+| npm _cacache | npm install 需重新下载 | 国内网络较慢 |
+| pip cache | pip install 需重新下载 | |
+| uv cache | Python 包需重新下载 | 可能非常大 |
+| NuGet packages | .NET 项目恢复变慢 | |
+| Conda packages | 环境创建需重新下载 | |
+| torch/huggingface cache | AI 模型需重新下载 | 可能需要数小时 |
 
-### [KEEP] 寤鸿保留的项鐩?
+### [KEEP] 建议保留的项目
 
-| 项Ŀ | ԭ因 |
+| 项目 | 原因 |
 |------|------|
-| Docker volumes | 鍙兘鍖呭惈鏁版嵁搴撴暟鎹?|
-| VS Code extensions | 闇€Ҫ重新安װ配缃?|
-| 娴忚鍣ㄩ厤缃枃浠?| 包含涔︾、密码等 |
-| SSH keys (.ssh) | 密Կ文件 |
+| Docker volumes | 可能包含数据库数据 |
+| VS Code extensions | 需要重新安装配置 |
+| 浏览器配置文件 | 包含书签、密码等 |
+| SSH keys (.ssh) | 密钥文件 |
 
-## 宸ヤ綔娴佺▼
+## 工作流程
 
-### 绗竴姝ワ細杩愯分析脚本
+### 第一步：运行分析脚本
 
-1. д入 `disk_overview.ps1` -> 鎵ц -> 获ȡ磁盘姒傝
-2. д入 `user_folders.ps1` -> 鎵ц -> 获ȡ鐢ㄦ埛鏂囦欢澶逛俊鎭?
-3. д入 `appdata_analysis.ps1` -> 鎵ц -> 获ȡ AppData 分析锛?*鍙兘鑰楁椂杈冮暱锛岃缃?timeout 300000+**锛?
-4. д入 `dev_caches.ps1` -> 鎵ц -> 获ȡ寮€鍙戣€呯紦瀛樺垎鏋?
+1. 写入 `disk_overview.ps1` -> 执行 -> 获取磁盘概览
+2. 写入 `user_folders.ps1` -> 执行 -> 获取用户文件夹信息
+3. 写入 `appdata_analysis.ps1` -> 执行 -> 获取 AppData 分析（**可能耗时较长，设置 timeout 300000+**）
+4. 写入 `dev_caches.ps1` -> 执行 -> 获取开发者缓存分析
 
-ÿ个脚本鎵ц后ɾ闄ゃ€?
+每个脚本执行后删除。
 
-### 绗簩姝ワ細鏁寸悊骞跺憟鐜板彂鐜?
+### 第二步：整理并呈现发现
 
-鎸?[SAFE] / [TRADEOFF] / [KEEP] 分类呈现，包鍚細
-- 项Ŀ鍚嶇О鍜屽ぇ灏?
-- ɾ除后果˵明
-- 寤鸿的清鐞嗛€夐」
+按 [SAFE] / [TRADEOFF] / [KEEP] 分类呈现，包含：
+- 项目名称和大小
+- 删除后果说明
+- 建议的清理选项
 
-### 绗笁姝ワ細鐢ㄦ埛纭后ִ行清鐞?
+### 第三步：用户确认后执行清理
 
-根据鐢ㄦ埛閫夋嫨鐨勯€夐」锛?
-- A) 鎵ц安ȫ清理：运行相Ӧ的清理脚本
-- B) 鏌ョ湅鏇村详情：深鍏ュ垎鏋愮壒瀹氭枃浠跺す
-- C) 清理特定项Ŀ：ȷ璁ゅ悗鎵ц
+根据用户选择的选项：
+- A) 执行安全清理：运行相应的清理脚本
+- B) 查看更多详情：深入分析特定文件夹
+- C) 清理特定项目：确认后执行
 
-### 绗洓姝ワ細楠岃瘉缁撴灉
+### 第四步：验证结果
 
 ```bash
 powershell -NoProfile -Command "(Get-PSDrive C).Free / 1GB"
 ```
 
-对比清理ǰ后的可鐢ㄧ┖闂淬€?
+对比清理前后的可用空间。
 
-## 鎶ュ憡鏍煎紡妯℃澘
+## 报告格式模板
 
 ```markdown
-## 磁盘分析鎶ュ憡
+## 磁盘分析报告
 
-**C: 鐩?*: XX GB 已用 / XX GB 鎬诲閲?(XX% ʹ用率，XX GB 鍙敤)
+**C: 盘**: XX GB 已用 / XX GB 总容量 (XX% 使用率，XX GB 可用)
 
 ---
 
-### [SAFE] 鍙畨鍏ㄦ竻鐞?(~X GB)
+### [SAFE] 可安全清理 (~X GB)
 
-| 项Ŀ | 大小 | ɾ除后果 |
+| 项目 | 大小 | 删除后果 |
 |------|------|----------|
-| 回收绔?| X MB | 鏃?|
-| 鏃х増 Playwright | X GB | 无，保留鏈€新版鏈?|
+| 回收站 | X MB | 无 |
+| 旧版 Playwright | X GB | 无，保留最新版本 |
 | npm _npx | X GB | npx 重新下载 |
 
 ---
 
-### [TRADEOFF] 闇€Ҫ您决定
+### [TRADEOFF] 需要您决定
 
-| 项Ŀ | 大小 | ɾ除后果 |
+| 项目 | 大小 | 删除后果 |
 |------|------|----------|
 | uv cache | XX GB | Python 包需重新下载 |
-| npm _cacache | X GB | npm install 闇€重新下载 |
+| npm _cacache | X GB | npm install 需重新下载 |
 
 ---
 
-### [KEEP] 寤鸿保留
+### [KEEP] 建议保留
 
-| 项Ŀ | 大小 | ԭ因 |
+| 项目 | 大小 | 原因 |
 |------|------|------|
-| NuGet packages | X GB | 避免閲嶅下载 |
-| Docker | XX GB | 鍙兘鍖呭惈閲嶈数据 |
+| NuGet packages | X GB | 避免重复下载 |
+| Docker | XX GB | 可能包含重要数据 |
 
 ---
 
-### 寤鸿操作
+### 建议操作
 
-- **A)** 鎵ц安ȫ清理 (~X GB)
-- **B)** 鏌ョ湅鏇村详情
-- **C)** 清理特定项Ŀ（需纭锛?
+- **A)** 执行安全清理 (~X GB)
+- **B)** 查看更多详情
+- **C)** 清理特定项目（需确认）
 ```
 
-## 娉ㄦ剰浜嬮」
+## 注意事项
 
-1. **脚本鎵ц超ʱ**锛氬ぇ文件夹ɨ描可能需Ҫ几分钟锛岃缃?timeout 涓?300000ms (5分钟) 或更闀?
-2. **璺緞鍙樹綋**：ĳЩ缓存可能在 LOCALAPPDATA 鎴?APPDATA，需Ҫ都妫€鏌?
-3. **编码闂**：PowerShell 涓枃閿欒淇℃伅鍙兘鏄剧ず乱码，不Ӱ响功能
-4. **Ȩ限闂**：ϵͳ文浠跺す闇€瑕佺理ԱȨ限
-5. **清理后验璇?*锛氬缁堝比清理ǰ后的鍙敤绌洪棿
-6. **脚本清理**：ִ行完毕后ɾ除临ʱ脚本文件
+1. **脚本执行超时**：大文件夹扫描可能需要几分钟，设置 timeout 为 300000ms (5分钟) 或更长
+2. **路径变量**：某些缓存可能在 LOCALAPPDATA 或 APPDATA，需要都检查
+3. **编码问题**：PowerShell 中文错误信息可能显示乱码，不影响功能
+4. **权限问题**：系统文件夹需要管理员权限
+5. **清理后验证**：始终对比清理前后的可用空间
+6. **脚本清理**：执行完毕后删除临时脚本文件
 
-## 绂佹操作
+## 禁止操作
 
-- 涓嶈ʹ用 `docker volume prune -f` 鎴?`docker system prune -a --volumes`
-- 涓嶈ɾ除鐢ㄦ埛鏂囨。銆佹闈€佸浘鐗囩瓑涓汉鏂囦欢澶?
-- 涓嶈ɾ除 .ssh、֤书等敏感文件
-- 涓嶈鍦ㄦ湭纭的情况下ɾ除澶у瀷缂撳瓨
+- 不要使用 `docker volume prune -f` 或 `docker system prune -a --volumes`
+- 不要删除用户文档、桌面、图片等个人文件夹
+- 不要删除 .ssh、证书等敏感文件
+- 不要在未确认的情况下删除大型缓存

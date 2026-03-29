@@ -10,11 +10,14 @@ description: |
   (5) 用户说"索引项目"、"分析代码"、"查调用链"、"影响分析"
   核心功能：代码索引、知识图谱构建、MCP 工具集成（query/context/impact/rename/cypher）
   新增 GLM (Z.AI) LLM provider 支持（OpenAI 兼容 API）
+  新增 --skills 生成 repo 级技能文件、--skip-agents-md 保留自定义上下文、Azure OpenAI wiki 支持
+  新增 gitnexus serve 桥接模式（Web UI ↔ CLI）、MCP Prompts（detect_impact/generate_map）
+  新增 Java/Kotlin 方法引用、重载消歧、接口分派，统一 Web/CLI ingestion pipeline
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: c27c9f612ca606252f3627cb364c5efa6fbd6f83
-version: 1.4.10
+github_hash: d90d1ba96fe9169501381f83909ec6384f8e974b
+version: 1.5.0
 created_at: 2026-02-21T00:00:00Z
 platform: github
 source: https://github.com/abhigyanpatwari/GitNexus
@@ -104,68 +107,20 @@ Use the right skill for your task:
 
 > Use when the user needs to run GitNexus CLI commands like analyze/index a repo, check status, clean the index, generate a wiki, or list indexed repos. Examples: "Index this repo", "Reanalyze the codebase", "Generate a wiki"
 
-## Commands
-
 All commands work via `npx` — no global install required.
 
-### analyze — Build or refresh the index
+## Commands
 
-```bash
-npx gitnexus analyze
-```
+| Command | Purpose |
+|---------|---------|
+| `analyze` | Build or refresh the index |
+| `status` | Check index freshness |
+| `clean` | Delete the index |
+| `wiki` | Generate documentation from the graph |
+| `serve` | Bridge mode (Web UI ↔ CLI) |
+| `list` | Show all indexed repos |
 
-Run from the project root. Parses all source files, builds the knowledge graph, writes it to `.gitnexus/`, and generates CLAUDE.md / AGENTS.md context files.
-
-| Flag | Effect |
-|------|--------|
-| `--force` | Force full re-index even if up to date |
-| `--embeddings` | Enable embedding generation for semantic search (off by default) |
-
-**When to run:** First time in a project, after major code changes, or when `gitnexus://repo/{name}/context` reports the index is stale. In Claude Code, a PostToolUse hook runs `analyze` automatically after `git commit` and `git merge`, preserving embeddings if previously generated.
-
-### status — Check index freshness
-
-```bash
-npx gitnexus status
-```
-
-Shows whether the current repo has a GitNexus index, when it was last updated, and symbol/relationship counts.
-
-### clean — Delete the index
-
-```bash
-npx gitnexus clean
-```
-
-Deletes the `.gitnexus/` directory and unregisters the repo from the global registry.
-
-| Flag | Effect |
-|------|--------|
-| `--force` | Skip confirmation prompt |
-| `--all` | Clean all indexed repos |
-
-### wiki — Generate documentation from the graph
-
-```bash
-npx gitnexus wiki
-```
-
-Generates repository documentation from the knowledge graph using an LLM.
-
-| Flag | Effect |
-|------|--------|
-| `--force` | Force full regeneration |
-| `--model <model>` | LLM model (default: minimax/minimax-m2.5) |
-| `--base-url <url>` | LLM API base URL |
-| `--api-key <key>` | LLM API key |
-| `--concurrency <n>` | Parallel LLM calls (default: 3) |
-| `--gist` | Publish wiki as a public GitHub Gist |
-
-### list — Show all indexed repos
-
-```bash
-npx gitnexus list
-```
+> **For detailed CLI flags and options, see the [GitNexus CLI documentation](https://github.com/abhigyanpatwari/GitNexus)**
 
 ---
 
@@ -449,6 +404,30 @@ For any task involving code understanding, debugging, impact analysis, or refact
 | Index, status, clean, wiki CLI commands | `gitnexus-cli` |
 | Review PR | `gitnexus-pr-review` |
 
+## Editor Support
+
+| Editor | MCP | Skills | Hooks (auto-augment) | Support |
+|--------|-----|--------|----------------------|---------|
+| Claude Code | Yes | Yes | Yes (PreToolUse + PostToolUse) | Full |
+| Cursor | Yes | Yes | — | MCP + Skills |
+| Codex | Yes | Yes | — | MCP + Skills |
+| Windsurf | Yes | — | — | MCP |
+| OpenCode | Yes | Yes | — | MCP + Skills |
+
+## MCP Prompts
+
+| Prompt | What It Does |
+|--------|-------------|
+| `detect_impact` | Pre-commit change analysis — scope, affected processes, risk level |
+| `generate_map` | Architecture documentation from the knowledge graph with mermaid diagrams |
+
+## Community Integrations
+
+| Project | Author | Description |
+|---------|--------|-------------|
+| [pi-gitnexus](https://github.com/tintinweb/pi-gitnexus) | @tintinweb | GitNexus plugin for pi — `pi install npm:pi-gitnexus` |
+| [gitnexus-stable-ops](https://github.com/ShunsukeHayashi/gitnexus-stable-ops) | @ShunsukeHayashi | Stable ops & deployment workflows (Miyabi ecosystem) |
+
 ## Tools Reference
 
 | Tool | What it gives you |
@@ -460,6 +439,12 @@ For any task involving code understanding, debugging, impact analysis, or refact
 | `rename` | Multi-file coordinated rename with confidence-tagged edits |
 | `cypher` | Raw graph queries (read `gitnexus://repo/{name}/schema` first) |
 | `list_repos` | Discover indexed repos |
+
+> **Multi-repo:** When only one repo is indexed, the `repo` parameter is optional. With multiple repos, specify which one: `query({query: "auth", repo: "my-app"})`.
+
+## Repo-Specific Skills
+
+When you run `gitnexus analyze --skills`, GitNexus detects functional areas of your codebase (via Leiden community detection) and generates a `SKILL.md` for each one under `.claude/skills/generated/`. Each skill describes a module's key files, entry points, execution flows, and cross-area connections. Skills are regenerated on each `--skills` run to stay current.
 
 ## Resources Reference
 

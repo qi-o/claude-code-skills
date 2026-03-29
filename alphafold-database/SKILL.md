@@ -122,7 +122,26 @@ Read `references/usage_guide.md` for detailed code patterns. Read `references/ap
 - Always assess confidence metrics before downstream analysis
 - Predictions lack ligands, PTMs, cofactors; single chains only (no complexes)
 
-## Performance Tips
+## Error Handling
+
+| HTTP Code | Meaning | Action |
+|-----------|---------|--------|
+| 404 | Not found | Verify UniProt accession exists; check protein ID format |
+| 429 | Rate limited | Wait and retry with exponential backoff |
+| 500/502/503 | Server error | Retry up to 3 times with backoff |
+| Timeout | Network issue | Retry with longer timeout; use GCS for bulk downloads |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (2s → 4s → 8s)
+- On 429: respect `Retry-After` header if present
+
+### Common Pitfalls
+- Large proteins: May have multiple fragments (AF-P00520-F1, AF-P00520-F2, etc.)
+- Missing predictions: Not all UniProt entries have predictions (check API first)
+- Bulk downloads: Use Google Cloud Platform instead of individual file downloads
+- Low confidence regions: pLDDT <50 indicates disorder or unreliable predictions
+- GCS access: BigQuery free tier: 1 TB processed data/month
 
 - Use Biopython for simple single-protein access
 - Use Google Cloud for bulk downloads (much faster than individual files)

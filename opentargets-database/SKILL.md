@@ -365,6 +365,28 @@ The Open Targets Platform is updated **quarterly** with new data releases. The c
 **Citation:** When using Open Targets data, cite:
 Ochoa, D. et al. (2025) Open Targets Platform: facilitating therapeutic hypotheses building in drug discovery. Nucleic Acids Research, 53(D1):D1467-D1477.
 
+## Error Handling
+
+| Error Type | Meaning | Action |
+|------------|---------|--------|
+| 400 | Bad request | Check GraphQL query syntax; verify field names |
+| 429 | Rate limited | Wait and retry with exponential backoff |
+| 500/502/503 | Server error | Retry up to 3 times with backoff |
+| Timeout | Network issue | Retry with longer timeout; use pagination for large queries |
+| GraphQL errors | Invalid query | Check query structure in browser at /graphql/browser |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (2s → 4s → 8s)
+- On 429: respect `Retry-After` header if present
+
+### Common Pitfalls
+- Query complexity: Request only needed fields to minimize response size
+- Pagination: Use `page: {size: N, index: M}` for large result sets
+- No explicit rate limit: Be respectful; implement delays for batch operations
+- Association scores: Relative ranking, not absolute confidence
+- GraphQL syntax errors: Use browser IDE to validate queries before execution
+
 ## Limitations and Considerations
 
 1. **API is for exploratory queries:** For systematic analyses of many targets/diseases, use data downloads or BigQuery

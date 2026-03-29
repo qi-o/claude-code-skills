@@ -40,9 +40,212 @@ python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py
 
 ## 初始化
 
-如果仓库不存在，先克隆：
+### 首次完整初始化
+
+如果 GitHub 上已有仓库，直接克隆：
 
 ```bash
 git clone https://github.com/qi-o/claude-code-skills.git ~/claude-code-skills
 git clone https://github.com/qi-o/claude-code-config.git ~/claude-code-config
 ```
+
+### 从零创建仓库
+
+如果 GitHub 上还没有仓库，需要先创建并完成首次推送：
+
+```bash
+# 1. 在 GitHub 上创建空仓库（不要初始化 README）
+gh repo create qi-o/claude-code-skills --private --description "Claude Code skills backup"
+gh repo create qi-o/claude-code-config --private --description "Claude Code config backup"
+
+# 2. 本地初始化并关联 remote
+mkdir -p ~/claude-code-skills && cd ~/claude-code-skills
+git init && git remote add origin https://github.com/qi-o/claude-code-skills.git
+
+mkdir -p ~/claude-code-config && cd ~/claude-code-config
+git init && git remote add origin https://github.com/qi-o/claude-code-config.git
+
+# 3. 运行同步脚本完成首次 commit
+python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py
+
+# 4. 首次推送（后续用 GitHub Desktop 推送）
+cd ~/claude-code-skills && git push -u origin main
+cd ~/claude-code-config && git push -u origin main
+```
+
+### 验证仓库状态
+
+确认仓库已正确初始化：
+
+```bash
+# 检查仓库是否存在（应输出 .git 目录路径）
+ls -d ~/claude-code-skills/.git ~/claude-code-config/.git
+
+# 确认 remote 配置正确
+git -C ~/claude-code-skills remote -v
+git -C ~/claude-code-config remote -v
+```
+
+## 排除机制
+
+脚本通过多层机制排除不需要同步的文件和目录。
+
+### 目录级排除
+
+以下目录名在任何层级都会被跳过（匹配路径中的任意组件）：
+
+| 排除项 | 原因 |
+|--------|------|
+| `.git` | Git 仓库元数据 |
+| `.omc` | oh-my-claudecode 运行时状态（会话数据、计划缓存） |
+| `.experimental` | 实验性功能目录 |
+| `.curated` | 本地策展数据 |
+| `.system` | 系统内部目录 |
+| `node_modules` | Node.js 依赖（可重建） |
+| `__pycache__` / `*.pyc` | Python 编译缓存 |
+| `.pytest_cache` | 测试缓存 |
+| `tests` | 技能内部测试文件 |
+| `env.d` | 环境变量文件（含 API Key） |
+
+### 特定子目录排除
+
+| 路径 | 原因 |
+|------|------|
+| `plugins/cache/` | 市场插件下载缓存（数千文件，可重新下载） |
+
+### 敏感信息清理
+
+脚本会对同步后的文件进行 secret 清理，匹配以下模式并替换为占位符：
+
+| 模式 | 替换为 |
+|------|--------|
+| `sk-*`（Anthropic API Key） | `"YOUR_API_KEY_HERE"` |
+| `ghp_*`（GitHub Token） | `"YOUR_GITHUB_TOKEN_HERE"` |
+| `xox[bors]-*`（Slack Token） | `"YOUR_SLACK_TOKEN_HERE"` |
+
+主要作用于 `settings.json`。清理是单向的：只影响同步目标仓库中的副本，不修改 `~/.claude/` 源文件。
+
+### 嵌套 .git 清理
+
+技能目录中可能包含自带 `.git` 的子目录（如克隆的技能、市场缓存）。脚本会在同步后自动清理目标仓库中所有非根目录的 `.git`，防止 `not a git repository` 错误。
+
+## Dry-run 验证流程
+
+在正式同步前，建议先用 `--dry-run` 预览变更，确认无误后再执行：
+
+```bash
+# 预览全部变更
+python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py --dry-run
+
+# 仅预览技能仓库变更
+python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py --dry-run --skills-only
+
+# 仅预览配置仓库变更
+python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py --dry-run --config-only
+```
+
+Dry-run 输出前缀为 `would`，表示这是预览而非实际操作：
+- `would sync <name>` — 将同步该文件/目录
+- `would remove <name>` — 将删除该文件/目录（源中已不存在）
+
+确认预览结果无误后，去掉 `--dry-run` 执行正式同步。
+
+## 同步策略与冲突处理
+
+### 单向镜像覆盖
+
+同步采用**镜像策略**：目标仓库的内容始终与 `~/.claude/` 源保持一致。
+
+- 源中新增的文件/目录 → 复制到目标
+- 源中修改的文件 → 覆盖目标中的旧版本
+- 源中删除的文件/目录 → 从目标中移除
+
+目标仓库中存在但源中不存在的文件会被删除（`.git` 目录除外）。
+
+### Local vs Remote 冲突
+
+脚本只做本地 commit，不做 push。因此不存在 local vs remote 的自动合并冲突。
+
+冲突只会在你手动 push 时出现（通过 GitHub Desktop 或 git CLI）：
+
+```bash
+# 场景：remote 有新提交（比如你在另一台机器上 push 过）
+git -C ~/claude-code-skills pull --rebase origin main
+```
+
+如果 pull 时出现冲突：
+
+```bash
+# 1. 查看冲突文件
+git -C ~/claude-code-skills diff --name-only --diff-filter=U
+
+# 2. 方案 A：以本地为准（推荐，因为本地刚从 ~/.claude 同步过）
+git -C ~/claude-code-skills checkout --ours .
+git -C ~/claude-code-skills add -A
+git -C ~/claude-code-skills rebase --continue
+
+# 3. 方案 B：放弃本地改动，以 remote 为准
+git -C ~/claude-code-skills rebase --abort
+git -C ~/claude-code-skills pull origin main
+# 然后重新运行同步脚本
+python ~/.claude/skills/sync-to-github/scripts/sync_to_github.py
+```
+
+### 多机器协作注意事项
+
+如果多台机器共用同一套技能配置：
+
+1. 每次同步前先 pull 最新 remote 内容
+2. 修改 `~/.claude/` 后及时运行同步脚本
+3. 尽量避免同时在多台机器上修改同一文件
+4. 如果出现分歧，以最新同步的那台机器为准（重新运行脚本覆盖即可）
+
+## 常见错误及解决方案
+
+### 仓库不存在
+
+```
+[ERROR] claude-code-skills not found at ~/claude-code-skills
+Fix: git clone <your-remote> ~/claude-code-skills
+```
+
+**原因**：目标目录下没有 `.git` 子目录。
+**解决**：按照上方「首次完整初始化」步骤创建或克隆仓库。
+
+### Git commit 失败
+
+```
+[FAIL] claude-code-skills commit failed
+```
+
+**可能原因**：
+- 用户名/邮箱未配置：运行 `git config --global user.name "your-name"` 和 `git config --global user.email "your@email.com"`
+- HEAD detached：运行 `git -C ~/claude-code-skills checkout main`
+- 磁盘空间不足
+
+### 推送失败（GitHub Desktop）
+
+- **认证过期**：在 GitHub Desktop 中重新登录 GitHub 账号
+- **remote URL 变更**：确认 remote 指向正确的仓库地址
+- **网络问题**：检查代理设置，GitHub Desktop 的 proxy 设置在 File > Options > Accounts 中
+
+### 权限错误（Windows）
+
+```
+skipped <file> (locked)
+removed <name> (partial)
+```
+
+**原因**：文件被其他进程占用（如编辑器、Claude Code 进程）。
+**解决**：关闭占用文件的程序后重新运行同步脚本。脚本会尝试清理，部分文件可能只被部分删除。
+
+### 敏感信息泄露检查
+
+如果担心 secret 清理遗漏，可以手动检查目标仓库：
+
+```bash
+# 检查是否还有 sk- / ghp_ / xox- 开头的 token
+grep -rE '(sk-[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9_-]{36,}|xox[bors]-[a-zA-Z0-9-]+)' ~/claude-code-skills/ ~/claude-code-config/
+```
+
+如果发现遗漏，需要将对应模式加入脚本中的 `SECRET_PATTERNS` 列表。

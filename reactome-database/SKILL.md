@@ -270,6 +270,28 @@ python scripts/reactome_query.py version
 
 For comprehensive API endpoint documentation, see `references/api_reference.md` in this skill.
 
+## Error Handling
+
+| HTTP Code | Meaning | Action |
+|-----------|---------|--------|
+| 404 | Not found | Verify Reactome pathway ID (R-HSA-XXXXX) or entity exists |
+| 400 | Bad request | Check identifier format; verify input data structure |
+| 429 | Rate limited | Wait and retry with exponential backoff |
+| 500/502/503 | Server error | Retry up to 3 times with backoff |
+| Timeout | Network issue | Retry with longer timeout |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (2s → 4s → 8s)
+- On 429: respect `Retry-After` header if present
+
+### Common Pitfalls
+- Analysis tokens: Valid for 7 days; store tokens for later retrieval
+- Large gene lists: May timeout; consider splitting into smaller batches
+- Expression data format: Must be TSV with header starting with "#"
+- Identifier mapping: System auto-detects ID types but may fail on obscure IDs
+- Species projection: Use `/projection/` endpoint for cross-species mapping
+
 ## Current Database Statistics (Version 94, September 2025)
 
 - 2,825 human pathways

@@ -179,6 +179,28 @@ Document the version used in publications and analysis scripts.
 7. **Clinical Context**: Always consider clinical context when interpreting interaction data
 8. **License Compliance**: Ensure proper licensing for your use case
 
+## Error Handling
+
+| Error Type | Meaning | Action |
+|------------|---------|--------|
+| Authentication failed | Invalid credentials | Verify username/password; check account status |
+| 404 | Not found | DrugBank ID or version doesn't exist |
+| Download timeout | Network issue | Retry with longer timeout; file may be large |
+| Parse error | Corrupted XML | Verify file integrity; re-download |
+| License required | Academic use only | Commercial use requires commercial license |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (5s → 10s → 20s)
+- Large files: Downloads can take time; increase timeout accordingly
+
+### Common Pitfalls
+- Large XML files: Full database >500 MB; ensure sufficient disk space
+- Version changes: Drug IDs may be deprecated between versions
+- XML parsing: Use lxml for performance; handle namespaces correctly
+- License validation: Academic accounts are free; commercial use requires payment
+- Network interruptions: Use resume-capable downloaders for large files
+
 ## Reference Documentation
 
 All detailed implementation guidance is organized in modular reference files:

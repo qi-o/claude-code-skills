@@ -30,7 +30,7 @@ https://openapi.biji.com
 
 **每次调用 API 前先检查 `$GETNOTE_API_KEY` 是否存在**。若不存在，提示用户运行 `/note config` 完成配置，配置完成后再继续执行用户原本的请求。
 
-Scope 权限：`note.content.read`（读取）、`note.content.write`（写入）、`note.recall.read`（搜索）。完整列表见 [references/api-details.md](references/api-details.md#scope-权限列表)。
+Scope 权限：`note.content.read`（读取）、`note.content.write`（写入）、`note.recall.read`（搜索）。
 
 ### 🔢 笔记 ID 处理规则（重要！）
 笔记 ID 是 **64 位整数（int64）**，超出 JavaScript `Number.MAX_SAFE_INTEGER`，直接 `JSON.parse` 会**静默丢失精度**。
@@ -52,16 +52,14 @@ Python / Go 等语言原生支持大整数，无此问题。
 
 ## 指令路由表
 
-> 匹配指令后，用 **read 工具**读取对应的 `references/xxx.md` 获取完整 API 文档。
-
-| 指令 | 角色 | 说明 | 详细文档 |
-|------|------|------|---------|
-| `/note save` 或「记一下」| 📝 速记员 | 保存文本/链接/图片笔记（含异步轮询流程） | [references/save.md](references/save.md) |
-| `/note search` 或「搜一下」| 🔍 搜索官 | 全局语义搜索 + 知识库语义搜索 | [references/search.md](references/search.md) |
-| `/note list` 或「最近的笔记」| 📋 整理师 | 浏览列表、查看详情、更新、删除 | [references/list.md](references/list.md) |
-| `/note kb` 或「知识库」| 📚 图书管理员 | 知识库 CRUD + 博主订阅 + 直播订阅 | [references/knowledge.md](references/knowledge.md) |
-| `/note tag` 或「加标签」| 🏷️ 标签员 | 添加/删除标签 | [references/tags.md](references/tags.md) |
-| `/note config` 或「配置笔记」| ⚙️ 配置 | 配置 API Key 和 Client ID | [references/oauth.md](references/oauth.md) |
+| 指令 | 角色 | 说明 |
+|------|------|------|
+| `/note save` 或「记一下」| 📝 速记员 | 保存文本/链接/图片笔记（含异步轮询流程） |
+| `/note search` 或「搜一下」| 🔍 搜索官 | 全局语义搜索 + 知识库语义搜索 |
+| `/note list` 或「最近的笔记」| 📋 整理师 | 浏览列表、查看详情、更新、删除 |
+| `/note kb` 或「知识库」| 📚 图书管理员 | 知识库 CRUD + 博主订阅 + 直播订阅 |
+| `/note tag` 或「加标签」| 🏷️ 标签员 | 添加/删除标签 |
+| `/note config` 或「配置笔记」| ⚙️ 配置 | 配置 API Key 和 Client ID |
 
 ---
 
@@ -107,4 +105,4 @@ Python / Go 等语言原生支持大整数，无此问题。
 | 30000 | 服务调用失败 | 稍后重试 |
 | 50000 | 系统错误 | 稍后重试 |
 
-详细错误码和限流结构见 [references/api-details.md](references/api-details.md)。
+详细错误码和限流结构：10001（鉴权失败）、10201（非会员）、10202（QPS限流）等。

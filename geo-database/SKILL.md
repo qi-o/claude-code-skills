@@ -129,3 +129,24 @@ All Python code examples are in `references/geo_reference.md`, including:
 - Correlation heatmap and hierarchical clustering
 - Batch processing multiple datasets
 - Meta-analysis across studies
+
+## Error Handling
+
+| HTTP Code | Meaning | Action |
+|-----------|---------|--------|
+| 429 | Rate limited | Wait and retry with exponential backoff (0.34s without API key, 0.1s with key) |
+| 404 | Not found | Verify GEO accession exists; check GSE/GSM/GPL format |
+| 500/502/503 | Server error | Retry up to 3 times with backoff |
+| Timeout | Network issue | Retry with longer timeout; consider FTP for bulk downloads |
+
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (0.34s → 0.68s → 1.36s without API key; 0.1s → 0.2s → 0.4s with key)
+- On 429: respect rate limits (3 req/s without key, 10 req/s with key)
+
+### Common Pitfalls
+- Batch queries: NCBI E-utilities limits to ~10,000 results per search
+- Large files: Series Matrix files can exceed 1 GB; use FTP for downloads
+- Rate limits: Without API key: 3 req/s; with key: 10 req/s
+- Missing annotations: Platform mappings may be outdated; verify gene symbols
+- Inconsistent metadata: Sample annotation varies across studies

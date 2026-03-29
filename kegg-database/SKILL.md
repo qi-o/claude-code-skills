@@ -365,14 +365,27 @@ For comprehensive API documentation, database specifications, organism codes, an
 - Integration with Biopython and R/Bioconductor
 - Best practices for API usage
 
-## Troubleshooting
+## Error Handling
 
-**404 Not Found**: Entry or database doesn't exist; verify IDs and organism codes
-**400 Bad Request**: Syntax error in API call; check parameter formatting
-**Empty results**: Search term may not match entries; try broader keywords
-**Image/KGML errors**: These formats only work with single entries; remove batch processing
+| HTTP Code | Meaning | Action |
+|-----------|---------|--------|
+| 404 | Not found | Verify KEGG ID format (organism:number, pathway ID, compound ID) |
+| 400 | Bad request | Check API syntax; max 10 entries per operation |
+| 429 | Rate limited | Wait and retry with exponential backoff |
+| 500/503 | Server error | Retry up to 3 times with backoff |
+| Timeout | Network issue | Retry with longer timeout |
 
-## Additional Tools
+### Retry Strategy
+- Max retries: 3
+- Backoff: exponential (2s → 4s → 8s)
+- Be conservative: no explicit rate limit but avoid rapid-fire requests
+
+### Common Pitfalls
+- Entry limits: Maximum 10 entries per `kegg_get` operation
+- Image/KGML/JSON: These formats only work with single entries
+- Batch ID conversion: Split large lists into chunks of ≤100 IDs
+- Academic use only: Commercial use requires licensing
+- Organism codes: Verify correct organism prefix (hsa, mmu, sce, eco, etc.)
 
 For interactive pathway visualization and annotation:
 - **KEGG Mapper**: https://www.kegg.jp/kegg/mapper/
