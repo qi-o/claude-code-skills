@@ -249,3 +249,16 @@ grep -rE '(sk-[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9_-]{36,}|xox[bors]-[a-zA-Z0-9-]+)
 ```
 
 如果发现遗漏，需要将对应模式加入脚本中的 `SECRET_PATTERNS` 列表。
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### Known Fixes & Workarounds
+- Windows Git Bash 下 robocopy /MIR 会被当作路径参数，用 cmd /c robocopy 或 PowerShell Copy-Item 替代
+- robocopy exit 0 但未拷贝文件时，检查目标目录结构——若已存在同名子目录会导致嵌套而非覆盖，改用 Python shutil.copytree dirs_exist_ok=True
+- GitHub token 缺 repo scope 导致 push 失败时，用 GitHub Desktop 推送（其凭证与 git CLI 隔离）
+- git reset --hard origin/master 会强制覆盖 working tree——reset 前确认没有 unstaged 变更，reset 后重新执行 Python shutil.copytree 重新拷贝文件
+- repo 起源不一致时（本地基于旧仓库，上游已切换 remote），git reset --hard origin/master 重建干净状态比 cherry-pick 更可靠
+- GitHub fine-grained PAT 使用 github_pat_ 前缀（非 ghp_），SECRET_PATTERNS 必须同时覆盖 ghp_ 和 github_pat_ 两个前缀，否则会导致 token 泄露到公开仓库

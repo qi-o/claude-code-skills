@@ -37,6 +37,7 @@ EXCLUDE_SUBDIRS = {
 SECRET_PATTERNS = [
     (re.compile(r'"sk-[a-zA-Z0-9_-]{20,}"'), '"YOUR_API_KEY_HERE"'),
     (re.compile(r'"ghp_[a-zA-Z0-9_-]{36,}"'), '"YOUR_GITHUB_TOKEN_HERE"'),
+    (re.compile(r'"github_pat_[a-zA-Z0-9_-]{20,}"'), '"YOUR_GITHUB_TOKEN_HERE"'),
     (re.compile(r'"xox[bors]-[a-zA-Z0-9-]+"'), '"YOUR_SLACK_TOKEN_HERE"'),
 ]
 

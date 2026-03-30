@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: f87b423670b193a0b52a10526338f596f673a8b8
+github_hash: cf44f7b12238b8f0703d85bac51fc253fd292b55
 name: shader-dev
 description: Comprehensive GLSL shader techniques for creating stunning visual effects — ray marching, SDF modeling, fluid simulation, particle systems, procedural generation, lighting, post-processing, and more.
 license: MIT
