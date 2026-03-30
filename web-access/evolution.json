@@ -1,0 +1,15 @@
+{
+  "last_updated": "2026-03-30T15:35:47.116606",
+  "preferences": [
+    "截图功能在后台 tab 不可用时优先用 eval 提取数据",
+    "eval 语法使用直接表达式而非 IIFE",
+    "Windows 环境下路径使用 Unix 风格"
+  ],
+  "fixes": [
+    "/eval 的 POST body 是 JS 表达式不是语句块，IIFE (() => {...})() 会返回 Uncaught 错误，应使用直接表达式",
+    "通过 /new 创建的后台 tab 截图时 Page.captureScreenshot 可能超时，应优先用 eval 提取数据",
+    "Windows 下截图 file 参数路径需用 Unix 风格 (/c/Users/...) 而非 Windows 风格",
+    "GLM-5 模型通过 Z.ai 代理调用 WebSearch 工具失败或返回异常，需用 ducksearch/web_reader 替代"
+  ],
+  "custom_prompts": "遇到截图超时时优先用 eval 提取数据而非重试截图。eval 只接受单个表达式不要用 IIFE。Windows 路径使用 /c/Users/ 格式。"
+}
