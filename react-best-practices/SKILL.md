@@ -1,12 +1,12 @@
 ---
 name: react-best-practices
 description: |
-  React/Next.js 性能优化最佳实践。包含 62 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
+  React/Next.js 性能优化最佳实践。包含 67 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
   Do NOT use for non-React/Vue frameworks or backend code optimization.
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 64484e9a6022c81e3af59f5dcee6fb6d631bf53e
-version: 1.2.1
+github_hash: 6f3fa3191d089d7810e332a562ad2a0ff5f7f239
+version: 1.3.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
 author: Vercel
 tags: [react, nextjs, performance, optimization, best-practices]
@@ -17,7 +17,7 @@ metadata:
 
 # Vercel React Best Practices
 
-React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 62 条规则，按优先级分为 8 大类别。
+React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 67 条规则，按优先级分为 8 大类别。
 
 ## 触发条件
 
@@ -34,6 +34,7 @@ React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含
 
 | 规则 | 说明 |
 |------|------|
+| `async-cheap-condition-before-await` | 在 await flag/远程值前先检查廉价的同步条件 |
 | `async-defer-await` | 将 await 移到实际使用值的分支中 |
 | `async-parallel` | 对独立异步操作使用 `Promise.all()` |
 | `async-dependencies` | 对部分依赖的操作使用 better-all |

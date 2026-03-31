@@ -1,8 +1,9 @@
 ---
 name: web-access
 license: MIT
+github: https://github.com/eze-is/web-access
 github_url: https://github.com/eze-is/web-access
-github_hash: 1116c082a7f13860c3befd5307a272d6a120206f
+github_hash: 2e94386f0dfe9ca08149d54f48ac6cfaf4f6406c
 description:
   所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
   触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。
@@ -18,7 +19,7 @@ metadata:
 在开始联网操作前，先检查 CDP 模式可用性：
 
 ```bash
-bash ~/.claude/skills/web-access/scripts/check-deps.sh
+node "$CLAUDE_SKILL_DIR/scripts/check-deps.mjs"
 ```
 
 - **Node.js 22+**：必需（使用原生 WebSocket）。版本低于 22 可用但需安装 `ws` 模块。
@@ -83,7 +84,7 @@ bash ~/.claude/skills/web-access/scripts/check-deps.sh
 ### 启动
 
 ```bash
-bash ~/.claude/skills/web-access/scripts/check-deps.sh
+node "$CLAUDE_SKILL_DIR/scripts/check-deps.mjs"
 ```
 
 脚本会依次检查 Node.js、Chrome 端口，并确保 Proxy 已连接（未运行则自动启动并等待）。Proxy 启动后持续运行。
@@ -128,35 +129,6 @@ curl -s "http://localhost:3456/scroll?target=ID&direction=bottom"
 # 关闭 tab
 curl -s "http://localhost:3456/close?target=ID"
 ```
-
-### eval 语法注意
-
-`/eval` 的 POST body 是 JS 表达式，不是语句块。以下写法会导致 `{"error":"Uncaught"}`：
-
-```bash
-# ❌ IIFE 包裹 — 会报错
-curl -s -X POST "http://localhost:3456/eval?target=ID" -d '(() => { return document.title })()'
-
-# ✅ 直接表达式
-curl -s -X POST "http://localhost:3456/eval?target=ID" -d 'document.title'
-
-# ✅ 提取列表数据用 JSON.stringify 包裹
-curl -s -X POST "http://localhost:3456/eval?target=ID" -d 'JSON.stringify(Array.from(document.querySelectorAll("a")).map(a=>a.href))'
-```
-
-规则：eval 接收的是一个**表达式**，它的求值结果就是返回值。不要用 IIFE、不要用 `var`/`let` 声明、不要用 `return`。需要复杂逻辑时，用三元运算符或 `Array.from().map().filter()` 链式调用组合成单个表达式。
-
-### 截图与 tab 可见性
-
-`/screenshot` 底层调用 CDP 的 `Page.captureScreenshot`。通过 `/new` 创建的后台 tab 可能因为未被渲染而导致截图超时。遇到截图超时时：
-
-1. **优先用 eval 提取数据**而非截图 — 大多数场景下 eval 提取文本/URL 比截图更精准高效
-2. **需要截图时**，先通过 eval 让 tab 获得焦点：在已有用户 tab 中操作（而非后台 tab）
-3. 如果一定要截后台 tab，尝试先 `/eval` 执行 `window.focus()` 再截图
-
-### Windows 路径
-
-在 Windows（Git Bash）环境下，截图的 `file` 参数路径需要使用 Unix 风格（`/c/Users/...`）或让 proxy 自行解析的格式。避免混用 `C:\` 和 `/c/` 前缀。
 
 ### 页面内导航
 
@@ -241,7 +213,7 @@ Proxy 持续运行，不建议主动停止——重启后需要在 Chrome 中重
 
 操作中积累的特定网站经验，按域名存储在 `references/site-patterns/` 下。
 
-已有经验的站点：!`ls ${CLAUDE_SKILL_DIR}/references/site-patterns/ 2>/dev/null | sed 's/\.md$//' || echo "暂无"`
+已有经验的站点：!`node -e "const fs=require('fs'),p=require('path').join(process.env.CLAUDE_SKILL_DIR||'.','references','site-patterns');try{console.log(fs.readdirSync(p).filter(f=>f.endsWith('.md')).map(f=>f.replace(/\\.md$/,'')).join(', ')||'暂无')}catch{console.log('暂无')}"`
 
 确定目标网站后，如果上方列表中有匹配的站点，必须读取对应文件获取先验知识（平台特征、有效模式、已知陷阱）。经验内容标注了发现日期，当作可能有效的提示而非保证——如果按经验操作失败，回退通用模式并更新经验文件。
 
@@ -271,23 +243,3 @@ updated: 2026-03-19
 |------|---------|
 | `references/cdp-api.md` | 需要 CDP API 详细参考、JS 提取模式、错误处理时 |
 | `references/site-patterns/{domain}.md` | 确定目标网站后，读取对应站点经验 |
-
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### User Preferences
-- 截图功能在后台 tab 不可用时优先用 eval 提取数据
-- eval 语法使用直接表达式而非 IIFE
-- Windows 环境下路径使用 Unix 风格
-
-### Known Fixes & Workarounds
-- /eval 的 POST body 是 JS 表达式不是语句块，IIFE (() => {...})() 会返回 Uncaught 错误，应使用直接表达式
-- 通过 /new 创建的后台 tab 截图时 Page.captureScreenshot 可能超时，应优先用 eval 提取数据
-- Windows 下截图 file 参数路径需用 Unix 风格 (/c/Users/...) 而非 Windows 风格
-- GLM-5 模型通过 Z.ai 代理调用 WebSearch 工具失败或返回异常，需用 ducksearch/web_reader 替代
-
-### Custom Instruction Injection
-
-遇到截图超时时优先用 eval 提取数据而非重试截图。eval 只接受单个表达式不要用 IIFE。Windows 路径使用 /c/Users/ 格式。
