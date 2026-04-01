@@ -12,6 +12,7 @@ Simplified style tier for quick selection:
 | `hand-drawn` | sketch/warm | Relaxed, reflective, casual content |
 | `editorial` | editorial | Processes, data, journalism |
 | `scene` | warm/watercolor | Narratives, emotional, lifestyle |
+| `poster` | screen-print | Bold statements, editorial, cultural |
 
 Use Core Styles for most cases. See full Style Gallery below for granular control.
 
@@ -39,6 +40,7 @@ Use Core Styles for most cases. See full Style Gallery below for granular contro
 | `pixel-art` | Retro 8-bit gaming aesthetic | Gaming, retro tech |
 | `playful` | Whimsical pastel doodles | Fun, casual, educational |
 | `retro` | 80s/90s neon geometric | 80s/90s nostalgic, bold |
+| `screen-print` | Bold graphic poster with limited palette | Editorial, cultural essays, cinematic |
 | `sketch` | Raw pencil notebook style | Brainstorming, creative exploration |
 | `sketch-notes` | Soft hand-drawn warm notes | Educational, warm notes |
 | `vintage` | Aged parchment historical | Historical, heritage |
@@ -47,14 +49,14 @@ Full specifications: `references/styles/<style>.md`
 
 ## Type × Style Compatibility Matrix
 
-| | vector-illustration | notion | warm | minimal | blueprint | watercolor | elegant | editorial | scientific |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| infographic | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓✓ |
-| scene | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ |
-| flowchart | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓ |
-| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ |
-| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ |
-| timeline | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ |
+| | vector-illustration | notion | warm | minimal | blueprint | watercolor | elegant | editorial | scientific | screen-print |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| infographic | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ |
+| scene | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✓✓ |
+| flowchart | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓ | ✗ |
+| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
+| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ | ✗ |
+| timeline | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ | ✓ |
 
 ✓✓ = highly recommended | ✓ = compatible | ✗ = not recommended
 

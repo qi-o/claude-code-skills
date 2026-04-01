@@ -55,3 +55,22 @@ Flat vector illustration with no gradients or 3D effects. Clear, uniform-thickne
 ## Best For
 
 Educational content, creative articles, children's content, brand showcases, explainer pieces, warm approachable topics
+
+## Palette Variants
+
+### Warm Palette
+
+A warmer, softer variant of the standard palette. Used by the `warm-knowledge` preset for product showcases and marketing content.
+
+| Role | Color | Hex | Usage |
+|------|-------|-----|-------|
+| Background | Warm Cream | #FAF5EE | Softer, warmer background |
+| Outlines | Deep Charcoal | #2D2D2D | All element outlines (unchanged) |
+| Primary | Soft Coral | #E8A87C | Warm primary accent |
+| Secondary | Sage Green | #95B8A1 | Muted nature tones |
+| Tertiary | Warm Gold | #E8C87A | Warm highlights |
+| Accent 1 | Dusty Rose | #D4A0A0 | Soft warm accents |
+| Accent 2 | Muted Teal | #7BA7A7 | Cool-warm balance |
+| Text | Black | #1A1A1A | Text elements (unchanged) |
+
+This palette maintains the same illustration style (flat vector, black outlines, geometric shapes) but with warmer, more muted tones that feel inviting and commercial.

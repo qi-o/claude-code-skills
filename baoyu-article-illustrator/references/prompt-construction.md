@@ -135,6 +135,13 @@ COLORS: Cream background (#F5F0E6), Coral Red (#E07A5F), Mint Green (#81B29A), M
 ELEMENTS: Geometric simplified icons, no gradients, playful decorative elements (dots, stars)
 ```
 
+**Infographic + vector-illustration (warm palette)**:
+```
+Flat vector illustration infographic. Clean black outlines on all elements.
+COLORS: Warm Cream background (#FAF5EE), Soft Coral (#E8A87C), Sage Green (#95B8A1), Warm Gold (#E8C87A), Dusty Rose (#D4A0A0)
+ELEMENTS: Geometric simplified icons, no gradients, soft decorative elements (dots, stars)
+```
+
 ### Scene
 
 ```
@@ -197,6 +204,13 @@ COLORS: Left side Coral (#E07A5F), Right side Mint (#81B29A), cream background
 ELEMENTS: Bold icons, black outlines, centered divider line
 ```
 
+**Comparison + vector-illustration (warm palette)**:
+```
+Flat vector comparison with split layout. Clear visual separation.
+COLORS: Left side Soft Coral (#E8A87C), Right side Sage Green (#95B8A1), warm cream background (#FAF5EE)
+ELEMENTS: Bold icons, black outlines, centered divider line
+```
+
 ### Framework
 
 ```
@@ -220,6 +234,13 @@ COLORS: Cream background (#F5F0E6), nodes in Coral/Mint/Mustard/Blue, black outl
 ELEMENTS: Rounded rectangles or circles for nodes, thick connecting lines
 ```
 
+**Framework + vector-illustration (warm palette)**:
+```
+Flat vector framework diagram with geometric nodes and bold connectors.
+COLORS: Warm Cream background (#FAF5EE), nodes in Soft Coral/Sage Green/Warm Gold/Dusty Rose, black outlines
+ELEMENTS: Rounded rectangles or circles for nodes, thick connecting lines
+```
+
 ### Timeline
 
 ```
@@ -236,6 +257,44 @@ STYLE: [style characteristics]
 ASPECT: 16:9
 ```
 
+## Screen-Print Style Override
+
+When style is `screen-print`, replace the default composition rules with:
+
+**Base Rules**:
+> Bold graphic poster style. Limited color palette (2-3 colors max on off-white background). Strong silhouettes, high contrast shapes. Screen-print texture with slight color overlap at edges. No gradients, no shading, no 3D effects. Bold typography if text is present.
+
+**Scene + screen-print**:
+```
+[Title] - Screen-Print Scene
+
+FOCAL POINT: [main subject as bold silhouette]
+ATMOSPHERE: [graphic, poster-like, not photorealistic]
+MOOD: [dramatic, editorial]
+COLOR TEMPERATURE: [warm/cool based on 2-3 color palette]
+PALETTE: [2-3 colors on off-white]
+TEXTURE: Screen-print with slight color overlap at edges
+ASPECT: 16:9
+```
+
+**Comparison + screen-print**:
+```
+[Title] - Screen-Print Comparison
+
+LEFT SIDE - [Option A]:
+- [Point 1] - bold icon or symbol
+- [Point 2] - bold icon or symbol
+
+RIGHT SIDE - [Option B]:
+- [Point 1] - bold icon or symbol
+- [Point 2] - bold icon or symbol
+
+DIVIDER: Bold graphic line or pattern
+PALETTE: [2-3 colors on off-white]
+TEXTURE: Screen-print with slight color overlap at edges
+ASPECT: 16:9
+```
+
 ## What to Avoid
 
 - Vague descriptions ("a nice image")
@@ -243,10 +302,10 @@ ASPECT: 16:9
 - Missing concrete labels/annotations
 - Generic decorative elements
 
-## Watermark Integration
+## Watermark
 
-If watermark enabled in preferences, append:
+If enabled in preferences, append to prompt:
 
 ```
-Include a subtle watermark "[content]" positioned at [position] with approximately [opacity*100]% visibility.
+Include a subtle watermark "[content]" at [position], ~[opacity*100]% visibility.
 ```
