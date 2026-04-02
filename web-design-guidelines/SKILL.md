@@ -4,7 +4,7 @@ description: |
   Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", "check my site against best practices", "检查可访问性", "审查界面", "UI审查", "检查组件的可访问性", "审查一下这个页面", "a11y check", "accessibility audit".
   Do NOT use for general code review unrelated to UI/UX (use code-reviewer instead).
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 8c56b3d4b89e9fba07a959097ae01fb401d542bc
+github_hash: a7b34e89b52036f10ada00bf6e36a9a6cb468fc5
 version: 1.3.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines
 author: vercel

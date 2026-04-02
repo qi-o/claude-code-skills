@@ -14,10 +14,12 @@ description: |
   新增 gitnexus serve 桥接模式（Web UI ↔ CLI）、MCP Prompts（detect_impact/generate_map）
   新增 Java/Kotlin 方法引用、重载消歧、接口分派，统一 Web/CLI ingestion pipeline
   新增 C# MethodExtractor 配置支持
+  新增 TypeScript/JavaScript MethodExtractor 配置、C/C++ MethodExtractor（纯虚函数检测）
+  新增 Web repo landing screen（可选 repo cards）
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: c72890d59d41f928c91f4d7b5c94fc2981f80ebe
+github_hash: ba5de0bde4069e36460b17b74b54315290bd081e
 version: 1.6.0
 created_at: 2026-02-21T00:00:00Z
 platform: github

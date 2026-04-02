@@ -288,3 +288,4 @@ Total skills: 25
 - paper-search 环境变量统一改为 PAPER_SEARCH_MCP_* 前缀，旧名仍向后兼容
 - scan_and_check.py 对 local-only skill（github_url 为空）应直接标记为 current 跳过远程检查
 - scan_and_check.py 在 Windows 下 table 格式输出中文编码异常，确认数据正确性永远用 --format json，再通过 python -c "import json; ..." 管道解析字段，而非读取 table 文本
+- Windows 下 Python re.sub 替换含数字的 hash 字符串时，repl 参数中的数字会被误判为 regex group reference 导致 PatternError。批量更新 hash 应使用 str.replace() 或 re.sub(pattern, lambda m: new_value, content) 替代
