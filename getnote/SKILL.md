@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/iswalle/getnote-openclaw
-github_hash: f61dbff21549821f0b247b9fe5e1e691a41cbf47
+github_hash: 8610866646180f26d488277ab8f2cd08cea66128
 name: Get笔记
 description: |
   Get笔记 - 保存、搜索、管理个人笔记和知识库。
@@ -47,6 +47,7 @@ Python / Go 等语言原生支持大整数，无此问题。
 - 若配置了 `GETNOTE_OWNER_ID`，检查 sender_id 是否匹配；不匹配时回复「抱歉，笔记是私密的，我无法操作」
 - API 返回 `error.reason: "not_member"` 或错误码 `10201` 时，引导开通会员：https://www.biji.com/checkout?product_alias=6AydVpYeKl
 - 创建笔记建议间隔 1 分钟以上，避免触发限流
+- 订阅的知识库（非自己创建）只读，不支持添加/移除笔记；只有通过 `/knowledge/list` 获取的自己创建的知识库才可写入
 
 ---
 

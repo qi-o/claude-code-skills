@@ -5,8 +5,8 @@ description: |
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
   Do NOT use for non-React/Vue frameworks or backend code optimization.
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: a7b34e89b52036f10ada00bf6e36a9a6cb468fc5
-version: 1.3.0
+github_hash: 73140fc5b3a214ad3222bcf557b397b3c02d11c1
+version: 1.4.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
 author: Vercel
 tags: [react, nextjs, performance, optimization, best-practices]
@@ -223,6 +223,7 @@ const isActive = activeIds.has(item.id);
 
 | 规则 | 说明 |
 |------|------|
+| `advanced-no-effect-event-in-deps` | 不要把 Effect Event 放入依赖数组 |
 | `advanced-event-handler-refs` | 在 refs 中存储事件处理器 |
 | `advanced-init-once` | 每个应用加载只初始化一次 |
 | `advanced-use-latest` | useLatest 用于稳定回调引用 |

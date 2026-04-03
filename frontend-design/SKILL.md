@@ -8,7 +8,7 @@ version: 0.0.1
 secondary_sources:
   - name: react-best-practices
     url: https://github.com/vercel-labs/agent-skills
-    hash: a7b34e89b52036f10ada00bf6e36a9a6cb468fc5
+    hash: 73140fc5b3a214ad3222bcf557b397b3c02d11c1
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
