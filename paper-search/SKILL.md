@@ -8,13 +8,13 @@ description: |
   (3) 用户说"搜索论文"、"查找文献"、"下载论文"
   (4) 用户进行学术调研需要专业数据库支持
   (5) 与 deep-research skill 配合使用，提供 L1 级别学术资料
-  基于 openags/paper-search-mcp 转换，无需 MCP 配置。
+  PubMed/arXiv 排序优化、CLI 入口支持。基于 openags/paper-search-mcp 转换，无需 MCP 配置。
   Do NOT use for clinical trial searches (use clinicaltrials-database instead) or general web searches (use ducksearch instead).
 github_url: https://github.com/openags/paper-search-mcp
-github_hash: 4860916c8da4e58b9cded756e0bc2327d334146d
+github_hash: 6d1f7ef5bcb7cfa5905d50c42fd7b8a4c1c16afd
 license: MIT
 allowed-tools: "Bash(python:*) WebFetch Read Write"
-version: 1.1.0
+version: 1.2.0
 metadata:
   category: research-knowledge
 ---

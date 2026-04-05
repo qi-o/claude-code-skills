@@ -14,5 +14,9 @@
   "fba12967-5f76-4720-86eb-dbfbece6e0c5": {
     "conversationId": "conv-b139d898-b257-42b9-a136-438cff4a4882",
     "agentId": "agent-0dc88981-8686-44a3-a261-fca345b0b382"
+  },
+  "b2e8fe65-59a5-44f6-99eb-193d5a672ea5": {
+    "conversationId": "conv-50cd9f10-85f3-40e4-8893-d2b036d491fa",
+    "agentId": "agent-0dc88981-8686-44a3-a261-fca345b0b382"
   }
 }

@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/iswalle/getnote-openclaw
-github_hash: 8610866646180f26d488277ab8f2cd08cea66128
+github_hash: 2787e7c734e71b719758609a6775b0314d2a2d3d
 name: Get笔记
 description: |
   Get笔记 - 保存、搜索、管理个人笔记和知识库。

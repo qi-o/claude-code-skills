@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: 1391b63464d11c985fe8d320fb8ac988f582c0d6
+github_hash: 77f306906afe584a03751b959e477b5a125fb31f
 name: gif-sticker-maker
 description: |
   Convert photos (people, pets, objects, logos) into 4 animated GIF stickers with captions.

@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: 1391b63464d11c985fe8d320fb8ac988f582c0d6
+github_hash: 77f306906afe584a03751b959e477b5a125fb31f
 name: frontend-dev
 description: |
   Full-stack frontend development combining premium UI design, cinematic animations,
@@ -213,29 +213,64 @@ Adapt dynamically based on user requests.
 - **Layout:** `max-w-[1400px] mx-auto` or `max-w-7xl`.
 
 ## 1.3 Design Rules
-
-> **For detailed design patterns and anti-slop techniques, see [references/motion-recipes.md](references/motion-recipes.md)**
-
 | Rule | Directive |
 |------|-----------|
-| Typography | Headlines: `text-4xl md:text-6xl tracking-tighter`. Body: `text-base leading-relaxed max-w-[65ch]`. **NEVER** use Inter — use Geist/Outfit/Satoshi. |
-| Color | Max 1 accent, saturation < 80%. **NEVER** use AI purple/blue. |
-| Layout | **NEVER** use centered heroes when VARIANCE > 4. Force split-screen or asymmetric. |
+| Typography | Headlines: `text-4xl md:text-6xl tracking-tighter`. Body: `text-base leading-relaxed max-w-[65ch]`. **NEVER** use Inter — use Geist/Outfit/Satoshi. **NEVER** use Serif on dashboards. |
+| Color | Max 1 accent, saturation < 80%. **NEVER** use AI purple/blue. Stick to one palette. |
+| Layout | **NEVER** use centered heroes when VARIANCE > 4. Force split-screen or asymmetric layouts. |
 | Cards | **NEVER** use generic cards when DENSITY > 7. Use `border-t`, `divide-y`, or spacing. |
 | States | **ALWAYS** implement: Loading (skeleton), Empty, Error, Tactile feedback (`scale-[0.98]`). |
 | Forms | Label above input. Error below. `gap-2` for input blocks. |
 
-## 1.4-1.8 Design Patterns
+## 1.4 Anti-Slop Techniques
 
-**Anti-Slop Techniques:** Liquid Glass, Magnetic Buttons, Perpetual Motion, Layout Transitions, Stagger
+- **Liquid Glass:** `backdrop-blur` + `border-white/10` + `shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]`
+- **Magnetic Buttons:** Use `useMotionValue`/`useTransform` — never `useState` for continuous animations
+- **Perpetual Motion:** When INTENSITY > 5, add infinite micro-animations (Pulse, Float, Shimmer)
+- **Layout Transitions:** Use Framer `layout` and `layoutId` props
+- **Stagger:** Use `staggerChildren` or CSS `animation-delay: calc(var(--index) * 100ms)`
 
-**Forbidden Patterns:** Neon glows, pure black, oversaturated accents, gradient text, Inter font, oversized H1s, Serif on dashboards, 3-column equal cards, default shadcn/ui
+## 1.5 Forbidden Patterns
+| Category | Banned |
+|----------|--------|
+| Visual | Neon glows, pure black (#000), oversaturated accents, gradient text on headers, custom cursors |
+| Typography | Inter font, oversized H1s, Serif on dashboards |
+| Layout | 3-column equal card rows, floating elements with awkward gaps |
+| Components | Default shadcn/ui without customization |
 
-**Creative Arsenal:** Navigation (Dock, Magnetic, Gooey), Layout (Bento, Masonry, Split-screen), Cards (Parallax tilt, Glassmorphism), Scroll (Sticky stack, Horizontal hijack), Gallery (Dome, Coverflow), Text (Kinetic marquee, Scramble), Micro (Particle explosion, Ripple)
+## 1.6 Creative Arsenal
 
-**Bento Paradigm:** Background `#f9fafb`, cards pure white, `rounded-[2.5rem]`, Geist/Satoshi typography, spring physics animation
+| Category | Patterns |
+|----------|----------|
+| Navigation | Dock magnification, Magnetic button, Gooey menu, Dynamic island, Radial menu, Speed dial, Mega menu |
+| Layout | Bento grid, Masonry, Chroma grid, Split-screen scroll, Curtain reveal |
+| Cards | Parallax tilt, Spotlight border, Glassmorphism, Holographic foil, Swipe stack, Morphing modal |
+| Scroll | Sticky stack, Horizontal hijack, Locomotive sequence, Zoom parallax, Progress path, Liquid swipe |
+| Gallery | Dome gallery, Coverflow, Drag-to-pan, Accordion slider, Hover trail, Glitch effect |
+| Text | Kinetic marquee, Text mask reveal, Scramble effect, Circular path, Gradient stroke, Kinetic grid |
+| Micro | Particle explosion, Pull-to-refresh, Skeleton shimmer, Directional hover, Ripple click, SVG draw, Mesh gradient, Lens blur |
 
-**Brand Override:** Dark `#141413`, Light `#faf9f5`, Accents: Orange `#d97757`, Blue `#6a9bcc`, Green `#788c5d`, Fonts: Poppins/Lora
+## 1.7 Bento Paradigm
+
+- **Palette:** Background `#f9fafb`, cards pure white with `border-slate-200/50`
+- **Surfaces:** `rounded-[2.5rem]`, diffusion shadow
+- **Typography:** Geist/Satoshi, `tracking-tight` headers
+- **Labels:** Outside and below cards
+- **Animation:** Spring physics (`stiffness: 100, damping: 20`), infinite loops, `React.memo` isolation
+
+**5-Card Archetypes:**
+1. Intelligent List — auto-sorting with `layoutId`
+2. Command Input — typewriter + blinking cursor
+3. Live Status — breathing indicators
+4. Wide Data Stream — infinite horizontal carousel
+5. Contextual UI — staggered highlight + float-in toolbar
+
+## 1.8 Brand Override
+
+When brand styling is active:
+- Dark: `#141413`, Light: `#faf9f5`, Mid: `#b0aea5`, Subtle: `#e8e6dc`
+- Accents: Orange `#d97757`, Blue `#6a9bcc`, Green `#788c5d`
+- Fonts: Poppins (headings), Lora (body)
 
 ---
 
@@ -267,20 +302,71 @@ Adapt dynamically based on user requests.
 | 7-8 Cinematic | GSAP ScrollTrigger, pinned sections, horizontal hijack |
 | 9-10 Immersive | Full scroll sequences, Three.js particles, WebGL shaders |
 
-## 2.3-2.7 Motion Details
+## 2.3 Animation Recipes
 
-> **For animation recipes, performance rules, and accessibility, see [references/motion-recipes.md](references/motion-recipes.md)**
+See `references/motion-recipes.md` for full code. Summary:
 
-**Animation Recipes Summary:**
-- Scroll Reveal, Stagger Grid, Pinned Timeline (GSAP), Tilt Card, Magnetic Button, Text Scramble, SVG Path Draw, Horizontal Scroll, Particle Background, Layout Morph
+| Recipe | Tool | Use For |
+|--------|------|---------|
+| Scroll Reveal | Framer | Fade+slide on viewport entry |
+| Stagger Grid | Framer | Sequential list animations |
+| Pinned Timeline | GSAP | Horizontal scroll with pinning |
+| Tilt Card | Framer | Mouse-tracking 3D perspective |
+| Magnetic Button | Framer | Cursor-attracted buttons |
+| Text Scramble | Vanilla | Matrix-style decode effect |
+| SVG Path Draw | CSS | Scroll-linked path animation |
+| Horizontal Scroll | GSAP | Vertical-to-horizontal hijack |
+| Particle Background | R3F | Decorative WebGL particles |
+| Layout Morph | Framer | Card-to-modal expansion |
 
-**Performance:** GPU-only properties (`transform`, `opacity`, `filter`, `clip-path`). NEVER animate `width`, `height`, `top`, `left`, `margin`, `padding`.
+## 2.4 Performance Rules
+**GPU-only properties (ONLY animate these):** `transform`, `opacity`, `filter`, `clip-path`
 
-**Mobile:** Respect `prefers-reduced-motion`, disable parallax/3D on `pointer: coarse`, cap particles (desktop 800, tablet 300, mobile 100).
+**NEVER animate:** `width`, `height`, `top`, `left`, `margin`, `padding`, `font-size` — if you need these effects, use `transform: scale()` or `clip-path` instead.
 
-**Springs:** Snappy (300/30), Smooth (150/20), Bouncy (100/10), Heavy (60/20)
+**Isolation:**
+- Perpetual animations MUST be in `React.memo` leaf components
+- `will-change: transform` ONLY during animation
+- `contain: layout style paint` on heavy containers
 
-**Dependencies:** `framer-motion` (top level), `gsap`, `lottie-react`, `three`, `@react-three/fiber`, `@react-three/drei` (lazy-load)
+**Mobile:**
+- ALWAYS respect `prefers-reduced-motion`
+- ALWAYS disable parallax/3D on `pointer: coarse`
+- Cap particles: desktop 800, tablet 300, mobile 100
+- Disable GSAP pin on mobile < 768px
+
+**Cleanup:** Every `useEffect` with GSAP/observers MUST `return () => ctx.revert()`
+
+## 2.5 Springs & Easings
+
+| Feel | Framer Config |
+|------|---------------|
+| Snappy | `stiffness: 300, damping: 30` |
+| Smooth | `stiffness: 150, damping: 20` |
+| Bouncy | `stiffness: 100, damping: 10` |
+| Heavy | `stiffness: 60, damping: 20` |
+
+| CSS Easing | Value |
+|------------|-------|
+| Smooth decel | `cubic-bezier(0.16, 1, 0.3, 1)` |
+| Smooth accel | `cubic-bezier(0.7, 0, 0.84, 0)` |
+| Elastic | `cubic-bezier(0.34, 1.56, 0.64, 1)` |
+
+## 2.6 Accessibility
+- ALWAYS wrap motion in `prefers-reduced-motion` check
+- NEVER flash content > 3 times/second (seizure risk)
+- ALWAYS provide visible focus rings (use `outline` not `box-shadow`)
+- ALWAYS add `aria-live="polite"` for dynamically revealed content
+- ALWAYS include pause button for auto-playing animations
+
+## 2.7 Dependencies
+
+```bash
+npm install framer-motion           # UI (keep at top level)
+npm install gsap                    # Scroll (lazy-load)
+npm install lottie-react            # Icons (lazy-load)
+npm install three @react-three/fiber @react-three/drei  # 3D (lazy-load)
+```
 
 ---
 
@@ -333,43 +419,126 @@ Env: `MINIMAX_API_KEY` (required).
 
 # 4. Copywriting
 
-> **For detailed copywriting frameworks and examples, see existing references**
+## 4.1 Core Job
 
-**Core Job:** Grab attention → Create desire → Remove friction → Prompt action
+1. Grab attention → 2. Create desire → 3. Remove friction → 4. Prompt action
 
-**Frameworks:**
-- **AIDA** (landing pages): Attention → Interest → Desire → Action
-- **PAS** (pain-driven): Problem → Agitate → Solution
-- **FAB** (product): Feature → Advantage → Benefit
+## 4.2 Frameworks
 
-**Headline Formulas:** Promise, Question, How-To, Number, Negative, Curiosity, Transformation
+**AIDA** (landing pages, emails):
+```
+ATTENTION:  Bold headline (promise or pain)
+INTEREST:   Elaborate problem ("yes, that's me")
+DESIRE:     Show transformation
+ACTION:     Clear CTA
+```
 
-**CTAs:** [Action Verb] + [What They Get] + [Urgency/Ease]. Place above fold, after value, multiple on long pages.
+**PAS** (pain-driven products):
+```
+PROBLEM:    State clearly
+AGITATE:    Make urgent
+SOLUTION:   Your product
+```
 
-**Emotional Triggers:** FOMO, Fear of loss, Status, Ease, Frustration, Hope
+**FAB** (product differentiation):
+```
+FEATURE:    What it does
+ADVANTAGE:  Why it matters
+BENEFIT:    What customer gains
+```
 
-**Objection Handling:** Too expensive → ROI, Won't work → Social proof, No time → Quick setup, What if fails → Guarantee
+## 4.3 Headlines
 
-**Proof Types:** Testimonials, Case studies, Data/metrics, Social proof, Certifications
+| Formula | Example |
+|---------|---------|
+| Promise | "Double open rates in 30 days" |
+| Question | "Still wasting 10 hours/week?" |
+| How-To | "How to automate your pipeline" |
+| Number | "7 mistakes killing conversions" |
+| Negative | "Stop losing leads" |
+| Curiosity | "The one change that tripled bookings" |
+| Transformation | "From 50 to 500 leads" |
+
+Be specific. Lead with outcome, not method.
+
+## 4.4 CTAs
+
+**Bad:** Submit, Click here, Learn more
+
+**Good:** "Start my free trial", "Get the template now", "Book my strategy call"
+
+**Formula:** [Action Verb] + [What They Get] + [Urgency/Ease]
+
+Place: above fold, after value, multiple on long pages.
+
+## 4.5 Emotional Triggers
+
+| Trigger | Example |
+|---------|---------|
+| FOMO | "Only 3 spots left" |
+| Fear of loss | "Every day without this, you're losing $X" |
+| Status | "Join 10,000+ top agencies" |
+| Ease | "Set it up once. Forget forever." |
+| Frustration | "Tired of tools that deliver nothing?" |
+| Hope | "Yes, you CAN hit $10K MRR" |
+
+## 4.6 Objection Handling
+
+| Objection | Response |
+|-----------|----------|
+| Too expensive | Show ROI: "Pays for itself in 2 weeks" |
+| Won't work for me | Social proof from similar customer |
+| No time | "Setup takes 10 minutes" |
+| What if it fails | "30-day money-back guarantee" |
+| Need to think | Urgency/scarcity |
+
+Place in FAQ, testimonials, near CTA.
+
+## 4.7 Proof Types
+
+Testimonials (with name/title), Case studies, Data/metrics, Social proof, Certifications
 
 ---
 
 # 5. Visual Art
 
-**Philosophy-first workflow. Two output modes:**
+Philosophy-first workflow. Two output modes.
+
+## 5.1 Output Modes
 
 | Mode | Output | When |
 |------|--------|------|
 | Static | PDF/PNG | Posters, print, design assets |
 | Interactive | HTML (p5.js) | Generative art, explorable variations |
 
-**Workflow:**
-1. **Philosophy Creation**: Name movement (1-2 words). Articulate philosophy covering space, form, color, scale, rhythm, hierarchy (static) or computation, emergence, noise, parametric variation (interactive)
-2. **Conceptual Seed**: Subtle, niche reference — sophisticated, not literal
-3. **Creation**:
-   - Static: Single page, highly visual, repeating patterns, perfect shapes, sparse typography, proper margins. Output `.pdf`/`.png` + philosophy `.md`
-   - Interactive: Read `templates/viewer.html`, keep fixed sections (header, sidebar, seed controls), replace variable sections (algorithm, parameters), seeded randomness. Output single HTML
-4. **Refinement**: Refine, don't add. Make it crisp. Polish into masterpiece
+## 5.2 Workflow
+
+### Step 1: Philosophy Creation
+Name the movement (1-2 words). Articulate philosophy (4-6 paragraphs) covering:
+- Static: space, form, color, scale, rhythm, hierarchy
+- Interactive: computation, emergence, noise, parametric variation
+
+### Step 2: Conceptual Seed
+Identify subtle, niche reference — sophisticated, not literal. Jazz musician quoting another song.
+
+### Step 3: Creation
+
+**Static Mode:**
+- Single page, highly visual, design-forward
+- Repeating patterns, perfect shapes
+- Sparse typography from `canvas-fonts/`
+- Nothing overlaps, proper margins
+- Output: `.pdf` or `.png` + philosophy `.md`
+
+**Interactive Mode:**
+1. Read `templates/viewer.html` first
+2. Keep FIXED sections (header, sidebar, seed controls)
+3. Replace VARIABLE sections (algorithm, parameters)
+4. Seeded randomness: `randomSeed(seed); noiseSeed(seed);`
+5. Output: single self-contained HTML
+
+### Step 4: Refinement
+Refine, don't add. Make it crisp. Polish into masterpiece.
 
 ---
 

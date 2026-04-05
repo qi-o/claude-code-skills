@@ -2,8 +2,9 @@
 name: skill-manager
 description: Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, check for updates on GitHub, perform guided upgrades, discover popular skills, and batch update outdated skills. Use when user says "检查更新", "skill更新", "扫描技能", "批量更新", "推荐技能", "scan skills", "check for updates", "batch update", "update skills", or "/skill-manager". Do NOT use for installing new skills from scratch (use github-to-skills instead).
 license: MIT
-github_url: https://github.com/KKKKhazix/Khazix-Skills
-github_hash: fe15fea6cf7ac216027d11c2c64e87b462cc0427
+github_url: ""
+github_hash: ""
+local_only: true
 version: 1.0.0
 metadata:
   category: workflow-automation
@@ -255,6 +256,7 @@ Total skills: 25
 - 更新 skill 时必须同时更新 description frontmatter 以反映新增数据源
 - paper-search 更新采用混合策略：保留本地中文内容，合并上游新数据源和架构说明
 - 更新后版本号规则：新增数据源/功能升级用 minor 版本（1.0.0→1.1.0）
+- GitHub MCP token 存储在 ~/.claude.json 而非 settings.json，扫描时也应验证 MCP 认证状态
 
 ### Known Fixes & Workarounds
 - skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON
@@ -289,3 +291,5 @@ Total skills: 25
 - scan_and_check.py 对 local-only skill（github_url 为空）应直接标记为 current 跳过远程检查
 - scan_and_check.py 在 Windows 下 table 格式输出中文编码异常，确认数据正确性永远用 --format json，再通过 python -c "import json; ..." 管道解析字段，而非读取 table 文本
 - Windows 下 Python re.sub 替换含数字的 hash 字符串时，repl 参数中的数字会被误判为 regex group reference 导致 PatternError。批量更新 hash 应使用 str.replace() 或 re.sub(pattern, lambda m: new_value, content) 替代
+- GitHub MCP Bad credentials 时检查 ~/.claude.json 中 mcpServers.github.env.GITHUB_PERSONAL_ACCESS_TOKEN
+- token 过期表现为 MCP 返回 401，可通过 curl -H Authorization: Bearer $TOKEN https://api.github.com/user 验证

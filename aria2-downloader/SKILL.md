@@ -3,9 +3,9 @@ name: aria2-downloader
 description: |
   多线程高速下载工具。当用户需要下载文件（特别是大文件）或视频时使用此 skill。触发词：下载、download、aria2、获取文件、下载视频、YouTube、Bilibili、B站。自动使用 aria2 进行 16 线程并行下载，支持断点续传。集成 yt-dlp 支持 1000+ 视频网站下载。
   Do NOT use for downloading novels/web fiction (use novel-downloader instead).
-version: 3.2.13
+version: 3.3.1
 github_url: https://github.com/yt-dlp/yt-dlp
-github_hash: 2d7b278666bfbf12cf287072498dd275c946b968
+github_hash: f14d2f2d548a45fef221aa3821e5a1bf450d5c0b
 license: MIT
 allowed-tools: "Bash(aria2c:*) Bash(yt-dlp:*) WebFetch"
 compatibility: Requires aria2c and yt-dlp installed on system
@@ -267,6 +267,7 @@ yt-dlp -t mp3 "VIDEO_URL"   # 提取音频为 MP3
 yt-dlp -t aac "VIDEO_URL"   # 提取音频为 AAC
 yt-dlp -t mp4 "VIDEO_URL"   # 下载为 MP4 (H.264/AAC)
 yt-dlp -t mkv "VIDEO_URL"   # 下载为 MKV
+yt-dlp -t sleep "VIDEO_URL" # 下载为休眠/屏保视频
 ```
 
 ### 浏览器模拟（新功能）
@@ -298,6 +299,15 @@ yt-dlp "PLAYLIST_URL"
 
 # 只下载播放列表中的第 1-5 个视频
 yt-dlp --playlist-items 1-5 "PLAYLIST_URL"
+```
+
+### 直播流下载
+```bash
+# 从当前时间开始下载直播流（不从开头下载）
+yt-dlp --no-live-from-start "LIVE_URL"
+
+# 等待直播开始（最多等待 60 分钟）
+yt-dlp --wait-for-video 60 "LIVE_URL"
 ```
 
 ### 下载字幕
@@ -348,6 +358,9 @@ yt-dlp "https://twitter.com/user/status/..."
 | `--update-to CHANNEL` | 切换发布渠道 (stable/nightly/master) |
 | `--compat-options 2025` | 兼容 2025 年行为 |
 | `--format-sort-reset` | 重置格式排序 |
+| `--wait-for-video MIN` | 等待直播流开始（分钟） |
+| `--no-live-from-start` | 从当前时间下载直播流 |
+| `--alias ALIAS ARGS` | 创建自定义命令别名 |
 
 ---
 
@@ -407,6 +420,7 @@ yt-dlp -N 4 "VIDEO_URL"
 # 快捷预设下载
 yt-dlp -t mp3 "VIDEO_URL"
 yt-dlp -t mp4 "VIDEO_URL"
+yt-dlp -t sleep "VIDEO_URL"
 
 # 只下载音频
 yt-dlp -x --audio-format mp3 "VIDEO_URL"
@@ -456,6 +470,8 @@ yt-dlp --update-to nightly
 - skill版本号采用minor递增表示上游功能同步(如3.2.0→3.2.1)
 - yt-dlp 通过 pip 安装时，不能用 yt-dlp -U 更新，需用 pip install --upgrade yt-dlp
 - WinGet 安装的 yt-dlp 可能因证书问题更新失败，pip 是更可靠的更新方式
+- yt-dlp 新增 -t sleep 预设、--wait-for-video 等待直播、--no-live-from-start 从当前时间下载直播流、--alias 自定义命令别名
+- aria2-downloader 版本号从 3.3.0 升至 3.3.1，新增直播流下载场景和参数表条目
 
 ### Custom Instruction Injection
 

@@ -26,8 +26,10 @@
     "yt-dlp 上游更新通常只是新增网站支持，无需同步修改文档内容",
     "skill版本号采用minor递增表示上游功能同步(如3.2.0→3.2.1)",
     "yt-dlp 通过 pip 安装时，不能用 yt-dlp -U 更新，需用 pip install --upgrade yt-dlp",
-    "WinGet 安装的 yt-dlp 可能因证书问题更新失败，pip 是更可靠的更新方式"
+    "WinGet 安装的 yt-dlp 可能因证书问题更新失败，pip 是更可靠的更新方式",
+    "yt-dlp 新增 -t sleep 预设、--wait-for-video 等待直播、--no-live-from-start 从当前时间下载直播流、--alias 自定义命令别名",
+    "aria2-downloader 版本号从 3.3.0 升至 3.3.1，新增直播流下载场景和参数表条目"
   ],
   "custom_prompts": "更新 aria2-downloader skill 后主动提示检查 yt-dlp 版本",
-  "last_updated": "2026-02-17T12:25:13.958829"
+  "last_updated": "2026-04-05T16:49:46.332267"
 }
