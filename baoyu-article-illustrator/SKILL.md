@@ -3,7 +3,7 @@ name: baoyu-article-illustrator
 description: 分析文章结构，识别需要配图的位置，使用 Type × Style 二维方案生成插图。当用户要求 "illustrate article"、"add images"、"generate images for article" 或 "为文章配图" 时使用。不要用于数据图表或科学图表（请使用 pub-figures）。
 version: 1.57.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: c44a524fa67af929bab2c4d4f40ee885ba6575d8
+github_hash: c5c54e26dab507ba9dbba69aa00a85e65796becb
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:

@@ -250,7 +250,6 @@ grep -rE '(sk-[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9_-]{36,}|xox[bors]-[a-zA-Z0-9-]+)
 
 如果发现遗漏，需要将对应模式加入脚本中的 `SECRET_PATTERNS` 列表。
 
-
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
@@ -262,3 +261,5 @@ grep -rE '(sk-[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9_-]{36,}|xox[bors]-[a-zA-Z0-9-]+)
 - git reset --hard origin/master 会强制覆盖 working tree——reset 前确认没有 unstaged 变更，reset 后重新执行 Python shutil.copytree 重新拷贝文件
 - repo 起源不一致时（本地基于旧仓库，上游已切换 remote），git reset --hard origin/master 重建干净状态比 cherry-pick 更可靠
 - GitHub fine-grained PAT 使用 github_pat_ 前缀（非 ghp_），SECRET_PATTERNS 必须同时覆盖 ghp_ 和 github_pat_ 两个前缀，否则会导致 token 泄露到公开仓库
+- plugins/cache 等被排除目录若已存在于目标仓库，shutil.copytree 在 Windows 上抛 FileExistsError——sync 前应先清理目标中的被排除目录，或在 mirror_tree 中对 excluded 目录做 skip 而非 copy
+- git commit 无变更时返回 exit code 1，脚本不应将此判定为 FAIL——应先 git diff --quiet 检查是否有变更，无变更则输出 SKIP 而非 FAIL

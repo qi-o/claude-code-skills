@@ -5,7 +5,7 @@ description: |
   Do NOT use for downloading novels/web fiction (use novel-downloader instead).
 version: 3.3.1
 github_url: https://github.com/yt-dlp/yt-dlp
-github_hash: f14d2f2d548a45fef221aa3821e5a1bf450d5c0b
+github_hash: 565dcfec4e5c035b5544de4a369f654b8a60e9e6
 license: MIT
 allowed-tools: "Bash(aria2c:*) Bash(yt-dlp:*) WebFetch"
 compatibility: Requires aria2c and yt-dlp installed on system
