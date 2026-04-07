@@ -22,7 +22,7 @@ metadata:
     source: https://github.com/zai-org/GLM-V/tree/main/skills/glmv-grounding
     homepage: https://github.com/zai-org/GLM-V/tree/main/skills/glmv-grounding
 github_url: https://github.com/zai-org/GLM-V
-github_hash: d82d6b8c4e37120131a0be38f70b2452b762e25a
+github_hash: 6d2f8fd4521e1b575fbf914c08ffbaf8e432dae2
 ---
 
 # GLMV-Grounding Skill

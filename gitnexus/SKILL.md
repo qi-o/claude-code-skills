@@ -19,7 +19,7 @@ description: |
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 9eeb20bb0428846665372a288b4a3bd3f23b8d48
+github_hash: b73928f7329bac53b3819ccebe90e35f32473e86
 version: 1.8.0
 created_at: 2026-02-21T00:00:00Z
 platform: github
@@ -158,7 +158,6 @@ To configure MCP for your editor, run `npx gitnexus setup` once — or set it up
 | **Codex**       | Yes | Yes    | —                   | MCP + Skills   |
 | **Windsurf**    | Yes | —     | —                   | MCP            |
 | **OpenCode**    | Yes | Yes    | —                   | MCP + Skills   |
-| **Codex**       | Yes | —     | —                   | MCP            |
 
 > **Claude Code** gets the deepest integration: MCP tools + agent skills + PreToolUse hooks that enrich searches with graph context + PostToolUse hooks that auto-reindex after commits.
 

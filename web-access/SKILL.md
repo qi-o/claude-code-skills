@@ -3,13 +3,13 @@ name: web-access
 license: MIT
 github: https://github.com/eze-is/web-access
 github_url: https://github.com/eze-is/web-access
-github_hash: 59c0d2bdd190770a45c05c3e4a0878df72fd5a15
+github_hash: 9f5d5c1d857b23bbf8d62022c614e1257823e025
 description:
   所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
   触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。
 metadata:
   author: 一泽Eze
-  version: "2.4.1"
+  version: "2.4.3"
 ---
 
 # web-access Skill
@@ -19,11 +19,15 @@ metadata:
 在开始联网操作前，先检查 CDP 模式可用性：
 
 ```bash
-node "$CLAUDE_SKILL_DIR/scripts/check-deps.mjs"
+node "${CLAUDE_SKILL_DIR}/scripts/check-deps.mjs"
 ```
 
 - **Node.js 22+**：必需（使用原生 WebSocket）。版本低于 22 可用但需安装 `ws` 模块。
 - **Chrome remote-debugging**：在 Chrome 地址栏打开 `chrome://inspect/#remote-debugging`，勾选 **"Allow remote debugging for this browser instance"** 即可，可能需要重启浏览器。
+
+未通过时引导用户完成设置：
+- **Node.js 缺失**：提示用户安装 Node.js 22+（https://nodejs.org）
+- **Chrome 未开启远程调试**：引导用户在 Chrome 地址栏打开 `chrome://inspect/#remote-debugging`，勾选 **"Allow remote debugging for this browser instance"**，可能需要重启浏览器
 
 检查通过后并必须在回复中向用户直接展示以下须知，再启动 CDP Proxy 执行操作：
 
@@ -88,7 +92,7 @@ node "$CLAUDE_SKILL_DIR/scripts/check-deps.mjs"
 ### 启动
 
 ```bash
-node "$CLAUDE_SKILL_DIR/scripts/check-deps.mjs"
+node "${CLAUDE_SKILL_DIR}/scripts/check-deps.mjs"
 ```
 
 脚本会依次检查 Node.js、Chrome 端口，并确保 Proxy 已连接（未运行则自动启动并等待）。Proxy 启动后持续运行。
@@ -138,8 +142,8 @@ curl -s "http://localhost:3456/close?target=ID"
 
 两种方式打开页面内的链接：
 
-- **`/click`**：在当前 tab 内直接点击，简单直接，串行处理。适合需要在同一页面内连续操作的场景，如点击展开、翻页、进入详情等。
-- **`/new` + 完整 URL**：从 DOM 提取对象链接的完整地址（包含所有查询参数），在新 tab 中打开。适合需要同时访问多个页面的场景。
+- **`/click`**：在当前 tab 内直接点击用户视角中的可交互单元，简单直接，串行处理。适合需要在同一页面内连续操作的场景，如点击展开、翻页、进入详情等。
+- **`/new` + 完整 URL**：使用目标链接的完整地址（包含所有URL参数），在新 tab 中打开。适合需要同时访问多个页面的场景。
 
 很多网站的链接包含会话相关的参数（如 token），这些参数是正常访问所必需的。提取 URL 时应保留完整地址，不要裁剪或省略参数。
 
@@ -217,9 +221,7 @@ Proxy 持续运行，不建议主动停止——重启后需要在 Chrome 中重
 
 操作中积累的特定网站经验，按域名存储在 `references/site-patterns/` 下。
 
-已有经验的站点：!`node -e "const fs=require('fs'),p=require('path').join(process.env.CLAUDE_SKILL_DIR||'.','references','site-patterns');try{console.log(fs.readdirSync(p).filter(f=>f.endsWith('.md')).map(f=>f.replace(/\\.md$/,'')).join(', ')||'暂无')}catch{console.log('暂无')}"`
-
-确定目标网站后，如果上方列表中有匹配的站点，必须读取对应文件获取先验知识（平台特征、有效模式、已知陷阱）。经验内容标注了发现日期，当作可能有效的提示而非保证——如果按经验操作失败，回退通用模式并更新经验文件。
+如果前置检查输出的 site-patterns 列表中有匹配的站点，必须读取对应文件获取先验知识（平台特征、有效模式、已知陷阱）。经验内容标注了发现日期，当作可能有效的提示而非保证——如果按经验操作失败，回退通用模式并更新经验文件。
 
 CDP 操作成功完成后，如果发现了有必要记录经验的新站点或新模式（URL 结构、平台特征、操作策略），主动写入对应的站点经验文件。只写经过验证的事实，不写未确认的猜测。
 
