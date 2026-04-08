@@ -1,9 +1,9 @@
 ---
 name: baoyu-format-markdown
 description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md. 触发词：格式化Markdown、格式化文章、添加frontmatter、format markdown。Do NOT use for content writing (use academic-writing-suite instead).
-version: 1.57.0
+version: 1.57.1
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: c5c54e26dab507ba9dbba69aa00a85e65796becb
+github_hash: 94eab2de6310a69bfce652014cb2c52a4ef33db9
 source: skills/baoyu-format-markdown
 license: MIT
 metadata:

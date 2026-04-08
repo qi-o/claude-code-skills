@@ -25,7 +25,7 @@ hooks:
 metadata:
   version: "2.30.1"
 github_url: https://github.com/OthmanAdi/planning-with-files
-github_hash: a4e60f32f69599cee060736f520284e65d57efb9
+github_hash: 59edf7bb11c51bf67c3d192be838a2e35d9e49c6
 ---
 
 # Planning with Files

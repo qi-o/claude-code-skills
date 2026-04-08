@@ -17,7 +17,7 @@ metadata:
     emoji: "📄"
     homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/sdk
 github_url: https://github.com/zai-org/GLM-OCR
-github_hash: b069c6f44fad65c35e0f2d3cf6ababba3e3f6d82
+github_hash: 98ef9846c7045774ff5391a50139e5cbe2850b54
 ---
 
 # OpenClaw Skill: glmocr
@@ -92,6 +92,9 @@ result = glmocr.parse("invoice.png")
 
 # Multiple files → list[PipelineResult]
 results = glmocr.parse(["page1.png", "page2.png", "report.pdf"])
+
+# From URL (new — no local file needed)
+result = glmocr.parse("https://example.com/document.pdf")
 ```
 
 ### Class-based (multiple calls / resource reuse)
@@ -108,6 +111,14 @@ with GlmOcr(api_key="sk-xxx") as parser:
     print(result.markdown_result)
 
 parser.close()   # if not using `with`
+
+# Place layout model on CPU (keep GPU free for OCR)
+with GlmOcr(api_key="sk-xxx", layout_device="cpu") as parser:
+    result = parser.parse("image.png")
+
+# Place layout model on a specific GPU
+with GlmOcr(api_key="sk-xxx", layout_device="cuda:1") as parser:
+    result = parser.parse("image.png")
 ```
 
 ### Constructor Parameters
@@ -119,6 +130,7 @@ parser.close()   # if not using `with`
 | `model`         | `str`  | Model name override                             |
 | `timeout`       | `int`  | Request timeout in seconds (default: 600)       |
 | `enable_layout` | `bool` | Enable layout detection                         |
+| `layout_device` | `str`  | Device for layout model: `"cpu"`, `"cuda:1"`, etc. Keeps GPU free for OCR. |
 | `log_level`     | `str`  | Logging level                                   |
 
 ---
@@ -196,7 +208,7 @@ else:
 
 > **Agent-preferred interface**: use the CLI for most operations. Set `ZHIPU_API_KEY` in env once, then invoke as needed.
 
-**Supported input formats**: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.gif`, `.webp`, `.pdf`
+**Supported input formats**: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.gif`, `.webp`, `.pdf`, **URLs** (`https://...`)
 
 ### Basic usage
 
@@ -210,6 +222,9 @@ glmocr parse image.png --api-key sk-xxx
 
 # Parse a directory → saves each file to ./output/<stem>/
 glmocr parse ./scans/
+
+# Parse from URL (new — no local file needed)
+glmocr parse https://example.com/document.pdf
 
 # Use self-hosted vLLM/SGLang instead of cloud
 glmocr parse image.png --mode selfhosted
@@ -260,6 +275,24 @@ glmocr parse ./docs/ --output ./parsed/ --log-level INFO
 glmocr parse image.png --log-level DEBUG
 ```
 
+### Layout device control (new)
+
+```bash
+# Run layout detection on CPU (keep GPU free for OCR model)
+glmocr parse image.png --layout-device cpu
+
+# Run layout detection on a specific GPU
+glmocr parse image.png --layout-device cuda:1
+```
+
+### Override config values (new)
+
+```bash
+# Override any config value via --set (dotted path, repeatable)
+glmocr parse image.png --set pipeline.ocr_api.api_port 8080
+glmocr parse ./scans/ --set pipeline.layout.use_polygon true --set logging.level DEBUG
+```
+
 ### Full flag reference
 
 | Flag              | Default    | Description                                           |
@@ -272,6 +305,8 @@ glmocr parse image.png --log-level DEBUG
 | `--no-save`       | off        | Skip writing files (use with `--stdout`)              |
 | `--json-only`     | off        | stdout JSON only, no Markdown                         |
 | `--no-layout-vis` | off        | Skip layout visualization images                      |
+| `--layout-device` | auto       | Device for layout model (`cpu`, `cuda:1`, etc.)       |
+| `--set`           | none       | Override config values (dotted path, repeatable)      |
 | `--config / -c`   | none       | Path to YAML config override                          |
 | `--log-level`     | `INFO`     | `DEBUG` / `INFO` / `WARNING` / `ERROR`                |
 
@@ -342,6 +377,42 @@ output_dir/
     layout_vis/               ← layout detection overlay images (if enabled)
       <image_stem>.jpg
 ```
+
+---
+
+## Flask Service (new)
+
+Run GLM-OCR as an HTTP API service:
+
+```bash
+# Install with server support
+pip install "glmocr[server]"
+
+# Start service (default port 5002)
+python -m glmocr.server
+
+# With debug logging
+python -m glmocr.server --log-level DEBUG
+```
+
+```bash
+# Call API
+curl -X POST http://localhost:5002/glmocr/parse \
+  -H "Content-Type: application/json" \
+  -d '{"images": ["./document.png"]}'
+```
+
+- `images` can be a string or a list (list = pages of one document)
+- For multiple documents, call the endpoint multiple times
+
+---
+
+## Ollama / MLX Deployment (new)
+
+For specialized hardware:
+
+- **Apple Silicon**: Use [mlx-vlm](https://github.com/zai-org/GLM-OCR/tree/main/examples/mlx-deploy) for optimized inference on Apple Silicon Macs
+- **Ollama**: Use [Ollama deployment](https://github.com/zai-org/GLM-OCR/tree/main/examples/ollama-deploy) for simple local deployment
 
 ---
 

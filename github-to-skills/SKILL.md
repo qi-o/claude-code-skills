@@ -4,7 +4,7 @@ description: Multi-platform repository to skill converter with AI-powered analys
 license: MIT
 # Primary source (original github-to-skills)
 github_url: https://github.com/KKKKhazix/Khazix-Skills
-github_hash: fe15fea6cf7ac216027d11c2c64e87b462cc0427
+github_hash: 08996c956ea70b1529a9b1bff308296c4076c3ad
 # Secondary source (repo2skill - mirror rotation, multi-platform, AI analysis)
 secondary_sources:
   - name: repo2skill
