@@ -1,0 +1,6 @@
+{
+  "last_updated": "2026-04-08T14:54:41.552735",
+  "fixes": [
+    "Windows 无 jq，setup-progress.sh 的 complete/save 步骤失败，需用 node -e 替代 JSON 操作完成 setup 标记"
+  ]
+}

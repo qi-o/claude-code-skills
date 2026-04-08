@@ -257,6 +257,7 @@ Total skills: 25
 - paper-search 更新采用混合策略：保留本地中文内容，合并上游新数据源和架构说明
 - 更新后版本号规则：新增数据源/功能升级用 minor 版本（1.0.0→1.1.0）
 - GitHub MCP token 存储在 ~/.claude.json 而非 settings.json，扫描时也应验证 MCP 认证状态
+- 批量更新时先用 scan_and_check.py 获取 JSON 结果，再用 node -e 解析字段，避免 Windows 下 table 格式编码问题
 
 ### Known Fixes & Workarounds
 - skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON
@@ -293,3 +294,6 @@ Total skills: 25
 - Windows 下 Python re.sub 替换含数字的 hash 字符串时，repl 参数中的数字会被误判为 regex group reference 导致 PatternError。批量更新 hash 应使用 str.replace() 或 re.sub(pattern, lambda m: new_value, content) 替代
 - GitHub MCP Bad credentials 时检查 ~/.claude.json 中 mcpServers.github.env.GITHUB_PERSONAL_ACCESS_TOKEN
 - token 过期表现为 MCP 返回 401，可通过 curl -H Authorization: Bearer $TOKEN https://api.github.com/user 验证
+- Windows 下后台 agent Edit/Write 权限被阻止，批量 hash 更新应在主上下文直接执行而非委托给后台 agent
+- 活跃仓库在 scan 和 update 之间可能有新 commit，更新后需用 git ls-remote 重新验证 hash
+- 本地 SKILL.md 可能比上游更完整（上游代码更新但 SKILL.md 未同步），hash 不匹配不等于内容过时
