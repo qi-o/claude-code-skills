@@ -1,86 +1,105 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: 77f306906afe584a03751b959e477b5a125fb31f
+github_hash: e0fdeefe7b1e36a7d5b4c06c22a4371ad31f101c
 name: minimax-multimodal-toolkit
 description: >
-  MiniMax multimodal model skill — use MiniMax Multi-Modal models for speech, music, video, and image.
-  Create voice, music, video, and images with MiniMax AI: TTS (text-to-speech, voice cloning, voice design,
-  multi-segment), music (songs, instrumentals), video (text-to-video, image-to-video, start-end frame,
-  subject reference, templates, long-form multi-scene), image (text-to-image, image-to-image with character
-  reference), and media processing (convert, concat, trim, extract).
-  Use when the user mentions MiniMax, multimodal generation, or wants speech/music/video/image AI,
-  MiniMax APIs, or FFmpeg workflows alongside MiniMax outputs.
+  MiniMax multimodal supplement — advanced FFmpeg media processing, long-form multi-scene video chaining,
+  and complex multi-voice audiobook/podcast workflows. For basic generation (TTS/music/image/video),
+  use mmx-cli first (official MiniMax CLI). This toolkit provides FFmpeg-based media tools and
+  advanced orchestration beyond mmx-cli capabilities.
+  Use when: user needs FFmpeg workflows, long videos, multi-voice audiobook production,
+  or media format conversion alongside MiniMax outputs.
 license: MIT
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   category: media-generation
+  replaces: "minimax-multimodal-toolkit@2.0.0"
 ---
 
-# MiniMax Multi-Modal Toolkit
+# MiniMax Multi-Modal Toolkit (Supplementary)
 
-Generate voice, music, video, and image content via MiniMax APIs — the unified entry for **MiniMax multimodal** use cases (audio + music + video + image). Includes voice cloning & voice design for custom voices, image generation with character reference, and FFmpeg-based media tools for audio/video format conversion, concatenation, trimming, and extraction.
+**⚠️ Primary entry: use `mmx` CLI first.** This toolkit supplements mmx-cli for advanced use cases only.
+
+## Tiered Architecture
+
+| Use Case | Primary Tool | This Toolkit |
+|----------|-------------|--------------|
+| Basic TTS / voice cloning | **mmx-cli** | — |
+| Basic image/video/music generation | **mmx-cli** | — |
+| Text chat / vision / search / quota | **mmx-cli** | — |
+| FFmpeg media processing | — | ✅ This toolkit |
+| Long multi-scene video | — | ✅ This toolkit |
+| Multi-voice audiobook/podcast | — | ✅ This toolkit |
+| Custom bash-based workflows | — | ✅ This toolkit |
+
+**Rule: Default to mmx-cli. Only use this toolkit when mmx-cli cannot fulfill the requirement.**
+
+## Quick Reference: mmx-cli Commands
+
+```bash
+# Text chat
+mmx text chat --message "Hello"
+
+# Image generation
+mmx image generate --prompt "A cat" --out-dir ./output
+
+# Video generation
+mmx video generate --prompt "Ocean waves" --download video.mp4
+
+# Speech synthesis
+mmx speech synthesize --text "Hello" --out hello.mp3
+
+# Music generation
+mmx music generate --prompt "Upbeat pop" --out song.mp3
+
+# Vision describe
+mmx vision describe --image photo.jpg --prompt "What is this?"
+
+# Search
+mmx search query --q "MiniMax AI"
+
+# Quota check
+mmx quota show
+```
+
+---
+
+## What This Toolkit Provides (Advanced Use Cases Only)
 
 ## Setup & Configuration
 
 ### Prerequisites
 
+**For mmx-cli (primary tool):** Follow the setup in the mmx-cli skill — `mmx auth login --api-key <key>`
+
+**For this toolkit's advanced scripts:** FFmpeg is required for media processing workflows:
+
 ```bash
-brew install ffmpeg jq              # macOS
-sudo apt install ffmpeg jq          # Linux (Debian/Ubuntu)
-bash scripts/check_environment.sh   # verify environment
+# Windows (using Chocolatey or scoop)
+choco install ffmpeg
+
+# macOS
+brew install ffmpeg jq
+
+# Linux (Debian/Ubuntu)
+sudo apt install ffmpeg jq
 ```
 
-No Python or pip required — all scripts are pure bash using `curl`, `ffmpeg`, `jq`, and `xxd`.
-
-> **Note:** `ffmpeg` is required for TTS voice bubble conversion (`.mp3` → `.opus`). Without it, TTS audio sends as a file attachment instead of a native voice bubble.
+> **Note:** FFmpeg is required for TTS voice bubble conversion (`.mp3` → `.opus`). Without it, TTS audio sends as a file attachment instead of a native voice bubble.
 
 ### API Configuration
 
-MiniMax provides two service endpoints for different regions:
+**Use mmx-cli as primary:** Run `mmx auth login --api-key <key>` — this persists credentials to `~/.mmx/credentials.json`.
 
-| Region | API Host |
-|--------|----------|
-| China Mainland（中国大陆） | `https://api.minimaxi.com` |
-| Global（全球） | `https://api.minimax.io` |
-
-**In OpenClaw** — create a `.env` file in the skill directory (scripts load it automatically, no shell export needed):
-
-```
-~/.openclaw/workspace/skills/minimax-multimodal-toolkit/.env
-```
+**This toolkit's scripts** read from environment variables. Set them if using advanced scripts directly:
 
 ```bash
-MINIMAX_API_KEY=sk-cp-...
-MINIMAX_API_HOST=https://api.minimaxi.com
+export MINIMAX_API_HOST="https://api.minimaxi.com"  # China
+export MINIMAX_API_HOST="https://api.minimax.io"     # Global
+export MINIMAX_API_KEY="sk-cp-..."
 ```
 
-Or configure via `openclaw.json`:
-
-```json
-"skills": {
-  "entries": {
-    "minimax-multimodal-toolkit": {
-      "env": {
-        "MINIMAX_API_HOST": "https://api.minimaxi.com",
-        "MINIMAX_API_KEY": "sk-cp-..."
-      }
-    }
-  }
-}
-```
-
-**In other environments** — set environment variables before running any script:
-
-```bash
-export MINIMAX_API_HOST="https://api.minimaxi.com"
-export MINIMAX_API_KEY="your-key-here"
-```
-
-Keys start with `sk-api-` or `sk-cp-`, obtainable from https://platform.minimaxi.com (China) or https://platform.minimax.io (Global)
-
-**IMPORTANT — When credentials are missing:**
-Before running any script, check that both `MINIMAX_API_HOST` and `MINIMAX_API_KEY` are set.
-If either is missing: ask the user for their region and API key, then help them configure using one of the methods above.
+Or create `~/.mmx/.env` in the mmx config directory (scripts auto-detect it).
 
 ## Output & Sending
 
@@ -149,18 +168,16 @@ message action=send media=output.opus
 - **Video duration: 6s** — all plan quotas are counted in 6-second units
 - **Video quota is very limited** (2–5/day depending on plan) — always confirm with the user before generating video
 
-## Key Capabilities
+## Advanced Capabilities (This Toolkit Only)
 
-| Capability | Description | Entry point |
-|------------|-------------|-------------|
-| TTS | Text-to-speech synthesis with multiple voices and emotions | `scripts/tts/generate_voice.sh` |
-| Voice Cloning | Clone a voice from an audio sample (10s–5min) | `scripts/tts/generate_voice.sh clone` |
-| Voice Design | Create a custom voice from a text description | `scripts/tts/generate_voice.sh design` |
-| Music Generation | Generate songs with lyrics or instrumental tracks | `scripts/music/generate_music.sh` |
-| Image Generation | Text-to-image, image-to-image with character reference | `scripts/image/generate_image.sh` |
-| Video Generation | Text-to-video, image-to-video, subject reference, templates | `scripts/video/generate_video.sh` |
-| Long Video | Multi-scene chained video with crossfade transitions | `scripts/video/generate_long_video.sh` |
-| Media Tools | Audio/video format conversion, concatenation, trimming, extraction | `scripts/media_tools.sh` |
+| Capability | Description | Entry point | When to use |
+|-----------|-------------|-------------|-------------|
+| Multi-voice Audiobook | Narrator + multi-character dialogue, crossfade merge | `scripts/tts/generate_voice.sh generate` | mmx-cli cannot handle multi-voice segments |
+| Long Multi-scene Video | Chained 6s segments with crossfade + BGM overlay | `scripts/video/generate_long_video.sh` | Stories/multi-scene beyond 6s |
+| FFmpeg Media Tools | Convert, concat, trim, extract, overlay | `scripts/media_tools.sh` | Format conversion, audio/video processing |
+| Voice Clone/Design | Custom voice from audio sample or text description | `scripts/tts/generate_voice.sh clone/design` | Advanced voice customization |
+
+**For basic TTS, music, image, and video → use `mmx-cli` directly.**
 
 ## TTS (Text-to-Speech)
 

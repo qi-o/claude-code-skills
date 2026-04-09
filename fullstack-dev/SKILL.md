@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: 77f306906afe584a03751b959e477b5a125fb31f
+github_hash: e0fdeefe7b1e36a7d5b4c06c22a4371ad31f101c
 name: fullstack-dev
 description: |
   Full-stack backend architecture and frontend-backend integration guide.

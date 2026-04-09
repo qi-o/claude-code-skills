@@ -17,7 +17,7 @@ metadata:
     emoji: "📄"
     homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/sdk
 github_url: https://github.com/zai-org/GLM-OCR
-github_hash: 98ef9846c7045774ff5391a50139e5cbe2850b54
+github_hash: 0ff54de2e80598b42a92eb2791a4e320b25efce7
 ---
 
 # OpenClaw Skill: glmocr
