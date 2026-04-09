@@ -1,11 +1,13 @@
 ---
 name: webnovel-audit-gate
-description: |
-  Human-in-the-Loop (HIL) 审核门 - 显示审查结果并处理用户决策
+description: >
+  Human-in-the-Loop (HIL) 审核门 - 显示审查结果并处理用户决策。
   触发场景：
   (1) 章节写作完成后自动触发审核门
   (2) 用户手动调用 "audit-gate --show --chapter N"
   (3) 查看/处理审查问题
+  Triggers (EN): audit gate, review chapter, check quality, human review, approve chapter,
+  quality gate, review results, chapter audit, manual review, HIL gate.
 allowed-tools: Read Write Edit Grep Bash Task
 ---
 

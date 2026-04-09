@@ -1,12 +1,9 @@
 ---
 name: webnovel-snapshot
-description: |
-  快照管理系统 - 创建、回滚和管理项目快照。
-  触发场景：
-  (1) 用户说"创建快照"、"保存快照"、"快照管理"
-  (2) 用户说"回滚到XXX"、"恢复到之前的版本"
-  (3) 用户说"列出快照"、"查看快照列表"
-  (4) 章节写作每10章自动触发
+description: >
+  Snapshot management system — create, rollback, and manage project snapshots for webnovel writing.
+  Triggers (English): create snapshot, save snapshot, snapshot management, rollback to version, restore previous version, list snapshots, view snapshot history.
+  Triggers (Chinese): 创建快照, 保存快照, 快照管理, 回滚到, 恢复到之前版本, 列出快照, 查看快照列表, 快照历史。Also triggers automatically every 10 chapters during serial writing.
 allowed-tools: Read Write Edit Grep Bash Task
 ---
 

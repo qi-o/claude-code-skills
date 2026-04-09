@@ -1,6 +1,6 @@
 ---
 name: novel-downloader
-description: |
+description: >
   网络小说下载与合并工具。当用户需要下载网络小说、爬取小说网站、将在线小说保存为本地文件时使用此技能。
   触发场景：
   (1) 用户提供小说URL要求下载
@@ -9,6 +9,8 @@ description: |
   (4) 用户需要将多章节小说合并为单个文件(txt/epub)
   支持的网站类型：日本轻小说站(alphapolis, syosetu, kakuyomu)、中文小说站、英文小说站、英文论坛站(hostboard, literotica)等。
   可自动分析网站结构并生成爬虫代码。
+  Triggers (EN): download novel, web novel download, scrape fiction, light novel download, save web fiction,
+  novel scraper, merge chapters to epub, alphapolis download, syosetu download, kakuyomu download.
   Do NOT use for general file downloads or video downloads (use aria2-downloader instead).
 license: MIT
 allowed-tools: "Bash(python:*) WebFetch Read Write"

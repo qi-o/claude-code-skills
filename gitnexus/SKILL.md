@@ -1,6 +1,6 @@
 ---
 name: gitnexus
-description: |
+description: >
   GitNexus 代码知识图谱引擎 - 客户端知识图谱工具，帮助 AI 代理理解代码结构。
   触发场景：
   (1) 用户需要分析项目代码结构、依赖关系
@@ -9,13 +9,9 @@ description: |
   (4) 用户需要理解大型代码库的架构
   (5) 用户说"索引项目"、"分析代码"、"查调用链"、"影响分析"
   核心功能：代码索引、知识图谱构建、MCP 工具集成（query/context/impact/rename/cypher）
-  新增 GLM (Z.AI) LLM provider 支持（OpenAI 兼容 API）
-  新增 --skills 生成 repo 级技能文件、--skip-agents-md 保留自定义上下文、Azure OpenAI wiki 支持
-  新增 gitnexus serve 桥接模式（Web UI ↔ CLI）、MCP Prompts（detect_impact/generate_map）
-  新增 Java/Kotlin 方法引用、重载消歧、接口分派，统一 Web/CLI ingestion pipeline
-  新增 C# MethodExtractor 配置支持
-  新增 MethodExtractor for Python/PHP/Swift/Dart/Rust/Ruby, Vue SFC support, TypeScript/JavaScript MethodExtractor 配置、C/C++ MethodExtractor（纯虚函数检测）
-  新增 Web repo landing screen（可选 repo cards）
+  Triggers (EN): code knowledge graph, analyze code structure, dependency analysis, call chain,
+  impact analysis, code index, understand codebase, code architecture, navigate code,
+  code graph, function references, rename refactoring.
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus

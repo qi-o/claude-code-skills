@@ -1,6 +1,8 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
+description: >
+  Create distinctive, production-grade frontend interfaces with high design quality. Triggers (English): build web components, create website, landing page, dashboard, React component, web UI, styling, beautify, frontend design, web design. Triggers (Chinese): 前端开发, 网页设计, 制作网页, 创建网站, 做界面, 前端UI, React组件, 样式美化, Web开发, 做前端。
+  Use when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
 github_hash: ca1e7dc13c0ab5e2dfaa6de71991cd951b8f1cf2

@@ -1,6 +1,12 @@
 ---
 name: planning-with-files
-description: Implements Manus-style file-based planning to organize and track progress on complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring >5 tool calls. Supports automatic session recovery after /clear.
+description: >
+  Implements Manus-style file-based planning to organize and track progress on complex tasks.
+  Creates task_plan.md, findings.md, and progress.md.
+  Use when asked to plan out, break down, or organize a multi-step project, research task,
+  or any work requiring >5 tool calls. Supports automatic session recovery after /clear.
+  触发词（中文）：规划任务、拆解项目、组织工作、多步骤计划、任务追踪、进度管理、制定计划、分阶段执行。
+  Triggers (EN): plan tasks, break down project, organize work, multi-step plan, task tracking, progress management, create plan, phased execution.
 user-invocable: true
 allowed-tools: "Read, Write, Edit, Bash, Glob, Grep"
 hooks:

@@ -1,6 +1,6 @@
 ---
 name: paper-search
-description: |
+description: >
   学术论文搜索与下载工具。支持 arXiv、PubMed、bioRxiv、medRxiv、Google Scholar、Semantic Scholar、CrossRef、IACR、OpenAlex、PMC、CORE、Europe PMC、Zenodo、HAL、SSRN 等 20+ 学术数据库。
   触发场景：
   (1) 用户需要搜索学术论文、文献
@@ -8,6 +8,9 @@ description: |
   (3) 用户说"搜索论文"、"查找文献"、"下载论文"
   (4) 用户进行学术调研需要专业数据库支持
   (5) 与 deep-research skill 配合使用，提供 L1 级别学术资料
+  Triggers (EN): search papers, find papers, download paper, academic search, literature search,
+  scholarly articles, research papers, arxiv search, pubmed search, paper download,
+  find academic articles, citation search.
   PubMed/arXiv 排序优化、CLI 入口支持。基于 openags/paper-search-mcp 转换，无需 MCP 配置。
   Do NOT use for clinical trial searches (use clinicaltrials-database instead) or general web searches (use ducksearch instead).
 github_url: https://github.com/openags/paper-search-mcp

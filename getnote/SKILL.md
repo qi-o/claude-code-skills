@@ -2,7 +2,7 @@
 github_url: https://github.com/iswalle/getnote-cli
 github_hash: ecf1e3ee45b270b9e0148927f917291a4810ca53
 name: Get笔记
-description: |
+description: >
   Get笔记 - 通过 getnote CLI 保存、搜索、管理个人笔记和知识库。
 
   **当以下情况时使用此 Skill**：
@@ -12,6 +12,8 @@ description: |
   (4) 用户要查看博主、直播内容：「博主的笔记」「直播回放」「直播摘要」
   (5) 用户要查看配额：「还能存多少」「用量」「配额」
   (6) 用户要配置 Get笔记：「配置笔记」「连接 Get笔记」
+  Triggers (EN): save note, search notes, getnote, personal knowledge base, note-taking,
+  bookmark link, save to notes, clip article, note search, tag notes, note quota.
 metadata: {"requires": {"getnote": ">=1.0.16"}, "optionalEnv": ["GETNOTE_API_KEY", "GETNOTE_CLIENT_ID", "GETNOTE_API_URL"], "homepage": "https://biji.com"}
 ---
 
