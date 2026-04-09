@@ -1212,3 +1212,24 @@ graphify claude uninstall  # remove the section
 - Always show token cost in the report.
 - Never hide cohesion scores behind symbols - show the raw number.
 - Never run HTML viz on a graph with more than 5,000 nodes without warning the user.
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### User Preferences
+- 语义层 subagent 必须将结果写入文件（如 .graphify_semantic_batch_N.json），不能依赖 agent 消息回传后再手动合并
+- 大型语料库（3000+文件）应先提示用户选择子目录，或自动采样代表性文件
+- pipeline 中间文件（.graphify_python, .graphify_ast.json）在完整 pipeline 未结束时不应清理
+- 语义提取应支持增量 checkpoint：每个 batch 完成后立即写入文件，而非等所有 batch 完成后一次性合并
+
+### Known Fixes & Workarounds
+- subagent 语义提取结果丢失：batch 1/5 数据因 context 压缩而丢失，因为结果只在 agent 对话文本中，没有持久化到文件
+- AST 临时文件被提前清理：Step 9 cleanup 删除了 .graphify_ast.json 但语义层合并还需要它
+- Python 解释器路径丢失：.graphify_python 在 cleanup 中被删除，后续命令无法定位 Python
+- Windows bash heredoc 不支持单引号 JSON：需要改用 Python 脚本写文件方式
+
+### Custom Instruction Injection
+
+当用户说"语义层继续"时，检查 .graphify_semantic_new.json 是否存在。如果存在且有 nodes，直接进入 merge 阶段（AST + semantic → graph.json → recluster → rebuild HTML）。不要重新提取。每个 subagent 的输出必须写入 .graphify_semantic_batch_{N}.json 文件。pipeline cleanup 只在用户确认完整 pipeline 结束后才执行。
