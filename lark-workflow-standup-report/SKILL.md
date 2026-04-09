@@ -1,7 +1,7 @@
 ---
 name: lark-workflow-standup-report
 version: 1.0.0
-description: "日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。"
+description: "日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。触发词（中文）：日程摘要、待办摘要、今日安排、明日日程、早报、开工摘要、standup report、日程与待办。触发词（英文）：daily standup, standup report, today's agenda, tomorrow schedule, daily summary, task summary, calendar summary."
 metadata:
   requires:
     bins: ["lark-cli"]

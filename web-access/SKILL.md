@@ -4,7 +4,8 @@ license: MIT
 github: https://github.com/eze-is/web-access
 github_url: https://github.com/eze-is/web-access
 github_hash: 9f5d5c1d857b23bbf8d62022c614e1257823e025
-description:
+description: >
+  所有联网操作必须通过此 skill 处理：搜索、网页抓取、登录后操作、动态渲染页面、社交媒体内容获取（小红书、微博、推特等）。当用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取内容、或需要真实浏览器环境时使用。触发词（中文）：搜索、网页抓取、访问网站、浏览器操作、获取网页内容、爬取、小红书、微博。触发词（英文）：web search, scrape, fetch page, browser automation, access website, login required, dynamic page. 与 WebSearch/WebFetch/curl 不同，web-access 通过用户真实 Chrome 的 CDP 直连，携带天然登录态，可处理反爬限制页面。
   所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
   触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。
 metadata:

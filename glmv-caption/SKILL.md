@@ -1,6 +1,7 @@
 ---
 name: glmv-caption
-description:
+description: >
+  使用智谱 GLM-V 多模态模型为图片、视频、文档生成描述/摘要/解读。当用户要求"描述这张图片"、"视频摘要"、"文档解读"、"看图说话"、"分析图片内容"、"生成图片caption"时使用。支持单张/批量图片、视频、PDF/DOCX/TXT 等文件输入。触发词（中文）：图片描述、看图说话、视频摘要、图像理解、图片解读、生成caption。触发词（英文）：describe image, caption this, summarize video, document understanding, image understanding, generate caption. 与 ai4scholar 互补——ai4scholar 提取文本，glmv-caption 提取视觉信息。
   Generate captions (descriptions) for images, videos, and documents using ZhiPu
   GLM-V multimodal model series. Use this skill whenever the user wants to describe,
   caption, summarize, or interpret the content of images, videos, or files.

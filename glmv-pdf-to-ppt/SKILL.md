@@ -1,6 +1,7 @@
 ---
 name: glmv-pdf-to-ppt
-description:
+description: >
+  将 PDF（论文、报告、文档）转换为多页 HTML 幻灯片演示文稿。自动生成结构化大纲 JSON 和摘要 Markdown。当用户提到"根据 PDF 做 PPT"、"论文转幻灯片"、"把文档转成演示"、"根据论文做汇报"、"PDF 转 PPT"、"做演示文稿"时使用。触发词（中文）：PDF做PPT、论文转幻灯片、生成演示文稿、把pdf转成ppt、根据论文做汇报。触发词（英文）：make PPT from PDF, convert PDF to slides, create presentation from paper, PDF to PPT.
   Convert a PDF (research paper, report, or any document) into a polished multi-slide
   HTML presentation with a structured outline JSON and summary markdown. Trigger this
   skill when the user mentions making slides or a PPT from a PDF — in Chinese or English.
