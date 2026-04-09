@@ -3,15 +3,10 @@ github_url: https://github.com/MiniMax-AI/skills
 github_hash: e0fdeefe7b1e36a7d5b4c06c22a4371ad31f101c
 name: minimax-multimodal-toolkit
 description: >
-  MiniMax multimodal supplement — advanced FFmpeg media processing, long-form multi-scene video chaining,
-  and complex multi-voice audiobook/podcast workflows. For basic generation (TTS/music/image/video),
-  use mmx-cli first (official MiniMax CLI). This toolkit provides FFmpeg-based media tools and
-  advanced orchestration beyond mmx-cli capabilities.
-  Use when: user needs FFmpeg workflows, long videos, multi-voice audiobook production,
-  or media format conversion alongside MiniMax outputs.
+  ADVANCED MiniMax media workflows — for complex needs beyond what mmx-cli handles directly. Triggers on (Chinese): 长视频制作, 多段视频拼接, 有声书制作, 多角色配音, 旁白+对话配音, 媒体格式转换, FFmpeg处理, 音视频剪辑合并, 高级语音克隆. Triggers on (English): long video, multi-scene video, audiobook narration, multiple voices, voice cloning, media format conversion, FFmpeg processing, audio/video concat or trim. For simple TTS, image, video, or music requests, use mmx-cli instead.
 license: MIT
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
   category: media-generation
   replaces: "minimax-multimodal-toolkit@2.0.0"
 ---
