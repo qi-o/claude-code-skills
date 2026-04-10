@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: e0fdeefe7b1e36a7d5b4c06c22a4371ad31f101c
+github_hash: 547549d727725cbb45084a7f144d4040981dc129
 name: frontend-dev
 description: >
   Full-stack frontend development combining premium UI design, cinematic animations, AI-generated media assets, persuasive copywriting, and visual art. Triggers (English): landing page, marketing site, product page, dashboard, generative art, cinematic animation, scroll animation, web development, frontend. Triggers (Chinese): 着陆页, 营销页面, 产品页, 仪表盘, 生成式艺术, 电影级动画, 滚动动画, 前端开发, 网页开发。

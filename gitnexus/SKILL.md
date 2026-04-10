@@ -15,7 +15,7 @@ description: >
   对比 deep-research：deep-research 是调研外部知识，gitnexus 是分析本地代码
   Do NOT use for simple file searches (use Grep/Glob instead) or non-code repositories。
 github_url: https://github.com/abhigyanpatwari/GitNexus
-github_hash: 4a1f912aee7d040713405ffa5b65865231385608
+github_hash: ab956f113c034c2a130d888d31233d1ecaa9603a
 version: 1.8.0
 created_at: 2026-02-21T00:00:00Z
 platform: github

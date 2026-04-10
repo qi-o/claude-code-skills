@@ -183,6 +183,9 @@ pip install DrissionPage
 - requests 和 Playwright 遇到 HTTP/2 协议错误时，使用 curl subprocess 绕过
 - literotica 正文选择器为 div[class*=_article__content]，不要使用 div.panel.article
 - literotica 章节内分页检测应查找下一页链接 a[href*=?page=N] 而非文本匹配
+- Windows 下 Clash Verge 代理出口封锁 novel18.syosetu.com，导致 SSL handshake 失败。解决：curl -x '' 绕过系统代理直连
+- Python requests 会话受代理影响，即使 trust_env=False 仍可能 SSL 失败。改用 subprocess + curl -x '' subprocess 直连更可靠
+- novel18.syosetu.com 目录页章节标题需用 href 周围文本提取，不能只靠选择器
 
 ### Custom Instruction Injection
 
