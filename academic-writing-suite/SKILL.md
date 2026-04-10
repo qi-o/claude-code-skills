@@ -141,6 +141,17 @@ license: MIT
 
 ### Phase 4: 内容撰写
 
+> **前置检查（HARD 门控）**
+>
+> 进入 Phase 4 前必须满足以下条件，否则拒绝执行：
+>
+> | 检查项 | 通过条件 | 不通过时 |
+> |--------|---------|---------|
+> | 文献调研已完成 | Phase 2 产出存在，参考文献 ≥ 5 篇 | 返回 Phase 2 补充文献 |
+> | 提纲已完成 | Phase 3 产出 outline.md 存在且非空 | 返回 Phase 3 完成提纲 |
+>
+> 如果用户坚持跳过，警告：「缺少足够的文献支撑和完整提纲，强行写作产出质量不可控。建议先完成 Phase 2 和 Phase 3。」
+
 **目标**：完成各章节内容 + 生成图表
 
 **执行步骤**：
@@ -305,6 +316,16 @@ python ~/.claude/skills/academic-writing-suite/scripts/orchestrator.py status
   - 整合 deep-research、paper-search、pub-figures
   - 5 阶段工作流
   - orchestrator 脚本支持
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 写作完成，需要排版 | 使用 `academic-typesetting` — 学术排版格式化 |
+| 写作完成，需要检测 AI 痕迹 | 使用 `ai-check-humanizer` — AI 写作检测 + 人性化 |
+| 需要生成更多图表 | 使用 `pub-figures` — 出版级科研图表 |
+| 需要转为 PPT 做组会汇报 | 使用 `glmv-pdf-to-ppt` — 论文转演示文稿 |
+| 需要输出 Word/PDF | 使用 `docx` 或 `pdf` — 文档格式转换 |
 
 ## User-Learned Best Practices & Constraints
 

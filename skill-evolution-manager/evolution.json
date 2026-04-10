@@ -1,7 +1,10 @@
 {
-  "last_updated": "2026-01-24T11:58:09.637835",
+  "last_updated": "2026-04-10T23:51:36.132917",
   "fixes": [
     "SKILL.md 的 name 字段必须使用 kebab-case 格式，不能包含空格（如 skill-evolution-manager 而非 Skill Evolution Manager）",
     "name 字段应与文件夹名保持一致，否则 Claude Code 无法正确识别 skill"
+  ],
+  "preferences": [
+    "跨 Skill 链接验证时，grep 应只匹配推荐表行格式（^|.*使用 `...`），避免正文中的代码引用（如 auto 路由、PAPER_SEARCH_MCP_* 环境变量、download_with_fallback 函数名）产生误报。"
   ]
 }

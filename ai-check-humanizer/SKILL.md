@@ -67,6 +67,19 @@ AI词汇替换表（中英文）→ `references/vocabulary.md`
 
 ---
 
+> **前置检查（SOFT 门控）**
+>
+> 检测前建议确认以下条件：
+>
+> | 检查项 | 建议状态 | 未满足时 |
+> |--------|---------|---------|
+> | 文本长度 ≥ 200 字 | 足够长的文本才能准确检测 | 提示用户文本过短可能影响准确性，允许继续 |
+> | 语言已确认 | 已知文本是中文或英文 | 根据内容自动判断，允许继续 |
+>
+> 这两项为建议性质，用户明确要求时可直接检测。
+
+---
+
 ## 检测评分系统
 
 ### 评分公式
@@ -220,4 +233,22 @@ qa_integration:
 
 ---
 
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 检测完成，需要写论文 | 使用 `academic-writing-suite` — 从源头避免 AI 痕迹 |
+| 需要找文献支撑论点 | 使用 `paper-search` — 学术数据库搜索 |
+| 需要辩论分析论点质量 | 使用 `chatroom-debate` — 多角色批判性分析 |
+
+---
+
 **版本：** 1.0.0 | **最后更新：** 2026-01-22 | **许可证：** MIT
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### Known Fixes & Workarounds
+- SOFT 门控必须放在检测流程开始前（检测评分系统之前），不能放在限制说明之后。门控的目的是在流程启动前做前置检查，放在流程中间或末尾就失去了门控意义。

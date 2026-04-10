@@ -1,4 +1,4 @@
-﻿---
+---
 name: pub-figures
 description: |
   Generate publication-quality multi-panel scientific figures for journals.
@@ -28,6 +28,17 @@ This skill generates journal-ready multi-panel figures with:
 - Color-blind friendly palettes
 - High resolution output (600 DPI for publication)
 - Proper layout management using GridSpec
+
+> **前置检查（SOFT 门控）**
+>
+> 生成图表前建议确认以下条件：
+>
+> | 检查项 | 建议状态 | 未满足时 |
+> |--------|---------|---------|
+> | 数据源已确认 | 已有原始数据或模拟数据说明 | 提示用户确认数据来源，允许继续 |
+> | 图表类型已选定 | 已确定图表类型和面板布局 | 建议先选定类型，允许继续 |
+>
+> 这两项为建议性质，用户明确要求时可直接生成。
 
 ## Supported Figure Types
 
@@ -390,6 +401,15 @@ add_panel_label(ax, 'A', x=-0.08)  # No y-labels
 - `references/layout_patterns.md` - GridSpec layout examples
 - `references/matplotlib_tips.md` - Common pitfalls and solutions
 - `assets/color_palettes.json` - Predefined color schemes
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 图表完成，需要写论文 | 使用 `academic-writing-suite` — 学术写作编排 |
+| 需要转为 PPT 展示 | 使用 `pptx` — PowerPoint 生成 |
+| 需要转为 Word 文档 | 使用 `docx` — Word 文档生成 |
+| 需要科学示意图 | 使用 `scientific-schematics` — 科学示意图 |
 
 ## User-Learned Best Practices & Constraints
 

@@ -249,6 +249,14 @@ PubMed 是索引数据库，不直接提供 PDF。可以：
 ### CORE / OpenAIRE 不稳定
 CORE 建议配置免费 API Key；OpenAIRE 连接器内置 3 次重试和请求头升级策略，失败时静默返回空结果。
 
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 找到论文，需要深度调研 | 使用 `deep-research` — 8 步法深度调研 |
+| 需要写学术论文 | 使用 `academic-writing-suite` — 学术写作编排（5 阶段） |
+| 需要读论文全文 | 使用 `ai4scholar-integration` — 学术研究工具集成 |
+
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.

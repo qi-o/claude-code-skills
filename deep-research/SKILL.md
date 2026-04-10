@@ -121,6 +121,15 @@ tar -czvf ~/outcome.tar.gz -C <parent_dir> <workspace_name>
 | **执行者** | 具体机制、操作方法 | 详细，强调如何做 |
 | **技术专家** | 细节、边界条件、限制 | 深入，强调准确性 |
 
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 调研完成，需要写论文 | 使用 `academic-writing-suite` — 学术写作编排（5 阶段） |
+| 调研完成，需要可视化 | 使用 `pub-figures` — 出版级科研图表 |
+| 调研完成，需要知识图谱 | 使用 `research-to-diagram` — 研究结果可视化 |
+| 发现 AI 写作痕迹 | 使用 `ai-check-humanizer` — AI 检测 + 人性化 |
+
 ## 参考文件
 
 详细工作流请参见 `references/workflow_details.md`，包含：

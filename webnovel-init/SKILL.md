@@ -437,3 +437,12 @@ test -f "{project_root}/.webnovel/idea_bank.json"
    - 总纲缺字段 -> 只 patch 总纲；
    - idea_bank 不一致 -> 只重写该文件。
 3. 重新验证，全部通过后结束。
+
+---
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 项目初始化完成，需要规划大纲 | 使用 `webnovel-plan` — 网文大纲规划 |
+| 需要导入已有作品参考 | 使用 `webnovel-import` — 已有作品导入 |

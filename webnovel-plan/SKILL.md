@@ -503,3 +503,12 @@ If any hard fail triggers:
 Next steps:
 - 继续规划下一卷 → /webnovel-plan
 - 开始写作 → /webnovel-write
+
+---
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 大纲规划完成，开始写作 | 使用 `webnovel-write` — 网文写作执行 |
+| 需要调整项目设定 | 使用 `webnovel-init` — 重新初始化项目 |

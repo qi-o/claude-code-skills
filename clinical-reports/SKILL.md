@@ -31,6 +31,17 @@ Clinical report writing is the process of documenting medical information with p
 - Ensuring HIPAA compliance and proper de-identification
 - Preparing serious adverse event (SAE) reports
 
+> **前置检查（HARD 门控）**
+>
+> 起草临床报告前必须满足以下条件，否则拒绝执行：
+>
+> | 检查项 | 通过条件 | 不通过时 |
+> |--------|---------|---------|
+> | 临床数据已提供 | 患者基本信息、诊断/治疗数据可用 | 要求用户提供数据 |
+> | 数据已脱敏 | 无患者姓名、身份证号、联系电话等 PHI | 使用 HIPAA 安全港标准脱敏后重试 |
+>
+> 如果用户坚持跳过脱敏，拒绝执行：「临床报告必须先完成 PHI 脱敏，这是法规要求，不可跳过。」
+
 ## Visual Enhancement with Scientific Schematics
 
 **MANDATORY: Every clinical report MUST include at least 1 AI-generated figure using the scientific-schematics skill.**
@@ -173,3 +184,14 @@ Before finalizing any clinical report:
 ---
 
 **Final Note**: Clinical report writing requires attention to detail, medical accuracy, regulatory compliance, and clear communication. Quality of clinical reports directly impacts patient safety, healthcare delivery, and medical knowledge advancement.
+
+---
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 报告完成，需要治疗方案 | 使用 `treatment-plans` — 治疗方案制定 |
+| 需要输出 Word 格式 | 使用 `docx` — Word 文档生成 |
+| 需要输出 PDF 格式 | 使用 `pdf` — PDF 处理 |
+| 需要科研图表 | 使用 `pub-figures` — 出版级科研图表 |

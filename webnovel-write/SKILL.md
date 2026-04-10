@@ -102,6 +102,17 @@ allowed-tools: Read Write Edit Grep Bash Task
 - `Bash`：运行 `extract_chapter_context.py`、`index_manager`、`workflow_manager`。
 - `Task`：调用 `context-agent`、审查 subagent、`data-agent` 并行执行。
 
+## 前置检查（HARD 门控）
+
+写章节前必须满足以下条件，否则拒绝执行：
+
+| 检查项 | 通过条件 | 不通过时 |
+|--------|---------|---------|
+| 项目已初始化 | `.webnovel/state.json` 存在 | 返回 `webnovel-init` 初始化项目 |
+| 大纲已有章节 | 大纲中包含待写章节的规划 | 返回 `webnovel-plan` 规划大纲 |
+
+如果用户坚持跳过，警告：「缺少项目初始化和章节大纲，强行写作产出不可控。建议先完成初始化和大纲规划。」
+
 ## 交互流程
 
 ### Step 0：预检与上下文最小加载
@@ -380,4 +391,23 @@ tail -n 1 "${PROJECT_ROOT}/.webnovel/observability/data_agent_timing.jsonl" || t
    - 审查缺失：只重跑 Step 3 并落库；
    - 润色失真：恢复 Step 2A 输出并重做 Step 4；
    - 摘要/状态缺失：只重跑 Step 5；
-3. 重新执行“验证与交付”全部检查，通过后结束。
+3. 重新执行”验证与交付”全部检查，通过后结束。
+
+---
+
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 章节写作完成，需要审查 | 使用 `webnovel-audit-gate` — 质量审查门控 |
+| 需要为章节配图 | 使用 `baoyu-article-illustrator` — 文章配图 |
+| 章节通过审查，继续写 | 使用 `webnovel-continue` — 续写下一章 |
+| 需要保存进度快照 | 使用 `webnovel-snapshot` — 项目快照 |
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### Known Fixes & Workarounds
+- HARD/SOFT 门控必须放在工作流入口前（Step 0 之前），不能放在文件末尾。LLM 从上到下读取文件，末尾的门控在实际执行时不可达。正确位置：## 交互流程 之前。

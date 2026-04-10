@@ -147,6 +147,14 @@ audit-gate --decide --choice rollback # 回滚
 - Skill定义: `skills/webnovel-audit-gate/SKILL.md`
 
 
+## 推荐下一步
+
+| 触发条件 | 推荐 |
+|---------|------|
+| 审查通过，继续写作 | 使用 `webnovel-continue` — 续写下一章 |
+| 需要保存当前进度 | 使用 `webnovel-snapshot` — 项目快照 |
+| 审查发现质量问题 | 返回 `webnovel-write` — 修改重写 |
+
 ## User-Learned Best Practices & Constraints
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
