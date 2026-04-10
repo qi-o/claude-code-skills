@@ -5,7 +5,7 @@ description: >
   Use when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
-github_hash: ca1e7dc13c0ab5e2dfaa6de71991cd951b8f1cf2
+github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
 version: 0.0.1
 secondary_sources:
   - name: react-best-practices
