@@ -139,11 +139,3 @@ Confidence: high
 Scope-risk: narrow
 Not-tested: End-to-end plugin marketplace install in a fresh Claude profile
 ```
-
-
-## User-Learned Best Practices & Constraints
-
-> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
-
-### Known Fixes & Workarounds
-- Windows 无 jq，setup-progress.sh 的 complete/save 步骤失败，需用 node -e 替代 JSON 操作完成 setup 标记
