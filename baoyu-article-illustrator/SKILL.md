@@ -2,9 +2,14 @@
 name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style × Palette three-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
 version: 1.57.0
+github_url: https://github.com/JimLiu/baoyu-skills
+github_hash: ec5f4ffcc9691300b4f1f163712592ce4a517c10
+source: skills/baoyu-article-illustrator
+license: MIT
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-article-illustrator
+  ref: refs/heads/main
 ---
 
 # Article Illustrator
@@ -16,8 +21,8 @@ Analyze articles, identify illustration positions, generate images with Type × 
 | Dimension | Controls | Examples |
 |-----------|----------|----------|
 | **Type** | Information structure | infographic, scene, flowchart, comparison, framework, timeline |
-| **Style** | Rendering approach | notion, warm, minimal, blueprint, watercolor, elegant |
-| **Palette** | Color scheme (optional) | macaron, warm, neon — overrides style's default colors |
+| **Style** | Rendering approach | notion, warm, minimal, blueprint, watercolor, elegant, ink-notes |
+| **Palette** | Color scheme (optional) | macaron, warm, neon, mono-ink — overrides style's default colors |
 
 Combine freely: `--type infographic --style vector-illustration --palette macaron`
 
@@ -96,8 +101,8 @@ Full procedures: [references/workflow.md](references/workflow.md#step-2-setup--a
 |---|---------|
 | **Q1: Preset or Type** | [Recommended preset], [alt preset], or manual: infographic, scene, flowchart, comparison, framework, timeline, mixed |
 | **Q2: Density** | minimal (1-2), balanced (3-5), per-section (Recommended), rich (6+) |
-| **Q3: Style** | [Recommended], minimal-flat, sci-fi, hand-drawn, editorial, scene, poster, Other — **skip if preset chosen** |
-| Q4: Palette | Default (style colors), macaron, warm, neon — **skip if preset includes palette or preferred_palette set** |
+| **Q3: Style** | [Recommended], minimal-flat, sci-fi, hand-drawn, editorial, scene, poster, ink-notes, Other — **skip if preset chosen** |
+| Q4: Palette | Default (style colors), macaron, warm, neon, mono-ink — **skip if preset includes palette or preferred_palette set** |
 | Q5: Language | When article language ≠ EXTEND.md setting |
 
 Full procedures: [references/workflow.md](references/workflow.md#step-3-confirm-settings-)

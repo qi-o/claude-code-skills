@@ -12,7 +12,7 @@ Simplified style tier for quick selection:
 | `hand-drawn` | sketch/warm | Relaxed, reflective, casual content |
 | `editorial` | editorial | Processes, data, journalism |
 | `scene` | warm/watercolor | Narratives, emotional, lifestyle |
-| `poster` | screen-print | Bold statements, editorial, cultural |
+| `poster` | screen-print | Opinion, editorial, cultural, cinematic |
 
 Use Core Styles for most cases. See full Style Gallery below for granular control.
 
@@ -40,9 +40,10 @@ Use Core Styles for most cases. See full Style Gallery below for granular contro
 | `pixel-art` | Retro 8-bit gaming aesthetic | Gaming, retro tech |
 | `playful` | Whimsical pastel doodles | Fun, casual, educational |
 | `retro` | 80s/90s neon geometric | 80s/90s nostalgic, bold |
-| `screen-print` | Bold graphic poster with limited palette | Editorial, cultural essays, cinematic |
+| `screen-print` | Bold poster art, halftone textures, limited colors | Opinion, editorial, cultural, cinematic |
 | `sketch` | Raw pencil notebook style | Brainstorming, creative exploration |
 | `sketch-notes` | Soft hand-drawn warm notes | Educational, warm notes |
+| `ink-notes` | Black ink on pure white, sparse semantic accents, hand-lettered (à la Mike Rohde's sketchnoting) | Before/After essays, tech manifestos, framework analogies |
 | `vintage` | Aged parchment historical | Historical, heritage |
 
 Full specifications: `references/styles/<style>.md`
@@ -54,8 +55,8 @@ Full specifications: `references/styles/<style>.md`
 | infographic | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ |
 | scene | ✓ | ✓ | ✓✓ | ✓ | ✗ | ✓✓ | ✓ | ✓ | ✗ | ✓✓ |
 | flowchart | ✓✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✗ | ✓ | ✓✓ | ✓ | ✗ |
-| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓✓ |
-| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ | ✗ |
+| comparison | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓ | ✓ |
+| framework | ✓✓ | ✓✓ | ✓ | ✓✓ | ✓✓ | ✗ | ✓✓ | ✓ | ✓✓ | ✓ |
 | timeline | ✓ | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓✓ | ✓✓ | ✓ | ✓ |
 
 ✓✓ = highly recommended | ✓ = compatible | ✗ = not recommended
@@ -81,10 +82,12 @@ Full specifications: `references/styles/<style>.md`
 | How-to, steps, workflow, process, tutorial | flowchart | vector-illustration, notion |
 | Framework, model, architecture, principles | framework | blueprint, vector-illustration |
 | vs, pros/cons, before/after, alternatives | comparison | vector-illustration, notion |
+| Manifesto, mindset shift, workforce, OS, whiteboard, professional visual note | comparison / framework | ink-notes |
 | Story, emotion, journey, experience, personal | scene | warm, watercolor |
 | History, timeline, progress, evolution | timeline | elegant, warm |
 | Productivity, SaaS, tool, app, software | infographic | notion, vector-illustration |
 | Business, professional, strategy, corporate | framework | elegant |
+| Opinion, editorial, culture, philosophy, cinematic, dramatic, poster | scene | screen-print |
 | Biology, chemistry, medical, scientific | infographic | scientific |
 | Explainer, journalism, magazine, investigation | infographic | editorial |
 
@@ -174,3 +177,47 @@ Full specifications: `references/styles/<style>.md`
 - Organic flow
 - Personal journey feel
 - Growth narratives
+
+### scene + screen-print
+- Bold silhouettes, symbolic compositions
+- 2-5 flat colors with halftone textures
+- Figure-ground inversion (negative space tells secondary story)
+- Vintage poster aesthetic, conceptual not literal
+- Great for opinion pieces and cultural commentary
+
+### comparison + screen-print
+- Split duotone composition (one color per side)
+- Bold geometric dividers
+- Symbolic icons over detailed rendering
+- High contrast, immediate visual impact
+
+### framework + screen-print
+- Geometric node representations with stencil-cut edges
+- Limited color coding (one color per concept level)
+- Clean silhouette-based iconography
+- Poster-style hierarchy with bold typography
+
+---
+
+## Palette Gallery
+
+Palettes override a style's default colors. Combine any style with any palette: `--style vector-illustration --palette macaron`.
+
+| Palette | Description | Best For |
+|---------|-------------|----------|
+| `macaron` | Soft pastel blocks (blue, mint, lavender, peach) on warm cream | Educational, knowledge, tutorials |
+| `warm` | Warm earth tones (orange, terracotta, gold) on soft peach, no cool colors | Brand, product, lifestyle |
+| `neon` | Vibrant neon (pink, cyan, yellow) on dark purple | Gaming, retro, pop culture |
+| `mono-ink` | Black ink on pure white with sparse semantic accents (coral red, muted teal, dusty lavender) | Professional visual notes, Before/After, manifestos |
+
+Full specifications: `references/palettes/<palette>.md`
+
+When no palette is specified, the style's built-in Color Palette is used.
+
+## Palette Override Rules
+
+1. Read style file → rendering rules (Visual Elements, Style Rules)
+2. Read palette file → Colors + Background
+3. Palette colors **replace** style's default Color Palette
+4. Palette Background **replaces** style's default Background color
+5. Style's texture description is preserved
