@@ -1,13 +1,15 @@
 ---
-github_url: https://github.com/MiniMax-AI/skills
-github_hash: d539494c46b723820535c09cc3adac61ad93bec6
 name: frontend-dev
-description: >
-  Full-stack frontend development combining premium UI design, cinematic animations, AI-generated media assets, persuasive copywriting, and visual art. Triggers (English): landing page, marketing site, product page, dashboard, generative art, cinematic animation, scroll animation, web development, frontend. Triggers (Chinese): 着陆页, 营销页面, 产品页, 仪表盘, 生成式艺术, 电影级动画, 滚动动画, 前端开发, 网页开发。
-  Builds complete, visually striking web pages with real media, advanced motion, and compelling copy.
+description: |
+  Full-stack frontend development combining premium UI design, cinematic animations,
+  AI-generated media assets, persuasive copywriting, and visual art. Builds complete,
+  visually striking web pages with real media, advanced motion, and compelling copy.
+  Use when: building landing pages, marketing sites, product pages, dashboards,
+  generating media assets (image/video/audio/music), writing conversion copy,
+  creating generative art, or implementing cinematic scroll animations.
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.0.0"
   category: frontend
   sources:
     - Framer Motion documentation

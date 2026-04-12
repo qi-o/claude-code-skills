@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: d539494c46b723820535c09cc3adac61ad93bec6
+github_hash: 678e3a5d0972c7f7ab2383eb8d317b2b6c62d6c6
 name: shader-dev
 description: >
   Comprehensive GLSL shader techniques for creating stunning visual effects. Triggers (English): GLSL shader, shader programming, WebGL, fragment shader, vertex shader, ray marching, SDF, fluid simulation, particle system, procedural generation, post-processing, visual effects, shadertoy. Triggers (Chinese): GLSL着色器, 着色器编程, WebGL开发, 光线行进, SDF建模, 流体模拟, 粒子系统, 程序化生成, 视觉效果, shadertoy。Use when user wants to create shaders, visual effects, or real-time graphics.

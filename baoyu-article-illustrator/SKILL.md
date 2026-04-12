@@ -1,63 +1,57 @@
 ---
 name: baoyu-article-illustrator
-description: 分析文章结构，识别需要配图的位置，使用 Type × Style 二维方案生成插图。当用户要求 "illustrate article"、"add images"、"generate images for article" 或 "为文章配图" 时使用。不要用于数据图表或科学图表（请使用 pub-figures）。
-version: 1.57.1
-github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 31b2929d1cc00b57dfd20571416ad2284145525f
-source: skills/baoyu-article-illustrator
-license: MIT
+description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style × Palette three-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
+version: 1.57.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-article-illustrator
-  ref: refs/heads/main
 ---
 
 # Article Illustrator
 
-分析文章，识别配图位置，使用 Type × Style 一致性方案生成图片。
+Analyze articles, identify illustration positions, generate images with Type × Style × Palette consistency.
 
-## 两个维度
+## Three Dimensions
 
-| 维度 | 控制 | 示例 |
+| Dimension | Controls | Examples |
 |-----------|----------|----------|
-| **Type（类型）** | 信息结构 | infographic, scene, flowchart, comparison, framework, timeline |
-| **Style（风格）** | 视觉美学 | notion, warm, minimal, blueprint, watercolor, elegant |
+| **Type** | Information structure | infographic, scene, flowchart, comparison, framework, timeline |
+| **Style** | Rendering approach | notion, warm, minimal, blueprint, watercolor, elegant |
+| **Palette** | Color scheme (optional) | macaron, warm, neon — overrides style's default colors |
 
-自由组合: `--type infographic --style blueprint`
+Combine freely: `--type infographic --style vector-illustration --palette macaron`
 
-或使用预设: `--preset tech-explainer` → 一个参数包含 type + style。详见 [Style Presets](references/style-presets.md)。
+Or use presets: `--preset edu-visual` → type + style + palette in one flag. See [Style Presets](references/style-presets.md).
 
-## 类型
+## Types
 
-| Type | 适用场景 |
+| Type | Best For |
 |------|----------|
-| `infographic` | 数据、指标、技术类 |
-| `scene` | 叙事、情感类 |
-| `flowchart` | 流程、工作流 |
-| `comparison` | 对比、选项 |
-| `framework` | 模型、架构 |
-| `timeline` | 历史、演进 |
+| `infographic` | Data, metrics, technical |
+| `scene` | Narratives, emotional |
+| `flowchart` | Processes, workflows |
+| `comparison` | Side-by-side, options |
+| `framework` | Models, architecture |
+| `timeline` | History, evolution |
 
-## 风格
+## Styles
 
-详见 [references/styles.md](references/styles.md) 了解核心风格、完整画廊及 Type × Style 兼容性矩阵。
+See [references/styles.md](references/styles.md) for Core Styles, full gallery, and Type × Style compatibility.
 
-## 工作流
+## Workflow
 
 ```
-- [ ] Step 1: 预检查 (EXTEND.md, references, config)
-- [ ] Step 2: 分析内容
-- [ ] Step 3: 确认设置 (AskUserQuestion)
-- [ ] Step 4: 生成大纲
-- [ ] Step 5: 生成图片
-- [ ] Step 6: 收尾
+- [ ] Step 1: Pre-check (EXTEND.md, references, config)
+- [ ] Step 2: Analyze content
+- [ ] Step 3: Confirm settings (AskUserQuestion)
+- [ ] Step 4: Generate outline
+- [ ] Step 5: Generate images
+- [ ] Step 6: Finalize
 ```
 
-### Step 1: 预检查
+### Step 1: Pre-check
 
-**1.5 加载偏好设置 (EXTEND.md) ⛔ 阻塞项**
-
-检查 EXTEND.md 是否存在并加载偏好设置。完整加载流程和路径优先级见 [extend-preferences.md](references/extend-preferences.md)。
+**1.5 Load Preferences (EXTEND.md) ⛔ BLOCKING**
 
 ```bash
 # macOS, Linux, WSL, Git Bash
@@ -74,42 +68,43 @@ if (Test-Path "$xdg/baoyu-skills/baoyu-article-illustrator/EXTEND.md") { "xdg" }
 if (Test-Path "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md") { "user" }
 ```
 
-| 结果 | 操作 |
+| Result | Action |
 |--------|--------|
-| 找到 | 读取、解析、显示摘要 |
-| 未找到 | ⛔ 运行 [首次设置](references/config/first-time-setup.md) |
+| Found | Read, parse, display summary |
+| Not found | ⛔ Run [first-time-setup](references/config/first-time-setup.md) |
 
-完整流程: [references/workflow.md](references/workflow.md#step-1-pre-check)
+Full procedures: [references/workflow.md](references/workflow.md#step-1-pre-check)
 
-### Step 2: 分析
+### Step 2: Analyze
 
-| 分析项 | 输出 |
+| Analysis | Output |
 |----------|--------|
-| 内容类型 | 技术 / 教程 / 方法论 / 叙事 |
-| 目的 | 信息传达 / 可视化 / 想象力 |
-| 核心论点 | 2-5 个要点 |
-| 位置 | 配图能增加价值的地方 |
+| Content type | Technical / Tutorial / Methodology / Narrative |
+| Purpose | information / visualization / imagination |
+| Core arguments | 2-5 main points |
+| Positions | Where illustrations add value |
 
-**关键**: 隐喻 → 可视化底层概念，而非字面图片。
+**CRITICAL**: Metaphors → visualize underlying concept, NOT literal image.
 
-完整流程: [references/workflow.md](references/workflow.md#step-2-setup--analyze)
+Full procedures: [references/workflow.md](references/workflow.md#step-2-setup--analyze)
 
-### Step 3: 确认设置 ⚠️
+### Step 3: Confirm Settings ⚠️
 
-**单次 AskUserQuestion，最多 4 个问题。Q1-Q2 必填。选择预设时 Q3 可跳过。**
+**ONE AskUserQuestion, max 4 Qs. Q1-Q2 REQUIRED. Q3 required unless preset chosen.**
 
-| Q | 选项 |
+| Q | Options |
 |---|---------|
-| **Q1: 预设或类型** | [推荐预设], [备选预设], 或手动选择: infographic, scene, flowchart, comparison, framework, timeline, mixed |
-| **Q2: 密度** | minimal (1-2), balanced (3-5), per-section (推荐), rich (6+) |
-| **Q3: 风格** | [推荐], minimal-flat, sci-fi, hand-drawn, editorial, scene, poster, 其他 — **选择预设时可跳过** |
-| Q4: 语言 | 当文章语言与 EXTEND.md 设置不同时 |
+| **Q1: Preset or Type** | [Recommended preset], [alt preset], or manual: infographic, scene, flowchart, comparison, framework, timeline, mixed |
+| **Q2: Density** | minimal (1-2), balanced (3-5), per-section (Recommended), rich (6+) |
+| **Q3: Style** | [Recommended], minimal-flat, sci-fi, hand-drawn, editorial, scene, poster, Other — **skip if preset chosen** |
+| Q4: Palette | Default (style colors), macaron, warm, neon — **skip if preset includes palette or preferred_palette set** |
+| Q5: Language | When article language ≠ EXTEND.md setting |
 
-完整流程: [references/workflow.md](references/workflow.md#step-3-confirm-settings-)
+Full procedures: [references/workflow.md](references/workflow.md#step-3-confirm-settings-)
 
-### Step 4: 生成大纲
+### Step 4: Generate Outline
 
-保存 `outline.md`，包含 frontmatter（type, density, style, image_count）和条目：
+Save `outline.md` with frontmatter (type, density, style, palette, image_count) and entries:
 
 ```yaml
 ## Illustration 1
@@ -119,47 +114,47 @@ if (Test-Path "$HOME/.baoyu-skills/baoyu-article-illustrator/EXTEND.md") { "user
 **Filename**: 01-infographic-concept-name.png
 ```
 
-完整模板: [references/workflow.md](references/workflow.md#step-4-generate-outline)
+Full template: [references/workflow.md](references/workflow.md#step-4-generate-outline)
 
-### Step 5: 生成图片
+### Step 5: Generate Images
 
-⛔ **阻塞项: 必须先保存 prompt 文件，然后才能生成任何图片。**
+⛔ **BLOCKING: Prompt files MUST be saved before ANY image generation.**
 
-**执行策略**: 当多个插图已保存 prompt 文件且当前任务仅为生成时，优先使用 `baoyu-imagine` 批量模式（`build-batch.ts` → `--batchfile`）而非启动子代理。仅在每张图片仍需单独 prompt 迭代或创意探索时才使用子代理。
+**Execution strategy**: When multiple illustrations have saved prompt files and the task is now plain generation, prefer `baoyu-imagine` batch mode (`build-batch.ts` → `--batchfile`) over spawning subagents. Use subagents only when each image still needs separate prompt iteration or creative exploration.
 
-1. 为每个插图，按照 [references/prompt-construction.md](references/prompt-construction.md) 创建 prompt 文件
-2. 保存到 `prompts/NN-{type}-{slug}.md`，包含 YAML frontmatter
-3. Prompt **必须** 使用类型特定的模板，包含结构化区块（ZONES / LABELS / COLORS / STYLE / ASPECT）
-4. LABELS **必须** 包含文章特定数据：实际数字、术语、指标、引用
-5. **禁止** 在未先保存 prompt 文件的情况下直接向 `--prompt` 传递临时内联 prompt
-6. 选择生成技能，处理引用（`direct`/`style`/`palette`）
-7. 如 EXTEND.md 启用，应用水印
-8. 从保存的 prompt 文件生成；失败时重试一次
+1. For each illustration, create a prompt file per [references/prompt-construction.md](references/prompt-construction.md)
+2. Save to `prompts/NN-{type}-{slug}.md` with YAML frontmatter
+3. Prompts **MUST** use type-specific templates with structured sections (ZONES / LABELS / COLORS / STYLE / ASPECT)
+4. LABELS **MUST** include article-specific data: actual numbers, terms, metrics, quotes
+5. **DO NOT** pass ad-hoc inline prompts to `--prompt` without saving prompt files first
+6. Select generation skill, process references (`direct`/`style`/`palette`)
+7. Apply watermark if EXTEND.md enabled
+8. Generate from saved prompt files; retry once on failure
 
-完整流程: [references/workflow.md](references/workflow.md#step-5-generate-images)
+Full procedures: [references/workflow.md](references/workflow.md#step-5-generate-images)
 
-### Step 6: 收尾
+### Step 6: Finalize
 
-在段落后插入 `![description]({relative-path}/NN-{type}-{slug}.png)`。路径根据输出目录设置相对于文章文件计算。
+Insert `![description]({relative-path}/NN-{type}-{slug}.png)` after paragraphs. Path computed relative to article file based on output directory setting.
 
 ```
 Article Illustration Complete!
-Article: [path] | Type: [type] | Density: [level] | Style: [style]
+Article: [path] | Type: [type] | Density: [level] | Style: [style] | Palette: [palette or default]
 Images: X/N generated
 ```
 
-## 输出目录
+## Output Directory
 
-输出目录由 EXTEND.md 中的 `default_output_dir` 决定（首次设置时配置）：
+Output directory is determined by `default_output_dir` in EXTEND.md (set during first-time setup):
 
-| `default_output_dir` | 输出路径 | Markdown 插入路径 |
+| `default_output_dir` | Output Path | Markdown Insert Path |
 |----------------------|-------------|----------------------|
-| `imgs-subdir`（默认） | `{article-dir}/imgs/` | `imgs/NN-{type}-{slug}.png` |
+| `imgs-subdir` (default) | `{article-dir}/imgs/` | `imgs/NN-{type}-{slug}.png` |
 | `same-dir` | `{article-dir}/` | `NN-{type}-{slug}.png` |
 | `illustrations-subdir` | `{article-dir}/illustrations/` | `illustrations/NN-{type}-{slug}.png` |
-| `independent` | `illustrations/{topic-slug}/` | `illustrations/{topic-slug}/NN-{type}-{slug}.png`（相对于 cwd） |
+| `independent` | `illustrations/{topic-slug}/` | `illustrations/{topic-slug}/NN-{type}-{slug}.png` (relative to cwd) |
 
-所有辅助文件（大纲、prompt）保存在输出目录内：
+All auxiliary files (outline, prompts) are saved inside the output directory:
 
 ```
 {output-dir}/
@@ -169,25 +164,25 @@ Images: X/N generated
 └── NN-{type}-{slug}.png
 ```
 
-当输入为**粘贴内容**（无文件路径）时，始终使用 `illustrations/{topic-slug}/`，并将 `source-{slug}.{ext}` 保存在一起。
+When input is **pasted content** (no file path), always uses `illustrations/{topic-slug}/` with `source-{slug}.{ext}` saved alongside.
 
-**Slug**: 2-4 个单词，kebab-case。**冲突**: 追加 `-YYYYMMDD-HHMMSS`。
+**Slug**: 2-4 words, kebab-case. **Conflict**: append `-YYYYMMDD-HHMMSS`.
 
-## 修改
+## Modification
 
-| 操作 | 步骤 |
-|--------|--------|
-| 编辑 | 更新 prompt → 重新生成 → 更新引用 |
-| 添加 | 定位 → Prompt → 生成 → 更新大纲 → 插入 |
-| 删除 | 删除文件 → 移除引用 → 更新大纲 |
+| Action | Steps |
+|--------|-------|
+| Edit | Update prompt → Regenerate → Update reference |
+| Add | Position → Prompt → Generate → Update outline → Insert |
+| Delete | Delete files → Remove reference → Update outline |
 
-## 参考资料
+## References
 
-| 文件 | 内容 |
+| File | Content |
 |------|---------|
-| [references/workflow.md](references/workflow.md) | 详细流程 |
-| [references/usage.md](references/usage.md) | 命令语法 |
-| [references/styles.md](references/styles.md) | 风格画廊 |
-| [references/style-presets.md](references/style-presets.md) | 预设快捷方式（type + style） |
-| [references/prompt-construction.md](references/prompt-construction.md) | Prompt 模板 |
-| [references/config/first-time-setup.md](references/config/first-time-setup.md) | 首次设置 |
+| [references/workflow.md](references/workflow.md) | Detailed procedures |
+| [references/usage.md](references/usage.md) | Command syntax |
+| [references/styles.md](references/styles.md) | Style gallery + Palette gallery |
+| [references/style-presets.md](references/style-presets.md) | Preset shortcuts (type + style + palette) |
+| [references/prompt-construction.md](references/prompt-construction.md) | Prompt templates |
+| [references/config/first-time-setup.md](references/config/first-time-setup.md) | First-time setup |

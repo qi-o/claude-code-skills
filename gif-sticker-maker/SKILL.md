@@ -1,13 +1,13 @@
 ---
-github_url: https://github.com/MiniMax-AI/skills
-github_hash: d539494c46b723820535c09cc3adac61ad93bec6
 name: gif-sticker-maker
-description: >
-  Convert photos into animated GIF stickers with captions. Triggers (English): create GIF, sticker maker, cartoon stickers, GIF expression, emoji pack, animated avatar, photo to cartoon, Funko Pop, Pop Mart style. Triggers (Chinese): 制作GIF, 贴纸制作, 表情包制作, GIF动画, 卡通化, 动态贴纸, 头像动画, Funko风, 盲盒风。
-  Use when: user wants to create cartoon stickers, GIF expressions, emoji packs, animated avatars, or convert photos to Funko Pop / Pop Mart blind box style animations.
+description: |
+  Convert photos (people, pets, objects, logos) into 4 animated GIF stickers with captions.
+  Use when: user wants to create cartoon stickers, GIF expressions, emoji packs, animated avatars,
+  or convert photos to Funko Pop / Pop Mart blind box style animations.
+  Triggers: sticker, GIF, cartoon, emoji, expression pack, avatar animation.
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.2"
   category: creative-tools
   style: Funko Pop / Pop Mart
   output_format: GIF

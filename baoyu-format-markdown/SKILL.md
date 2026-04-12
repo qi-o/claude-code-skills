@@ -1,11 +1,7 @@
 ---
 name: baoyu-format-markdown
-description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. Outputs to {filename}-formatted.md. 触发词：格式化Markdown、格式化文章、添加frontmatter、format markdown。Do NOT use for content writing (use academic-writing-suite instead).
-version: 1.57.1
-github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 31b2929d1cc00b57dfd20571416ad2284145525f
-source: skills/baoyu-format-markdown
-license: MIT
+description: Formats plain text or markdown files with frontmatter, titles, summaries, headings, bold, lists, and code blocks. Use when user asks to "format markdown", "beautify article", "add formatting", or improve article layout. 触发词：格式化Markdown、格式化文章、添加frontmatter、format markdown。Outputs to {filename}-formatted.md. Do NOT use for content writing (use academic-writing-suite instead).
+version: 1.57.0
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-format-markdown
@@ -13,7 +9,6 @@ metadata:
       anyBins:
         - bun
         - npx
-  ref: refs/heads/main
 ---
 
 # Markdown Formatter
@@ -34,7 +29,38 @@ Scripts in `scripts/` subdirectory. `{baseDir}` = this SKILL.md's directory path
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md existence and load preferences. See [EXTEND.md loading procedure](../baoyu-article-illustrator/references/extend-preferences.md) for the full loading procedure and path priority.
+Check EXTEND.md existence (priority order):
+
+```bash
+# macOS, Linux, WSL, Git Bash
+test -f .baoyu-skills/baoyu-format-markdown/EXTEND.md && echo "project"
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-format-markdown/EXTEND.md" && echo "xdg"
+test -f "$HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md" && echo "user"
+```
+
+```powershell
+# PowerShell (Windows)
+if (Test-Path .baoyu-skills/baoyu-format-markdown/EXTEND.md) { "project" }
+$xdg = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { "$HOME/.config" }
+if (Test-Path "$xdg/baoyu-skills/baoyu-format-markdown/EXTEND.md") { "xdg" }
+if (Test-Path "$HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md") { "user" }
+```
+
+┌──────────────────────────────────────────────────────────┬───────────────────┐
+│                           Path                           │     Location      │
+├──────────────────────────────────────────────────────────┼───────────────────┤
+│ .baoyu-skills/baoyu-format-markdown/EXTEND.md            │ Project directory │
+├──────────────────────────────────────────────────────────┼───────────────────┤
+│ $HOME/.baoyu-skills/baoyu-format-markdown/EXTEND.md      │ User home         │
+└──────────────────────────────────────────────────────────┴───────────────────┘
+
+┌───────────┬───────────────────────────────────────────────────────────────────────────┐
+│  Result   │                                  Action                                   │
+├───────────┼───────────────────────────────────────────────────────────────────────────┤
+│ Found     │ Read, parse, apply settings                                               │
+├───────────┼───────────────────────────────────────────────────────────────────────────┤
+│ Not found │ Use defaults                                                              │
+└───────────┴───────────────────────────────────────────────────────────────────────────┘
 
 **EXTEND.md Supports**:
 
@@ -162,7 +188,7 @@ Whether or not a title already exists, always run the title optimization flow (u
 - Reader pain point or curiosity trigger
 - Most memorable metaphor or golden quote
 
-**Generate titles** using these formulas:
+**Generate titles** using formulas from `references/title-formulas.md`:
 
 1. Select the **2-3 best-matching hook formulas** based on the article's content, tone, and structure (see "When to pick each formula" in the reference)
 2. Generate **1-2 straightforward titles** (descriptive or declarative, no formula — clear and accurate)
@@ -183,7 +209,7 @@ Pick a title:
 Enter number, or type a custom title:
 ```
 
-Put the strongest hook first and mark it (recommended).
+Put the strongest hook first and mark it (recommended). See `references/title-formulas.md` for title principles and prohibited patterns.
 
 If first line is H1, extract to frontmatter and remove from body. If frontmatter already has `title`, include it as context but still generate fresh candidates.
 

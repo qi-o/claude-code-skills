@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/MiniMax-AI/skills
-github_hash: d539494c46b723820535c09cc3adac61ad93bec6
+github_hash: 678e3a5d0972c7f7ab2383eb8d317b2b6c62d6c6
 name: minimax-multimodal-toolkit
 description: >
   ADVANCED MiniMax media workflows — for complex needs beyond what mmx-cli handles directly. Triggers on (Chinese): 长视频制作, 多段视频拼接, 有声书制作, 多角色配音, 旁白+对话配音, 媒体格式转换, FFmpeg处理, 音视频剪辑合并, 高级语音克隆. Triggers on (English): long video, multi-scene video, audiobook narration, multiple voices, voice cloning, media format conversion, FFmpeg processing, audio/video concat or trim. For simple TTS, image, video, or music requests, use mmx-cli instead.

@@ -1,11 +1,7 @@
 ---
 name: baoyu-compress-image
 description: Compresses images to WebP (default) or PNG with automatic tool selection. Use when user asks to "compress image", "optimize image", "convert to webp", or reduce image file size. 触发词：压缩图片、转换WebP、图片压缩、compress image、convert to webp。Do NOT use for image editing or resizing.
-version: 1.56.2
-github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: 31b2929d1cc00b57dfd20571416ad2284145525f
-source: skills/baoyu-compress-image
-license: MIT
+version: 1.56.1
 metadata:
   openclaw:
     homepage: https://github.com/JimLiu/baoyu-skills#baoyu-compress-image
@@ -13,7 +9,6 @@ metadata:
       anyBins:
         - bun
         - npx
-  ref: refs/heads/main
 ---
 
 # Image Compressor
@@ -30,7 +25,38 @@ Scripts in `scripts/` subdirectory. `{baseDir}` = this SKILL.md's directory path
 
 ## Preferences (EXTEND.md)
 
-Check EXTEND.md existence and load preferences. See [EXTEND.md loading procedure](../baoyu-article-illustrator/references/extend-preferences.md) for the full loading procedure and path priority.
+Check EXTEND.md existence (priority order):
+
+```bash
+# macOS, Linux, WSL, Git Bash
+test -f .baoyu-skills/baoyu-compress-image/EXTEND.md && echo "project"
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/baoyu-skills/baoyu-compress-image/EXTEND.md" && echo "xdg"
+test -f "$HOME/.baoyu-skills/baoyu-compress-image/EXTEND.md" && echo "user"
+```
+
+```powershell
+# PowerShell (Windows)
+if (Test-Path .baoyu-skills/baoyu-compress-image/EXTEND.md) { "project" }
+$xdg = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { "$HOME/.config" }
+if (Test-Path "$xdg/baoyu-skills/baoyu-compress-image/EXTEND.md") { "xdg" }
+if (Test-Path "$HOME/.baoyu-skills/baoyu-compress-image/EXTEND.md") { "user" }
+```
+
+┌────────────────────────────────────────────────────────┬───────────────────┐
+│                          Path                          │     Location      │
+├────────────────────────────────────────────────────────┼───────────────────┤
+│ .baoyu-skills/baoyu-compress-image/EXTEND.md           │ Project directory │
+├────────────────────────────────────────────────────────┼───────────────────┤
+│ $HOME/.baoyu-skills/baoyu-compress-image/EXTEND.md     │ User home         │
+└────────────────────────────────────────────────────────┴───────────────────┘
+
+┌───────────┬───────────────────────────────────────────────────────────────────────────┐
+│  Result   │                                  Action                                   │
+├───────────┼───────────────────────────────────────────────────────────────────────────┤
+│ Found     │ Read, parse, apply settings                                               │
+├───────────┼───────────────────────────────────────────────────────────────────────────┤
+│ Not found │ Use defaults                                                              │
+└───────────┴───────────────────────────────────────────────────────────────────────────┘
 
 **EXTEND.md Supports**: Default format | Default quality | Keep original preference
 

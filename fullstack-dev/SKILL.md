@@ -1,6 +1,4 @@
 ---
-github_url: https://github.com/MiniMax-AI/skills
-github_hash: d539494c46b723820535c09cc3adac61ad93bec6
 name: fullstack-dev
 description: |
   Full-stack backend architecture and frontend-backend integration guide.
@@ -14,7 +12,7 @@ description: |
 license: MIT
 metadata:
   category: full-stack
-  version: "1.1.0"
+  version: "1.0.0"
   sources:
     - The Twelve-Factor App (12factor.net)
     - Clean Architecture (Robert C. Martin)
