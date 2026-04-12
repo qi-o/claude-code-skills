@@ -1,0 +1,16 @@
+{
+  "last_updated": "2026-04-12T20:32:50.119620",
+  "preferences": [
+    "MCP工具（ai4scholar search_google_scholar/search_semantic/web_reader/fff）优先于WebSearch，调研Agent必须在prompt中指定具体MCP工具而非泛指搜索",
+    "OMC类型化Agent必须使用：Phase 1用executor（需写文件）、Phase 4用verifier（独立审查）、Phase 5用code-reviewer+verifier，不用通用subagent",
+    "所有Python脚本必须在Windows GBK控制台下安全输出——用io.TextIOWrapper包装stdout/stderr为UTF-8，或避免使用emoji字符",
+    "多Agent工作流必须包含上下文预算管理——明确每个阶段的context层级（PEAK/GOOD/DEGRADING），DEGRADING时委托新subagent而非继续载入"
+  ],
+  "fixes": [
+    "download_subtitles.sh第27行引用了未创建的/tmp/.ytdlp_marker文件导致判断逻辑永远失败——已转为Python脚本(download_subtitles.py)用文件集合差分替代marker机制",
+    "quality_check.py在Windows上因GBK编码无法输出emoji字符（U+274C U+2705）而UnicodeEncodeError崩溃——已在脚本头部添加sys.stdout=io.TextIOWrapper(sys.stdout.buffer, encoding=utf-8)",
+    "skill-template.md缺少Agentic Protocol段落导致Phase 3构建的Skill遗漏关键组件——已补完整3-Step骨架（问题分类/研究/回答）",
+    "Agent超时处理过于简单（3行）无法覆盖真实偏差场景——已替换为6种偏差类型+3+偏差升级规则+架构变更STOP规则"
+  ],
+  "custom_prompts": "在优化任何已有skill时，先做系统性差距分析（列出当前skill vs 用户工作流生态的断层），再按优先级批量修复，最后用该skill自带的quality_check脚本验证。不要逐个猜问题——先诊断全局，再手术式定点修复。"
+}

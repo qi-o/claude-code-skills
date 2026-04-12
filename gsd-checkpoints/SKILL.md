@@ -179,3 +179,14 @@ Implement → Run automated tests → Verify must_haves (per goal-verification.m
                                               Approved → Continue
                                               Issues → Fix → Re-verify → New checkpoint
 ```
+
+
+## User-Learned Best Practices & Constraints
+
+> **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
+
+### Known Fixes & Workarounds
+- OMC 更新不会覆盖 ~/.claude/rules/ 下的文件（installer 零代码路径写入此目录）——创建新规则文件是安全的
+- OMC 的 prunePluginDuplicateAgents() 仅匹配 plugin agent 名称 + OMC frontmatter 的文件——用户自定义 agent 文件保留，修改 verifier.md/planner.md/executor.md 是安全的
+- Codex review 发现的关键冲突模式：新规则的自动修复上限（3次）必须与 independent-review.md 的 3x retry 规则对齐，不能写成 move on 而要写成 STOP and escalate
+- Rule 2 Missing from plan 的 YAGNI 边界：只有 spec/user request 明确提过的才能 auto-add，agent 自己推断的需求要问用户确认

@@ -12,7 +12,12 @@
 
 import sys
 import re
+import io
 from pathlib import Path
+
+# Windows 控制台 UTF-8 输出兼容
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 
 def check_mental_models(content: str) -> tuple[bool, str]:
@@ -101,6 +106,42 @@ def check_primary_sources(content: str) -> tuple[bool, str]:
     return passed, f"一手来源占比: {primary}/{total} ({ratio:.0%}) {'✅' if passed else '❌ (应>50%)'}"
 
 
+def check_agentic_protocol(content: str) -> tuple[bool, str]:
+    """检查Agentic Protocol是否存在且完整"""
+    has_protocol = bool(re.search(r'回答工作流|Agentic Protocol', content, re.IGNORECASE))
+    if not has_protocol:
+        return False, "❌ 未找到Agentic Protocol section"
+
+    # 检查3个Step是否都存在
+    steps_found = sum(1 for step in ['Step 1', 'Step 2', 'Step 3'] if step in content)
+    if steps_found < 3:
+        return False, f"❌ Agentic Protocol不完整（{steps_found}/3 Steps）"
+
+    # 检查是否有具体的研究维度（而非占位符）
+    has_research_dims = bool(re.search(r'研究维度|搜索方向|关注.*点', content, re.IGNORECASE))
+    if not has_research_dims:
+        return False, "⚠️ Agentic Protocol存在但缺少具体研究维度（可能未填充）"
+
+    return True, "Agentic Protocol完整（3 Steps + 研究维度） ✅"
+
+
+def check_source_blacklist(content: str) -> tuple[bool, str]:
+    """检查是否遵守信息源黑名单（不应出现知乎/微信公众号作为来源）"""
+    blacklist = ['zhihu.com', 'weixin.qq.com', 'mp.weixin', 'baike.baidu.com']
+    violations = [b for b in blacklist if b.lower() in content.lower()]
+    if violations:
+        return False, f"❌ 发现黑名单来源: {', '.join(violations)}"
+    return True, "无黑名单来源 ✅"
+
+
+def check_research_dir_exists(content: str) -> tuple[bool, str]:
+    """检查是否引用了 references/research/ 目录"""
+    has_ref = bool(re.search(r'references/research/', content))
+    if not has_ref:
+        return False, "❌ 未引用 references/research/ 目录"
+    return True, "引用了研究目录 ✅"
+
+
 def main():
     if len(sys.argv) < 2:
         print("用法: python3 quality_check.py <SKILL.md路径>")
@@ -120,6 +161,9 @@ def main():
         ("诚实边界", check_honest_boundary),
         ("内在张力", check_tensions),
         ("一手来源占比", check_primary_sources),
+        ("Agentic Protocol", check_agentic_protocol),
+        ("黑名单来源", check_source_blacklist),
+        ("研究目录引用", check_research_dir_exists),
     ]
 
     print(f"质量检查: {skill_path.name}")
