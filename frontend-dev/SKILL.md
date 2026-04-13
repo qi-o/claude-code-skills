@@ -163,8 +163,19 @@ project/
 ---
 
 ## Workflow
+### Phase 0: Design System Discovery
+1. Check for `DESIGN.md` in project root — if present, it overrides all default design dials
+2. Extract design tokens from DESIGN.md sections:
+   - Section 2 (Color Palette) → CSS custom properties / Tailwind theme extension
+   - Section 3 (Typography) → Font imports + Tailwind font config
+   - Section 4 (Components) → Component styling baseline
+   - Section 5 (Layout) → Spacing scale + grid config
+   - Section 6 (Depth) → Shadow tokens
+3. Generate `tailwind.config` theme extension from extracted tokens
+4. If no DESIGN.md exists, proceed with default design dials below
+
 ### Phase 1: Design Architecture
-1. Analyze the request — determine page type and context
+1. Analyze the request — determine page type and context. If DESIGN.md was found in Phase 0, all design decisions derive from it.
 2. Set design dials based on page type
 3. Plan layout sections and identify asset needs
 
@@ -200,7 +211,7 @@ Run final checklist (see Quality Gates section).
 | MOTION_INTENSITY | 6 | 1=Static, 10=Cinematic |
 | VISUAL_DENSITY | 4 | 1=Airy, 10=Packed |
 
-Adapt dynamically based on user requests.
+Adapt dynamically based on user requests. When DESIGN.md is present, derive dial values from its Visual Theme & Atmosphere section.
 
 ## 1.2 Architecture Conventions
 - **DEPENDENCY VERIFICATION:** Check `package.json` before importing any library. Output install command if missing.
@@ -269,6 +280,8 @@ When brand styling is active:
 - Dark: `#141413`, Light: `#faf9f5`, Mid: `#b0aea5`, Subtle: `#e8e6dc`
 - Accents: Orange `#d97757`, Blue `#6a9bcc`, Green `#788c5d`
 - Fonts: Poppins (headings), Lora (body)
+
+**DESIGN.md Override:** When a project-level `DESIGN.md` exists, it supersedes the hardcoded brand values above. Extract colors, fonts, and spacing from the DESIGN.md sections 2-6 and generate Tailwind config accordingly. The DESIGN.md is the single source of truth for the project's visual identity.
 
 ---
 

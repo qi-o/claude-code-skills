@@ -3,6 +3,7 @@ name: web-design-guidelines
 description: |
   Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", "check my site against best practices", "检查可访问性", "审查界面", "UI审查", "检查组件的可访问性", "审查一下这个页面", "a11y check", "accessibility audit".
   Do NOT use for general code review unrelated to UI/UX (use code-reviewer instead).
+  Also verifies DESIGN.md compliance when the project has a DESIGN.md file (9-section visual design system format).
 github_url: https://github.com/vercel-labs/agent-skills
 github_hash: 73140fc5b3a214ad3222bcf557b397b3c02d11c1
 version: 1.4.0
@@ -163,6 +164,25 @@ Review src/components/*.tsx for web design guidelines
 - Second person voice
 - `&` over "and" where space-constrained
 
+### 17. DESIGN.md Compliance (when present)
+
+When the project contains a `DESIGN.md` in its root, additionally check:
+
+- Color values in CSS/Tailwind match DESIGN.md Section 2 (Color Palette)
+- Font families match DESIGN.md Section 3 (Typography Rules)
+- Component states (hover/active/disabled) match DESIGN.md Section 4 (Component Stylings)
+- Spacing values follow the scale defined in DESIGN.md Section 5 (Layout Principles)
+- Shadow/elevation tokens match DESIGN.md Section 6 (Depth & Elevation)
+- Implementation respects all items in DESIGN.md Section 7 (Do's and Don'ts)
+- Responsive breakpoints match DESIGN.md Section 8 (Responsive Behavior)
+- No hardcoded color values that bypass the design system tokens
+
+**Verification workflow:**
+1. Check if `DESIGN.md` exists in project root
+2. If yes, parse its color palette, typography, and component specs
+3. Cross-reference implemented CSS/Tailwind values against DESIGN.md tokens
+4. Flag any deviations as `DESIGN.md drift: expected [X] from DESIGN.md Section [N], found [Y]`
+
 ## Anti-patterns to Flag
 
 These patterns should be flagged during review:
@@ -180,6 +200,7 @@ These patterns should be flagged during review:
 | Icon buttons without `aria-label` | Screen readers can't identify |
 | Hardcoded date/number formats | i18n issue |
 | Unjustified `autoFocus` | Problematic on mobile |
+| Colors/fonts not from DESIGN.md | Design system drift when DESIGN.md exists |
 
 ## Output Format
 

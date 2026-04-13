@@ -1,4 +1,4 @@
----
+﻿---
 name: frontend-design
 description: >
   Create distinctive, production-grade frontend interfaces with high design quality. Triggers (English): build web components, create website, landing page, dashboard, React component, web UI, styling, beautify, frontend design, web design. Triggers (Chinese): 前端开发, 网页设计, 制作网页, 创建网站, 做界面, 前端UI, React组件, 样式美化, Web开发, 做前端。
@@ -32,6 +32,63 @@ Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
 - Visually striking and memorable
 - Cohesive with a clear aesthetic point-of-view
 - Meticulously refined in every detail
+
+
+## DESIGN.md System
+
+DESIGN.md is a standardized format for capturing complete visual design systems in markdown — directly consumable by AI agents. It complements CLAUDE.md (code behavior) and AGENTS.md (build behavior) with the visual/aesthetic layer.
+
+### Reading DESIGN.md
+
+When a project contains a `DESIGN.md` in its root:
+1. **Read it first** — DESIGN.md overrides all default aesthetic choices below
+2. **Extract design tokens** — colors, typography, spacing, elevation from the spec
+3. **Follow component patterns** — buttons, cards, inputs must match the spec's states and styles
+4. **Respect Do's and Don'ts** — the spec's guardrails take precedence over this skill's defaults
+5. **Use Agent Prompt Guide** — Section 9 of DESIGN.md contains ready-to-use color references
+
+### Generating DESIGN.md
+
+When no DESIGN.md exists and the user wants a design system, generate one following the 9-section schema:
+
+| # | Section | What to Define |
+|---|---------|---------------|
+| 1 | **Visual Theme & Atmosphere** | Mood descriptor, design density, overall philosophy (e.g., "void-black canvas, emerald accent, terminal-native") |
+| 2 | **Color Palette & Roles** | Semantic name + hex + functional role for each color. Include: primary, secondary, accent, background, surface, text, muted, border, error, success, warning |
+| 3 | **Typography Rules** | Font families (display + body), full size hierarchy table (h1-h6, body, caption, overline), line-height, letter-spacing, font-weight |
+| 4 | **Component Stylings** | Buttons (primary/secondary/ghost + hover/active/disabled states), cards, inputs, navigation, badges, tooltips with exact CSS values |
+| 5 | **Layout Principles** | Spacing scale (4px base or 8px base), grid system, max-width, whitespace philosophy, container padding |
+| 6 | **Depth & Elevation** | Shadow system (sm/md/lg/xl), surface hierarchy (background → surface → elevated → overlay), border treatments |
+| 7 | **Do's and Don'ts** | Design guardrails: what to always do, what to never do, specific anti-patterns for this brand |
+| 8 | **Responsive Behavior** | Breakpoints table, touch target minimums (44px), collapsing strategy (stack/hide/drawer), mobile-specific overrides |
+| 9 | **Agent Prompt Guide** | Quick color reference block for copy-paste, ready-to-use Tailwind/CSS variable declarations, example prompts |
+
+### Brand Mood Vocabulary
+
+Use evocative compound descriptors to capture design identity in minimal tokens:
+
+**By archetype:**
+- **Luxury/Premium**: "cinema-black canvas, monochrome austerity, monumental display type"
+- **Technical/Developer**: "terminal-first, monochrome simplicity, code-forward"
+- **Editorial/Content**: "paper-white broadsheet density, custom serif, ink-blue links"
+- **Playful/Friendly**: "playful gradients, friendly aesthetic, rounded surfaces"
+- **Fintech/Trust**: "clean blue identity, trust-focused, institutional feel"
+- **Cinematic/Media**: "dark cinematic UI, media-rich layout, waveform aesthetics"
+- **Minimal/Precise**: "black and white precision, radical subtraction, systematic typography"
+- **Bold/Energetic**: "bold dark interface, neon accents, high-contrast surfaces"
+
+### Preview HTML Generation
+
+After generating a DESIGN.md, also generate a `preview.html` visual catalog containing:
+- Color swatches (all palette colors with hex labels)
+- Typography scale (all heading levels + body + caption rendered)
+- Button states (primary/secondary/ghost x default/hover/active/disabled)
+- Card examples (basic, with image, interactive)
+- Input states (default, focus, error, disabled)
+- Spacing scale visualization
+- Shadow/elevation examples
+
+Generate both light and dark variants (`preview.html` + `preview-dark.html`) when the design system includes dark mode.
 
 ## Frontend Aesthetics Guidelines
 
