@@ -578,3 +578,23 @@ Refine, don't add. Make it crisp. Polish into masterpiece.
 ---
 
 *React and Next.js are trademarks of Meta Platforms, Inc. and Vercel, Inc., respectively. Vue.js is a trademark of Evan You. Tailwind CSS is a trademark of Tailwind Labs Inc. Svelte and SvelteKit are trademarks of their respective owners. GSAP/GreenSock is a trademark of GreenSock Inc. Three.js, Framer Motion, Lottie, Astro, and all other product names are trademarks of their respective owners.*
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 资产生成 | Phase 3 前调用 MiniMax 生成图片/视频/音频 | 确认生成内容和数量，消耗 API 配额且不可撤销 |
+| DESIGN.md 覆盖 | Phase 0 检测到已有 DESIGN.md | 确认是追加更新还是完全覆盖现有设计 |
+| 技术栈选择 | 用户未指定框架/CSS方案/动画库时 | 确认技术选型，后续切换成本高 |
+| 重量级动效资源 | MOTION_INTENSITY >= 7 的动效需求 | 提示性能影响和移动端兼容性，确认是否降级 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| MiniMax API 失败 | 资产生成脚本返回非零退出码 | 跳过该资产继续构建，用占位符标记，最后统一重试 |
+| 依赖安装失败 | npm install 报错 | 检查 Node 版本兼容性，尝试删除 node_modules 重新安装 |
+| GSAP 与 Framer Motion 冲突 | 两者同时引入导致动画异常 | 移除 GSAP 依赖，统一使用 Framer Motion 实现所有动效 |
+| Tailwind v3/v4 语法不匹配 | 构建报错 class 无效 | 检测项目 Tailwind 版本，v4 使用 CSS-first 配置而非 tailwind.config.js |

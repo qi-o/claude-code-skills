@@ -1,9 +1,9 @@
 ---
 name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style × Palette three-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
-version: 1.57.0
+version: 1.58.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: bfdd64bd4ee0fc30dcfc089f0b83d2fdcbb16b6d
+github_hash: dcd0f81433490d85f72a0eae557a710ab34bc9b1
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:
@@ -191,3 +191,26 @@ When input is **pasted content** (no file path), always uses `illustrations/{top
 | [references/style-presets.md](references/style-presets.md) | Preset shortcuts (type + style + palette) |
 | [references/prompt-construction.md](references/prompt-construction.md) | Prompt templates |
 | [references/config/first-time-setup.md](references/config/first-time-setup.md) | First-time setup |
+
+---
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 风格与密度确认 | Step 3 Confirm Settings 阶段 | 确认 type/style/palette/density 选择，此决定影响所有后续生成且难以批量修改 |
+| Outline 审批 | Step 4 生成 outline.md 后 | 确认插图位置和视觉描述符合文章意图，避免生成后需要大量重绘 |
+| 首张图片确认 | Step 5 第一张图片生成后 | 确认风格/色调/构图满意后再批量生成其余图片 |
+
+---
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| EXTEND.md 不存在 | Pre-check 阶段未找到配置文件 | 阻断并运行 first-time-setup，完成后再继续 |
+| 图片生成失败 | 生成脚本返回错误或输出为空 | 检查 prompt 文件格式，修正后重试一次；仍失败则跳过该图并在 outline 中标记 |
+| 风格与类型不兼容 | 选择了 styles.md 中标记为不可用的组合 | 自动推荐兼容的替代风格，提示用户确认 |
+| 输出目录冲突 | 目标路径已有同名文件 | 自动追加时间戳后缀，避免覆盖已有图片 |

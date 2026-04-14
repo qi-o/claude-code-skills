@@ -300,3 +300,22 @@ Visual debugging methods — temporarily replace your output to diagnose issues.
 | Checker pattern (UV) | `col = vec3(mod(floor(uv.x*10.)+floor(uv.y*10.), 2.0));` | Verify UV distortion, seams |
 | Lighting only | `col = vec3(shadow);` or `col = vec3(ao);` | Isolate shadow/AO contributions |
 | Material ID | `col = palette(matId / maxMatId);` | Verify material assignment |
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 生成大型 shader | ray marching 步数 >128 或 FBM octaves >6 | 警告性能风险，确认是否降低参数 |
+| 多 pass 效果 | 需要创建 framebuffer ping-pong 结构 | 确认 WebGL2 兼容性需求，展示架构预览 |
+| 覆盖现有 HTML | 输出文件路径已存在 | 确认覆盖或另存为新文件名 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| GLSL 编译失败 | 浏览器控制台显示 shader compile error | 检查函数声明顺序、类型匹配、保留字冲突，参考 webgl-pitfalls 技巧文件 |
+| 白屏崩溃 | HTML 页面加载后全白无渲染 | 检查 JS 变量 TDZ 问题（let/const 声明顺序），检查 uniform 是否被优化为 null |
+| 着色器性能卡顿 | 浏览器帧率严重下降 | 降低循环步数、减少 FBM octaves、检查是否有无限循环 |
+| WebGL2 不支持 | getContext("webgl2") 返回 null | 回退提示用户升级浏览器，或简化 shader 去掉 #version 300 es 特性 |

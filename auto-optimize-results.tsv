@@ -1,0 +1,85 @@
+timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
+2026-04-14T19:30	baseline	webnovel-snapshot	-	37.2	baseline	-	D3:无错误恢复	dry_run
+2026-04-14T19:30	baseline	crewai-developer	-	38.4	baseline	-	D3:无API错误处理	dry_run
+2026-04-14T19:30	baseline	ducksearch	-	41.2	baseline	-	D3:无网络错误处理	dry_run
+2026-04-14T19:30	baseline	ai4scholar-integration	-	42.0	baseline	-	D3:无API失败处理	dry_run
+2026-04-14T19:30	baseline	baoyu-compress-image	-	42.4	baseline	-	D4:无覆盖确认	dry_run
+2026-04-14T19:30	baseline	qpcr-graphpad-formatter	-	42.8	baseline	-	D3:无CSV验证	dry_run
+2026-04-14T19:30	baseline	mcp-to-skill	-	43.3	baseline	-	D3:无转换失败处理	dry_run
+2026-04-14T19:30	baseline	webnovel-continue	-	43.6	baseline	-	D3:无InkOS失败恢复	dry_run
+2026-04-14T19:30	baseline	omc-reference	-	43.7	baseline	-	D3:纯静态目录无弹性	dry_run
+2026-04-14T19:30	baseline	scientific-schematics	-	45.4	baseline	-	D3:无API密钥错误处理	dry_run
+2026-04-14T19:30	baseline	frontend-design	-	45.6	baseline	-	D3:无预览生成错误处理	dry_run
+2026-04-14T19:30	baseline	treatment-plans	-	46.2	baseline	-	D3:无LaTeX编译失败处理	dry_run
+2026-04-14T19:30	baseline	webnovel-analyze	-	46.5	baseline	-	D3:无空结果处理	dry_run
+2026-04-14T19:30	baseline	pdf	-	46.6	baseline	-	D4:无merge/split前确认	dry_run
+2026-04-14T19:30	baseline	gene-database	-	47.0	baseline	-	D4:无决策检查点	dry_run
+2026-04-14T19:30	baseline	drugbank-database	-	47.2	baseline	-	D2:无有序步骤	dry_run
+2026-04-14T19:30	baseline	pdb-database	-	47.5	baseline	-	D4:无批量下载确认	dry_run
+2026-04-14T19:30	baseline	bioservices	-	47.5	baseline	-	D4:无长任务检查点	dry_run
+2026-04-14T19:30	baseline	biopython	-	48.1	baseline	-	D4:无批量下载检查点	dry_run
+2026-04-14T19:30	baseline	role-orchestrator	-	48.1	baseline	-	D5:agent提示词伪代码	dry_run
+2026-04-14T19:30	baseline	glm-grounding	-	48.3	baseline	-	D3:有限错误恢复	dry_run
+2026-04-14T19:30	baseline	webnovel-audit-gate	-	48.3	baseline	-	D3:无HALT恢复	dry_run
+2026-04-14T19:30	baseline	novel-downloader	-	48.6	baseline	-	D4:无TOS合规检查点	dry_run
+2026-04-14T19:30	baseline	reactome-database	-	49.0	baseline	-	D4:无大规模分析确认	dry_run
+2026-04-14T19:30	baseline	ensembl-database	-	49.0	baseline	-	D4:无VEP批量确认	dry_run
+2026-04-14T19:30	baseline	chatroom-debate	-	49.0	baseline	-	D3:无agent超时恢复	dry_run
+2026-04-14T19:30	baseline	research-to-diagram	-	49.1	baseline	-	D3:无工具失败fallback	dry_run
+2026-04-14T19:30	baseline	geo-database	-	49.4	baseline	-	D4:无大数据集下载确认	dry_run
+2026-04-14T19:30	baseline	uniprot-database	-	49.6	baseline	-	D4:无交互检查点	dry_run
+2026-04-14T19:30	baseline	webnovel-plan	-	49.6	baseline	-	D3:无CLI失败恢复	dry_run
+2026-04-14T19:30	baseline	webnovel-import	-	49.9	baseline	-	D6:硬编码路径	dry_run
+2026-04-14T19:30	baseline	ai-check-humanizer	-	50.6	baseline	-	D4:SOFT gate非阻塞	dry_run
+2026-04-14T19:30	baseline	skill-evolution-manager	-	50.8	baseline	-	D3:脚本失败静默	dry_run
+2026-04-14T19:30	baseline	webnovel-write	-	51.3	baseline	-	D4:无pipeline执行检查点	dry_run
+2026-04-14T19:30	baseline	hmdb-database	-	51.4	baseline	-	D2:描述性overview非步骤	dry_run
+2026-04-14T19:30	baseline	clinicaltrials-database	-	51.4	baseline	-	D4:无批量导出确认	dry_run
+2026-04-14T19:30	baseline	alphafold-database	-	51.6	baseline	-	D4:无GCS下载确认	dry_run
+2026-04-14T19:30	baseline	string-database	-	52.3	baseline	-	D4:无分析参数确认	dry_run
+2026-04-14T19:30	baseline	chrome-cdp	-	52.4	baseline	-	D3:无WebSocket断连恢复	dry_run
+2026-04-14T19:30	baseline	react-best-practices	-	52.4	baseline	-	D4:纯参考文档无检查点	dry_run
+2026-04-14T19:30	baseline	aria2-downloader	-	52.5	baseline	-	D3:无重试/超时处理	dry_run
+2026-04-14T19:30	baseline	gif-sticker-maker	-	52.6	baseline	-	D4:无API消费确认	dry_run
+2026-04-14T19:30	baseline	skill-manager	-	52.6	baseline	-	D3:最小错误处理	dry_run
+2026-04-14T19:30	baseline	clinical-reports	-	52.8	baseline	-	D4:无数据准确性验证	dry_run
+2026-04-14T19:30	baseline	pub-figures	-	52.9	baseline	-	D3/D4:无错误处理/检查点	dry_run
+2026-04-14T19:30	baseline	shader-dev	-	53.1	baseline	-	D4:无shader类型确认	dry_run
+2026-04-14T19:30	baseline	anndata	-	53.3	baseline	-	D3/D4:薄错误处理	dry_run
+2026-04-14T19:30	baseline	getnote	-	53.5	baseline	-	D4:无破坏性操作确认	dry_run
+2026-04-14T19:30	baseline	github-to-skills	-	53.5	baseline	-	D4:无写入前确认	dry_run
+2026-04-14T19:30	baseline	pydeseq2	-	54.3	baseline	-	D4:无计算确认	dry_run
+2026-04-14T19:30	baseline	paper-search	-	54.3	baseline	-	D4:无搜索结果确认	dry_run
+2026-04-14T19:30	baseline	manga-learning-creator	-	54.8	baseline	-	D3:无Gemini API失败处理	dry_run
+2026-04-14T19:30	baseline	clinvar-database	-	55.0	baseline	-	D4:无批量下载确认	dry_run
+2026-04-14T19:30	baseline	sync-to-github	-	55.0	baseline	-	D4:无commit前确认	dry_run
+2026-04-14T19:30	baseline	glm-caption	-	55.2	baseline	-	D3:无API fallback	dry_run
+2026-04-14T19:30	baseline	academic-writing-suite	-	55.2	baseline	-	D3:早期阶段无错误恢复	dry_run
+2026-04-14T19:30	baseline	frontend-dev	-	55.4	baseline	-	D3:无MiniMax API失败处理	dry_run
+2026-04-14T19:30	baseline	planning-with-files	-	55.5	baseline	-	D4:无显式用户确认门	dry_run
+2026-04-14T19:30	baseline	xlsx	-	55.5	baseline	-	D4:无覆盖模板确认	dry_run
+2026-04-14T19:30	baseline	write	-	55.6	baseline	-	D3:target调用失败无fallback	dry_run
+2026-04-14T19:30	baseline	web-design-guidelines	-	56.3	baseline	-	D4:无审查交付确认	dry_run
+2026-04-14T19:30	baseline	pydicom	-	56.6	baseline	-	D4/D3:无匿名化确认	dry_run
+2026-04-14T19:30	baseline	academic-typesetting	-	56.8	baseline	-	D4:无任务间确认	dry_run
+2026-04-14T19:30	baseline	fullstack-dev	-	56.8	baseline	-	D4:无架构决策中期检查点	dry_run
+2026-04-14T19:30	baseline	minimax-multimodal-toolkit	-	57.2	baseline	-	D4:无长video pipeline确认	dry_run
+2026-04-14T19:30	baseline	skill-creator	-	57.6	baseline	-	D4:无draft/test间检查点	dry_run
+2026-04-14T19:30	baseline	gsd-checkpoints	-	58.2	baseline	-	D3:无dev server启动失败恢复	dry_run
+2026-04-14T19:30	baseline	opentargets-database	-	58.3	baseline	-	D4:无工作流确认	dry_run
+2026-04-14T19:30	baseline	pptx	-	58.8	baseline	-	D3:无依赖安装失败处理	dry_run
+2026-04-14T19:30	baseline	scanpy	-	59.6	baseline	-	D4:无分析管道参数确认	dry_run
+2026-04-14T19:30	baseline	graphify	-	60.0	baseline	-	D4:无LLM提取前确认	dry_run
+2026-04-14T19:30	baseline	glmocr-sdk	-	60.2	baseline	-	D4:无批量处理成本确认	dry_run
+2026-04-14T19:30	baseline	kegg-database	-	60.4	baseline	-	D4:无工作流确认	dry_run
+2026-04-14T19:30	baseline	notebooklm	-	60.9	baseline	-	D4:无破坏性操作检查点	dry_run
+2026-04-14T19:30	baseline	windows-cleaner	-	61.5	baseline	-	D6:scripts目录为空	dry_run
+2026-04-14T19:30	baseline	docx	-	62.4	baseline	-	D3:auto-repair无fallback指导	dry_run
+2026-04-14T19:30	baseline	webnovel-init	-	62.8	baseline	-	D3:无部分创建回滚	dry_run
+2026-04-14T19:30	baseline	baoyu-format-markdown	-	63.2	baseline	-	D3:无脚本失败处理	dry_run
+2026-04-14T19:30	baseline	deep-research	-	64.5	baseline	-	D4:无研究前方向确认	dry_run
+2026-04-14T19:30	baseline	darwin-skill	-	65.4	baseline	-	D6:无scripts/references目录	dry_run
+2026-04-14T19:30	baseline	web-access	-	65.5	baseline	-	D4:浏览决策自主无确认	dry_run
+2026-04-14T19:30	baseline	huashu-nuwa	-	66.3	baseline	-	D3:agent超时无恢复脚本	dry_run
+2026-04-14T19:30	baseline	glm-pdf-to-ppt	-	66.5	baseline	-	D3:裁剪失败无fallback	dry_run
+2026-04-14T19:30	baseline	baoyu-article-illustrator	-	68.1	baseline	-	D3:图像生成失败无alt fallback	dry_run

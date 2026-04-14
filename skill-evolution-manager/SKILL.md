@@ -72,3 +72,24 @@ Agent 调用 `scripts/smart_stitch.py`，将 `evolution.json` 的内容转化为
 ### Known Fixes & Workarounds
 - SKILL.md 的 name 字段必须使用 kebab-case 格式，不能包含空格（如 skill-evolution-manager 而非 Skill Evolution Manager）
 - name 字段应与文件夹名保持一致，否则 Claude Code 无法正确识别 skill
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 写入 SKILL.md | `smart_stitch.py` 准备追加内容时 | 展示将要追加的内容摘要，确认用户同意修改 SKILL.md |
+| 修改 evolution.json | `merge_evolution.py` 合并新经验时 | 展示新增/变更的经验条目，确认后写入 |
+| 全量对齐 | `align_all.py` 批量更新所有 Skill 时 | 提示影响范围（哪些 Skill 会被修改），确认后执行 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 脚本执行失败 | merge_evolution.py 或 smart_stitch.py 返回非零退出码 | 检查 Python 环境和脚本路径，手动执行 JSON 合并和文档追加 |
+| SKILL.md 无写入权限 | 文件写入时报权限错误 | 提示用户检查文件权限，或手动复制生成的内容 |
+| evolution.json 格式损坏 | JSON 解析失败 | 从 SKILL.md 末尾的 User-Learned 章节反向重建 JSON |
+| 目标 Skill 不存在 | 指定的 skill_path 目录为空或缺少 SKILL.md | 列出可用的 Skill 目录供用户选择正确的路径 |
+
+**原则**：不要静默失败——报错时同时提供修复建议。

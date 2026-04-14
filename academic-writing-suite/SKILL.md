@@ -342,3 +342,23 @@ python ~/.claude/skills/academic-writing-suite/scripts/orchestrator.py status
 ### Custom Instruction Injection
 
 创建新 skill 时，确保 name 字段使用 kebab-case 格式并与文件夹名一致
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 跳过 Phase 2/3 直接到 Phase 4 | 用户要求跳过文献调研或提纲 | 警告缺少文献支撑和结构规划，确认风险后可继续 |
+| 提纲定稿 | Phase 3 提纲设计完成 | 展示完整提纲和图表规划，用户批准后才进入撰写 |
+| 文献筛选标准 | Phase 2 收集到大量文献 | 确认 L1/L2/L3 分级标准，确认核心文献列表 |
+| 最终输出格式 | Phase 5 格式转换前 | 确认目标格式（docx/pdf/latex）和模板要求 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| paper-search 脚本失败 | 搜索脚本返回非零退出码 | 检查网络连接和 API 配置，改用 deep-research 内置搜索 |
+| 参考文献不足 | Phase 2 结束时文献 <15 篇 | 扩大搜索关键词范围，补充搜索后重新筛选 |
+| 图表生成失败 | matplotlib/pub-figures 报错 | 检查 matplotlib 后端和数据格式，提供简化版图表 |
+| pandoc 转换失败 | Phase 5 格式转换报错 | 检查 pandoc 和 LaTeX 引擎安装，改用纯 Markdown 输出 |

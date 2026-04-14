@@ -1035,3 +1035,23 @@ This skill includes deep-dive references for specialized topics. Read the releva
 | Design database schema, indexes, migrations, multi-tenancy | [references/db-schema.md](references/db-schema.md) |
 | Auth flow (JWT bearer, token refresh, Next.js SSR, RBAC, middleware order) | [references/auth-flow.md](references/auth-flow.md) |
 | CORS config, env vars per environment, common CORS issues | [references/environment-management.md](references/environment-management.md) |
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 技术栈选择 | Step 0 需求收集后 | 确认语言/框架/数据库/认证方案，后续难以更改 |
+| 数据库迁移 | 运行 migrate 命令前 | 确认迁移 SQL 内容，避免生产数据丢失 |
+| 生产部署配置 | Step 4 部署前 | 确认环境变量、CORS 源、安全头配置 |
+| 外部服务集成 | 涉及第三方 API/SDK 时 | 确认 API Key 管理方式和费用影响 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 环境变量缺失 | 启动时 requiredEnv 抛错 | 提示用户创建 .env 文件，参考 .env.example 模板 |
+| 数据库连接失败 | 健康检查 /ready 返回 503 | 检查 DATABASE_URL 和连接池配置，提示启动数据库服务 |
+| 前后端连接失败 | CORS 错误或 API 不可达 | 检查 CORS 配置和 API_BASE_URL 环境变量 |
+| 迁移冲突 | migrate deploy 报错 | 检查迁移文件顺序，必要时回滚到上一版本 |

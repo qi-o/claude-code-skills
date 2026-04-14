@@ -150,3 +150,21 @@ All Python code examples are in `references/geo_reference.md`, including:
 - Rate limits: Without API key: 3 req/s; with key: 10 req/s
 - Missing annotations: Platform mappings may be outdated; verify gene symbols
 - Inconsistent metadata: Sample annotation varies across studies
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 大文件下载 | Series Matrix 文件 >100MB 或多数据集批量下载 | 告知预计下载大小和磁盘占用，确认存储路径和是否继续 |
+| 平台注释过时 | 平台注释中的基因符号与当前版本不一致 | 告知可能存在映射偏差，确认是否接受或使用更新的注释源 |
+| 数据集选择 | 搜索返回多个相关数据集 | 展示候选数据集的关键信息（样本数、平台、物种），请用户确认选择 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| GEO ID 不存在 | 404 错误或 GEOparse 解析失败 | 检查 GSE/GSM 编号格式；使用 Entrez 搜索验证正确编号 |
+| 速率限制触发 | HTTP 429 或 E-utilities 超时 | 添加 `time.sleep(0.34)` 间隔；申请 NCBI API Key 提升至 10 req/s |
+| 磁盘空间不足 | 下载写入失败或 OSError | 提前检查可用空间；切换到 FTP 流式下载或仅获取元数据 |

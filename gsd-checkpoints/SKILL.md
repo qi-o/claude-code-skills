@@ -190,3 +190,26 @@ Implement → Run automated tests → Verify must_haves (per goal-verification.m
 - OMC 的 prunePluginDuplicateAgents() 仅匹配 plugin agent 名称 + OMC frontmatter 的文件——用户自定义 agent 文件保留，修改 verifier.md/planner.md/executor.md 是安全的
 - Codex review 发现的关键冲突模式：新规则的自动修复上限（3次）必须与 independent-review.md 的 3x retry 规则对齐，不能写成 move on 而要写成 STOP and escalate
 - Rule 2 Missing from plan 的 YAGNI 边界：只有 spec/user request 明确提过的才能 auto-add，agent 自己推断的需求要问用户确认
+
+---
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| Checkpoint 类型选择 | 需要决定是 `human-verify`、`decision` 还是 `human-action` | 确认该步骤是否真正需要人工参与，避免将可自动化步骤误标为人工 |
+| 批量审批风险 | autopilot 模式自动审批 `human-verify` checkpoint | 如果任务涉及破坏性操作（删除数据、覆盖文件），即使 autopilot 模式也应暂停确认 |
+| 验证环境未就绪 | dev server 启动失败或测试数据库 seed 失败 | 确认是否跳过自动化验证直接展示 checkpoint，还是等待环境修复 |
+
+---
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| Dev server 启动失败 | `curl` 健康检查返回非 200 或超时 | 检查端口占用/依赖缺失，尝试修复；3 次失败后降级为 `human-action` checkpoint |
+| 自动化测试全部失败 | 测试套件 0 通过 | 不展示 checkpoint，直接报告失败并切换到调试模式 |
+| 用户长时间未响应 | checkpoint 等待超过合理时间 | 保存当前状态到 `.omc/state/`，提示用户可随时恢复 |
+| OMC 状态写入失败 | `state_write` 返回错误 | 检查 `.omc/state/` 目录权限，创建目录后重试；失败则仅保留内存状态 |

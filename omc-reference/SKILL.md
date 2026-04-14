@@ -139,3 +139,21 @@ Confidence: high
 Scope-risk: narrow
 Not-tested: End-to-end plugin marketplace install in a fresh Claude profile
 ```
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 模型选择 | 路由决策涉及 opus（高成本） | 确认任务复杂度是否需要 opus，或 sonnet 即可满足需求 |
+| Team 启动 | 使用 `/team` 或 `TeamCreate` 启动多 Agent 协作 | 确认 Agent 数量和角色分配，避免不必要的并行开销 |
+| 状态清理 | 使用 `state_clear` 清除活跃模式状态 | 确认要清除的模式（ralph/autopilot 等），操作不可逆 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| Agent 不可用 | subagent 调用返回 429 或权限错误 | 降级模型（opus→sonnet→haiku）或直接在主 Agent 中执行 |
+| 状态文件损坏 | `state_read` 返回异常 JSON 或空值 | 使用 `state_clear` 清除损坏状态，重新初始化模式 |
+| Skill 调用失败 | Skill 工具返回错误或超时 | 检查 skill 目录结构完整性；回退使用手动指令替代 skill 调用 |

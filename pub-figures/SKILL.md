@@ -421,3 +421,23 @@ add_panel_label(ax, 'A', x=-0.08)  # No y-labels
 - AutoFigure-Edit API 需要上传 PDF 文件，不是纯文本
 - deepScientist.cc 的 API 需要完整的 3 步流程：submit -> poll status -> download
 - 某些 API 需要额外的确认步骤（428 状态码），用户需要先在网页上确认扣费
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 数据源确认 | 生成图表前 | 确认原始数据文件路径和数据含义是否正确 |
+| 图表类型与布局 | 创建 GridSpec 布局前 | 确认面板数量、排列方式和图表类型是否符合期刊要求 |
+| 配色方案选择 | 应用调色板前 | 确认是否需要色盲友好配色，是否与目标期刊风格一致 |
+| 导出参数确认 | 保存 PDF/PNG 前 | 确认 DPI（600）、尺寸（单栏/双栏）、文件命名规范 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 中文字体缺失 | 图表中文显示为方块 | 设置 `plt.rcParams['font.sans-serif']` 包含中文字体（SimHei/Microsoft YaHei） |
+| 图表元素溢出 | savefig 后文字/标签被裁切 | 使用 `bbox_inches='tight'`，调整 subplot 参数（bottom/right margin） |
+| 数据维度不匹配 | 绑定数据到图表时 ValueError | 检查 DataFrame 列名与绘图参数是否一致，确认数据是否需要转置 |
+| 第三方 API 调用失败 | HTTP 非 200 或超时 | 检查 API 账户余额和端点 URL，回退到本地 matplotlib 渲染 |

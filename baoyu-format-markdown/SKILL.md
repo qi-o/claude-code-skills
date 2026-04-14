@@ -364,3 +364,23 @@ Adjust the report to reflect actual changes — omit categories where no changes
 ## Extension Support
 
 Custom configurations via EXTEND.md. See **Preferences** section for paths and supported options.
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 格式化模式选择 | 检测到已有 Markdown 格式时 | 优化格式 / 保留原格式 / 仅排版修复 |
+| 标题候选确认 | 生成 4-5 个标题候选后 | 用户选择一个候选或输入自定义标题 |
+| 原文修改执行 | Step 4 格式化前 | 确认分析报告中的修改计划是否准确 |
+| 排版脚本选项 | Step 6 运行脚本前 | 确认启用/禁用引号替换、CJK 间距等功能 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| bun/npx 均不可用 | `which bun` 和 `which npx` 均失败 | 提示用户安装 bun 或 Node.js，跳过 Step 6 排版脚本 |
+| EXTEND.md 解析失败 | 读取到非预期格式或无效键值 | 忽略该文件，使用默认配置继续 |
+| 输出文件已存在且无写权限 | `mv` 或写入操作返回 Permission denied | 提示用户检查文件权限，尝试写入备用文件名 |
+| 排版脚本运行异常 | 脚本退出码非零或输出含错误 | 查看错误日志，跳过失败的排版步骤，保留格式化内容 |

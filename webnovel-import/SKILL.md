@@ -155,3 +155,21 @@ inkos book list
 1. **开始续写**：`/webnovel-write` 或 `/webnovel-continue`
 2. **查看状态**：`inkos status <book-id>`
 3. **质量审查**：`inkos audit <book-id>`
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 导入模式选择 | 开始导入流程时 | 确认是"从零导入"还是"章节续写"，两种模式的后续操作不同 |
+| 章节编号规则 | `inkos import chapters` 无法自动识别编号 | 询问用户手动指定编号规则（文件名模式/标题提取/手动映射） |
+| Truth Files 覆盖 | 导入的设定与已有 Truth Files 冲突 | 展示冲突内容，请用户确认以导入版本为准还是保留已有版本 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| InkOS CLI 失败 | `inkos` 命令返回非零退出码 | 检查 InkOS 项目路径是否正确；手动创建目录结构并写入配置文件 |
+| 文件编码问题 | UnicodeDecodeError 或乱码 | 尝试 GBK/GB18030 编码重新读取；使用 chardet 自动检测编码 |
+| 导入后状态不一致 | `inkos status` 显示章节数与实际不符 | 运行 `inkos write sync` 逐章重建 Truth Files；手动修复 chapters/index.json |

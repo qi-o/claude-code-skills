@@ -167,3 +167,21 @@ python scripts/glm_grounding_cli.py --image-url $image --prompt $prompt --visual
 ## Common errors
 
 - **Coordinate values exceed 1000**: if extracted coordinate values are greater than 1000, the model may have produced unnormalized coordinates due to prompt effects. Extract the target phrase from the user request (for example, "people wearing Santa hats"), then query the model again and explicitly require output coordinates to be relative values normalized to 0-1000 based on image size (for example, "Please box all people wearing Santa hats in the image and tell me their coordinates. Ensure the output coordinates are relative values normalized to 0-1000 based on image size.").
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 视频目标跟踪 | 用户请求对视频进行目标追踪 | 告知视频处理耗时长且消耗 API 额度，确认视频时长和目标描述 |
+| 坐标超出范围 | 检测到坐标值 >1000 | 询问是否重新查询并要求归一化输出，还是接受当前结果 |
+| 可视化输出路径 | `--visualize` 将生成图片/视频文件 | 确认输出目录路径，避免覆盖已有文件 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| API Key 未配置 | 脚本启动时报 ZHIPU_API_KEY 缺失 | 运行 `python scripts/config_setup.py setup --api-key YOUR_KEY` 配置 |
+| 定位结果为空 | CLI 返回 `ok: True` 但 grounding_result 为空列表 | 优化 prompt 描述（更具体的目标描述）；检查图片是否包含目标物体 |
+| ffmpeg 缺失 | 视频可视化时报错 | 引导用户安装 ffmpeg；回退为仅输出逐帧坐标 JSON 而不生成视频 |

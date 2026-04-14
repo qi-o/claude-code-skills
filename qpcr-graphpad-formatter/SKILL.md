@@ -94,3 +94,24 @@ Data is saved to `GraphPad_Prism_Data.txt` in the same directory as the input CS
 - Fold change > 1.0: Upregulation
 - Fold change < 1.0: Downregulation
 - Values represent biological replicates (n=3 typical)
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 内参基因选择 | CSV 中未包含默认内参（RPLP0, HPRT1） | 确认用户指定的内参基因名称 |
+| 对照组识别 | `--control` 指定的组名在数据中不存在 | 列出数据中所有组名，请用户选择正确的对照组 |
+| 输出覆盖 | 输出文件 `GraphPad_Prism_Data.txt` 已存在 | 确认是否覆盖已有结果 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| CSV 列名不匹配 | 脚本报错缺少必需列（Sample/Group/Gene/Ct） | 展示 CSV 实际列名，提示用户调整格式或重命名列 |
+| 内参基因缺失 | 数据中找不到指定的内参基因 | 列出 CSV 中所有基因名，请用户指定正确的内参 |
+| Fold Change 计算异常 | 出现 NaN、Inf 或极端值（>1000） | 提示可能存在 Ct 值异常（如 undetermined），建议用户检查原始数据 |
+| Python 脚本执行失败 | 脚本返回非零退出码 | 检查 Python 环境和依赖（pandas），提供手动计算的公式和步骤 |
+
+**原则**：不要静默失败——报错时同时提供修复建议。

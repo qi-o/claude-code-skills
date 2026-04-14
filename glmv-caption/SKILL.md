@@ -203,3 +203,27 @@ ZHIPU_API_KEY not configured. Get your API key at: https://bigmodel.cn/usercente
 **File not found:** Local file missing → check path
 
 **Content filtered:** `warning` field present → content blocked by safety review
+
+---
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 批量文件处理 | 输入文件/图片数量 >10 | 确认继续，预估 API 调用次数和 token 消耗 |
+| 自定义 prompt 调整 | 用户提供了非默认的分析需求（如论文图表解读） | 确认自定义 prompt 是否准确描述了分析目标 |
+| 视频处理耗时 | 视频文件 >50MB 或时长 >5 分钟 | 提醒可能需要较长处理时间，确认继续 |
+
+---
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| API Key 未配置 | 脚本输出 `ZHIPU_API_KEY not configured` | 展示完整错误信息，引导用户到智谱开放平台获取 key |
+| 认证失败 | HTTP 401/403 响应 | 提示 key 无效或过期，引导用户重新配置 |
+| 速率限制 | HTTP 429 或 quota exhausted | 告知用户配额耗尽，等待后重试 |
+| 内容安全审查拦截 | 响应中 `warning` 字段存在 | 展示拦截原因，告知用户内容被安全策略过滤，建议修改输入 |
+| 文件格式不支持 | 脚本报错 unsupported format | 列出支持的格式（jpg/png/jpeg for images, mp4/mkv/mov for videos, pdf/docx/txt for files） |

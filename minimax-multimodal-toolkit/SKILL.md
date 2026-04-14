@@ -772,3 +772,23 @@ Read these for detailed API parameters, voice catalogs, and prompt engineering:
 - [image-api.md](references/image-api.md) — Image generation API: text-to-image, image-to-image, parameters
 - [video-api.md](references/video-api.md) — Video API: endpoints, models, parameters, camera instructions, templates
 - [video-prompt-guide.md](references/video-prompt-guide.md) — Video prompt engineering: formulas, styles, image-to-video tips
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 视频生成 | 调用 generate_video.sh（每次消耗 1-5 配额） | 确认 prompt 和分辨率（仅 768P），视频配额非常有限 |
+| 长视频（多段拼接） | 使用 generate_long_video.sh | 确认段数和总配额消耗，N 段 = N 次视频配额 |
+| 语音克隆 | 调用 voice clone/design | 确认音频样本来源和授权，克隆需要 10s-5min 音频 |
+| 批量图片生成 | -n 参数 >1 | 确认生成数量和风格一致性 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| API Key 未配置 | 脚本报错缺少 MINIMAX_API_KEY | 提示运行 `mmx auth login --api-key <key>` |
+| FFmpeg 不可用 | 媒体处理脚本报错 | 提示安装 FFmpeg（choco/brew/apt）；跳过 TTS 转换直接发送文件 |
+| 视频配额耗尽 | API 返回 plan quota 错误 | 提示用户当前计划限额，建议次日重试或升级计划 |
+| 长视频某段失败 | 多段拼接时中间段生成失败 | 跳过失败段继续拼接，或回退到已成功段的结果 |

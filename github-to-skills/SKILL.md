@@ -433,3 +433,23 @@ Time: 3 minutes 15 seconds
 - 三层分级目录结构已部署：.system/(12个) .curated/(14个) .experimental/(9个)，新技能默认归入 .experimental/
 - agents/claude.yaml 是必需文件，缺失时需根据 SKILL.md 生成（含 display_name/description/icon/triggers/category/tier）
 - Windows 下使用 mklink /J 创建兼容性 junction 不需要管理员权限
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 安装路径选择 | Step 6 生成 SKILL.md 后保存前 | 确认安装位置（项目本地 / 全局用户 / Claude 兼容） |
+| 覆盖已有 Skill | 目标路径已存在同名 Skill 时 | 展示差异（新增/修改/删除内容），确认是否覆盖 |
+| 批量转换执行 | 同时转换多个仓库前 | 展示所有仓库列表和目标路径，确认全部正确 |
+| 分层合规检查 | 安装完成后执行三层分级检查前 | 确认 Skill 分类层级（.system/.curated/.experimental） |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 仓库不可访问 | 所有镜像均返回非 200 响应 | 检查仓库 URL 是否正确、是否为私有仓库，尝试浏览器访问验证 |
+| README 缺失 | fetch_readme 返回空内容 | 回退到文件结构分析，基于代码推断功能（文档可能有限） |
+| AI 分析 LLM 不可用 | LLM API 调用失败或超时 | 基于 README 原文直接生成 SKILL.md（不经过 AI 分析） |
+| name 格式错误 | 生成的 name 包含空格或大写 | 自动转为 kebab-case，验证与目标文件夹名一致 |

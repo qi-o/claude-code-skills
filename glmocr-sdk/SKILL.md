@@ -421,3 +421,23 @@ For specialized hardware:
 - **`ZHIPU_API_KEY` not set**: SDK defaults to MaaS mode. Without a key, `parse()` will fail with a clear error message and quick-fix instructions. Set via `export ZHIPU_API_KEY=sk-xxx`, add to a `.env` file, or pass `--api-key sk-xxx` to the CLI.
 - **Large PDFs**: Default timeout is 600s. For very long documents increase with `timeout=1200`.
 - **`result.json_result` is a string**: Happens when the model returns malformed JSON. The SDK preserves the raw string — parse or log it manually.
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 批量文档解析 | 对目录下多个文件执行 glmocr parse 时 | 确认文件数量和预计 API 调用费用 |
+| PDF 页数过多 | 单个 PDF 超过 50 页时 | 提醒处理时间可能较长，建议增加 timeout 参数 |
+| 结果质量验证 | OCR 结果用于科研论文数据提取时 | 展示解析结果摘要，让用户确认表格/公式区域识别准确 |
+| 自托管模式切换 | 用户要求使用 selfhosted 模式时 | 确认本地已部署 vLLM/SGLang 服务且模型已加载 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| API Key 未配置 | SDK 报错 "ZHIPU_API_KEY not set" | 检查环境变量或 .env 文件，提示用户设置 `export ZHIPU_API_KEY=sk-xxx` |
+| 请求超时 | SDK 运行超过 timeout 限制 | 增大 timeout 参数（默认 600s，大文档设 1200s），或拆分文档分页处理 |
+| JSON 结果格式异常 | `result.json_result` 为字符串而非列表 | 手动 `json.loads()` 解析，或检查模型返回的原始内容 |
+| 图片分辨率不足 | 裁切区域文字模糊无法辨认 | 提高输入图片 DPI，或对 PDF 使用更高 DPI 转换 |

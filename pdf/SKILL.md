@@ -3,7 +3,7 @@ name: pdf
 description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill. Use when user says "转PDF", "PDF转换", "合并PDF", "拆分PDF", "PDF处理", or "PDF操作".
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 ---
 
 # PDF Processing Guide
@@ -314,3 +314,23 @@ with open("encrypted.pdf", "wb") as output:
 - For JavaScript libraries (pdf-lib), see REFERENCE.md
 - If you need to fill out a PDF form, follow the instructions in FORMS.md
 - For troubleshooting guides, see REFERENCE.md
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 覆盖已有 PDF | 输出文件路径已存在 | 确认覆盖或另存为新文件名 |
+| 合并大量 PDF | 合并文件数 >20 或总页数 >500 | 警告处理时间较长，确认继续 |
+| 加密/解密 PDF | 涉及密码保护操作 | 确认密码输入正确，解密后提醒重新加密 |
+| OCR 扫描件 | 对 >50 页的 PDF 执行 OCR | 警告耗时较长，建议分批处理 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 加密 PDF 无法读取 | PdfReader 抛出 PdfReadError | 提示用户输入密码，使用 qpdf --password 解密后重试 |
+| 表格提取失败 | pdfplumber 返回空列表 | 尝试调整表格提取参数，或改用 tabula-py |
+| OCR 语言包缺失 | pytesseract 抛出 TesseractNotFoundError | 引导安装 tesseract-ocr 和对应语言包 |
+| 大文件内存溢出 | 读取时 MemoryError | 使用 pdfplumber.open 逐页处理，避免一次性加载全部页面 |

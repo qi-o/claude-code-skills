@@ -297,3 +297,23 @@ Total skills: 25
 - Windows 下后台 agent Edit/Write 权限被阻止，批量 hash 更新应在主上下文直接执行而非委托给后台 agent
 - 活跃仓库在 scan 和 update 之间可能有新 commit，更新后需用 git ls-remote 重新验证 hash
 - 本地 SKILL.md 可能比上游更完整（上游代码更新但 SKILL.md 未同步），hash 不匹配不等于内容过时
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 批量更新 skill | 执行 batch-update 涉及 3+ 个 skill | 展示待更新列表和变更摘要，确认后才开始 |
+| 删除 skill | 用户要求删除 skill | 确认 skill 名称，警告删除不可恢复 |
+| 覆盖本地 SKILL.md | 上游有实质性变更需重写本地内容 | 展示 diff 摘要，确认混合策略或全量替换 |
+| Fusion skill 多源更新 | 次级源有更新需同步 | 展示各源变更内容，确认是否逐一应用 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| GitHub API 限流 | scan_and_check.py 返回 403 或 rate limit 错误 | 等待 Retry-After 时间后重试，或改用 git ls-remote |
+| 上游仓库结构变更 | curl 获取 README 路径返回 404 | 尝试 skills/ 子目录路径，或 git clone --sparse 获取 |
+| git hash 验证不一致 | 更新后 git ls-remote 显示新 commit | 重新拉取最新内容并更新 hash |
+| Windows 编码问题 | table 格式输出乱码 | 切换为 --format json，用 Python 解析结果 |

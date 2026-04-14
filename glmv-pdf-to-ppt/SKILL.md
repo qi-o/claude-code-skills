@@ -400,3 +400,23 @@ Each slide is a **standalone HTML file** — full `<html>…</html>` with embedd
 ## Language
 
 Match the PDF language. Chinese PDF → Chinese slides and summary. English → English. No mixing.
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 大纲生成后 | Phase 3 outline.json 写入前 | 展示幻灯片数量、标题列表、裁切计划，确认结构合理 |
+| 裁切结果验证 | Phase 4 子代理完成裁切后 | 逐一检查裁切图片是否正确捕获目标区域 |
+| 幻灯片风格选择 | Phase 6 生成 HTML 前 | 确认设计风格（配色、字体）是否符合用户偏好 |
+| 最终交付 | Phase 7 summary.md 生成后 | 确认所有幻灯片渲染正确、导航功能正常 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| PDF 转图片失败 | pdf_to_images.py 返回非零退出码或无输出 | 检查 pymupdf 是否已安装，确认 PDF 文件未损坏 |
+| 裁切坐标偏差 | 子代理裁切后验证发现区域不正确 | 调整 bounding box 坐标（缩小/扩大边距），重新运行 crop.py |
+| 幻灯片内容溢出 | HTML 中内容超出 1280x720 画布 | 减少 bullet points 数量（最多 5-6 条），缩小图片 max-height |
+| 依赖缺失 | ImportError: No module named 'fitz' 或 'PIL' | 执行 `pip install pymupdf pillow`，安装后重试 |

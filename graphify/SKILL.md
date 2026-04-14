@@ -1233,3 +1233,23 @@ graphify claude uninstall  # remove the section
 ### Custom Instruction Injection
 
 当用户说"语义层继续"时，检查 .graphify_semantic_new.json 是否存在。如果存在且有 nodes，直接进入 merge 阶段（AST + semantic → graph.json → recluster → rebuild HTML）。不要重新提取。每个 subagent 的输出必须写入 .graphify_semantic_batch_{N}.json 文件。pipeline cleanup 只在用户确认完整 pipeline 结束后才执行。
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 大型语料库处理 | 检测到 >200 文件或 >2M 词 | 提示选择子目录，避免 token 消耗过大 |
+| Neo4j 推送数据 | 使用 --neo4j-push 参数 | 确认数据库连接信息和凭据，推送使用 MERGE 可重复运行 |
+| Neo4j 导入 Cypher | 使用 --neo4j 生成 cypher.txt | 确认导入会创建节点和关系，建议先在测试库验证 |
+| --update 增量重建 | 文件发生变更后重新提取 | 展示变更文件列表，确认是否需要重新提取 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 子代理语义提取失败 | 某个 chunk 返回无效 JSON | 跳过失败 chunk，继续合并其他结果；>50% 失败则停止 |
+| graphify 未安装 | Python import 失败 | 自动执行 `pip install graphifyy -q` |
+| 图为空（0 节点） | Step 4 输出 ERROR: Graph is empty | 停止 pipeline，提示检查文件是否包含可提取内容 |
+| HTML 可视化节点过多 | 图有 >5000 节点 | 跳过 HTML 生成，建议使用 Obsidian vault 或 Neo4j |

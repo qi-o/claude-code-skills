@@ -3,7 +3,7 @@ name: docx
 description: "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation. Use when user says \"写文档\", \"Word文档\", \"docx转换\", \"生成Word\", \"Word文件\", or \"写Word\"."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 ---
 
 # DOCX creation, editing, and analysis
@@ -473,3 +473,23 @@ Validates with auto-repair, condenses XML, and creates DOCX. Use `--validate fal
 - **docx**: `npm install -g docx` (new documents)
 - **LibreOffice**: PDF conversion (auto-configured for sandboxed environments via `scripts/office/soffice.py`)
 - **Poppler**: `pdftoppm` for images
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 覆盖已有文档 | 输出路径已存在 .docx 文件 | 确认是否覆盖，建议先备份原文件 |
+| 添加 tracked changes | 在已有文档中插入修订 | 确认作者名称和修订范围 |
+| 大规模 XML 编辑 | 需要编辑 unpacked/ 中多个 XML 文件 | 确认编辑范围，避免意外修改样式定义 |
+| PDF 转换为图片 | 调用 pdftoppm 处理多页文档 | 确认输出格式和分辨率，多页文档可能生成大量文件 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| validate.py 校验失败 | pack 步骤输出 schema 违规警告 | 解包回 unpacked/，手动修复 XML 后重新 pack |
+| XML 格式损坏 | pack 后打开文档报错或内容丢失 | 回退到 unpack 之前的状态，检查 XML 编辑是否引入无效标签 |
+| LibreOffice 不可用 | soffice.py 调用失败 | 跳过 PDF 转换步骤，提示用户安装 LibreOffice |
+| docx-js npm 包缺失 | `require('docx')` 失败 | 提示运行 `npm install -g docx` |

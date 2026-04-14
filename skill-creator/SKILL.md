@@ -5,7 +5,7 @@ description: >
   Do NOT use for simple script running (use the relevant tool skill instead).
 license: MIT
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 ---
 
 # Skill Creator
@@ -488,3 +488,23 @@ Repeating one more time the core loop here for emphasis:
 Please add steps to your TodoList, if you have such a thing, to make sure you don't forget. If you're in Cowork, please specifically put "Create evals JSON and run `eval-viewer/generate_review.py` so human can review test cases" in your TodoList to make sure it happens.
 
 Good luck!
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 覆盖已有 Skill | 目标 Skill 目录已存在 | 确认是更新还是新建，避免覆盖用户手动修改 |
+| 描述优化循环 | 运行 description optimization loop | 确认 eval 查询集（20 条），此过程消耗大量 API 调用 |
+| 打包 Skill | 调用 package_skill.py | 确认输出路径和 Skill 名称 |
+| 测试用例数量 | 用户要求扩展测试集 | 确认新增用例的覆盖范围和预期行为 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| eval 子代理返回无效 JSON | grading 时解析失败 | 跳过该用例的量化评分，保留定性反馈 |
+| generate_review.py 无法启动 | 浏览器不可用或 display 缺失 | 使用 --static 参数输出独立 HTML 文件 |
+| description optimization 超时 | 循环未在 5 轮内收敛 | 取用当前最高分版本，提示用户手动调整 |
+| claude -p 不可用 | description optimization 依赖 CLI | 跳过自动优化，手动基于 eval 反馈改进描述 |

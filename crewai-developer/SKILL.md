@@ -125,3 +125,25 @@ crewai test                     # 测试团队
 - API 参考: https://docs.crewai.com/api-reference
 - GitHub: https://github.com/joaomdmoura/crewAI
 - 社区论坛: https://community.crewai.com/
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 安装 CrewAI | 用户环境未安装 crewai 包 | 确认安装方式（pip/uv）和是否安装全部扩展 |
+| 创建新项目 | 使用 `crewai create crew/flow` 初始化项目 | 确认项目名称和目录位置 |
+| 执行 Crew.kickoff() | 代码将触发 LLM API 调用 | 提示将产生 API 费用，确认使用的 LLM 提供商和 key 配置 |
+| 启用 human_input | Task 设置 `human_input=True` | 说明运行时将暂停等待人工输入 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| LLM API 密钥未配置 | kickoff 时报认证错误 | 提示设置 `OPENAI_API_KEY` 或 `ANTHROPIC_API_KEY` 环境变量 |
+| 依赖安装失败 | pip install 返回依赖冲突 | 建议使用 `uv pip install` 或创建独立虚拟环境 |
+| 任务执行超时 | 单个 Task 运行超过预期时间 | 检查 `max_rpm` 速率限制配置，建议增加 timeout 或简化 Task 描述 |
+| Flow 路由死循环 | @router 返回值无法匹配任何下游方法 | 检查路由函数返回值与 @listen 装饰器方法名的对应关系 |
+
+**原则**：不要静默失败——报错时同时提供修复建议。

@@ -3,7 +3,7 @@ name: xlsx
 description: "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved. Use when user says \"做表格\", \"Excel\", \"电子表格\", \"导出Excel\", \"表格处理\", or \"Excel表格\"."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 ---
 
 # Requirements for Outputs
@@ -292,3 +292,23 @@ The script returns JSON with error details:
 - Add comments to cells with complex formulas or important assumptions
 - Document data sources for hardcoded values
 - Include notes for key calculations and model sections
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 覆盖已有文件 | 输出文件路径已存在 | 确认是否覆盖，提示可另存为新文件名 |
+| 删除行/列/Sheet | 用户要求删除数据 | 确认删除范围，展示将被删除的内容摘要 |
+| 批量格式修改 | 需要修改多个单元格样式 | 确认修改范围和样式规则 |
+| 公式引用更改 | 修改被其他公式引用的单元格 | 警告依赖链影响，确认是否继续 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| LibreOffice recalc 失败 | scripts/recalc.py 返回 errors_found 或非零退出码 | 检查 error_summary 逐个修复公式错误，修复后重新运行 recalc |
+| 文件被占用/锁定 | openpyxl 写入时抛出 PermissionError | 提示用户关闭文件，或另存为新路径 |
+| 大文件内存溢出 | pandas 读取时 MemoryError | 切换为 openpyxl read_only=True 分块读取 |
+| 数据类型推断错误 | pd.read_excel 列类型不合预期 | 使用 dtype 参数显式指定列类型

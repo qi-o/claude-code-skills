@@ -224,3 +224,22 @@ inkos audit <book-id>
 | 章节完成，需要审查 | 使用 `webnovel-audit-gate` |
 | 审查通过，继续写 | 使用 `webnovel-continue` |
 | 保存进度 | 使用 `webnovel-snapshot` |
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| HIL 审核触发 | InkOS 返回 PAUSE_FOR_HIL 信号（P1 失败/anti-AI 失败/维度 < 70） | 展示具体问题，请用户选择 skip/modify/rollback/accept |
+| 草稿重写 | 审查分数极低或 critical 问题数量 >5 | 确认使用 rewrite 模式重写整章，而非仅 polish |
+| Craft 快照回滚 | craft state 异常需要回滚到上一个快照 | 确认回滚目标快照，说明将丢失快照之后的 craft 进展 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| InkOS 命令执行失败 | `inkos write next` 返回非零退出码或异常堆栈 | 运行 `inkos write repair-state <book-id>` 修复状态，再重试 |
+| 草稿质量不达标 | Auditor 评分低于 70 且存在 P1 级问题 | 使用 `inkos revise --mode rewrite` 重写，或回滚 craft snapshot |
+| Truth Files 未更新 | Validator 报告不一致或 craft_state.md 缺少新章记录 | 手动触发 `inkos analyze <book-id>` 补充更新 |
+| 状态损坏 | 连续 2 次 `inkos write next` 失败 | 使用 `webnovel-snapshot` 恢复到最近可用快照 |

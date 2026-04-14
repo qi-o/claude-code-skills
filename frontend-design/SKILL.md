@@ -5,7 +5,7 @@ description: >
   Use when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 version: 0.0.1
 secondary_sources:
   - name: react-best-practices
@@ -106,3 +106,24 @@ Interpret creatively and make unexpected choices that feel genuinely designed fo
 **IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
 
 Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 覆盖现有文件 | 生成的代码将写入已有项目文件 | 展示将被修改的文件列表，确认覆盖范围 |
+| 设计方向选择 | 存在多个合理的美学方向时 | 展示 2-3 个设计方向的核心特征，请用户选择 |
+| 第三方依赖引入 | 代码需要安装新的 npm 包或外部资源 | 列出依赖名称和用途，确认用户同意引入 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 框架/技术栈不匹配 | 用户指定了 React/Vue 但生成了纯 HTML | 重新确认技术栈要求，按指定框架重写 |
+| 生成的样式与 DESIGN.md 冲突 | 项目存在 DESIGN.md 但输出未遵循 | 重新读取 DESIGN.md 提取设计 token，按规范调整 |
+| 响应式布局失效 | 组件在移动端显示异常 | 检查断点设置和 media query，补充移动端适配 |
+| 字体/资源加载失败 | CDN 字体或外部资源不可用 | 替换为系统字体或本地资源，确保界面可用性 |
+
+**原则**：不要静默失败——报错时同时提供修复建议。

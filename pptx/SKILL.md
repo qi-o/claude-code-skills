@@ -3,7 +3,7 @@ name: pptx
 description: "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates, layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx filename, regardless of what they plan to do with the content afterward. If a .pptx file needs to be opened, created, or touched, use this skill. Use when user says \"做PPT\", \"PPT\", \"幻灯片\", \"演示文稿\", \"制作PPT\", or \"PPT制作\"."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
 ---
 
 # PPTX Skill
@@ -232,3 +232,22 @@ pdftoppm -jpeg -r 150 -f N -l N output.pdf slide-fixed
 - `npm install -g pptxgenjs` - creating from scratch
 - LibreOffice (`soffice`) - PDF conversion (auto-configured for sandboxed environments via `scripts/office/soffice.py`)
 - Poppler (`pdftoppm`) - PDF to images
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 模板覆盖写入 | 编辑已有 .pptx 文件且未指定输出路径时 | 确认直接修改原文件，还是另存为新文件 |
+| LibreOffice 转换 | 需要将 .pptx 转为 PDF/PNG 进行视觉 QA 时 | 确认系统已安装 LibreOffice，告知转换过程可能改变部分排版 |
+| 大量幻灯片生成 | 用户请求 20+ 张幻灯片的演示文稿 | 确认内容范围和优先级，建议分批生成并逐步 QA |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| markitdown 提取失败 | `python -m markitdown` 抛出异常或返回空内容 | 使用 `scripts/office/unpack.py` 解压 .pptx 直接读取 XML 内容 |
+| LibreOffice 不可用 | `soffice` 命令未找到或 PDF 转换失败 | 跳过视觉 QA，仅做内容 QA；或引导用户安装 LibreOffice |
+| pptxgenjs 脚本执行错误 | Node.js 报语法错误或模块缺失 | 运行 `npm install -g pptxgenjs` 确保依赖完整，检查 JS 语法 |
+| 占位符残留 | `markitdown | grep` 发现 xxxx/lorem ipsum 等占位文本 | 定位残留位置并替换为实际内容，重新运行 QA 验证 |

@@ -216,3 +216,21 @@ src/components/Modal.tsx:8 - Missing overscroll-behavior: contain
 
 - [Web Interface Guidelines Source](https://github.com/vercel-labs/web-interface-guidelines)
 - [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills)
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 审查范围确认 | 用户未指定具体文件或目录时 | 确认要审查的文件范围（避免扫描无关文件浪费时间） |
+| DESIGN.md 偏离处理 | 发现实现代码与 DESIGN.md 存在不一致时 | 确认是按 DESIGN.md 修正代码，还是 DESIGN.md 本身需要更新 |
+| 破坏性建议确认 | 建议涉及重命名组件、更改公共 API 或调整样式令牌时 | 确认用户接受这些变更对其他模块的影响 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| Guidelines 源 URL 不可达 | `fetch` 返回非 200 或超时 | 使用 skill 内置的 100+ 规则缓存进行离线审查，告知用户规则可能不是最新版本 |
+| DESIGN.md 解析失败 | frontmatter 缺失或 YAML 格式错误 | 跳过 DESIGN.md 合规检查，仅执行通用 Web Interface Guidelines 审查 |
+| 文件内容无法读取 | 权限拒绝或编码错误 | 跳过该文件，在报告中标注 `[SKIPPED]` 并说明原因 |

@@ -263,3 +263,22 @@ grep -rE '(sk-[a-zA-Z0-9_-]{20,}|ghp_[a-zA-Z0-9_-]{36,}|xox[bors]-[a-zA-Z0-9-]+)
 - GitHub fine-grained PAT 使用 github_pat_ 前缀（非 ghp_），SECRET_PATTERNS 必须同时覆盖 ghp_ 和 github_pat_ 两个前缀，否则会导致 token 泄露到公开仓库
 - plugins/cache 等被排除目录若已存在于目标仓库，shutil.copytree 在 Windows 上抛 FileExistsError——sync 前应先清理目标中的被排除目录，或在 mirror_tree 中对 excluded 目录做 skip 而非 copy
 - git commit 无变更时返回 exit code 1，脚本不应将此判定为 FAIL——应先 git diff --quiet 检查是否有变更，无变更则输出 SKIP 而非 FAIL
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 首次执行 | 仓库目录不存在，需要初始化 | 确认远程仓库 URL 和本地路径，展示将创建的目录结构 |
+| dry-run 预览结果 | 执行正式同步前 | 展示 dry-run 输出的完整变更列表（新增/修改/删除），确认无误后再执行 |
+| 敏感信息清理验证 | 同步完成后 | 建议运行 secret 检查命令确认无泄露，展示 grep 结果 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| 目标仓库不存在 | 脚本报 `[ERROR] not found` | 按照 SKILL.md 初始化步骤创建或克隆仓库 |
+| 敏感信息泄露 | grep 发现 sk-/ghp_/xox- 等模式 | 将对应模式加入脚本的 SECRET_PATTERNS 列表，重新运行同步 |
+| 文件被占用（Windows） | 脚本输出 `skipped (locked)` 或 `removed (partial)` | 关闭占用进程（编辑器、Claude Code），重新运行同步脚本 |
+| push 冲突 | GitHub Desktop pull 时出现 merge conflict | 以本地为准 `git checkout --ours`，重新运行同步脚本覆盖 |

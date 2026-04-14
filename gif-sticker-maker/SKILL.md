@@ -125,3 +125,24 @@ See [references/captions.md](references/captions.md) for multilingual caption de
 - Captions MUST come from [captions.md](references/captions.md) matching user's language column — never mix languages
 - All image prompts must be in **English** regardless of user language (only caption text is localized)
 - `<deliver_assets>` must be LAST in response, no text after
+
+## 用户确认检查点
+
+以下操作前**必须暂停并询问用户确认**：
+
+| 检查点 | 触发条件 | 确认内容 |
+|--------|---------|---------|
+| 自定义文案 | Step 0 询问用户是否自定义 caption | 确认使用默认文案或收集 4 条自定义短文案（1-3 词） |
+| 使用用户照片 | 检测到人物主体需要 `--subject-ref` | 确认照片路径和是否同意将面部 likeness 用于生成 |
+| API 调用开销 | 首次执行将调用 4 次图像 + 4 次视频 API | 提示将消耗 MiniMax API 额度，确认后开始 |
+
+## 错误处理与回退
+
+| 错误场景 | 检测信号 | 回退策略 |
+|---------|---------|---------|
+| MINIMAX_API_KEY 未配置 | 脚本报错缺少 API key | 提示设置环境变量，参考 `~/.claude/env.d/minimax.env` |
+| ffmpeg 不可用 | Step 3 MP4 转 GIF 失败 | 提示安装 ffmpeg，或提供手动转换命令 |
+| 图像生成质量不佳 | 生成结果与预期风格不符 | 调整 prompt 中的动作描述和风格关键词，重新生成单张 |
+| 视频生成超时或失败 | minimax_video.py 返回失败状态码 | 检查 API 响应中的 status_msg，降低 prompt 复杂度后重试 |
+
+**原则**：不要静默失败——报错时同时提供修复建议。
