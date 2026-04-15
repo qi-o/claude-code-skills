@@ -3,7 +3,7 @@ name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style × Palette three-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
 version: 1.58.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: dcd0f81433490d85f72a0eae557a710ab34bc9b1
+github_hash: e13092ba2af192ad70eb61e01bf2c988e8c7d6f7
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:

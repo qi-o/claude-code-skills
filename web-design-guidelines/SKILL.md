@@ -5,8 +5,8 @@ description: |
   Do NOT use for general code review unrelated to UI/UX (use code-reviewer instead).
   Also verifies DESIGN.md compliance when the project has a DESIGN.md file (9-section visual design system format).
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 73140fc5b3a214ad3222bcf557b397b3c02d11c1
-version: 1.4.0
+github_hash: 47863b24f8e22966bfcf8470debc7ba8c2c3b99c
+version: 1.5.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines
 author: vercel
 tags: [ui, ux, accessibility, a11y, web, design, review, audit]

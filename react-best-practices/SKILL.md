@@ -1,12 +1,12 @@
 ---
 name: react-best-practices
 description: |
-  React/Next.js 性能优化最佳实践。包含 67 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
+  React/Next.js 性能优化最佳实践。包含 70 条规则，覆盖异步优化、Bundle 优化、服务端性能、客户端数据获取、重渲染优化等 8 大类别。
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
   Do NOT use for non-React/Vue frameworks or backend code optimization.
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 73140fc5b3a214ad3222bcf557b397b3c02d11c1
-version: 1.4.0
+github_hash: 47863b24f8e22966bfcf8470debc7ba8c2c3b99c
+version: 1.5.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
 author: Vercel
 tags: [react, nextjs, performance, optimization, best-practices]
@@ -17,7 +17,7 @@ metadata:
 
 # Vercel React Best Practices
 
-React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 67 条规则，按优先级分为 8 大类别。
+React 和 Next.js 应用性能优化指南，来自 Vercel 工程团队。包含 70 条规则，按优先级分为 8 大类别。
 
 ## 触发条件
 
@@ -59,6 +59,7 @@ const [user, posts] = await Promise.all([
 | 规则 | 说明 |
 |------|------|
 | `bundle-barrel-imports` | 直接从源文件导入，避免 barrel 文件 |
+| `bundle-analyzable-paths` | 优先使用可静态分析的导入路径和文件系统路径，避免过大的 bundle 和 trace |
 | `bundle-dynamic-imports` | 对重型组件使用 `next/dynamic` |
 | `bundle-defer-third-party` | 在 hydration 后加载分析/日志 |
 | `bundle-conditional` | 仅在功能激活时加载模块 |
@@ -91,6 +92,8 @@ const HeavyChart = dynamic(() => import('./HeavyChart'), {
 | `server-parallel-fetching` | 重构组件以并行化获取 |
 | `server-after-nonblocking` | 使用 `after()` 进行非阻塞操作 |
 | `server-hoist-static-io` | 将静态 I/O（字体、logo）提升到模块级别 |
+| `server-no-shared-module-state` | 在 RSC/SSR 中避免模块级可变请求状态 |
+| `server-parallel-nested-fetching` | 对嵌套获取链使用 `Promise.all` 逐项并行 |
 
 **示例：**
 ```typescript
@@ -139,6 +142,8 @@ function Profile() {
 | `rerender-transitions` | 对非紧急更新使用 `startTransition` |
 | `rerender-use-ref-transient-values` | 对频繁变化的瞬态值使用 refs |
 | `rerender-no-inline-components` | 不要在组件内部定义组件 |
+| `rerender-split-combined-hooks` | 拆分有独立依赖的自定义 hooks |
+| `rerender-use-deferred-value` | 使用 `useDeferredValue` 延迟昂贵渲染，保持输入响应 |
 
 **示例：**
 ```typescript
@@ -201,6 +206,7 @@ function handleSearch(query: string) {
 | `js-set-map-lookups` | 使用 Set/Map 进行 O(1) 查找 |
 | `js-tosorted-immutable` | 使用 `toSorted()` 保持不可变性 |
 | `js-flatmap-filter` | 使用 flatMap 在一次遍历中完成 map 和 filter |
+| `js-request-idle-callback` | 将非关键工作延迟到浏览器空闲时间执行 |
 
 **示例：**
 ```typescript
@@ -279,6 +285,6 @@ startTransition(() => setState(newValue));
 
 | 错误场景 | 检测信号 | 回退策略 |
 |---------|---------|---------|
-| 规则源获取失败 | GitHub raw URL 不可达或返回非 200 | 使用 skill 内置的 67 条规则缓存进行离线审查，告知用户规则可能不是最新版本 |
+| 规则源获取失败 | GitHub raw URL 不可达或返回非 200 | 使用 skill 内置的 70 条规则缓存进行离线审查，告知用户规则可能不是最新版本 |
 | 项目框架不匹配 | 审查发现项目非 React/Next.js（如 Vue、Svelte） | 停止审查并建议用户使用对应框架的最佳实践 skill |
 | 规则误报 | 用户反馈某条规则不适用于其项目场景 | 记录豁免规则及原因，在后续审查中跳过该规则 |
