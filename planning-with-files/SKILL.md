@@ -29,9 +29,9 @@ hooks:
         - type: command
           command: "SD=\"${CLAUDE_SKILL_DIR:-${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/planning-with-files}}/scripts\"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$SD/check-complete.ps1\" 2>/dev/null || sh \"$SD/check-complete.sh\""
 metadata:
-  version: "2.30.1"
+  version: "2.34.0"
 github_url: https://github.com/OthmanAdi/planning-with-files
-github_hash: 32f3c1f9a93a67632b98e1461f2781732d6f7eca
+github_hash: 9f158bf6205d50c665c61338814fef84697b747b
 ---
 
 # Planning with Files
