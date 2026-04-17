@@ -107,10 +107,8 @@ case "$(uname -s)" in
     source "$SKILL_DIR/scripts/supervisor-macos.sh"
     ;;
   MINGW*|MSYS*|CYGWIN*)
-    # Windows detected via Git Bash / MSYS2 / Cygwin — delegate to PowerShell
-    echo "Windows detected. Delegating to supervisor-windows.ps1..."
-    powershell.exe -ExecutionPolicy Bypass -File "$SKILL_DIR/scripts/supervisor-windows.ps1" "$@"
-    exit $?
+    # shellcheck source=supervisor-windows.sh
+    source "$SKILL_DIR/scripts/supervisor-windows.sh"
     ;;
   *)
     # shellcheck source=supervisor-linux.sh
