@@ -5,12 +5,12 @@ description: >
   Use when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
-github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
+github_hash: 2c7ec5e78b8e5d43ea02e90bb8826f6b9f147b0c
 version: 0.0.1
 secondary_sources:
   - name: react-best-practices
     url: https://github.com/vercel-labs/agent-skills
-    hash: 47863b24f8e22966bfcf8470debc7ba8c2c3b99c
+    hash: ce3e64e468f8fa09a2d075d102771838061fdac0
 ---
 
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.

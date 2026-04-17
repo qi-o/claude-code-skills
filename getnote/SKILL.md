@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/iswalle/getnote-cli
-github_hash: ecf1e3ee45b270b9e0148927f917291a4810ca53
+github_hash: e54dc86a7f829a86b03365622c3daab52511720f
 name: Get笔记
 description: >
   Get笔记 - 通过 getnote CLI 保存、搜索、管理个人笔记和知识库。

@@ -5,7 +5,7 @@ description: |
   触发词：React 优化、Next.js 性能、代码审查、性能优化、bundle 优化、重渲染
   Do NOT use for non-React/Vue frameworks or backend code optimization.
 github_url: https://github.com/vercel-labs/agent-skills
-github_hash: 47863b24f8e22966bfcf8470debc7ba8c2c3b99c
+github_hash: ce3e64e468f8fa09a2d075d102771838061fdac0
 version: 1.5.0
 source: https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices
 author: Vercel

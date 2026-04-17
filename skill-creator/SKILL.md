@@ -5,7 +5,7 @@ description: >
   Do NOT use for simple script running (use the relevant tool skill instead).
 license: MIT
 github_url: https://github.com/anthropics/skills
-github_hash: 0f7c287eaf0d4fa511cb871bb55e2a7862251fbb
+github_hash: 2c7ec5e78b8e5d43ea02e90bb8826f6b9f147b0c
 ---
 
 # Skill Creator

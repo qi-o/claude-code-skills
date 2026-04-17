@@ -14,7 +14,7 @@ description: >
   PubMed/arXiv 排序优化、CLI 入口支持。基于 openags/paper-search-mcp 转换，无需 MCP 配置。
   Do NOT use for clinical trial searches (use clinicaltrials-database instead) or general web searches (use ducksearch instead).
 github_url: https://github.com/openags/paper-search-mcp
-github_hash: 6d1f7ef5bcb7cfa5905d50c42fd7b8a4c1c16afd
+github_hash: 3fc7f633c3c2cecae1569f98f25102d2684e09f7
 license: MIT
 allowed-tools: "Bash(python:*) WebFetch Read Write"
 version: 1.2.0
