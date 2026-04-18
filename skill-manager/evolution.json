@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-08T14:54:28.128913",
+  "last_updated": "2026-04-18T11:23:58.482586",
   "preferences": [
     "批量更新时优先显示过时的 skills",
     "推荐功能应标记已安装的 skills",
@@ -34,7 +34,10 @@
     "paper-search 更新采用混合策略：保留本地中文内容，合并上游新数据源和架构说明",
     "更新后版本号规则：新增数据源/功能升级用 minor 版本（1.0.0→1.1.0）",
     "GitHub MCP token 存储在 ~/.claude.json 而非 settings.json，扫描时也应验证 MCP 认证状态",
-    "批量更新时先用 scan_and_check.py 获取 JSON 结果，再用 node -e 解析字段，避免 Windows 下 table 格式编码问题"
+    "批量更新时先用 scan_and_check.py 获取 JSON 结果，再用 node -e 解析字段，避免 Windows 下 table 格式编码问题",
+    "上游吸收分析时先全面对比8项特性再决策，避免遗漏",
+    "混合更新策略：保留本地中文详细内容+合并上游新功能，而非全量替换",
+    "P0安全>P1治理>P2流程的优先级排序模式适用于所有上游吸收任务"
   ],
   "fixes": [
     "skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON",
@@ -73,7 +76,11 @@
     "token 过期表现为 MCP 返回 401，可通过 curl -H Authorization: Bearer $TOKEN https://api.github.com/user 验证",
     "Windows 下后台 agent Edit/Write 权限被阻止，批量 hash 更新应在主上下文直接执行而非委托给后台 agent",
     "活跃仓库在 scan 和 update 之间可能有新 commit，更新后需用 git ls-remote 重新验证 hash",
-    "本地 SKILL.md 可能比上游更完整（上游代码更新但 SKILL.md 未同步），hash 不匹配不等于内容过时"
+    "本地 SKILL.md 可能比上游更完整（上游代码更新但 SKILL.md 未同步），hash 不匹配不等于内容过时",
+    "Windows下scan_and_check.py table格式中文emoji编码异常，确认数据正确性永远用 --format json",
+    "Windows下curl通过管道传递JSON给Python需保存到文件再读取避免编码问题",
+    "Windows下Node.js不认 /dev/stdin 和 /dev/stderr，PostToolUse hook必须用Promise stdin + process.stderr.write",
+    "hooks.json中$HOME不展开，必须用绝对Windows路径如 C:\\Users\\ZDS\\..."
   ],
-  "custom_prompts": ""
+  "custom_prompts": "上游项目分析时先用 git clone --sparse 获取文件结构，再用 curl 从 raw.githubusercontent.com 获取具体文件内容，避免浅克隆遗漏子目录"
 }

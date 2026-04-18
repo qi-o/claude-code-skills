@@ -258,6 +258,9 @@ Total skills: 25
 - 更新后版本号规则：新增数据源/功能升级用 minor 版本（1.0.0→1.1.0）
 - GitHub MCP token 存储在 ~/.claude.json 而非 settings.json，扫描时也应验证 MCP 认证状态
 - 批量更新时先用 scan_and_check.py 获取 JSON 结果，再用 node -e 解析字段，避免 Windows 下 table 格式编码问题
+- 上游吸收分析时先全面对比8项特性再决策，避免遗漏
+- 混合更新策略：保留本地中文详细内容+合并上游新功能，而非全量替换
+- P0安全>P1治理>P2流程的优先级排序模式适用于所有上游吸收任务
 
 ### Known Fixes & Workarounds
 - skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON
@@ -297,23 +300,11 @@ Total skills: 25
 - Windows 下后台 agent Edit/Write 权限被阻止，批量 hash 更新应在主上下文直接执行而非委托给后台 agent
 - 活跃仓库在 scan 和 update 之间可能有新 commit，更新后需用 git ls-remote 重新验证 hash
 - 本地 SKILL.md 可能比上游更完整（上游代码更新但 SKILL.md 未同步），hash 不匹配不等于内容过时
+- Windows下scan_and_check.py table格式中文emoji编码异常，确认数据正确性永远用 --format json
+- Windows下curl通过管道传递JSON给Python需保存到文件再读取避免编码问题
+- Windows下Node.js不认 /dev/stdin 和 /dev/stderr，PostToolUse hook必须用Promise stdin + process.stderr.write
+- hooks.json中$HOME不展开，必须用绝对Windows路径如 C:\Users\ZDS\...
 
-## 用户确认检查点
+### Custom Instruction Injection
 
-以下操作前**必须暂停并询问用户确认**：
-
-| 检查点 | 触发条件 | 确认内容 |
-|--------|---------|---------|
-| 批量更新 skill | 执行 batch-update 涉及 3+ 个 skill | 展示待更新列表和变更摘要，确认后才开始 |
-| 删除 skill | 用户要求删除 skill | 确认 skill 名称，警告删除不可恢复 |
-| 覆盖本地 SKILL.md | 上游有实质性变更需重写本地内容 | 展示 diff 摘要，确认混合策略或全量替换 |
-| Fusion skill 多源更新 | 次级源有更新需同步 | 展示各源变更内容，确认是否逐一应用 |
-
-## 错误处理与回退
-
-| 错误场景 | 检测信号 | 回退策略 |
-|---------|---------|---------|
-| GitHub API 限流 | scan_and_check.py 返回 403 或 rate limit 错误 | 等待 Retry-After 时间后重试，或改用 git ls-remote |
-| 上游仓库结构变更 | curl 获取 README 路径返回 404 | 尝试 skills/ 子目录路径，或 git clone --sparse 获取 |
-| git hash 验证不一致 | 更新后 git ls-remote 显示新 commit | 重新拉取最新内容并更新 hash |
-| Windows 编码问题 | table 格式输出乱码 | 切换为 --format json，用 Python 解析结果 |
+上游项目分析时先用 git clone --sparse 获取文件结构，再用 curl 从 raw.githubusercontent.com 获取具体文件内容，避免浅克隆遗漏子目录
