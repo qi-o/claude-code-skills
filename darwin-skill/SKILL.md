@@ -2,8 +2,8 @@
 name: darwin-skill
 description: "Darwin Skill (达尔文.skill): autonomous skill optimizer inspired by Karpathy's autoresearch. Evaluates SKILL.md files using an 8-dimension rubric (structure + effectiveness), runs hill-climbing with git version control, validates improvements through test prompts, and generates visual result cards. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"达尔文\", \"darwin\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
 github_url: https://github.com/alchaincyf/darwin-skill
-github_hash: 9f4dced1753a2961cc4ff7227c3f1fe985adb3f5
-version: 1.0.0
+github_hash: 491ee209c5208eb96a6a4f72fc9710c6f16a30f9
+version: 1.1.0
 license: MIT
 created_at: "2026-04-14"
 platform: github
@@ -278,6 +278,27 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
 
 ---
 
+## 异常与边界条件
+
+流程假设环境理想，但实操常遇异常。以下预定义 fallback，保证优化过程不会「一跑就卡住」。
+
+| 场景 | 触发条件 | 处理动作 |
+|---|---|---|
+| 不在 git 仓库 | `git rev-parse` 失败 | 提示用户「建议 git init」；若拒绝，用 `cp SKILL.md SKILL.md.bak.YYYYMMDD-HHMM` 文件备份代替 revert |
+| results.tsv 缺失 | 文件不存在 | 新建并写表头行（9列：含 eval_mode） |
+| results.tsv 损坏 | 列数不匹配 / 非TSV | 备份为 `.bak.YYYYMMDD-HHMM` 后重建，告知用户 |
+| 分支已存在 | `git checkout -b` 失败 | 分支名末尾加 `-2` / `-3`；第3次失败则切回现有分支并询问继续还是新起 |
+| `git revert` 失败 | 冲突 / 工作树脏 | 先 `git stash`，重试；仍失败则从上一个 commit 的 SKILL.md 读出覆盖当前文件手动恢复 |
+| MAX_ROUNDS 触顶（默认3） | 已跑3轮仍有短板 | 不强制 break，展示当前最弱维度问用户「继续加1轮 / 进入Phase 2.5 / 收工」 |
+| 优化后超 150% 体积 | 新文件 > 原 × 1.5 | 拒绝提交，回到改进步骤精简（删冗余/合并重复），再评 |
+| test-prompts.json 已存在 | 文件已在 skill 目录 | 默认复用并展示，问用户「复用 / 重写 / 追加」三选一 |
+| SKILL.md 找不到 | 目录存在但无 SKILL.md | 该 skill 终止，results.tsv 记 `status=error`，继续下一个 |
+| 分数计算规则 | 浮点精度漂移 | 总分保留 1 位小数，改进需严格 > 旧分（不靠四舍五入） |
+
+**原则**：异常先告知用户，再按规则处理；绝不静默跳过或静默失败。
+
+---
+
 ## 约束规则
 
 1. **不改变skill的核心功能和用途** — 只优化"怎么写"和"怎么执行"，不改"做什么"
@@ -360,10 +381,22 @@ timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
    - data-field="improvement-1/2/3" → 实际改进摘要
    - data-field="date" → 当前日期
 3. 随机选择风格：hash 设为 swiss/terminal/newspaper 之一
-4. 用 Playwright 截图：
+4. 用 scripts/screenshot.mjs 截图（2x 高清，只截 .card 元素，自动 open 图片）：
+   node scripts/screenshot.mjs /abs/path/to/card.html /abs/path/to/output.png
+   # 回退方案（脚本失败时）：
    npx playwright screenshot "file:///path/to/card.html#[theme]" \
      output.png --viewport-size=960,1280 --wait-for-timeout=2000
 5. 提示用户查看成果卡片 PNG
+
+### 资源文件速查
+
+| 路径 | 用途 |
+|---|---|
+| `templates/result-card.html` | 3风格主模板（swiss/terminal/newspaper，hash切换） |
+| `templates/result-card-dark.html` / `-white.html` | 单一风格替代模板（需要锁定风格时用） |
+| `scripts/screenshot.mjs` | 2x 高清截图，只截 .card，自动 open |
+| `results.tsv` | 历次优化日志（9列含 eval_mode） |
+| `{skill目录}/test-prompts.json` | 每个 skill 的测试 prompt 集（用于维度8实测） |
 ```
 
 ### 何时生成
