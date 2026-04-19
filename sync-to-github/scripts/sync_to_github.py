@@ -158,14 +158,21 @@ def git_has_changes(repo: Path) -> bool:
     return bool(result.stdout.strip())
 
 
-def git_commit(repo: Path, message: str) -> bool:
-    """Stage all and commit. Returns True on success."""
+def git_commit(repo: Path, message: str):
+    """Stage all and commit. Returns True on success, None if nothing to commit, False on error."""
     add_result = subprocess.run(
         ["git", "add", "-A"], cwd=repo, capture_output=True, text=True, timeout=60,
     )
     if add_result.returncode != 0:
         print(f"  [WARN] git add failed: {add_result.stderr.strip()}")
         return False
+    # Check if there are actual staged changes
+    diff_check = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        cwd=repo, capture_output=True, text=True, timeout=30,
+    )
+    if diff_check.returncode == 0:
+        return None  # nothing to commit
     result = subprocess.run(
         ["git", "commit", "-m", message],
         cwd=repo, capture_output=True, text=True, timeout=30,
@@ -319,9 +326,12 @@ def main():
                     changes.append(parts[1])
 
         msg = build_commit_msg("sync skills", changes[:20])
-        if git_commit(SKILLS_DST, msg):
+        result = git_commit(SKILLS_DST, msg)
+        if result is True:
             print("  [OK] claude-code-skills committed")
             commits += 1
+        elif result is None:
+            print("  claude-code-skills: up to date (no changes)")
         else:
             print("  [FAIL] claude-code-skills commit failed")
     else:
@@ -340,9 +350,12 @@ def main():
                     changes.append(parts[1])
 
         msg = build_commit_msg("sync config", changes[:20])
-        if git_commit(CONFIG_DST, msg):
+        result = git_commit(CONFIG_DST, msg)
+        if result is True:
             print("  [OK] claude-code-config committed")
             commits += 1
+        elif result is None:
+            print("  claude-code-config: up to date (no changes)")
         else:
             print("  [FAIL] claude-code-config commit failed")
     else:
