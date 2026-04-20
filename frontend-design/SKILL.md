@@ -1,19 +1,43 @@
-﻿---
+---
 name: frontend-design
 description: >
-  Create distinctive, production-grade frontend interfaces with high design quality. Triggers (English): build web components, create website, landing page, dashboard, React component, web UI, styling, beautify, frontend design, web design. Triggers (Chinese): 前端开发, 网页设计, 制作网页, 创建网站, 做界面, 前端UI, React组件, 样式美化, Web开发, 做前端。
-  Use when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code and UI design that avoids generic AI aesthetics.
+  Create distinctive, production-grade frontend interfaces with high design quality.
+  ALSO covers HTML design artifacts: slide decks, interactive prototypes, animation
+  demos, design system showcases. Merged design-artifact workflow (questions-driven,
+  verifier-loop), starter components (deck_stage / design_canvas / animations / device
+  frames), Tweaks Protocol.
+  Triggers (English): build web components, create website, landing page, dashboard,
+  React component, web UI, styling, beautify, frontend design, web design, slide deck,
+  interactive prototype, animation demo, design system showcase, HTML artifact, design
+  mockup.
+  Triggers (Chinese): 前端开发, 网页设计, 制作网页, 创建网站, 做界面, 前端UI, React组件,
+  样式美化, Web开发, 做前端, 幻灯片, 做PPT, 交互原型, 设计 artifact, 动画演示, 设计系统展示。
+  Use when the user asks to build web components, pages, artifacts, posters, applications,
+  or HTML design deliverables.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
 github_hash: 2c7ec5e78b8e5d43ea02e90bb8826f6b9f147b0c
-version: 0.0.1
+version: 0.1.0
+triggers:
+  - build web components
+  - slide deck
+  - landing page prototype
+  - animation demo
+  - interactive prototype
+  - design system showcase
+  - HTML artifact
+  - 幻灯片
+  - 落地页原型
+  - 动画演示
+  - 交互原型
+  - 设计稿
 secondary_sources:
   - name: react-best-practices
     url: https://github.com/vercel-labs/agent-skills
     hash: ce3e64e468f8fa09a2d075d102771838061fdac0
 ---
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices. It ALSO covers HTML design artifacts: slide decks, landing-page prototypes, animation demos, interactive prototypes, and design-system showcases (merged from the former `design-artifact` skill).
 
 The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
 
@@ -90,6 +114,76 @@ After generating a DESIGN.md, also generate a `preview.html` visual catalog cont
 
 Generate both light and dark variants (`preview.html` + `preview-dark.html`) when the design system includes dark mode.
 
+
+## HTML Artifact Workflow (6 Steps)
+
+When the task is to build an HTML artifact (slide deck, prototype, animation demo, showcase), follow this workflow. Deep-dive details in `reference/workflow.md`.
+
+1. **Understand** — Clarify scope with `questions_v2` (below). Do not skip: one ambiguous answer now costs ten revisions later.
+2. **Explore** — Pick a starter (`reference/starter-patterns.md`); decide on 1 or N design variations; commit to an aesthetic direction (see Design Thinking).
+3. **Plan** — Outline the structure: sections, data, states, transitions. For decks, one section per slide. For prototypes, one component per screen.
+4. **Build** — Produce the HTML. For React artifacts, follow `reference/react-babel-guide.md` (pinned 18.3.1 + Babel 7.29.0 + integrity hashes). Apply design tokens from `reference/design-tokens.md`.
+5. **Verify** — Self-check against `reference/anti-slop.md` (5 core rules). Confirm: real content not lorem ipsum, distinctive typography not default fallbacks, contrast-safe, starter contracts honored.
+6. **Summarize** — Report: what was built, what starter(s) used, what variations presented, what tweaks are available.
+
+
+## questions_v2 Checklist
+
+Before building an HTML artifact, clarify these 5 mandatory dimensions:
+
+| Dimension | Question |
+|-----------|----------|
+| **Context** | What is this for — talk, pitch, portfolio, internal review? Who is the audience? |
+| **Variation count** | Do you want one polished option, or multiple variations to compare? |
+| **Divergence** | Should variations differ in color, typography, layout, or all three? |
+| **Focus** | Which section matters most — hero, pricing, testimonial, data viz, motion? |
+| **Tweaks** | Should the artifact support post-generation tweaks via EDITMODE markers? |
+
+Full 10-question JSON template lives in `reference/workflow.md`.
+
+### Precedence Rule
+
+```
+IF the project has DESIGN.md OR explicit brand tokens:
+  → questions_v2 REDUCES to missing-facts-only.
+    Skip Context / Divergence (already defined by DESIGN.md).
+    Still ask: Variation count, Focus, Tweaks — these are artifact-specific.
+ELSE (no DESIGN.md, no brand tokens):
+  → Ask the full questions_v2 checklist.
+```
+
+DESIGN.md and explicit brand tokens are the PRIMARY authority; `questions_v2` is the fallback for greenfield work. Do not re-ask what DESIGN.md already answers.
+
+
+## Starter Components
+
+Always prefer a starter over hand-rolling. Each starter provides a contract (postMessage events, data attributes, localStorage keys) that the host environment depends on.
+
+| Starter | Use Case | How to Load |
+|---------|----------|-------------|
+| `starters/deck_stage.js` | Slide decks (1920×1080 letterboxed, keyboard/touch nav, PDF print) | `<script src="starters/deck_stage.js"></script>` |
+| `starters/design_canvas.jsx` | Multi-option side-by-side comparison grid | `<script type="text/babel" src="starters/design_canvas.jsx">` |
+| `starters/animations.jsx` | Timeline / scrubber-driven animation demos | `<script type="text/babel" src="starters/animations.jsx">` |
+| `starters/device_frames/*.jsx` | iOS / Android / macOS / browser chrome for mockups | `<script type="text/babel" src="starters/device_frames/ios_frame.jsx">` |
+
+Usage contracts and copy-paste examples: `reference/starter-patterns.md`.
+
+**Critical:** deck slide labels are 1-indexed (`01 Title`, not `00 Title`). `localStorage` key for deck state is `deck_stage_index`. Nav controls must live *outside* the scaled element.
+
+
+## Tweaks Protocol (Summary)
+
+When the host requests tweakable output, wrap editable regions with markers and respond to `postMessage` from the parent frame:
+
+```html
+<!-- EDITMODE-BEGIN:hero-headline -->
+<h1>Your Headline</h1>
+<!-- EDITMODE-END:hero-headline -->
+```
+
+The parent posts four message types: `read`, `write`, `list`, `commit`. The artifact responds with the matching region's current HTML or acknowledges the write. Full protocol + handler skeleton: `reference/react-babel-guide.md`.
+
+
 ## Frontend Aesthetics Guidelines
 
 Focus on:
@@ -107,6 +201,23 @@ Interpret creatively and make unexpected choices that feel genuinely designed fo
 
 Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
 
+
+## Reference Index
+
+When references conflict, the **Authority** column resolves precedence.
+
+| Reference | Topic | Authority |
+|-----------|-------|-----------|
+| `reference/typography.md` | Full type scale, distinctive font pairing | **PRIMARY** (overrides `design-tokens.md` font defaults) |
+| `reference/color-and-contrast.md` | Color theory, WCAG contrast | **PRIMARY** |
+| `reference/spatial-design.md` | Spacing scale, grid, breakpoints | **PRIMARY** |
+| `reference/anti-slop.md` | Tactical anti-AI-slop checklist (5 rules + avoid list) | **PRIMARY** |
+| `reference/design-tokens.md` | CSS custom properties, oklch, artifact-fallback defaults | FALLBACK (when no DESIGN.md or brand tokens) |
+| `reference/react-babel-guide.md` | Inline JSX CDN setup, scope isolation, EDITMODE | REFERENCE |
+| `reference/workflow.md` | 6-step HTML artifact workflow deep-dive | REFERENCE |
+| `reference/starter-patterns.md` | Starter component contracts & use cases | REFERENCE |
+
+
 ## 用户确认检查点
 
 以下操作前**必须暂停并询问用户确认**：
@@ -116,6 +227,7 @@ Remember: Claude is capable of extraordinary creative work. Don't hold back, sho
 | 覆盖现有文件 | 生成的代码将写入已有项目文件 | 展示将被修改的文件列表，确认覆盖范围 |
 | 设计方向选择 | 存在多个合理的美学方向时 | 展示 2-3 个设计方向的核心特征，请用户选择 |
 | 第三方依赖引入 | 代码需要安装新的 npm 包或外部资源 | 列出依赖名称和用途，确认用户同意引入 |
+
 
 ## 错误处理与回退
 

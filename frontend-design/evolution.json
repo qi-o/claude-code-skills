@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-31T16:01:38.828155",
+  "last_updated": "2026-04-19T00:00:00.000000",
   "preferences": [
     "融合 skill 时需要在 frontmatter 中添加 secondary_sources 字段",
     "融合后的 skill 应在 description 中说明融合了哪些功能"
@@ -8,5 +8,40 @@
     "fusion skill 需要同时更新主源和次源的 hash",
     "融合内容应添加到 SKILL.md 正文中，包含关键规则速查和工作流说明"
   ],
-  "custom_prompts": ""
+  "custom_prompts": "",
+  "fusions": [
+    {
+      "date": "2026-04-19",
+      "type": "fusion",
+      "source": {
+        "primary": "design-artifact skill (user-authored, local)",
+        "derived_from": "Claude Artifacts design system prompt (reverse-engineered via .zread project)",
+        "local_reference_file": "C:\\Users\\ZDS\\Desktop\\design\\claude_design_system_prompt.md",
+        "local_file_sha256": "e75a5813906ba308796d22dc68862cd3147242e40026a6b8d0c1f8365ca9d8fb",
+        "note": "Local-only provenance; not redistributable. Not suitable for secondary_sources (no public URL, no stable hash contract)."
+      },
+      "absorbed": [
+        "6-step HTML artifact workflow (Understand → Explore → Plan → Build → Verify → Summarize)",
+        "questions_v2 checklist (5 mandatory dimensions + 10 questions template)",
+        "anti-slop tactical rules (5 core + avoid list)",
+        "design tokens with oklch color strategy (scoped as artifact fallback)",
+        "react+babel inline JSX guide with integrity hashes",
+        "Tweaks protocol (postMessage + EDITMODE markers)",
+        "8 starter components (deck_stage, design_canvas, animations, 4 device frames)",
+        "explicit triggers[] list for HTML artifact keywords"
+      ],
+      "scope_adjustments": [
+        "design-tokens.md font defaults demoted to artifact fallback (reference/typography.md stays PRIMARY)",
+        "questions_v2 reduced to missing-facts-only when DESIGN.md present (Precedence Rule added)"
+      ],
+      "rationale": "Single entry point for all design work; eliminate duplicate anti-slop & token rules; preserve theoretical DESIGN.md system and Apache 2.0 upstream compatibility",
+      "files_moved": 13,
+      "source_deleted": true,
+      "apache2_compliance": {
+        "license_preserved": "LICENSE.txt unchanged",
+        "notice_added": "NOTICE.md documents modifications per Apache 2.0 §4(b)",
+        "modified_files_tracked": ["SKILL.md", "reference/design-tokens.md", "reference/starter-patterns.md"]
+      }
+    }
+  ]
 }
