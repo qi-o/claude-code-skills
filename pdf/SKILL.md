@@ -3,7 +3,7 @@ name: pdf
 description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill. Use when user says "转PDF", "PDF转换", "合并PDF", "拆分PDF", "PDF处理", or "PDF操作".
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 2c7ec5e78b8e5d43ea02e90bb8826f6b9f147b0c
+github_hash: b9e19e6f44773509fbdd7001d77ff41a49a486c1
 ---
 
 # PDF Processing Guide
