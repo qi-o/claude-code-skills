@@ -7,7 +7,7 @@ description: |
   模糊需求也触发：「我想提升决策质量」「有没有一种思维方式能帮我...」「我需要一个思维顾问」。
 license: MIT
 github_url: https://github.com/alchaincyf/nuwa-skill
-github_hash: 26cc17eabe18ff1c629fe5eba193ecf08e09a771
+github_hash: 25bb2dec3befb43611911f2dee2adb725da43a56
 version: 1.1.0
 ---
 

@@ -2,7 +2,7 @@
 name: darwin-skill
 description: "Darwin Skill (达尔文.skill): autonomous skill optimizer inspired by Karpathy's autoresearch. Evaluates SKILL.md files using an 8-dimension rubric (structure + effectiveness), runs hill-climbing with git version control, validates improvements through test prompts, and generates visual result cards. Use when user mentions \"优化skill\", \"skill评分\", \"自动优化\", \"auto optimize\", \"skill质量检查\", \"达尔文\", \"darwin\", \"帮我改改skill\", \"skill怎么样\", \"提升skill质量\", \"skill review\", \"skill打分\"."
 github_url: https://github.com/alchaincyf/darwin-skill
-github_hash: 491ee209c5208eb96a6a4f72fc9710c6f16a30f9
+github_hash: 2056abfccd924d68ae6baa9193cafff0f666260b
 version: 1.1.0
 license: MIT
 created_at: "2026-04-14"

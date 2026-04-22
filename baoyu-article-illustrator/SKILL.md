@@ -3,7 +3,7 @@ name: baoyu-article-illustrator
 description: Analyzes article structure, identifies positions requiring visual aids, generates illustrations with Type × Style × Palette three-dimension approach. Use when user asks to "illustrate article", "add images", "generate images for article", or "为文章配图".
 version: 1.59.0
 github_url: https://github.com/JimLiu/baoyu-skills
-github_hash: d7f623158c0fa270cf41c6d1f6c78ab8aa6b9810
+github_hash: 8c17d77209b030a97d1746928ae348c99fefa775
 source: skills/baoyu-article-illustrator
 license: MIT
 metadata:
@@ -37,6 +37,15 @@ When this skill needs to render an image:
 **Prompt file requirement (hard)**: write each image's full, final prompt to a standalone file under `prompts/` (naming: `NN-{type}-[slug].md`) BEFORE invoking any backend. The backend receives the prompt file (or its content); the file is the reproducibility record and lets you switch backends without regenerating prompts.
 
 Concrete tool names (`imagegen`, `image_generate`, `baoyu-imagine`) above are examples — substitute the local equivalents under the same rule.
+
+## Confirmation Policy
+
+Default behavior: **confirm before generation**.
+
+- Treat explicit skill invocation, a file path, matched signals/presets, and `EXTEND.md` defaults as **recommendation inputs only**. None of them authorizes skipping confirmation.
+- Do **not** start Step 4 or later until the user completes Step 3.
+- Skip confirmation only when the current request explicitly says to do so, for example: "直接生成", "不用确认", "跳过确认", "按默认出图", or equivalent wording.
+- If confirmation is skipped explicitly, state the assumed type / density / style / palette / language / backend in the next user-facing update before generating.
 
 ## Reference Images
 
@@ -130,6 +139,8 @@ Full procedures: [references/workflow.md](references/workflow.md#step-1-pre-chec
 Full procedures: [references/workflow.md](references/workflow.md#step-2-setup--analyze)
 
 ### Step 3: Confirm Settings ⚠️
+
+**Hard gate**: this step is mandatory per the [Confirmation Policy](#confirmation-policy) — Steps 4+ cannot start until the user confirms here (or explicitly opts out with "直接生成" / equivalent wording in the current request).
 
 **ONE AskUserQuestion, max 4 Qs. Q1-Q2 REQUIRED. Q3 required unless preset chosen.**
 
