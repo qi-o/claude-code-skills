@@ -3,13 +3,13 @@ name: web-access
 license: MIT
 github: https://github.com/eze-is/web-access
 github_url: https://github.com/eze-is/web-access
-github_hash: 6532d4da491fc6af2a7f3a161d7d7c69d67bca80
+github_hash: 3caf8f379d63de222b0146d0cb2f5153c6717172
 description:
   所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。
   触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。
 metadata:
   author: 一泽Eze
-  version: "2.5.0"
+  version: "2.6.0"
 ---
 
 # web-access Skill
@@ -106,6 +106,8 @@ node "${CLAUDE_SKILL_DIR}/scripts/check-deps.mjs"
 ```
 
 脚本会依次检查 Node.js、Chrome 端口，并确保 Proxy 已连接（未运行则自动启动并等待）。Proxy 启动后持续运行。
+
+**空闲标签页自动清理（v2.6.0 新增）**：Proxy 通过 `/new` 创建的标签页会被自动追踪。Agent 崩溃、上下文耗尽或提前退出时遗留的孤立标签页，将在空闲超过 15 分钟后自动关闭（可通过环境变量 `CDP_TAB_IDLE_TIMEOUT` 配置，单位秒）。用户自行打开的标签页不受影响。Proxy 进程退出时也会清理所有受管理的标签页。`/health` 端点可查看当前受管理标签页数量。
 
 ### Proxy API
 
