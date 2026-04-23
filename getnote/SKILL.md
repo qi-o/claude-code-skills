@@ -1,6 +1,6 @@
 ---
 github_url: https://github.com/iswalle/getnote-cli
-github_hash: e54dc86a7f829a86b03365622c3daab52511720f
+github_hash: c148402d8eb5a471db9473873f2907108ad0b335
 name: Get笔记
 description: >
   Get笔记 - 通过 getnote CLI 保存、搜索、管理个人笔记和知识库。
@@ -30,7 +30,7 @@ getnote auth status
 ```
 若返回 "Not authenticated"，引导用户执行：
 - OAuth 登录（推荐）：`getnote auth login`
-- API Key 登录：`getnote auth login --api-key gk_live_xxx --client-id cli_xxx`
+- API Key 登录：`getnote auth login --api-key gk_live_xxx`（client-id 可选）
 
 凭证保存在 `~/.getnote/config.json`。
 
@@ -90,7 +90,7 @@ getnote auth status
 getnote auth login
 
 # API Key 登录（无需浏览器）
-getnote auth login --api-key gk_live_xxx --client-id cli_xxx
+getnote auth login --api-key gk_live_xxx
 
 # 查看认证状态
 getnote auth status
@@ -124,8 +124,11 @@ getnote task <task_id> -o json
 ### 查看笔记
 
 ```bash
-# 最近 20 条笔记（固定每页 20 条，无 --limit 参数）
+# 最近 20 条笔记（默认每页 20 条）
 getnote notes
+
+# 自定义数量
+getnote notes --limit 50
 
 # 翻页（用最后一条笔记 ID 作为游标）
 getnote notes --since-id 1234567890
@@ -187,12 +190,13 @@ getnote tag list <note_id>
 # 添加标签
 getnote tag add <note_id> 标签名
 
-# 删除标签（需要 tag_id 数字，先 list 获取）
-getnote tag remove <note_id> <tag_id>
+# 删除标签（可直接用标签名，或用 tag_id 数字）
+getnote tag remove <note_id> <标签名或tag_id>
 ```
 
 标签类型：`ai`（AI 自动）、`manual`（用户添加）、`system`（系统标签，不可删除）
 如需一次性替换所有标签，用 `getnote note update --tag "t1,t2"` 更方便。
+`tag remove` 现支持直接传标签名（v1.1.1+），也可传 tag_id 数字。
 
 ### 知识库
 
@@ -311,6 +315,7 @@ CLI 通过 exit code 报告错误：`0` 成功，非零失败，错误详情在 
 - note update 命令可能返回 30000 服务调用失败，属上游瞬态错误，非 CLI 或技能问题
 - search 命令的 JSON 响应中 results 在顶层而非 data 下，与大多数命令不同
 - tag list 的 JSON 响应无 success 包裹，直接返回 {note_id, tags}
+- v1.1.1 起 tag remove 支持直接传标签名（不再强制需要 tag_id），auth login 的 --client-id 变为可选参数，notes 命令新增 --limit 支持自定义数量
 
 ### Custom Instruction Injection
 
