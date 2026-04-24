@@ -3,7 +3,7 @@ name: docx
 description: "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation. Use when user says \"写文档\", \"Word文档\", \"docx转换\", \"生成Word\", \"Word文件\", or \"写Word\"."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: b9e19e6f44773509fbdd7001d77ff41a49a486c1
+github_hash: 5128e1865d670f5d6c9cef000e6dfc4e951fb5b9
 ---
 
 # DOCX creation, editing, and analysis
