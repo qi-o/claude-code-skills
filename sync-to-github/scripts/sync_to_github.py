@@ -109,7 +109,7 @@ def mirror_tree(src: Path, dst: Path, dry_run: bool = False) -> list[str]:
         if s.is_dir():
             if d.exists():
                 shutil.rmtree(d, ignore_errors=True)
-            shutil.copytree(s, d, ignore=ignore)
+            shutil.copytree(s, d, ignore=ignore, dirs_exist_ok=True)
             changes.append(f"synced {name}/")
         else:
             shutil.copy2(s, d)
