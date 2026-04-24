@@ -356,3 +356,12 @@ mmx config show
 export MINIMAX_API_KEY=sk-xxxxx
 export MINIMAX_REGION=cn
 ```
+
+## User Confirmation Checkpoints
+
+| Checkpoint | Trigger | Action |
+|------------|---------|--------|
+| Video generation cost | Video task submitted (>10s video) | Show estimated credits before confirming |
+| Overwrite existing file | `--out` path already exists | Ask user to confirm overwrite or choose new path |
+| Voice clone creation | `mmx voice clone` or `voice design` | Confirm user has rights to the voice sample |
+| Batch operations | Multiple generations in one command | Show total count and estimated cost |

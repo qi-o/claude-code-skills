@@ -83,3 +83,11 @@ lark-cli api POST /open-apis/xxx --data '{...}'
 - **认证** — 说明所需 scope，登录用 `lark-cli auth login --domain <name>`
 - **安全** — 写入操作前确认用户意图，建议 `--dry-run` 预览
 - **编排** — 说明数据传递、失败回滚、可并行步骤
+
+## Error Handling
+
+| Problem | Resolution |
+|---------|-----------|
+| Created skill doesn't trigger | Check description field contains trigger keywords and follows "当用户需要...时使用" pattern |
+| Auth scope missing in new skill | Use `lark-cli schema <api>` to discover required scopes; add to Scope table |
+| Skill file structure invalid | Verify SKILL.md has frontmatter with name/description/version; CLI help reference must point to valid command |

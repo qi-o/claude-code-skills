@@ -78,3 +78,12 @@ lark-cli auth login --scope "calendar:calendar:readonly"
 - **禁止输出密钥**（appSecret、accessToken）到终端明文。
 - **写入/删除操作前必须确认用户意图**。
 - 用 `--dry-run` 预览危险请求。
+
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `permission denied` | Missing scope for the API being called | Run `lark-cli auth login --scope "<required_scope>"` to grant access |
+| `app not found` | Invalid app_id in config | Run `lark-cli config init` to reconfigure |
+| `token expired` | Access token TTL exceeded | Re-run `lark-cli auth login`; tokens auto-refresh but may need manual re-auth |
+| `lark-cli not found` | CLI not installed | Install: see lark-cli documentation for installation instructions |

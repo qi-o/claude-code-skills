@@ -108,3 +108,12 @@ User Query (CN/EN) → biomed_search.py
 ```
 
 Zero external dependencies — Python stdlib only. BM25 engine runs in <50ms for the knowledge base size.
+
+## Error Handling & Fallback
+
+| Problem | Detection | Resolution |
+|---------|-----------|------------|
+| Script not found | `biomed_search.py` missing or exit code 127 | Skill may not be installed; offer direct tool recommendation from the Domain Mapping table |
+| No results returned | BM25 score below threshold for all entries | Broaden query (use fewer terms, try English/Chinese variant), or suggest browsing the full tool catalog with `--all` |
+| Pipeline generation empty | `--pipeline` returns no steps | Query may not match any pipeline template; break into sub-tasks and search each individually |
+| Python import error | ModuleNotFoundError | Script uses stdlib only — if this fails, Python environment is broken; suggest `python -c "import json"` to verify |

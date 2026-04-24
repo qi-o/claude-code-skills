@@ -102,3 +102,11 @@ lark-cli docs +update --doc "<url_or_token>" --mode append --markdown "<内容>"
 - [lark-shared](../lark-shared/SKILL.md) — 认证、权限（必读）
 - [lark-vc](../lark-vc/SKILL.md) — `+search`、`+notes` 详细用法
 - [lark-doc](../lark-doc/SKILL.md) — `+fetch`、`+create`、`+update` 详细用法
+
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| No meetings found in range | No vc records in date range, or app lacks scope | Verify `vc:vc:readonly` scope; broaden date range; check if user had meetings |
+| `+notes` returns empty | Minute has no AI notes generated yet | Notes may still be processing; suggest retry after 5 minutes |
+| Doc creation fails | App lacks `docx:document` scope or folder access | Check `lark-cli docs` scopes; verify folder permissions |

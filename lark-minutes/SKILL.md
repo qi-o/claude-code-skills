@@ -48,6 +48,14 @@ lark-cli vc +notes --minute-tokens obcnhijv43vq6bcsl5xasfb2
 - 用户未指定需要查询妙记的哪些内容时，默认查询基础元信息和相关联的纪要产物信息。
 - 用户未明确指定查看纪要产物（逐字稿、总结、待办、章节）时，向用户展示对应产物的链接即可，不需要直接读取产物内容。
 
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `minute not found` | Invalid token or no access | Verify token extracted from URL is correct; check app has `minutes:minutes:readonly` scope |
+| `permission denied` | App not authorized for this minute | Ensure app is granted access in Lark Admin Console → App visibility |
+| Token extraction fails | URL format unexpected | Extract path segment after `/minutes/`; strip query params after `?` |
+
 <!-- AUTO-GENERATED-START — gen-skills.py 管理，勿手动编辑 -->
 ## API Resources
 

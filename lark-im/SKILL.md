@@ -46,6 +46,15 @@ When using bot identity (`--as bot`) to fetch messages (e.g. `+chat-messages-lis
 
 **Solution**: Check the app's visibility settings in the Lark Developer Console — ensure the app's visible range covers the users whose names need to be resolved. Alternatively, use `--as user` to fetch messages with user identity, which typically has broader contact access.
 
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `contact:contact:user.id:xxx not exist` | Bot identity cannot resolve sender name | Use `--as user` or expand app visibility in Lark Developer Console |
+| `permission denied` | App lacks required scope or user not in chat | Check app scopes in Developer Console; verify chat membership |
+| `message_id not found` | Invalid or deleted message | Confirm message_id format (`om_xxx`); check if message was recalled |
+| `chat_id not found` | Bot not added to chat, or chat_id typo | Verify `oc_xxx` format; ensure bot is chat member |
+
 ### Card Messages (Interactive)
 
 Card messages (`interactive` type) are not yet supported for compact conversion in event subscriptions. The raw event data will be returned instead, with a hint printed to stderr.

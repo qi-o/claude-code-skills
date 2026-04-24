@@ -92,3 +92,11 @@ lark-cli task <resource> <method> [flags] # 调用 API
 | `members.add` | `task:task:write` |
 | `members.remove` | `task:task:write` |
 
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `permission denied` | App lacks required scope | Check scopes table above; add missing scope in Developer Console |
+| `task not found` | Invalid task_id or no access | Verify task_id format; confirm user has access to the task list |
+| `tasklist not found` | Invalid or deleted tasklist | Verify tasklist exists with `lark-cli task tasklists list` |
+

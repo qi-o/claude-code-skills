@@ -6,7 +6,18 @@ user-invocable: false
 
 # OMC Reference
 
-Use this built-in reference when you need detailed OMC catalog information that does not need to live in every `CLAUDE.md` session.
+Auto-loaded reference for OMC catalog, tools, and skills. Use when delegating work to agents, orchestrating teams, or looking up available capabilities.
+
+## When to Consult This Reference
+
+| Scenario | Section to Check |
+|----------|-----------------|
+| Choosing which agent to delegate to | Agent Catalog |
+| Deciding model tier for a task | Model Routing |
+| Looking for a team/team command | Team Pipeline |
+| Writing commit messages with context | Commit Protocol |
+| Finding a workflow skill by keyword | Skills Registry → Keyword triggers |
+| Checking if a tool exists | Tools Reference |
 
 ## Agent Catalog
 
@@ -139,3 +150,13 @@ Confidence: high
 Scope-risk: narrow
 Not-tested: End-to-end plugin marketplace install in a fresh Claude profile
 ```
+
+## Fallback & Error Handling
+
+| Problem | Resolution |
+|---------|-----------|
+| Agent not found in catalog | Check `agents/*.md` in plugin directory; agent may have been renamed in newer OMC version |
+| Tool not available | Verify plugin is enabled in `settings.json` → `enabledPlugins`; some tools require MCP server configured |
+| Skill keyword not triggering | Keywords are matched in CLAUDE.md triggers section, not in this file; verify CLAUDE.md has latest triggers |
+| Team pipeline stuck | `team-fix` loop has implicit max 3 iterations; if still failing, escalate with `cancelomc` then retry with different agent |
+| Commit hook rejects | Check `hooks.json` for gateguard/prompt-guard rules; the hook output explains the specific violation |
