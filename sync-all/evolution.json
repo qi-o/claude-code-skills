@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-04-24T09:57:44.879852",
+  "preferences": [
+    "新建纯编排型技能时，frontmatter 只保留 name + description，触发词合并进 description 末尾"
+  ],
+  "fixes": [
+    "Codex 审核发现 triggers 字段非标准——应合并到 description 字段中与其他技能保持一致（如 sync-to-github 的写法）",
+    "可选参数（--skills-only/--config-only/--dry-run）应在 Step 4 命令中显式标注透传路径，不能只在末尾列出",
+    "batch_update.py --auto-update 内部有独立扫描逻辑，无需 Step 1 传入列表——但 SKILL.md 中应明确说明避免读者误解数据流"
+  ],
+  "custom_prompts": "创建新技能后应经 Codex 或独立 Agent 审核再交付"
+}

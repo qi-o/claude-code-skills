@@ -261,6 +261,7 @@ Total skills: 25
 - 上游吸收分析时先全面对比8项特性再决策，避免遗漏
 - 混合更新策略：保留本地中文详细内容+合并上游新功能，而非全量替换
 - P0安全>P1治理>P2流程的优先级排序模式适用于所有上游吸收任务
+- skill-manager 与 sync-to-github 已通过新的 sync-all 技能实现编排闭环
 
 ### Known Fixes & Workarounds
 - skills.sh 使用 Next.js 渲染，数据嵌入在 __next_f 脚本中，需要用正则提取转义 JSON
@@ -304,6 +305,7 @@ Total skills: 25
 - Windows下curl通过管道传递JSON给Python需保存到文件再读取避免编码问题
 - Windows下Node.js不认 /dev/stdin 和 /dev/stderr，PostToolUse hook必须用Promise stdin + process.stderr.write
 - hooks.json中$HOME不展开，必须用绝对Windows路径如 C:\Users\ZDS\...
+- scan_and_check.py 和 batch_update.py 的调用关系需要明确：batch_update --auto-update 有独立扫描逻辑，不依赖 scan_and_check 的输出作为输入参数
 
 ### Custom Instruction Injection
 
