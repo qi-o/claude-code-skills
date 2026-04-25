@@ -169,34 +169,28 @@ allowed-tools: Read Write Edit Grep Bash Task AskUserQuestion WebSearch WebFetch
 ### 1) 调用 InkOS 创建项目
 
 ```bash
-# 构建 InkOS book create 命令
+# 先将创意概要写入临时文件，再传给 InkOS
+BRIEF_FILE=$(mktemp /tmp/webnovel-brief-XXXXXX.md)
+cat > "$BRIEF_FILE" <<'BRIEF'
+一句话故事：{一句话故事}
+核心冲突：{核心冲突}
+主角设定：{主角姓名}，欲望：{主角欲望}，缺陷：{主角缺陷}
+金手指：{金手指类型} - {金手指名称}
+世界观：{世界规模}，力量体系：{力量体系类型}
+创意约束：反套路 - {反套路规则}；硬约束 - {硬约束1}, {硬约束2}
+BRIEF
+
 inkos book create \
   --title "{书名}" \
   --genre "{题材归一化值}" \
-  --strand-weave \
-  --anti-trope "{题材对应的反套路 genre}" \
-  --idea "{一句话故事 + 核心冲突 + 主角设定}"
+  --platform "{目标平台}" \
+  --target-chapters {目标章数} \
+  --chapter-words 2500 \
+  --brief "$BRIEF_FILE"
 ```
 
-InkOS 自动创建：
-```
-books/{book-id}/
-├── book.json               # 书籍配置（含 genre、target）
-├── chapters/
-│   └── index.json          # 章节索引
-└── story/
-    ├── story_bible.md      # 世界观设定
-    ├── volume_outline.md   # 卷大纲
-    ├── book_rules.md       # 题材规则 + webnovelCraft 配置
-    ├── current_state.md    # 当前叙事状态
-    ├── particle_ledger.md  # 资源追踪
-    ├── pending_hooks.md    # 伏笔/悬念池
-    ├── chapter_summaries.md # 章节摘要
-    ├── author_intent.md    # 作者意图
-    ├── current_focus.md    # 近期焦点
-    ├── craft_state.md      # Craft 状态（strand/contract/violations）
-    └── craft_snapshots/    # Craft 快照目录
-```
+InkOS 自动创建书籍目录结构并生成基础 Truth Files（story_bible, volume_outline 等）。
+用 `inkos status <book-id>` 确认产出。
 
 ### 2) 补充 Truth Files
 

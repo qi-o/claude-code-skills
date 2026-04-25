@@ -37,15 +37,17 @@ inkos style <book-id>
 # 项目状态（含 Truth Files 摘要）
 inkos status <book-id>
 
-# 读取 Truth Files 获取结构化数据
-inkos read-truth <book-id>
+# 读取 Truth Files：直接查看 books/{book-id}/story/ 目录
+ls books/<book-id>/story/
+cat books/<book-id>/story/story_bible.md
+cat books/<book-id>/story/current_state.md
 ```
 
 InkOS 的 ChapterAnalyzerAgent 自动从每章中提取并更新：
 - **角色**：出场角色、关系变化、位置追踪 → `character_matrix.md`
 - **世界观**：地点、势力、能力体系 → `story_bible.md`
 - **伏笔**：钩子、承诺、悬念 → `pending_hooks.md`
-- **章节摘要**：核心事件、情感基调 → `chapter_summaries.md`
+- **章节摘要**：核心事件、情感基调 → 直接读取 `books/<book-id>/story/chapter_summaries.md`
 
 ### 方式 B：自由文本分析
 

@@ -84,10 +84,8 @@ books/{book-id}/
 - **核心冲突** → `story/author_intent.md`
 
 ```bash
-# 导入章节内容
-inkos import chapters \
-  --input "{章节目录路径}" \
-  --book-id "{book-id}"
+# 导入章节内容（从目录或单文件）
+inkos import chapters "{book-id}" --from "{章节目录路径或文件路径}"
 ```
 
 InkOS 自动处理：
@@ -111,10 +109,8 @@ InkOS 自动处理：
 ### Step 5：同步状态（仅模式B）
 
 ```bash
-# 同步已有章节的 Truth Files
-inkos write sync <book-id> --chapter 1
-inkos write sync <book-id> --chapter 2
-# ... 或批量同步所有章节
+# 同步已有章节的 Truth Files（从最新已编辑章节重建）
+inkos write sync <book-id>
 
 # 验证项目状态
 inkos status <book-id>

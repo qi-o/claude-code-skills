@@ -114,7 +114,7 @@ Strand 比例（默认）：
 
 ```bash
 # 对每章调用 InkOS Planner 获取 ChapterIntent
-inkos plan <book-id>
+inkos plan chapter <book-id>
 ```
 
 InkOS Planner 自动生成每个章节的 `ChapterIntent`，包含：
@@ -135,7 +135,13 @@ InkOS 的 `computeChapterContract()` 自动确保：
 
 ### 方式 B：手动生成
 
-按原始技能的章节格式手动生成，然后验证。
+InkOS 也支持通过 `--context` 或 `--context-file` 传递引导信息：
+
+```bash
+inkos plan chapter <book-id> --context "本章重点：{章纲目标}"
+```
+
+或按原始技能的章节格式手动生成，然后验证。
 
 章节格式：
 ```markdown
