@@ -1,6 +1,9 @@
 {
-  "last_updated": "2026-04-10T19:32:25.919653",
-  "preferences": [],
+  "last_updated": "2026-04-25T18:53:04.139064",
+  "preferences": [
+    "系列小说下载后自动合并为单文件，删除章节子目录",
+    "作者页批量下载应支持断点续传（跳过已存在文件）"
+  ],
   "fixes": [
     "literotica.com 使用 SPA 架构但内容在服务端渲染的 HTML 中",
     "requests 和 Playwright 遇到 HTTP/2 协议错误时，使用 curl subprocess 绕过",
@@ -8,7 +11,10 @@
     "literotica 章节内分页检测应查找下一页链接 a[href*=?page=N] 而非文本匹配",
     "Windows 下 Clash Verge 代理出口封锁 novel18.syosetu.com，导致 SSL handshake 失败。解决：curl -x '' 绕过系统代理直连",
     "Python requests 会话受代理影响，即使 trust_env=False 仍可能 SSL 失败。改用 subprocess + curl -x '' subprocess 直连更可靠",
-    "novel18.syosetu.com 目录页章节标题需用 href 周围文本提取，不能只靠选择器"
+    "novel18.syosetu.com 目录页章节标题需用 href 周围文本提取，不能只靠选择器",
+    "Clash fake-ip 代理导致 literotica SSL 握手失败，curl 必须加 -k --http1.1 绕过",
+    "Windows 下 Python subprocess capture_output 配合 text=True 会用 GBK 解码导致 UnicodeDecodeError，改用 bytes 模式 + decode(utf-8, errors=replace)",
+    "批量下载脚本必须包裹 retry 逻辑和 try/except，单次超时不应导致整个任务崩溃"
   ],
   "custom_prompts": "遇到 HTTP/2 协议错误时，优先尝试 curl 而非切换浏览器自动化工具"
 }

@@ -31,7 +31,7 @@ metadata:
 | alphapolis.co.jp | `alphapolis.py` | 需Playwright，修改URL后运行 |
 | novel18.syosetu.com | `syosetu_r18.py` | 修改URL后运行 |
 | purple-novel.com | `purple_novel.py` | WordPress站，修改URL后运行 |
-| literotica.com | `literotica.py` | 使用curl，修改SERIES_URL后运行 |
+| literotica.com | `literotica.py` | 支持作者页/系列页/单篇，修改URL后运行 |
 | hostboard.com | `hostboard.py` | 需DrissionPage，修改URLS后运行 |
 
 ```bash
@@ -178,6 +178,10 @@ pip install DrissionPage
 
 > **Auto-Generated Section**: This section is maintained by `skill-evolution-manager`. Do not edit manually.
 
+### User Preferences
+- 系列小说下载后自动合并为单文件，删除章节子目录
+- 作者页批量下载应支持断点续传（跳过已存在文件）
+
 ### Known Fixes & Workarounds
 - literotica.com 使用 SPA 架构但内容在服务端渲染的 HTML 中
 - requests 和 Playwright 遇到 HTTP/2 协议错误时，使用 curl subprocess 绕过
@@ -186,31 +190,10 @@ pip install DrissionPage
 - Windows 下 Clash Verge 代理出口封锁 novel18.syosetu.com，导致 SSL handshake 失败。解决：curl -x '' 绕过系统代理直连
 - Python requests 会话受代理影响，即使 trust_env=False 仍可能 SSL 失败。改用 subprocess + curl -x '' subprocess 直连更可靠
 - novel18.syosetu.com 目录页章节标题需用 href 周围文本提取，不能只靠选择器
+- Clash fake-ip 代理导致 literotica SSL 握手失败，curl 必须加 -k --http1.1 绕过
+- Windows 下 Python subprocess capture_output 配合 text=True 会用 GBK 解码导致 UnicodeDecodeError，改用 bytes 模式 + decode(utf-8, errors=replace)
+- 批量下载脚本必须包裹 retry 逻辑和 try/except，单次超时不应导致整个任务崩溃
 
 ### Custom Instruction Injection
 
 遇到 HTTP/2 协议错误时，优先尝试 curl 而非切换浏览器自动化工具
-
----
-
-## 用户确认检查点
-
-以下操作前**必须暂停并询问用户确认**：
-
-| 检查点 | 触发条件 | 确认内容 |
-|--------|---------|---------|
-| 新网站爬虫执行 | 智能分析完成、脚本生成后首次运行 | 确认分析结果（选择器、反爬信息）正确后再批量下载 |
-| 大批量下载 | 章节数 >100 或预估下载时间 >5 分钟 | 确认继续，提示可能的耗时和流量消耗 |
-| 反爬机制升级 | 检测到 WAF/Cloudflare Turnstile 等需要浏览器自动化 | 确认是否安装额外依赖（Playwright/DrissionPage）并接受浏览器资源开销 |
-
----
-
-## 错误处理与回退
-
-| 错误场景 | 检测信号 | 回退策略 |
-|---------|---------|---------|
-| HTTP 202/403 WAF 拦截 | 请求返回 202/403 且响应体为空或含 WAF 标识 | 从 requests 切换到 Playwright 浏览器自动化 |
-| Cloudflare Turnstile 拦截 | 403 + 页面含 JS Challenge | 切换到 DrissionPage 真实浏览器方案 |
-| AJAX 内容为空 | BeautifulSoup 解析结果为空但浏览器有内容 | 分析网络请求找到 API 端点，改用 API 请求获取数据 |
-| 部分章节下载失败 | 批量下载中某些章节内容为空或报错 | 记录失败章节列表，完成其余下载后汇总报告，支持断点续传 |
-| 编码乱码 | 响应文本含乱码字符 | 强制设置 `resp.encoding = 'utf-8'`，若仍乱码则尝试 chardet 检测编码 |
