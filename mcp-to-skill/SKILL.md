@@ -98,6 +98,18 @@ description: |
 {Concrete usage example}
 ```
 
+## Agent-Centric Design Checklist
+
+When converting MCP tools, apply these principles to ensure the resulting skill works well with agents:
+
+| Principle | How to Apply During Conversion |
+|-----------|-------------------------------|
+| **Build for workflows** | Consolidate related API operations into single script entry points that complete real tasks, not just wrap individual endpoints |
+| **Optimize context space** | Default to concise output; offer `--detailed` flag; prefer human-readable names over technical IDs |
+| **Actionable errors** | Error messages must include the next step (e.g., "Token expired — run `gh auth login` then retry") |
+| **Natural task subdivision** | Name scripts/sections after human tasks (`sync_contacts`) not API endpoints (`POST /contacts/sync`) |
+| **Evaluation-driven** | Before finalizing the skill, write 5-10 realistic test questions an agent would face using it |
+
 ## Conversion Patterns
 
 ### Pattern A: Script-based (for complex tools)

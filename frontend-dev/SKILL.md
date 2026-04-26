@@ -598,3 +598,23 @@ Refine, don't add. Make it crisp. Polish into masterpiece.
 | 依赖安装失败 | npm install 报错 | 检查 Node 版本兼容性，尝试删除 node_modules 重新安装 |
 | GSAP 与 Framer Motion 冲突 | 两者同时引入导致动画异常 | 移除 GSAP 依赖，统一使用 Framer Motion 实现所有动效 |
 | Tailwind v3/v4 语法不匹配 | 构建报错 class 无效 | 检测项目 Tailwind 版本，v4 使用 CSS-first 配置而非 tailwind.config.js |
+
+## Frontend Testing Patterns
+
+When testing frontend output, follow this decision tree:
+
+| Scenario | Approach |
+|----------|----------|
+| Static HTML file | Read file directly to identify selectors, write Playwright script |
+| Dynamic app, no server running | Use `webapp-testing/scripts/with_server.py` to manage server lifecycle |
+| Dynamic app, server already up | Reconnaissance-then-action (below) |
+
+**Reconnaissance-then-action pattern:**
+1. Navigate + `page.wait_for_load_state('networkidle')` (critical for dynamic apps)
+2. Screenshot or inspect DOM to discover selectors from rendered state
+3. Execute actions with discovered selectors
+
+**Rules:**
+- Always wait `networkidle` before inspecting DOM on dynamic apps
+- Treat helper scripts as black boxes: run `--help` first, don't read source code
+- For multi-server tests (backend + frontend), use `with_server.py` with multiple `--server` flags
