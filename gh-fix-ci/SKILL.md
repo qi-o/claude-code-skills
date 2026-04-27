@@ -4,7 +4,7 @@ description: Inspect GitHub PR checks with gh, pull failing GitHub Actions logs,
 metadata:
   short-description: Fix failing Github CI actions
 github_url: https://github.com/ComposioHQ/awesome-codex-skills
-github_hash: 711ee69d724457093d52f685d729917f5389c686
+github_hash: 7ad4963a91569aa198da4d1a8c765fc4944da744
 license: MIT
 local_only: false
 version: 1.0.0

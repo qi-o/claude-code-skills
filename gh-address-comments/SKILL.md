@@ -4,7 +4,7 @@ description: Help address review/issue comments on the open GitHub PR for the cu
 metadata:
   short-description: Address comments in a GitHub PR review
 github_url: https://github.com/ComposioHQ/awesome-codex-skills
-github_hash: 711ee69d724457093d52f685d729917f5389c686
+github_hash: 7ad4963a91569aa198da4d1a8c765fc4944da744
 license: MIT
 local_only: false
 version: 1.0.0

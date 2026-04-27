@@ -55,6 +55,9 @@ Full detection, storage, and processing rules are in [references/workflow.md](re
 
 ## Three Dimensions
 
+When no palette is explicitly chosen, default colors follow `~/.claude/references/design-tokens.md` semantic roles.
+The skill's own palettes (macaron, warm, neon, mono-ink) serve as constrained overrides.
+
 | Dimension | Controls | Examples |
 |-----------|----------|----------|
 | **Type** | Information structure | infographic, scene, flowchart, comparison, framework, timeline |
@@ -240,6 +243,11 @@ When input is **pasted content** (no file path), always uses `illustrations/{top
 | [references/config/first-time-setup.md](references/config/first-time-setup.md) | First-time setup |
 
 ---
+
+## Quality Gate
+
+Before batch generation, run the structural design quality gate from `~/.claude/rules/visualization-quality.md` (trigger: pre-generation).
+This checks focal hierarchy, complexity budget, and type fit — complementing the skill's own confirmation checkpoints.
 
 ## 用户确认检查点
 

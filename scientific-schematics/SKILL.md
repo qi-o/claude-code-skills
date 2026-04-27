@@ -90,6 +90,9 @@ For full workflow details, iteration logic, and review log format → `reference
 
 ## Effective Prompts
 
+When constructing prompts, reference semantic color roles from `~/.claude/references/design-tokens.md`:
+"light neutral background (`paper`), single `accent` color for emphasis, `muted` grays for secondary elements."
+
 Good prompts are specific and detailed:
 - "CONSORT flowchart showing participant flow from screening (n=500) through randomization to final analysis"
 - "Transformer neural network architecture with encoder stack on left, decoder stack on right, showing multi-head attention and cross-attention connections"
@@ -102,6 +105,9 @@ Key elements to include: type, components, flow/direction, labels, style.
 Scientific quality guidelines (automatically applied): clean white background, high contrast, readable labels (min 10pt), sans-serif fonts, colorblind-friendly colors (Okabe-Ito palette).
 
 ## Best Practices
+
+Before generating, run the structural design quality gate from `~/.claude/rules/visualization-quality.md`.
+This complements the AI-score quality loop — the taste gate checks design decisions, the AI gate checks output quality.
 
 1. **Clarity over complexity** — simplify, remove unnecessary elements
 2. **Colorblind accessibility** — Okabe-Ito palette, redundant encoding

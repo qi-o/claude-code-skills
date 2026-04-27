@@ -277,6 +277,11 @@ def create_grouped_bars(ax, categories, group_data, group_labels, colors=None):
 
 ## Color Palettes
 
+Semantic color tokens are defined in `~/.claude/references/design-tokens.md`.
+Map: `paper` → `figure.facecolor`, `ink` → `axes.labelcolor`, `muted` → `axes.edgecolor`,
+`accent` → focal data series highlight. Categorical palettes below are constrained overrides
+that preserve colorblind safety and WCAG AA contrast.
+
 ### Color-Blind Friendly Palettes
 
 ```python
@@ -437,7 +442,17 @@ add_panel_label(ax, 'A', x=-0.08)  # No y-labels
 
 | 错误场景 | 检测信号 | 回退策略 |
 |---------|---------|---------|
-| 中文字体缺失 | 图表中文显示为方块 | 设置 `plt.rcParams['font.sans-serif']` 包含中文字体（SimHei/Microsoft YaHei） |
+| 中文字体缺失 | 图表中文显示为方块 | 设置 `plt.rcParams['font.sans-serif']` 包含 CJK fallback（Microsoft YaHei/SimHei/Noto Sans CJK SC），见 design-tokens.md |
+
+## Quality Gate
+
+生成图表前，运行 `~/.claude/rules/visualization-quality.md` 中的通用检查清单。
+
+重点检查项（matplotlib 媒介）：
+- **Focal Hierarchy**: accent 用于 1-2 个焦点系列，categorical palette 不受此限制
+- **Remove Test**: 移除 top/right spines，检查是否有多余图例
+- **Complexity**: 面板数 >6 时考虑拆分
+- **Export**: Publication ≥600 DPI, `bbox_inches='tight'`
 | 图表元素溢出 | savefig 后文字/标签被裁切 | 使用 `bbox_inches='tight'`，调整 subplot 参数（bottom/right margin） |
 | 数据维度不匹配 | 绑定数据到图表时 ValueError | 检查 DataFrame 列名与绘图参数是否一致，确认数据是否需要转置 |
 | 第三方 API 调用失败 | HTTP 非 200 或超时 | 检查 API 账户余额和端点 URL，回退到本地 matplotlib 渲染 |

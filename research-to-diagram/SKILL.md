@@ -81,10 +81,10 @@ metadata:
 优先使用 **Graphviz** (DOT 语言)：
 ```dot
 digraph G {
-    // 全局样式
-    graph [rankdir=TB bgcolor="#fdfdf5" fontname="Arial Unicode MS"]
-    node [shape=box style="rounded,filled" fillcolor="#e8f4f8"]
-    edge [fontname="Arial Unicode MS"]
+    // 语义化颜色令牌（~/.claude/references/design-tokens.md）
+    graph [rankdir=TB bgcolor="#f5f5f5" fontname="Microsoft YaHei"]
+    node [shape=box style="rounded,filled" fillcolor="#ececec"]
+    edge [fontname="Microsoft YaHei"]
 
     // 使用 subgraph cluster 分组
     subgraph cluster_group1 {
@@ -94,7 +94,7 @@ digraph G {
     }
 
     // 定义关系
-    node1 -> node2 [label="关系类型" color=red]
+    node1 -> node2 [label="关系类型" color="#eb6c36"]  // accent token for focal edges
 }
 ```
 
@@ -298,9 +298,9 @@ Skill 执行：
 
 **中文显示乱码**：
 ```dot
-graph [fontname="Arial Unicode MS"]
-node [fontname="Arial Unicode MS"]
-edge [fontname="Arial Unicode MS"]
+graph [fontname="Microsoft YaHei"]
+node [fontname="Microsoft YaHei"]
+edge [fontname="Microsoft YaHei"]
 ```
 
 **图谱过于复杂**：
@@ -351,11 +351,23 @@ scripts/generate_pdf.sh diagram.dot --png-only
 | 节点数量超限 | 实体/节点数 >50 | 建议拆分为多个子图或分层次展示，确认处理方式 |
 | 输出格式选择 | 默认生成 PDF+PNG | 确认输出格式和保存路径 |
 
+## Quality Gate
+
+生成图表前，运行 `~/.claude/rules/visualization-quality.md` 中的通用检查清单。
+
+重点检查项（Graphviz 媒介）：
+- **Type Fit**: 关系图 vs 层级图 vs 流程图——选择匹配信息结构的类型
+- **Focal Hierarchy**: accent 边最多 1-2 条（`#eb6c36`），其余用 muted（`#4f5d75`）
+- **Remove Test**: 超过 20 个主节点时考虑拆分为子图
+- **CJK 字体**: 中文内容必须设置 CJK fallback fontname
+
+颜色令牌引用 `~/.claude/references/design-tokens.md`，不直接硬编码 hex 值。
+
 ## 错误处理与回退
 
 | 错误场景 | 检测信号 | 回退策略 |
 |---------|---------|---------|
 | Graphviz 未安装 | 自动检测失败，dot 命令不可用 | 引导用户安装（winget/brew/apt），或切换到 Mermaid CLI |
-| 中文渲染乱码 | PDF 中中文显示为方框 | 确认 fontname 设为 "Arial Unicode MS"，检查系统是否安装该字体 |
+| 中文渲染乱码 | PDF 中中文显示为方框 | 确认 fontname 设为 CJK fallback（Microsoft YaHei / SimHei / Noto Sans CJK），见 design-tokens.md |
 | 图谱布局混乱 | 节点重叠或连线交叉严重 | 调整 ranksep/nodesep 参数，尝试不同 rankdir 或 splines 设置 |
 | WebSearch 无结果 | 调研阶段搜索返回空 | 扩大关键词范围，尝试英文搜索补充 |

@@ -424,6 +424,8 @@ Replace INPUT_PATH with the actual path.
 
 ### Step 6 - Generate Obsidian vault (opt-in) + HTML
 
+For HTML visualization colors, reference `~/.claude/references/design-tokens.md` semantic roles (paper, ink, muted, accent).
+
 **Generate HTML always** (unless `--no-viz`). **Obsidian vault only if `--obsidian` was explicitly given** — skip it otherwise, it generates one file per node.
 
 If `--obsidian` was given:
