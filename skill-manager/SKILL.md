@@ -1,11 +1,11 @@
 ﻿---
 name: skill-manager
-description: Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, check for updates on GitHub, perform guided upgrades, discover popular skills, and batch update outdated skills. Use when user says "检查更新", "skill更新", "扫描技能", "批量更新", "推荐技能", "scan skills", "check for updates", "batch update", "update skills", or "/skill-manager". Do NOT use for installing new skills from scratch (use github-to-skills instead).
+description: Lifecycle manager for GitHub-based skills with dual-source support. Use this to batch scan your skills directory, check for updates on GitHub, perform guided upgrades, discover popular skills, search skills by keyword, and batch update outdated skills. Use when user says "检查更新", "skill更新", "扫描技能", "批量更新", "推荐技能", "搜索技能", "scan skills", "check for updates", "batch update", "update skills", "search skills", or "/skill-manager". Do NOT use for installing new skills from scratch (use github-to-skills instead).
 license: MIT
 github_url: ""
 github_hash: ""
 local_only: true
-version: 1.0.0
+version: 1.1.0
 metadata:
   category: workflow-automation
 ---
@@ -53,6 +53,7 @@ secondary_sources:
 6.  **Inventory Management**: Lists all local skills and provides deletion capabilities.
 7.  **Discover**: Fetches popular skills from skills.sh and marks already installed ones.
 8.  **Batch Update**: Checks all GitHub-based skills for updates and provides batch update capability.
+9.  **Search**: Keyword search for skills via `npx skills find`, with structured JSON output and installed-status marking.
 
 ## Usage
 
@@ -61,6 +62,7 @@ secondary_sources:
 **Trigger**: `/skill-manager delete <skill_name>` or "Delete skill <skill_name>"
 **Trigger**: `/skill-manager recommend` or "Recommend popular skills"
 **Trigger**: `/skill-manager batch-update` or "Batch update all outdated skills"
+**Trigger**: `/skill-manager search <query>` or "Search skills for <topic>"
 
 ### Workflow 1: Check for Updates
 
@@ -114,13 +116,35 @@ python scripts/batch_update.py --format json          # JSON output for parsing
 python scripts/batch_update.py --auto-update          # Auto-update outdated skills
 ```
 
+### Workflow 5: Search Skills
+
+**Trigger**: `/skill-manager search <query>` or "Search skills for bioinformatics"
+
+1.  **Keyword Search**: The agent runs `scripts/search_skills.py` which wraps `npx skills find` to search the open skills ecosystem by keyword.
+2.  **Structured Output**: Results are parsed into JSON with `source`, `skill_id`, `installs`, `url`, and `is_installed` fields.
+3.  **Installed Check**: Each result is marked against local skills directory to show overlap.
+4.  **Install Option**: User can install any found skill via `npx skills add <owner/repo@skill>`.
+
+**Relationship to Workflow 3 (Recommend)**:
+- **Recommend**: 排行榜模式 — shows top skills by total installs (broad discovery)
+- **Search**: 关键词模式 — finds skills matching specific keywords (targeted discovery)
+- Use Search when the user has a specific domain need; use Recommend when browsing.
+
+**Command Options**:
+```bash
+python scripts/search_skills.py "bioinformatics" --format json
+python scripts/search_skills.py "research paper" --format table
+python scripts/search_skills.py gene analysis --format json   # multi-word query
+```
+
 ## Scripts
 
 - `scripts/scan_and_check.py`: The workhorse. Scans directories, parses Frontmatter, fetches remote hashes for ALL sources, returns status.
 - `scripts/update_helper.py`: (Optional) Helper to backup files before update.
 - `scripts/list_skills.py`: Lists all installed skills with type and version.
 - `scripts/delete_skill.py`: Permanently removes a skill folder.
-- `scripts/recommend_skills.py`: Fetches and displays popular skills from skills.sh.
+- `scripts/recommend_skills.py`: Fetches and displays popular skills from skills.sh (排行榜模式).
+- `scripts/search_skills.py`: Keyword search via `npx skills find` (关键词模式). Returns structured JSON with installed-status marking.
 - `scripts/batch_update.py`: Batch checks and updates all GitHub-based skills.
 
 ## Metadata Requirements
@@ -171,6 +195,18 @@ python scripts/scan_and_check.py ~/.claude/skills --format json
 
 # Save to file
 python scripts/scan_and_check.py ~/.claude/skills --output report.txt
+```
+
+### Search Skills
+```bash
+# JSON format (recommended for Windows)
+python scripts/search_skills.py "bioinformatics" --format json
+
+# Table format
+python scripts/search_skills.py "research paper" --format table
+
+# Multi-word query
+python scripts/search_skills.py gene analysis --format json
 ```
 
 ### Output Examples
