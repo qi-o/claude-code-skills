@@ -12,7 +12,7 @@ description: >
   prior dev context counts — do not under-trigger. Cross-platform: works on Claude Code,
   OpenAI Codex, OpenCode, and OpenClaw.
 github_url: https://github.com/KKKKhazix/khazix-skills
-github_hash: 83fc7bd196c30772a7ec347f67dc3e6fa83f5840
+github_hash: bf39594646840bc85368bb40771f3f6ec3fc7503
 ---
 
 # 洁癖 — Knowledge Base Neat-Freak
