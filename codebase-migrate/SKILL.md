@@ -4,7 +4,7 @@ description: Run large codebase migrations and multi-file refactors. Uses the Co
 metadata:
   short-description: Codebase migrations + multi-file refactors
 github_url: https://github.com/ComposioHQ/awesome-codex-skills
-github_hash: 7ad4963a91569aa198da4d1a8c765fc4944da744
+github_hash: 14667b4850a3d99b23f8fbc0cf73c879ef219c66
 license: MIT
 local_only: false
 version: 1.0.0
