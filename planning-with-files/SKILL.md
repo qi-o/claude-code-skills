@@ -29,9 +29,9 @@ hooks:
         - type: command
           command: "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"& (Get-ChildItem -Path (Join-Path ~ '.claude/plugins/cache') -Filter check-complete.ps1 -Recurse -EA 0 | Select-Object -First 1).FullName\" 2>/dev/null || sh \"$(ls $HOME/.claude/plugins/cache/*/*/*/scripts/check-complete.sh 2>/dev/null | head -1)\" 2>/dev/null || true"
 metadata:
-  version: "2.34.1"
+  version: "2.35.1"
 github_url: https://github.com/OthmanAdi/planning-with-files
-github_hash: 41a8b159b45fddd77f950add0bda20248599da3e
+github_hash: 9fb5529c9eeeb199a4b368aa7bb0a82b53211d53
 ---
 
 # Planning with Files
