@@ -2,7 +2,7 @@
 name: book2skill
 description: Distill a book into a coherent set of executable skills. Use when the user asks to "拆书" / "蒸馏一本书" / "把 XX 书做成 skill" / "turn a book into skills" — i.e. wants a book's frameworks, principles, and methodologies extracted into atomic, reusable Claude skills that an agent can invoke in real-world situations. NOT for simple summarization, book reviews, or role-playing as the author (that is nuwa-skill's job).
 github_url: https://github.com/kangarooking/cangjie-skill
-github_hash: 96c51ad1e8f0b6b76afdd8043f583e9f4b9f7323
+github_hash: 7549c8bbdf3e00ef99112941ccaaa26a0d57670b
 version: 1.0.0
 ---
 
