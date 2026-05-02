@@ -1,6 +1,17 @@
+<div align="center">
+
 # Cangjie Skill
 
-把一本书蒸馏成一组可执行的 Agent Skills。
+### 把一本书的方法论，蒸馏成可调用的 AI Skills
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-f5c542.svg)](./LICENSE)
+[![Method: RIA--TV++](https://img.shields.io/badge/Method-RIA--TV++-2ea44f.svg)](./SKILL.md)
+[![Platform: OpenClaw](https://img.shields.io/badge/Platform-OpenClaw-1677ff.svg)](https://github.com/openclaw/openclaw)
+[![Platform: Claude Code](https://img.shields.io/badge/Platform-Claude%20Code-f97316.svg)](https://code.claude.com/)
+
+**读一本到位，带走一套能调用的方法论。**
+
+</div>
 
 ## 为什么做这件事
 
@@ -79,8 +90,17 @@ RIA-TV++ 这个名字拆开看：
 | [poor-charlies-almanack-skill](https://github.com/kangarooking/poor-charlies-almanack-skill) | 《穷查理宝典》 | 12 |
 | [no-rules-rules-skill](https://github.com/kangarooking/no-rules-rules-skill) | 《不拘一格：网飞的自由与责任工作法》 | 10 |
 | [huangdi-neijing-skill](https://github.com/kangarooking/huangdi-neijing-skill) | 《黄帝内经》（素问+灵枢） | 22 |
+| [first-principles-skill](https://github.com/kangarooking/first-principles-skill) | 《第一性原理》 | 10 |
+| [mao-selected-works-skill](https://github.com/kangarooking/mao-selected-works-skill) | 《毛泽东选集》第 1-5 卷 | 25 |
 
-后续计划蒸馏更多高价值书籍。候选书单包括但不限于：毛选、君主论。
+后续计划蒸馏更多高价值书籍。候选书单包括但不限于：君主论。
+
+补充外部来源（经对方作者同意引入）：
+
+- 来源仓库：[ace3000chao/book2startup](https://github.com/ace3000chao/book2startup)
+- 书目包括：《精益创业》《孙子兵法》《庄子》《易经》
+- 来源仓库：[shenqistart/book2skill](https://github.com/shenqistart/book2skill)
+- 书目包括：《缠论》《茶经》
 
 ## 仓库结构
 
@@ -114,6 +134,16 @@ cangjie-skill 是一个更大的 skill 生态的一部分：
 - [Cognitive Dividend Skill](https://github.com/kangarooking/cognitive-dividend-skill) — 《认知红利》思维升级的 15 个认知工具 skill
 - [Duan Yongping Skill](https://github.com/kangarooking/duan-yongping-skill) — 段永平投资问答录的 15 个商业与投资 skill
 - [Huangdi Neijing Skill](https://github.com/kangarooking/huangdi-neijing-skill) — 《黄帝内经》素问12+灵枢10共22个思维方法 skill
+- [First Principles Skill](https://github.com/kangarooking/first-principles-skill) — 《第一性原理》的 10 个认知拆解、破界创新与组织刷新 skill
+- [Mao Selected Works Skill](https://github.com/kangarooking/mao-selected-works-skill) — 《毛泽东选集》第 1-5 卷的 25 个认知、战略、组织与执行方法 skill
+- [book2startup](https://github.com/ace3000chao/book2startup) — 经作者同意引入的外部来源，包含《精益创业》《孙子兵法》《庄子》《易经》相关 skills
+- [book2skill](https://github.com/shenqistart/book2skill) — 经作者同意引入的外部来源，包含《缠论》《茶经》相关 AI-Agent skills
+
+## 贡献者
+
+感谢以下贡献者对 cangjie-skill 生态的补充：
+
+- [shenqistart](https://github.com/shenqistart) — 贡献外部 [book2skill](https://github.com/shenqistart/book2skill) 引用，并补充中英日 README 更新
 
 ## 关于作者
 

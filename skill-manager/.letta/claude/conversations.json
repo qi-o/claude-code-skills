@@ -98,5 +98,9 @@
   "d672cd03-417c-4de5-b455-435ebb24a50d": {
     "conversationId": "conv-5e0a0a21-be64-4924-b61f-26f3a7bbd069",
     "agentId": "agent-0dc88981-8686-44a3-a261-fca345b0b382"
+  },
+  "4ad8813c-4a70-40a9-a1fe-f4cf4eb79d83": {
+    "conversationId": "conv-b7b6d78c-e967-42b6-a0fd-ce447cfa8628",
+    "agentId": "agent-0dc88981-8686-44a3-a261-fca345b0b382"
   }
 }
