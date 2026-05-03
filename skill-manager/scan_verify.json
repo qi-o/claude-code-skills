@@ -150,20 +150,20 @@
     "name": "docx",
     "dir": "C:/Users/ZDS/.claude/skills\\docx",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.0.0",
     "type": "single-source",
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
-    "status": "outdated",
+    "primary_status": "current",
+    "status": "current",
     "remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "message": "New commits available"
+    "message": "Up to date"
   },
   {
     "name": "frontend-design",
     "dir": "C:/Users/ZDS/.claude/skills\\frontend-design",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.1.0",
     "type": "fusion",
     "secondary_sources": [
@@ -175,15 +175,15 @@
       }
     ],
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
+    "primary_status": "current",
     "secondary_status": {
       "0": {
         "remote_hash": "ce3e64e468f8fa09a2d075d102771838061fdac0",
         "status": "current"
       }
     },
-    "status": "outdated",
-    "message": "Updates available from one or more sources"
+    "status": "current",
+    "message": "All sources up to date"
   },
   {
     "name": "Get笔记",
@@ -319,7 +319,7 @@
     "name": "notebooklm",
     "dir": "C:/Users/ZDS/.claude/skills\\notebooklm",
     "github_url": "https://github.com/teng-lin/notebooklm-py",
-    "local_hash": "d6cef809dee4f03794e89bd089dd426b34a67345",
+    "local_hash": "11041d2cce20132dff7235c895cb7259db905e79",
     "local_version": "2.3.0",
     "type": "fusion",
     "secondary_sources": [
@@ -336,15 +336,15 @@
       }
     ],
     "primary_remote_hash": "11041d2cce20132dff7235c895cb7259db905e79",
-    "primary_status": "outdated",
+    "primary_status": "current",
     "secondary_status": {
       "0": {
         "remote_hash": "eea5cb28ba79ab8b078a1eaa44ce9ec44f75dbf8",
         "status": "current"
       }
     },
-    "status": "outdated",
-    "message": "Updates available from one or more sources"
+    "status": "current",
+    "message": "All sources up to date"
   },
   {
     "name": "paper-search",
@@ -363,27 +363,27 @@
     "name": "pdf",
     "dir": "C:/Users/ZDS/.claude/skills\\pdf",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.0.0",
     "type": "single-source",
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
-    "status": "outdated",
+    "primary_status": "current",
+    "status": "current",
     "remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "message": "New commits available"
+    "message": "Up to date"
   },
   {
     "name": "pptx",
     "dir": "C:/Users/ZDS/.claude/skills\\pptx",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.0.0",
     "type": "single-source",
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
-    "status": "outdated",
+    "primary_status": "current",
+    "status": "current",
     "remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "message": "New commits available"
+    "message": "Up to date"
   },
   {
     "name": "react-best-practices",
@@ -415,14 +415,14 @@
     "name": "skill-creator",
     "dir": "C:/Users/ZDS/.claude/skills\\skill-creator",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.0.0",
     "type": "single-source",
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
-    "status": "outdated",
+    "primary_status": "current",
+    "status": "current",
     "remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "message": "New commits available"
+    "message": "Up to date"
   },
   {
     "name": "web-access",
@@ -454,13 +454,13 @@
     "name": "xlsx",
     "dir": "C:/Users/ZDS/.claude/skills\\xlsx",
     "github_url": "https://github.com/anthropics/skills",
-    "local_hash": "5128e1865d670f5d6c9cef000e6dfc4e951fb5b9",
+    "local_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
     "local_version": "0.0.0",
     "type": "single-source",
     "primary_remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "primary_status": "outdated",
-    "status": "outdated",
+    "primary_status": "current",
+    "status": "current",
     "remote_hash": "d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81",
-    "message": "New commits available"
+    "message": "Up to date"
   }
 ]

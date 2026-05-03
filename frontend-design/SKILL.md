@@ -16,7 +16,7 @@ description: >
   or HTML design deliverables.
 license: Complete terms in LICENSE.txt
 github_url: https://github.com/anthropics/skills
-github_hash: 5128e1865d670f5d6c9cef000e6dfc4e951fb5b9
+github_hash: d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81
 version: 0.1.0
 triggers:
   - build web components

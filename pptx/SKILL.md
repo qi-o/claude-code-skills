@@ -3,7 +3,7 @@ name: pptx
 description: "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates, layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx filename, regardless of what they plan to do with the content afterward. If a .pptx file needs to be opened, created, or touched, use this skill. Use when user says \"做PPT\", \"PPT\", \"幻灯片\", \"演示文稿\", \"制作PPT\", or \"PPT制作\"."
 license: Proprietary. LICENSE.txt has complete terms
 github_url: https://github.com/anthropics/skills
-github_hash: 5128e1865d670f5d6c9cef000e6dfc4e951fb5b9
+github_hash: d230a6dd6eb1a0dbee9fec55e2f00a96e28dff81
 ---
 
 # PPTX Skill
