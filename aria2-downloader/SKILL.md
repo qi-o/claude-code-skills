@@ -3,9 +3,9 @@ name: aria2-downloader
 description: |
   多线程高速下载工具。当用户需要下载文件（特别是大文件）或视频时使用此 skill。触发词：下载、download、aria2、获取文件、下载视频、YouTube、Bilibili、B站。自动使用 aria2 进行 16 线程并行下载，支持断点续传。集成 yt-dlp 支持 1000+ 视频网站下载。
   Do NOT use for downloading novels/web fiction (use novel-downloader instead).
-version: 3.3.3
+version: 3.3.4
 github_url: https://github.com/yt-dlp/yt-dlp
-github_hash: ebf0c0f61e3e578db26b45eb24d643f1a64bf17f
+github_hash: 35684c1171dd8b99da825cf43a0b2c06b43824b7
 license: MIT
 allowed-tools: "Bash(aria2c:*) Bash(yt-dlp:*) WebFetch"
 compatibility: Requires aria2c and yt-dlp installed on system
